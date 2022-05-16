@@ -1,0 +1,87 @@
+- defaults:
+    link:
+      create: true
+      relink: true
+
+# - clean: ['~', '~/.config']
+
+- link:
+    ~/.gitconfig:
+    ~/.profile:
+    ~/.xinitrc:
+    ~/.zshenv:
+    ~/.zshrc:
+    ~/.gnupg/gpg-agent.conf: ~/dot/gnupg/gpg-agent.conf
+    ~/.config/aconfmgr:
+    ~/.config/dunst:
+    ~/.config/kitty:
+    ~/.config/picom:
+    ~/.config/the-way:
+    ~/.config/xplr:
+    ~/.config/gita:
+    ~/.config/qtile:
+    ~/.config/vlc:
+    ~/.config/lazygit:
+    ~/.config/pet:
+    ~/.config/systemd:
+    ~/.config/ghorg:
+    ~/.config/tmux:
+    ~/.config/gobang:
+
+    ~/.local/share/nemo: 
+      force: true
+      path: ~/dot/nemo
+
+    ~/.config/nvim/profiles.lua: ~/dot/profiles.lua
+
+    ~/.local/share/fonts: ~/data/fonts  
+  
+    ~/dev/bin/f_list_keybinds.py: ~/dev/cl/shell/zsh-src/f_list_keybinds.py
+    ~/dev/bin/f_start_nemo_preview.sh: ~/dev/cl/shell/scripts/f_start_nemo_preview.sh
+    ~/dev/bin/f_lesspipe_nvimpager: ~/dev/cl/shell/scripts/f_lesspipe_nvimpager
+    ~/dev/bin/f_nvimpager: ~/dev/app/f_nvimpager/f_nvimpager
+
+    ~/.local/share/nvimpager/site/pack/packer/start/nvim-treesitter: 
+      create: true
+      path: ~/.local/share/nvim/site/pack/packer/start/nvim-treesitter
+
+    ~/.local/share/nvimpager/site/pack/packer/start/tokyonight.nvim: 
+      create: true
+      path: ~/.local/share/nvim/site/pack/packer/start/tokyonight.nvim
+
+    ~/.local/share/nvimpager/site/pack/packer/start/vim-kitty: ~/.local/share/nvim/site/pack/packer/start/vim-kitty
+    ~/.local/share/nvimpager/site/pack/packer/start/i3config.vim: ~/.local/share/nvim/site/pack/packer/start/i3config.vim
+
+    ~/dev/app/f_nvimpager/runtime/lua/tokyonight-config.lua: ~/dot/nvim/lua/plugin/tokyonight.lua
+    ~/dev/app/f_nvimpager/runtime/lua/treesitter-config.lua: ~/dot/nvim/lua/plugin/treesitter.lua
+
+    #~/dev/bin/nvimpager_ref: ~/dev/app/nvimpager_ref/nvimpager_ref
+    
+    ~/dev/bin/kvm: ~/dev/app/kvm/kvm.py
+    ~/.local/share/nvim/site/pack/packer/opt/neorg/lua/neorg/modules/utilities/vlc.lua: ~/dot/nvim/lua/plugin/neorg/modules/vlc.lua 
+
+    ~/.local/share/applications/discord.desktop: 
+      force: true
+      path: ~/dev/arch/desktop/discord.desktop
+
+    ~/dev/bin/looking-glass-client: 
+      if: '[ `hostname` = arch-desk ]'
+      path: ~/dev/app/looking-glass-b5-rc1/client/build/looking-glass-client
+
+    ~/dev/notes/syntax:
+      path: ~/.local/share/nvim/site/pack/packer/opt/neorg/doc
+
+    
+
+- create:
+    ~/.config:
+    ~/logs:
+    ~/desktop:
+    ~/downloads:
+
+- shell:
+  - [sudo cp ~/dot/systemd/user/kvm.service /usr/lib/systemd/system/kvm.service, copy kvm systemd service file as you cant symlink service files]
+
+
+
+  

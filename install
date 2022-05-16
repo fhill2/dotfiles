@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# https://github.com/anishathalye/dotfiles/blob/master/install
+set -e
+BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+dotbot -v -d "${BASEDIR}" -c .install.conf.yaml "${@}"
+sudo dotbot -v -d "${BASEDIR}" -c .sudo.conf.yaml "${@}"
+#dotbot -v -d "${BASEDIR}" -c .repos.conf.yaml -p dotbot-git/git.py "${@}"
+#sudo dotbot -v -d "${BASEDIR}" -c .packages.conf.yaml -p dotbot-yay/yay.py "${@}"
+#sudo dotbot -v -d "${BASEDIR}" -c .sudo.conf.yaml "${@}"
+
+
+

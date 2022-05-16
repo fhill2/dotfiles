@@ -1,0 +1,4 @@
+aconfmgr/files/**
+dotbot-*
+qtile/__pycache__/**
+

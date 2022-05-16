@@ -1,0 +1,3 @@
+[[conn]]
+type = "sqlite"
+path = "/home/f1/.local/share/nvim/file_frecency.sqlite3"

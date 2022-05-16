@@ -1,0 +1,10 @@
+[[snippets]]
+  description = "hello123"
+  command = "echo \"hello world\""
+  output = ""
+
+[[snippets]]
+  description = "list usb devices"
+  command = "lsusb"
+  tag = ["unix"]
+  output = ""

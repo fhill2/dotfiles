@@ -1,0 +1,12 @@
+[Unit]
+Description=kvm
+After=syslog.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/sudo /bin/bash -lc '/home/f1/dev/bin/kvm'
+Restart=always
+KillSignal=SIGQUIT
+
+[Install]
+WantedBy=multi-user.target

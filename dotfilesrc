@@ -1,0 +1,14 @@
+[dotfiles]
+repository = ~/dot
+packages = ['config']
+ignore = [
+  '.git',
+  '.gitignore',
+  '*.swp',
+  'old',
+  'nvim-dropdown',
+  'nvim-test',
+  ]
+# externals explained
+# ''sudoers' : '~/tmp' = ~/.sudoers -> 
+#  'sudy' : '/tmp' --> /tmp --> ~/.sudy

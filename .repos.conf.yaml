@@ -1,0 +1,119 @@
+
+# - link:
+#     ~/cl/shell/repos: ~/repos/shell
+#     ~/cl/python/kitty_kittens: ~/repos/kitty_kittens
+#     ~/cl/dot/nix: ~/repos/dotfiles_nix 
+#     ~/cl/dot/lua: ~/repos/dotfiles_lua
+
+
+# non repo syms
+# symlink nvim plugins to cl
+#$HOME/.config/awesome: '$r/awesome_modules'
+
+
+- git:
+    ~/repos/shell/nnn:
+        url: https://github.com/jarun/nnn
+    ~/repos/shell/kitty:
+        url: https://github.com/kovidgoyal/kitty
+
+
+
+  #~/repos/kitty_kittens/kitty:
+    #      url: https://github.com/kovidgoyal/kitty/tree/master/kittens
+    ~/repos/kitty_kittens/kitty-weechat-hints:
+        url: https://github.com/GermainZ/kitty-weechat-hints
+    ~/repos/kitty_kittens/vim-kitty-navigator:
+        url: https://github.com/knubie/vim-kitty-navigator
+    ~/repos/kitty_kittens/kitty-session:
+        url: https://github.com/muchzill4/kitty-session
+    ~/repos/kitty_kittens/kitty-cat:
+        url: https://github.com/adi1090x/kitty-cat
+    ~/repos/kitty_kittens/kitty-smart-scroll:
+        url: https://github.com/yurikhan/kitty-smart-scroll
+# ~/repos/kitty_kittens/:
+#        url: https://github.com/nerdrew/kittens/blob/master/password.py
+    ~/repos/dotfiles_nix/mjlbach:
+      url: https://github.com/mjlbach/nix-dotfiles
+    ~/repos/dotfiles_nix/sherubthakur:
+      url: https://github.com/sherubthakur/dotfiles
+    ~/repos/dotfiles_nix/teto:
+      url: https://github.com/teto/home
+    ~/repos/dotfiles_nix/notusknot:
+      url: https://github.com/notusknot/dotfiles-nix
+    ~/repos/dotfiles_nix/breuerfelix:
+      url: https://github.com/breuerfelix/nixos
+    ~/repos/dotfiles_nix/moletrooper:
+      url: https://github.com/MoleTrooper/dotfiles
+    ~/repos/dotfiles_nix/elianiva:
+      url: https://github.com/elianiva/dotfiles
+
+
+    ~/repos/dotfiles_lua/gf3:
+      url: https://github.com/gf3/dotfiles
+    ~/repos/dotfiles_lua/jameswalmsley:
+      url: https://github.com/jameswalmsley/dotfiles
+    ~/repos/dotfiles_lua/lunarvim:
+      url: https://github.com/LunarVim/LunarVim
+    ~/repos/dotfiles_lua/nvchad:
+      url: https://github.com/NvChad/NvChad
+    ~/repos/dotfiles_shell/junegunn: 
+      url: https://github.com/junegunn/dotfiles
+
+    ~/repos/rust/xplr:
+      url: https://github.com/sayanarijit/xplr
+    ~/repos/rust/bat:
+      url: https://github.com/sharkdp/bat
+    ~/repos/rust/starship:
+      url: https://github.com/starship/starship
+    ~/repos/rust/rustlings:
+      url: https://github.com/rust-lang/rustlings
+    ~/repos/rust/exa:
+      url: https://github.com/ogham/exa
+    ~/repos/rust/delta:
+      url: https://github.com/dandavison/delta
+    ~/repos/rust/spotify-tui:
+      url: https://github.com/Rigellute/spotify-tui
+    ~/repos/rust/coreutils:
+      url: https://github.com/uutils/coreutils
+    ~/repos/rust/hyperfine:
+      url: https://github.com/sharkdp/hyperfine
+    ~/repos/rust/navi:
+      url: https://github.com/denisidoro/navi
+    ~/repos/rust/the-way:
+      url: https://github.com/out-of-cheese-error/the-way
+    ~/repos/rust/skim:
+      url: https://github.com/lotabout/skim
+
+
+  #~/repos/python/pytower:
+    #    url: https://github.com/ghill2/pytower_proj
+    ~/repos/python/polygon-client:
+      url: https://github.com/polygon-io/client-python
+    ~/repos/python/polygon-client-examples:
+      url: https://github.com/polygon-io/client-examples
+    ~/repos/python/qtile-examples:
+      url: https://github.com/qtile/qtile-examples
+    ~/repos/python/qtile:
+      url: https://github.com/qtile/qtile
+    ~/repos/python/pyuv:
+      url: https://github.com/saghul/pyuv
+
+    ~/repos/python/evdev/evdev-gist:
+      url: https://gist.github.com/t184256/f4994037a2a204774ef3b9a2b38736dc
+    ~/repos/python/evdev/python-evdev:
+      url: https://github.com/gvalkov/python-evdev"
+    ~/repos/python/evdev/remappy:
+      url: https://github.com/SirAeroWN/remappy"
+    ~/repos/python/evdev/vfio-switcher:
+      url: https://github.com/CappyT/VFIO-Switcher"
+    ~/repos/python/evdev/libvirt-evdev:
+      url: https://github.com/mciupak/libvirt-evdev"
+    ~/repos/python/evdev/persistent-evdev:
+      url: https://github.com/aiberia/persistent-evdev"
+    ~/repos/python/evdev/vfio-kvm:
+      url: https://github.com/dangle/akeydo"
+    ~/repos/python/evdev/evmapy:
+      url: https://github.com/kempniu/evmapy"
+    ~/repos/python/evdev/uinput-keyboard-mapper:
+      url: https://github.com/sebastiansam55/uinput-keyboard-mapper

@@ -1,0 +1,13 @@
+- defaults:
+    link:
+      create: true
+      relink: true
+
+
+- link:
+    /etc/pacman.d/hooks/50-bootbackup.hook: /home/f1/dev/sys/50-bootbackup.hook 
+    /etc/xdg/reflector/reflector.conf: /home/f1/dev/sys/reflector.conf 
+    /etc/snapper/configs/root: /home/f1/dev/sys/snapper-root 
+    /etc/udev/rules.d/90-backlight.rules: /home/f1/dev/sys/90-backlight.rules
+- create:
+    /etc/pacman.d/hooks:

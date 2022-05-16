@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# https://github.com/anishathalye/dotfiles/blob/master/install
+set -e
+BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+dotbot -v -d "${BASEDIR}" -c .syms.conf.yaml "${@}"
+
