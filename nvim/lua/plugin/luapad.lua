@@ -1,8 +1,9 @@
-require('luapad').setup{
+require('luapad').setup {
   count_limit = 150000,
   error_indicator = false,
   eval_on_move = true,
   error_highlight = 'WarningMsg',
+  split_orientation = 'horizontal',
   on_init = function()
     print 'Hello from Luapad!'
   end,

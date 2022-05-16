@@ -15,6 +15,7 @@ local my_actions = require("plugin.telescope.actions")
 
 local telescope = require("telescope")
 
+
 telescope.setup({
   defaults = {
     mappings = {
@@ -91,7 +92,7 @@ telescope.setup({
     results_title = "",
     preview_title = "",
     sorting_strategy = "ascending",
-    layout_strategy = "horizontal",
+    layout_strategy = "vertical",
     --layout_strategy = "btm_or_scoped",
     path_display = { truncate = 3 },
   },
@@ -103,12 +104,12 @@ telescope.setup({
     },
     live_grep = {
       max_results = 100000000,
-      prompt_prefix = "Grep >",
+      prompt_prefix = "Grep > ",
       layout_strategy = "bottom_pane",
     },
     grep_string = { -- uses generic sorter by default
       layout_strategy = "horizontal",
-      promp_prefix = "Grep String >",
+      promp_prefix = "Grep String > ",
     },
     oldfiles = {
       layout_strategy = "horizontal",
@@ -165,6 +166,7 @@ telescope.load_extension("repo")
 --telescope.load_extension('livetablelogger')
 --telescope.load_extension('floating')
 telescope.load_extension("frecency")
+telescope.load_extension("file_browser")
 --telescope.load_extension("bookmarks")
 --telescope.load_extension("projects")
 

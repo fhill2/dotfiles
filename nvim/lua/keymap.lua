@@ -130,8 +130,8 @@ wk.register({
 
 wk.register({
   ["<space>n"] = { name = "+notes" },
-  ["<space>nn"] = { [[<cmd>lua require"plugin.telescope.notes".files()<cr>]], "telescope notes - files" },
-  ["<space>nd"] = { [[<cmd>lua require"plugin.telescope.notes".dirs()<cr>]], "telescope notes - dirs" },
+  ["<space>nn"] = { [[<cmd>lua require"plugin.telescope.wrap".notes_files()<cr>]], "telescope notes - files" },
+  ["<space>nd"] = { [[<cmd>lua require"plugin.telescope.wrap"notes_dirs()<cr>]], "telescope notes - dirs" },
 })
 
 --- [t] leader NvimTree (or terminal) ---
@@ -252,7 +252,8 @@ wk.register({
   --["<space><space>"] = { "<cmd>Telescope find_files<cr>", "telescope Find Files" },
   ["<space><space>"] = {
     function()
-      require("plugin.telescope.find_frecency").show({ cwd = '/home/f1'})
+      --require("plugin.telescope.find_frecency").show({ cwd = '/home/f1/dev/notes'})
+      require("plugin.telescope.wrap").ff_cwd()
       --{ cwd = '/home/f1/dev/notes/dev/dev-linux/nvim' }
     end,
     "telescope find_frecency",

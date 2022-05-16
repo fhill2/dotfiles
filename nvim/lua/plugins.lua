@@ -78,7 +78,6 @@ return require("packer").startup(function(use)
   }
 
   --use 'hoob3rt/lualine.nvim'
-  use("mhinz/vim-lookup")
   --use("sayanarijit/xplr.vim")
   use("nvim-lua/popup.nvim")
   use("nvim-lua/plenary.nvim")
@@ -117,6 +116,7 @@ return require("packer").startup(function(use)
   use("tjdevries/lsp_extensions.nvim")
   use("tami5/lspsaga.nvim")
 
+  use("nvim-telescope/telescope-file-browser.nvim")
   -- use({
   --   "kosayoda/nvim-lightbulb",
   --   config = function()
@@ -263,7 +263,6 @@ return require("packer").startup(function(use)
     end,
   })
 
-  use("tpope/vim-scriptease")
   --use("ms-jpq/neovim-async-tutorial")
   use("folke/neoscroll.nvim")
   use("folke/todo-comments.nvim")
@@ -389,7 +388,6 @@ return require("packer").startup(function(use)
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope-symbols.nvim",
       "nvim-telescope/telescope-fzy-native.nvim",
-      "fhill2/telescope-ultisnips.nvim",
       --"jvgrootveld/telescope-zoxide",
       "nvim-telescope/telescope-frecency.nvim",
       "project.nvim",
