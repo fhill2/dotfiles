@@ -12,7 +12,6 @@ local action_state = require('telescope.actions.state')
 local M = {}
 function M.show(opts)
   local snippets = snippy.get_completion_items()
-  dump(snippets)
   local snippets_ft = vim.bo.filetype
 
   local opts = opts or {}
@@ -62,8 +61,6 @@ function M.show(opts)
       actions.select_default:replace(function(prompt_bufnr)
         local entry = action_state.get_selected_entry()
         actions.close(prompt_bufnr)
-        dump("AT SNIPPY")
-          dump(entry.snippet)
           snippy.expand_snippet(entry.snippet.snippet.user_data.snippy.snippet)
       end)
       return true

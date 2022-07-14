@@ -1,0 +1,326 @@
+{
+  "border": "normal",
+  "current_border_width": -1,
+  "floating": "auto_off",
+  "fullscreen_mode": 1,
+  "geometry": {
+    "x": 0,
+    "y": 0,
+    "width": 0,
+    "height": 0
+  },
+  "layout": "splith",
+  "name": "1",
+  "orientation": "horizontal",
+  "percent": 0.13081514185266943,
+  "scratchpad_state": "none",
+  "sticky": false,
+  "type": "workspace",
+  "workspace_layout": "tabbed",
+  "nodes": [
+    {
+      "border": "normal",
+      "current_border_width": -1,
+      "floating": "auto_off",
+      "fullscreen_mode": 0,
+      "geometry": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "layout": "tabbed",
+      "name": null,
+      "orientation": "horizontal",
+      "percent": 0.5,
+      "scratchpad_state": "none",
+      "sticky": false,
+      "type": "con",
+      "workspace_layout": "default",
+      "nodes": [
+        {
+          "border": "normal",
+          "current_border_width": -1,
+          "floating": "auto_off",
+          "fullscreen_mode": 0,
+          "geometry": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0
+          },
+          "layout": "tabbed",
+          "marks": [
+            "dev_term"
+          ],
+          "name": null,
+          "orientation": "horizontal",
+          "percent": 0.5,
+          "scratchpad_state": "none",
+          "sticky": false,
+          "type": "con",
+          "workspace_layout": "default",
+          "nodes": [
+            {
+              "border": "normal",
+              "current_border_width": 2,
+              "floating": "auto_off",
+              "fullscreen_mode": 0,
+              "geometry": {
+                "x": 0,
+                "y": 0,
+                "width": 1276,
+                "height": 1522
+              },
+              "layout": "splith",
+              "name": "~",
+              "orientation": "none",
+              "percent": 0.5,
+              "scratchpad_state": "none",
+              "sticky": false,
+              "type": "con",
+              "workspace_layout": "default",
+              "swallows": [
+                {
+                  "class": "^kitty$",
+                  "instance": "^kitty$"
+                }
+              ]
+            },
+            {
+              "border": "normal",
+              "current_border_width": 2,
+              "floating": "auto_off",
+              "fullscreen_mode": 0,
+              "geometry": {
+                "x": 0,
+                "y": 0,
+                "width": 1276,
+                "height": 1522
+              },
+              "layout": "splith",
+              "name": "~",
+              "orientation": "none",
+              "percent": 0.5,
+              "scratchpad_state": "none",
+              "sticky": false,
+              "type": "con",
+              "workspace_layout": "default",
+              "swallows": [
+                {
+                  "class": "^kitty$",
+                  "instance": "^kitty$"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "border": "normal",
+          "current_border_width": 2,
+          "floating": "auto_off",
+          "fullscreen_mode": 0,
+          "geometry": {
+            "x": 0,
+            "y": 0,
+            "width": 1276,
+            "height": 1506
+          },
+          "layout": "splith",
+          "marks": [
+            "notes"
+          ],
+          "name": "~",
+          "orientation": "none",
+          "percent": 0.5,
+          "scratchpad_state": "none",
+          "sticky": false,
+          "type": "con",
+          "workspace_layout": "default",
+          "swallows": [
+            {
+              "class": "^kitty$",
+              "instance": "^kitty$"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "border": "normal",
+      "current_border_width": -1,
+      "floating": "auto_off",
+      "fullscreen_mode": 0,
+      "geometry": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "layout": "tabbed",
+      "name": null,
+      "orientation": "horizontal",
+      "percent": 0.5,
+      "scratchpad_state": "none",
+      "sticky": false,
+      "type": "con",
+      "workspace_layout": "default",
+      "nodes": [
+        {
+          "border": "normal",
+          "current_border_width": -1,
+          "floating": "auto_off",
+          "fullscreen_mode": 0,
+          "geometry": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0
+          },
+          "layout": "tabbed",
+          "marks": [
+            "dev_browser"
+          ],
+          "name": null,
+          "orientation": "horizontal",
+          "percent": 0.5,
+          "scratchpad_state": "none",
+          "sticky": false,
+          "type": "con",
+          "workspace_layout": "default",
+          "nodes": [
+            {
+              "border": "normal",
+              "current_border_width": 2,
+              "floating": "auto_off",
+              "fullscreen_mode": 0,
+              "geometry": {
+                "x": 12,
+                "y": 68,
+                "width": 2556,
+                "height": 1522
+              },
+              "layout": "splith",
+              "name": "New Tab - Google Chrome",
+              "orientation": "none",
+              "percent": 0.5,
+              "scratchpad_state": "none",
+              "sticky": false,
+              "type": "con",
+              "workspace_layout": "default",
+              "swallows": [
+                {
+                  "class": "^Google\\-chrome$",
+                  "instance": "^google\\-chrome$"
+                }
+              ]
+            },
+            {
+              "border": "normal",
+              "current_border_width": 2,
+              "floating": "auto_off",
+              "fullscreen_mode": 0,
+              "geometry": {
+                "x": 1292,
+                "y": 84,
+                "width": 1276,
+                "height": 1506
+              },
+              "layout": "splith",
+              "name": "New Tab - Google Chrome",
+              "orientation": "none",
+              "percent": 0.5,
+              "scratchpad_state": "none",
+              "sticky": false,
+              "type": "con",
+              "workspace_layout": "default",
+              "swallows": [
+                {
+                  "class": "^Google\\-chrome$",
+                  "instance": "^google\\-chrome$"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "border": "normal",
+          "current_border_width": -1,
+          "floating": "auto_off",
+          "fullscreen_mode": 0,
+          "geometry": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0
+          },
+          "layout": "tabbed",
+          "marks": [
+            "alt_term"
+          ],
+          "name": null,
+          "orientation": "horizontal",
+          "percent": 0.5,
+          "scratchpad_state": "none",
+          "sticky": false,
+          "type": "con",
+          "workspace_layout": "default",
+          "nodes": [
+            {
+              "border": "normal",
+              "current_border_width": 2,
+              "floating": "auto_off",
+              "fullscreen_mode": 0,
+              "geometry": {
+                "x": 0,
+                "y": 0,
+                "width": 1276,
+                "height": 1506
+              },
+              "layout": "splith",
+              "name": "~",
+              "orientation": "none",
+              "percent": 0.5,
+              "scratchpad_state": "none",
+              "sticky": false,
+              "type": "con",
+              "workspace_layout": "default",
+              "swallows": [
+                {
+                  "class": "^kitty$",
+                  "instance": "^kitty$"
+                }
+              ]
+            },
+            {
+              "border": "normal",
+              "current_border_width": 2,
+              "floating": "auto_off",
+              "fullscreen_mode": 0,
+              "geometry": {
+                "x": 0,
+                "y": 0,
+                "width": 1276,
+                "height": 1506
+              },
+              "layout": "splith",
+              "name": "~",
+              "orientation": "none",
+              "percent": 0.5,
+              "scratchpad_state": "none",
+              "sticky": false,
+              "type": "con",
+              "workspace_layout": "default",
+              "swallows": [
+                {
+                  "class": "^kitty$",
+                  "instance": "^kitty$"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

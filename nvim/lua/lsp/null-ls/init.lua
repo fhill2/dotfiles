@@ -9,7 +9,7 @@ function M.setup()
     sources = {
       -- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
       -- nls.builtins.diagnostics.pylint,
-      nls.builtins.formatting.prettier,
+      --nls.builtins.formatting.prettier,
       nls.builtins.formatting.black,
       --  nls.builtins.formatting.prettierd,
       --nls.builtins.formatting.stylua.with({

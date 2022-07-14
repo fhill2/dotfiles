@@ -1,5 +1,4 @@
 local cmp = require'cmp'    
-local log = require'log1'
 local luasnip = require'luasnip'
 
 local has_words_before = function()
@@ -48,7 +47,7 @@ vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-jump-prev', 
 formatting = {
   format = function(entry, vim_item)
     -- fancy icons and a name of kind
-    vim_item.kind = require("lspkind").presets.default[vim_item.kind] .. " " .. vim_item.kind
+    --vim_item.kind = require("lspkind").presets.default[vim_item.kind] .. " " .. vim_item.kind
 
     -- set a name for each source
     vim_item.menu = ({

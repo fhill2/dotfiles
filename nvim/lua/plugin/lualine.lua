@@ -1,10 +1,11 @@
 
 -- https://github.com/folke/tokyonight.nvim
 -- use tokyonight colors inside other plugins
-local colors = require("tokyonight.colors").setup({}) -- pass in any of the config options as explained above
-local utils = require("tokyonight.util")
+--local colors = require("tokyonight.colors").setup({}) -- pass in any of the config options as explained above
+--local utils = require("tokyonight.util")
 --aplugin.background = colors.bg_dark
 --aplugin.my_error = util.brighten(colors.red1, 0.3)
+local colors = require"material.colors"
 
 local rep = function(s)
   return s:gsub('/home/f1','~')
@@ -74,15 +75,39 @@ local ts_enabled = function()
   end
 end
 
+local pyright_venv = function()
+
+  local clients = {}
+  --local icon = component.icon or ' '
+
+  for _, client in pairs(vim.lsp.buf_get_clients()) do
+    if client.name == "pyright" then
+      -- Check if lsp was initialized with py_lsp
+      if client.config.settings.python["pythonPath"] ~= nil then
+        --local venv_name = client.config.settings.python.venv_name
+        local venv_name = client.config.settings.python.pythonPath
+        return venv_name
+        --clients[#clients+1] = client.name .. '('.. venv_name .. ')'
+      else
+        return "no Venv"
+
+      end
+    end
+  end
+
+  return table.concat(clients, ' ')
+  --return "ASD"
+end
+
 local get_ts = function() return 'TS' end
 
 require'lualine'.setup {
   options = {
     icons_enabled = true,
-    theme = 'palenight',
+    theme = 'material',
     component_separators = '',
     section_separators = '',
-    disabled_filetypes = {}
+    disabled_filetypes = {},
   },
   sections = {
     lualine_a = {'mode'},
@@ -122,6 +147,10 @@ require'lualine'.setup {
         icon = '',
         color = function(section) return { fg = ts_enabled() and colors.green or colors.red, gui='italic,bold' }  end,
       },
+      {
+        pyright_venv,
+        icon = '',
+      }
     },
     --lualine_d = {}, -- you cant do this, there is only a,b,c,x,y,z
     lualine_x = {'encoding', 'fileformat', 'filetype'},

@@ -36,16 +36,25 @@ require("neorg").setup({
         },
       },
     },
+    ["core.export.markdown"] = {
+      config = {
+        extensions = "all",
+      },
+    },
     ["utilities.vlc"] = {},
+    ["core.export"] = {
+      config = {}
+    },
+
     --["utilities.dateinserter"] = {},
     -- ["core.norg.completion"] = {
     --   config = {
     --     engine = "nvim-cmp", -- We current support nvim-compe and nvim-cmp only
     --   },
     -- },
-    ["core.integrations.telescope"] = {}, -- Enable the telescope module
+    --["core.integrations.telescope"] = {}, -- Enable the telescope module
   },
-  hook = function() 
-  require"plugin.neorg.keybinds"
+  hook = function()
+    require "plugin.neorg.keybinds"
   end
 })

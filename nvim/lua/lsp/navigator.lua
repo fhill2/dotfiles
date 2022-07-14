@@ -1,12 +1,35 @@
--- alot of these values are changed from default
 -- copy pasted from _NGConfigValues to get started testing options - MAY 2022
 -- https://github.com/ray-x/navigator.lua/blob/master/lua/navigator.lua
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 require 'navigator'.setup(
   {
     icons = {
       icons = false, -- set to false to use system default ( if you using a terminal does not have nerd/icon)
-      code_action_icon = '',
-      code_lens_action_icon = '',
+      -- Code action
+      code_action_icon = '🏏', -- "",
+      -- code lens
+      code_lens_action_icon = '👓',
+      -- Diagnostics
       diagnostic_head = '🐛',
       diagnostic_err = '📛',
       diagnostic_warn = '👎',
@@ -17,7 +40,7 @@ require 'navigator'.setup(
       diagnostic_head_severity_2 = '☣️',
       diagnostic_head_severity_3 = '👎',
       diagnostic_head_description = '👹',
-      diagnostic_virtual_text = '',
+      diagnostic_virtual_text = '🦊',
       diagnostic_file = '🚑',
       -- Values
       value_changed = '📝',
@@ -35,29 +58,32 @@ require 'navigator'.setup(
       },
       treesitter_defult = '🌲',
     },
+
     debug = false, -- log output
     width = 0.62, -- valeu of cols
     height = 0.38, -- listview height
     preview_height = 0.38,
     preview_lines = 40, -- total lines in preview screen
     preview_lines_before = 5, -- lines before the highlight line
-    default_mapping = true,
-    keymaps = {}, -- e.g keymaps={{key = "GR", func = "references()"}, } this replace gr default mapping
+    default_mapping = false,
+    keymaps = {},
+    --keymaps = nav_to_nav(navigator_keymaps), -- e.g keymaps={{key = "GR", func = "references()"}, } this replace gr default mapping
     external = nil, -- true: enable for goneovim multigrid otherwise false
 
     border = 'single', -- border style, can be one of 'none', 'single', 'double', "shadow"
     lines_show_prompt = 10, -- when the result list items number more than lines_show_prompt,
     -- fuzzy finder prompt will be shown
     combined_attach = 'both', -- both: use both customized attach and navigator default attach, mine: only use my attach defined in vimrc
-    --on_attach = function(client, bufnr)
-    -- your on_attach will be called at end of navigator on_attach
-    --end,
+    on_attach = on_attach,
     ts_fold = false,
     treesitter_analysis = true, -- treesitter variable context
-    transparency = 50, -- 0 ~ 100 blur the main window, 100: fully transparent, 0: opaque,  set to nil to disable it
-    lsp_signature_help = true, -- if you would like to hook ray-x/lsp_signature plugin in navigator
+    transparency = nil, -- 0 ~ 100 blur the main window, 100: fully transparent, 0: opaque,  set to nil to disable it
+    lsp_signature_help = false, -- if you would like to hook ray-x/lsp_signature plugin in navigator
     -- setup here. if it is nil, navigator will not init signature help
-    signature_help_cfg = { debug = false }, -- if you would like to init ray-x/lsp_signature plugin in navigator, pass in signature help
+    signature_help_cfg = {
+      --debug = true,
+      --log_path = vim.fn.stdpath("cache") .. "/lsp_signature.log" -- log dir when debug is on
+    }, -- if you would like to init ray-x/lsp_signature plugin in navigator, pass in signature help
     lsp = {
       code_action = {
         enable = true,

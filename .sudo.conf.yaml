@@ -2,6 +2,7 @@
     link:
       create: true
       relink: true
+      force: true
 
 
 - link:
@@ -9,5 +10,7 @@
     /etc/xdg/reflector/reflector.conf: /home/f1/dev/sys/reflector.conf 
     /etc/snapper/configs/root: /home/f1/dev/sys/snapper-root 
     /etc/udev/rules.d/90-backlight.rules: /home/f1/dev/sys/90-backlight.rules
+    /etc/kmonad/config.kbd: /home/f1/dot/kmonad/config.kbd
+    /etc/sysconfig/ntpd: /home/f1/dev/sys/ntpd
 - create:
     /etc/pacman.d/hooks:

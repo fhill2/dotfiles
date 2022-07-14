@@ -1,4 +1,3 @@
-
 local cmd = vim.cmd
 local indent = 2
 
@@ -6,8 +5,14 @@ local indent = 2
 vim.o.swapfile = false -- Living on the edge
 vim.opt.mouse = "a" -- enable mouse mode
 
--- folke opts
+vim.cmd "set title"
+--set titlestring+=%f\ filename
+-- vim.cmd [[set titlestring=nv ]]
+-- vim.opt.titlestring = [[nv \ %{substitute(getcwd(),\ $HOME,\ '~',\ '')} - %f\]]
 
+-- vim.opt.titlestring = [[(%{getcwd()})%) %- (%{expand("%:~:.:h")})]]
+
+vim.opt.titlestring = [[%{getcwd()} - %{expand("%f")}]]
 
 vim.g.mapleader = [[\]]
 vim.g.maplocalleader = ","
@@ -78,45 +83,55 @@ vim.o.timeout = true
 vim.o.ttimeout = true
 
 -- https://github.com/neovim/neovim/issues/2051
-vim.o.timeoutlen=250 -- keep normal mode mappings slow, but keep it as low as possible so G is fast in normal mode etc
-vim.o.ttimeoutlen=0 -- quick escape from insert mode
+vim.o.timeoutlen = 250 -- keep normal mode mappings slow, but keep it as low as possible so G is fast in normal mode etc
+vim.o.ttimeoutlen = 0 -- quick escape from insert mode
 
 
-vim.cmd[[com -nargs=1 -complete=command Redir :execute "tabnew | pu=execute(\'" . <q-args> . "\') | setl nomodified"]]
+vim.cmd [[com -nargs=1 -complete=command Redir :execute "tabnew | pu=execute(\'" . <q-args> . "\') | setl nomodified"]]
 
-vim.cmd[[augroup terminal_setup | au!]]
-vim.cmd[[autocmd TermOpen * nnoremap <buffer><LeftRelease> <LeftRelease>i]]
-vim.cmd[[augroup end]]
+vim.cmd [[augroup terminal_setup | au!]]
+vim.cmd [[autocmd TermOpen * nnoremap <buffer><LeftRelease> <LeftRelease>i]]
+vim.cmd [[augroup end]]
 
 --turn off auto commenting for every buffer
-vim.cmd[[autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o]]
-vim.cmd[[autocmd FileType norg set nofoldenable]]
+vim.cmd [[autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o]]
+vim.cmd [[autocmd FileType norg set nofoldenable]]
 
-vim.cmd[[autocmd FileType * ColorizerAttachToBuffer]]
-
---vim.cmd[[autocmd VimEnter * lua require'util.autocmd'.vimenter()]]
-
+--vim.cmd[[autocmd FileType * ColorizerAttachToBuffer]]
+-- _G.set_colorscheme = function()
+--   print("colorscheme set")
+--   vim.cmd("colorscheme material")
+-- end
+--vim.cmd [[autocmd VimEnter * lua _G.set_colorscheme()]]
 
 --vim.cmd([[autocmd Filetype python call luaeval('require"util.python".autocmd(_A)', expand('<abuf>'))]])
 
 -- https://github.com/skywind3000/asyncrun.vim/wiki/Quickfix-Best-Practice
-vim.cmd("autocmd QuickFixCmdPost * botright copen 8")
+
 
 
 -- syntax highlighting for vagrant
-vim.cmd("autocmd BufNewFile,BufRead Gemfile set filetype=ruby")
-vim.cmd("autocmd BufNewFile,BufRead Vagrantfile set filetype=ruby")
-vim.cmd("autocmd BufNewFile,BufRead Berksfile set filetype=ruby")
+
+
+_G.telescope_last_editor_win = function()
+
+end
+
 
 -- add ! to silent will still load config if color scheme isnt available (bootstrap)
---vim.cmd('silent! colorscheme tokyonight')
+vim.cmd('silent! colorscheme material')
 
 
 -- manually turn on nvim basic syntax highlighting if there is no treesitter module for that language
 
 --vim.cmd("packadd nvim-treesitter")
--- packadd nvim-treesitter as packer isnt installing into start 
+-- packadd nvim-treesitter as packer isnt installing into start
 --vim.cmd([[autocmd BufWinEnter * lua require'plugin.treesitter'.decide_syntax()]])
 
 
-vim.lsp.set_log_level("debug")
+--vim.lsp.set_log_level("debug")
+--vim.cmd[[syntax on]]
+
+
+
+-- batch sets up autocmds

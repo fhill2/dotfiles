@@ -1,4 +1,4 @@
-
+_G.f = {}
 local home = vim.loop.os_homedir()
 local rawprint = _G.print
 p = function(v)
@@ -25,6 +25,60 @@ end
 
 
 
+
+_G.print_package_path = function()
+  for _, v in ipairs(vim.split(package.path, ";")) do
+    print(v)
+  end
+end
+
+_G.print_venv = function()
+  for _, client in pairs(vim.lsp.buf_get_clients()) do
+    if client.name == "pyright" then
+      -- Check if lsp was initialized with py_lsp
+      if client.config.settings.python["pythonPath"] == nil then
+        print("pyright pythonPath is nil")
+      else
+        print("Client pyright with venv: " .. client.config.settings.python.pythonPath)
+      end
+    end
+  end
+end
+
+_G.print_pyright_config = function()
+  for _, client in pairs(vim.lsp.buf_get_clients()) do
+    if client.name == "pyright" then
+      if client.config.settings.python["pythonPath"] ~= nil then
+        dump(client)
+      end
+    end
+  end
+end
+
+_G.format_github_repos_dotbot = function()
+  local visual = require "util.visual".get_visual_selection(true)
+  vim.ui.input(
+    { prompt = "Enter subfolder path, e.g: python/evdev" },
+    function(input)
+      output = {}
+      for i, link in ipairs(visual) do
+        if not vim.startswith(link, "https://github.com") then
+          print("All lines must start with https://github (excluding space): " .. link)
+          return
+        end
+        author, name = link:match("github.com/(.*)/(.*)$")
+        table.insert(output, "~/repos/" .. input .. "/" .. author .. "-" .. name .. ":")
+        table.insert(output, "  url: " .. link)
+      end
+
+      vim.fn.setreg("+", table.concat(output, "\n"))
+      print("DONE - paste output now")
+    end
+  )
+end
+
+
+
 _G.dump = function(...)
   local objects = vim.tbl_map(vim.inspect, { ... })
   require("log").info(unpack(objects))
@@ -32,6 +86,7 @@ end
 function _G.d(...)
   _G.dump(...)
 end
+
 _G.f.snippet_dirs = home .. "/dev/cl/snippets/snippy" -- snippy save snippets will also change
 
 _G.f.prompt = function(...)
@@ -41,53 +96,66 @@ _G.f.menu = function(...)
   require("plugin.nui.menu").menu(...)
 end
 
-_G.f.list_wins = function(filter_tabpage)
-  -- A BETTER nvim_list_wins() fn -- 2021
-  -- get all opened filepaths in windows with their associated bufnr with key as winnr
-  -- ignores nvim-tree, toggleterm etc. editor windows returned only
-  -- optional: returns each table sorted by position on the screen top left - bot right
+_G.paste_code_with_md_code_block = function(range)
+  local ft = vim.bo.filetype
+  -- called from legendary.nvim
+  local visual = require "util.visual".get_visual_selection(false, '\n')
+  --local visual = type(visual) == "table" and table.concat(visual, '') or visual
+  local visual = [[```]] .. ft .. '\n' .. visual .. '\n```'
+  print(vim.inspect(visual))
 
-  local ignore = { "NvimTree", "toggleterm" }
-
-  local ctabpage
-  if filter_tabpage then
-    ctabpage = vim.api.nvim_get_current_tabpage()
-  end
-
-  local windows = {}
-  for _, win in ipairs(vim.api.nvim_list_wins()) do
-    dump("ITERATE ON " .. win)
-    local bufnr = vim.api.nvim_win_get_buf(win)
-    local window = {}
-
-    window.tabpage = vim.api.nvim_win_get_tabpage(win)
-    if filter_tabpage and window.tabpage ~= ctabpage then
-      break
-    end
-    window.ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
-    window.winnr = win
-    window.fp = vim.api.nvim_buf_get_name(bufnr)
-    window.bufnr = bufnr
-    local pos = vim.api.nvim_win_get_position(win)
-    window.x = pos[2]
-    window.y = pos[1]
-
-    if not vim.tbl_contains(ignore, window.ft) then
-      table.insert(windows, window)
-    end
-  end
-
-  table.sort(windows, function(a, b)
-    if a.x ~= b.x then
-      return a.x < b.x
-    end
-    return a.y < b.y
-  end)
-  return windows
-
-  -- cb() tests:
-  -- exclusive to current tabpage:
+  vim.fn.setreg('+', visual)
 end
+
+_G.f.non_editor_filetypes = { "TelescopePrompt", "TelescopeResults", "guihua", "guihua_rust", "clap_input", "NvimTree", "toggleterm" }
+
+-- _G.f.list_wins = function(filter_tabpage)
+--   -- A BETTER nvim_list_wins() fn -- 2021
+--   -- get all opened filepaths in windows with their associated bufnr with key as winnr
+--   -- ignores nvim-tree, toggleterm etc. editor windows returned only
+--   -- optional: returns each table sorted by position on the screen top left - bot right
+--
+--   local ignore = { "NvimTree", "toggleterm" }
+--
+--   local ctabpage
+--   if filter_tabpage then
+--     ctabpage = vim.api.nvim_get_current_tabpage()
+--   end
+--
+--   local windows = {}
+--   for _, win in ipairs(vim.api.nvim_list_wins()) do
+--     dump("ITERATE ON " .. win)
+--     local bufnr = vim.api.nvim_win_get_buf(win)
+--     local window = {}
+--
+--     window.tabpage = vim.api.nvim_win_get_tabpage(win)
+--     if filter_tabpage and window.tabpage ~= ctabpage then
+--       break
+--     end
+--     window.ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
+--     window.winnr = win
+--     window.fp = vim.api.nvim_buf_get_name(bufnr)
+--     window.bufnr = bufnr
+--     local pos = vim.api.nvim_win_get_position(win)
+--     window.x = pos[2]
+--     window.y = pos[1]
+--
+--     if not vim.tbl_contains(ignore, window.ft) then
+--       table.insert(windows, window)
+--     end
+--   end
+--
+--   table.sort(windows, function(a, b)
+--     if a.x ~= b.x then
+--       return a.x < b.x
+--     end
+--     return a.y < b.y
+--   end)
+--   return windows
+--
+--   -- cb() tests:
+--   -- exclusive to current tabpage:
+-- end
 
 function _G.f.send_key(key, mode)
   dump(vim.api.nvim_get_mode().mode)

@@ -1,0 +1,99 @@
+{
+  "border": "normal",
+  "current_border_width": -1,
+  "floating": "auto_off",
+  "fullscreen_mode": 1,
+  "geometry": {
+    "x": 0,
+    "y": 0,
+    "width": 0,
+    "height": 0
+  },
+  "layout": "splith",
+  "name": "3",
+  "orientation": "horizontal",
+  "percent": null,
+  "scratchpad_state": "none",
+  "sticky": false,
+  "type": "workspace",
+  "workspace_layout": "default",
+  "nodes": [
+    {
+      "border": "normal",
+      "current_border_width": -1,
+      "floating": "auto_off",
+      "fullscreen_mode": 0,
+      "geometry": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0
+      },
+      "layout": "tabbed",
+      "marks": [
+        "alt_term"
+      ],
+      "name": null,
+      "orientation": "horizontal",
+      "percent": null,
+      "scratchpad_state": "none",
+      "sticky": false,
+      "type": "con",
+      "workspace_layout": "default",
+      "nodes": [
+        {
+          "border": "normal",
+          "current_border_width": 2,
+          "floating": "auto_off",
+          "fullscreen_mode": 0,
+          "geometry": {
+            "x": 0,
+            "y": 0,
+            "width": 1276,
+            "height": 757
+          },
+          "layout": "splith",
+          "name": "~",
+          "orientation": "none",
+          "percent": 0.5,
+          "scratchpad_state": "none",
+          "sticky": false,
+          "type": "con",
+          "workspace_layout": "default",
+          "swallows": [
+            {
+              "class": "^kitty$",
+              "instance": "^kitty$"
+            }
+          ]
+        },
+        {
+          "border": "normal",
+          "current_border_width": 2,
+          "floating": "auto_off",
+          "fullscreen_mode": 0,
+          "geometry": {
+            "x": 0,
+            "y": 0,
+            "width": 1276,
+            "height": 757
+          },
+          "layout": "splith",
+          "name": "~",
+          "orientation": "none",
+          "percent": 0.5,
+          "scratchpad_state": "none",
+          "sticky": false,
+          "type": "con",
+          "workspace_layout": "default",
+          "swallows": [
+            {
+              "class": "^kitty$",
+              "instance": "^kitty$"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

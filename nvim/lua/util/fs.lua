@@ -1,5 +1,4 @@
 local uv = vim.loop
-local utils = require("nvim-tree.utils")
 local fs = {}
 -- a lot of this is from nvim-tree
 
@@ -171,6 +170,7 @@ function fs.create_file(opts)
   end
 
   if not opts.force and uv.fs_access(opts.dest, "r") ~= false then
+    local utils = require("nvim-tree.utils")
     print(file .. " already exists. Overwrite? y/n")
     local ans = utils.get_user_input_char()
     utils.clear_prompt()
@@ -193,7 +193,7 @@ function fs.create_file(opts)
       end
     end)
   )
-  if opts.open then vim.cmd(("e %s"):format(opts.dest))end
+  if opts.open then vim.cmd(("e %s"):format(opts.dest)) end
 end
 
 function fs.copy_file(opts)
@@ -264,7 +264,6 @@ function fs.create_fp_dirs(fp)
   end
 end
 
-
 --- ===== WRITES ======
 --https://github.com/nvim-telescope/telescope.nvim/blob/master/lua/telescope/actions/history.lua
 
@@ -292,6 +291,7 @@ function fs.append(fp, data)
 end
 
 function fs.write(fp, data)
+  dump(fp, data)
   local Path = require("plenary.path")
   local fp = Path:new(fp)
   fp:write(data, "w")

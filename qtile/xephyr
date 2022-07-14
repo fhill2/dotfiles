@@ -1,22 +1,22 @@
-#!/run/current-system/sw/bin/bash
-#
-##!/home/f1/.nix-profile/bin/bash
+#!/usr/bin/env bash
 
-here=$(dirname $(readlink -f $0))
-screen_size=${screen_size:-800x600}
-xdisplay=${xdisplay:-:1}
-log_level=${log_level:-info}
-app=${app:-$(python -c "from libqtile.utils import guess_terminal; print(guess_terminal())")}
-if [[ -z $python ]]; then
-    python=python3
+HERE=$(dirname $(readlink -f $0))
+SCREEN_SIZE=${SCREEN_SIZE:-2400x800}
+XDISPLAY=${XDISPLAY:-:1}
+LOG_LEVEL=${LOG_LEVEL:-INFO}
+# APP=${APP:-$(python -c "from libqtile.utils import guess_terminal; print(guess_terminal())")}
+APP="kitty"
+if [[ -z $PYTHON ]]; then
+    PYTHON=python3
 fi
-Xephyr +extension randr -screen ${screen_size} ${xdisplay} -ac &
-xephyr_pid=$!
+
+Xephyr +extension RANDR -screen ${SCREEN_SIZE} ${XDISPLAY} -ac &
+XEPHYR_PID=$!
 (
   sleep 1
-  env display=${xdisplay} qtile_xephyr=1 ${python} /nix/store/6g1p91qzm0gmx0bncp2fh5lla475ybli-python3.9-qtile-0.18.0/bin/qtile start -l ${log_level} $@ &
-  qtile_pid=$!
-  env display=${xdisplay} ${app} &
-  wait $qtile_pid
-  kill $xephyr_pid
+  env DISPLAY=${XDISPLAY} QTILE_XEPHYR=1 ${PYTHON} /usr/bin/qtile start -l ${LOG_LEVEL} $@ &
+  QTILE_PID=$!
+  env DISPLAY=${XDISPLAY} ${APP} &
+  wait $QTILE_PID
+  kill $XEPHYR_PID
 )

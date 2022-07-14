@@ -1,0 +1,16 @@
+[
+  {
+    "command": [
+      "/opt/google/chrome/chrome",
+      "--enable-crashpad"
+    ],
+    "working_directory": "/home/f1"
+  },
+  {
+    "command": [
+      "/opt/google/chrome/chrome",
+      "--enable-crashpad"
+    ],
+    "working_directory": "/home/f1"
+  }
+]

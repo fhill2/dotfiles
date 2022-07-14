@@ -1,123 +1,263 @@
-import sys
-#sys.path.append(r'/home/f1/.nix-profile/lib/python3.9/site-packages')
-sys.path.append(r'/home/f1/dev/cl/python/standalone')
+# Copyright (c) 2010 Aldo Cortesi
+# Copyright (c) 2010, 2014 dequis
+# Copyright (c) 2012 Randall Ma
+# Copyright (c) 2012-2014 Tycho Andersen
+# Copyright (c) 2012 Craig Barnes
+# Copyright (c) 2013 horsik
+# Copyright (c) 2013 Tao Sauvage
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
 
 from typing import List  # noqa: F401
 
-from libqtile import layout, qtile
+from libqtile import bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
-#from libqtile.utils import guess_terminal
+from libqtile.utils import guess_terminal
 from libqtile import hook
-import os
-import subprocess,re
 
-from groups import init_groups
-from keys import init_keys, init_group_keys
-from screens import init_screens
-from dropdown import init_dropdown, init_dropdown_keys
-from widgets import init_widgets
 from libqtile.log_utils import logger
 
+# ~/dot/qtile/functions.py
 from functions import Function
-# sys.path += ["whatever"]
+from colors import colors
+from bar import init_bar
 
-#terminal = guess_terminal()
-
-def dump(obj):
-    import inspect
-    x = []
-    logger.error("===================== methods ====================")
-    for i in inspect.getmembers(obj):
-        if not i[0].startswith('_'):
-            if not inspect.ismethod(i[1]):
-                x.append(i)
-            else:
-                print(i)
-    logger.error("===================== props ====================")
-    for props in x:
-        logger.error(props)
-
-try:
-    import aiomanhole
-except ImportError:
-    aiomanhole = None
-
-
-
-#def log(*args, **kwargs):
-#    f = open("/home/f1/logs/myqtile.log",'w')
-#    print(*args, **kwargs, file=f)
-
-#import builtins
-#builtins.log = log
-#builtins.printl = log
-#import init
-#builtins.dump = init.dump
-#from libqtile.log_utils import logger
-#def log(*args, **kwargs):
-#    logger.warning(*args, **kwargs)
-
-#def dump(*args, **kwargs):
-#    qtile_dump(*args, **kwargs)
-
-from datetime import datetime, date
+# Print every startup into qtile.log - easier to debug
+from datetime import datetime
 now = datetime.now()
-today = date.today()
-
-#log("Config Reload at ")
-#log(now)
-import sys
-
-
-from libqtile.config import Group, ScratchPad, DropDown, Key
-from libqtile.command import lazy
-
-
-groups = init_groups()
-keys = init_keys()
-
-# APPEND
-#keys += init_group_keys()
-groups += init_dropdown()
-keys += init_dropdown_keys()
+dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+logger.warning("========== QTILE STARTUP ==========")
 
 
 mod = "mod4"
+# terminal = guess_terminal()
+terminal = "kitty"
+
+from libqtile.widget import backlight
+keys = [
+    Key('', 'F2', lazy.spawn('rofi -show drun')),
+    Key('', 'F3', lazy.spawn('qtile_kb_rofi')),
+    # Switch between windows
+    # Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
+    # Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
+    # Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
+    # Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
+    # Key([mod], "space", lazy.layout.next(),
+    #     desc="Move window focus to other window"),
+
+    # Move windows between left/right columns or move up/down in current stack.
+    # Moving out of range in Columns layout will create new column.
+    # Key([mod, "shift"], "h", lazy.layout.shuffle_left(),
+    #     desc="Move window to the left"),
+    # Key([mod, "shift"], "l", lazy.layout.shuffle_right(),
+    #     desc="Move window to the right"),
+    # Key([mod, "shift"], "j", lazy.layout.shuffle_down(),
+    #     desc="Move window down"),
+    # Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
+
+    # column layout only
+    #Key([mod, "shift", "control"], "h", lazy.layout.swap_column_left()),
+    #Key([mod, "shift", "control"], "l", lazy.layout.swap_column_right()),
+
+
+    # all Stack window movement under alt+shift+hjkl
+    Key([mod], "h",
+            lazy.layout.previous(), # Stack
+            lazy.layout.left()),    # xmonad-tall
+        Key([mod], "l",
+            lazy.layout.next(),     # Stack
+            lazy.layout.right()),   # xmonad-tall
+        Key([mod], "k",
+            lazy.layout.up()),
+        Key([mod], "j",
+            lazy.layout.down()),
+
+        Key([mod, "shift"], "l",
+            lazy.layout.client_to_next(), # Stack
+            lazy.layout.swap_right()),    # xmonad-tall
+        Key([mod, "shift"], "h",
+            lazy.layout.client_to_previous(), # Stack
+            lazy.layout.swap_left()),    # xmonad-tall
+
+
+        Key([mod, "shift"], "space",
+            lazy.layout.rotate(),
+            lazy.layout.flip()),              # xmonad-tall
+        Key([mod, "shift"], "k",
+            lazy.layout.shuffle_up()),       # Stack, xmonad-tall
+        Key([mod, "shift"], "j",
+            lazy.layout.shuffle_down()),         # Stack, xmonad-tall
+
+        Key([mod, "shift"], "Return",
+                lazy.layout.toggle_split()), # Column
+        Key([mod], "m",
+            lazy.layout.toggle_maximize()), # Stack
+        Key([mod, "control"], "m",
+            lazy.layout.maximize()),            # xmonad-tall
+        Key([mod, "control"], "n",
+            lazy.layout.normalize()),            # xmonad-tall
+
+        Key([mod, "control"], "l",
+            lazy.layout.delete(),                # Stack
+            #lazy.layout.increase_ratio(),     # Tile
+            #lazy.layout.grow()
+            ),            # xmonad-tall
+        Key([mod, "control"], "h",
+       lazy.layout.add(),             # Stack
+        #lazy.layout.decrease_ratio(),     # Tile
+        #lazy.layout.shrink()
+        ),         # xmonad-tall
+    Key([mod, "control"], "k",
+        lazy.layout.grow(),             # xmonad-tall
+        lazy.layout.decrease_nmaster()),    # Tile
+    Key([mod, "control"], "j",
+        lazy.layout.shrink(),               # xmonad-tall
+        lazy.layout.increase_nmaster()),   # Tile
+
+
+    # Key([mod], "n", lazy.layout.normalize()),
+
+    # Grow windows. If current window is on the edge of screen and direction
+    # will be to screen edge - window would shrink.
+    # Key([mod, "control"], "h", lazy.layout.grow_left(),
+    #     desc="Grow window to the left"),
+    # Key([mod, "control"], "l", lazy.layout.grow_right(),
+    #     desc="Grow window to the right"),
+    # Key([mod, "control"], "j", lazy.layout.grow_down(),
+    #     desc="Grow window down"),
+    # Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
+    Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
+
+    Key([mod, "shift"], "Return", lazy.layout.toggle_split(),
+        desc="Toggle between split and unsplit sides of stack"),
+    # Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+
+    # Toggle between different layouts as defined below
+    Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
+    Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
+
+    Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
+    #Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
+    # Key([mod], "r", lazy.spawncmd(),
+        # desc="Spawn a command using a prompt widget"),
+        #http://docs.qtile.org/en/latest/_modules/libqtile/widget/backlight.html
+    Key([], "XF86MonBrightnessUp", lazy.widget['backlight'].change_backlight(backlight.ChangeDirection.UP)),
+    Key([],"XF86MonBrightnessDown",lazy.widget['backlight'].change_backlight(backlight.ChangeDirection.DOWN)),
+    Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer sset Master 5%+")),
+    Key([], "XF86AudioLowerVolume", lazy.spawn("amixer sset Master 5%-")),
+    Key([], "XF86AudioMute", lazy.spawn("amixer sset Master toggle")),
+
+    # dropdowns
+    Key([mod], "period", Function.dropdown_kill_toggle("omni")),
+    Key([mod], "semicolon", lazy.group["scratchpad"].dropdown_toggle("kate")),
+
+    # Key('', "F3", lazy.spawn("sh -c 'echo \"" + show_keys(keys) + "\" | rofi -dmenu -i -mesg \"Keyboard shortcuts\"'"), desc="Print keyboard bindings"),
+]
+
+
+
+################### SCREENS ####################
+screens = [
+        # Screen(),
+        # Screen(),
+        Screen(top=init_bar()),
+        # Screen(top=init_bar()),
+]
+
+#groups = [Group(i) for i in "123456789"]
+groups = [Group(i) for i in "123456789"]
+
+for i in groups:
+    keys.extend([
+        # mod1 + letter of group = switch to group
+        Key([mod], i.name, lazy.group[i.name].toscreen(),
+            desc="Switch to group {}".format(i.name)),
+
+        # mod1 + shift + letter of group = switch to & move focused window to group
+        Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True),
+            desc="Switch to & move focused window to group {}".format(i.name)),
+        # Or, use below if you prefer not to switch to that group.
+        # # mod1 + shift + letter of group = move focused window to group
+        # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
+        #     desc="move focused window to group {}".format(i.name)),
+    ])
+
+# DROPDOWNS
+from libqtile.config import ScratchPad, DropDown
+groups += [
+        ScratchPad(
+            "scratchpad",
+            dropdowns=[
+                # Drop down terminal with tmux session
+                # path to gentries has to be absolute, as SCRIPT_DIR doesnt resolve symlinks
+                DropDown(
+                    "omni",
+                    "kitty --title 'omni' zsh -c 'f_tw; zsh'",
+                    opacity=1,
+                    y=0.0151,
+                    height=0.4650,
+                    #on_focus_lost_hide=on_focus_lost_hide,
+                    on_focus_lost_hide=False,
+                    warp_pointer=False,
+                ),
+                DropDown(
+                    "kate",
+                    "kate",
+                    opacity=1,
+                    y=0.75,
+                    width=0.5,
+                    height=0.25,
+                    on_focus_lost_hide=False,
+                    warp_pointer=False,
+                ),
+            ],
+        ),
+    ]
 
 layouts = [
     layout.Columns(border_focus_stack=['#d75f5f', '#8f3d3d'], border_width=4),
     layout.Max(),
-    layout.Floating(),
     # Try more layouts by unleashing below layouts.
-    # layout.Stack(num_stacks=2),
+    layout.Stack(num_stacks=3),
     # layout.Bsp(),
     # layout.Matrix(),
-    # layout.MonadTall(),
+    layout.MonadTall(),
     # layout.MonadWide(),
     # layout.RatioTile(),
-    # layout.Tile(),
-    # layout.TreeTab(),
+    layout.Tile(),
+    layout.TreeTab(),
     # layout.VerticalTile(),
     # layout.Zoomy(),
 ]
-widget_defaults = dict(
-    font='sans',
-    fontsize=12,
-    padding=3,
-)
-#widgets = init_widgets()
-extension_defaults = widget_defaults.copy()
 
-screens = init_screens()
+
+
+
 
 # Drag floating layouts.
 mouse = [
-    Drag(['mod1'], "Button1", lazy.window.set_position_floating(),
-        start=lazy.window.get_position()),
-    Drag(['mod1'], "Button3", lazy.window.set_size_floating(),
-        start=lazy.window.get_size()),
-    Click(['mod1'], "Button2", lazy.window.bring_to_front())
+    Drag([mod], "Button1", lazy.window.set_position_floating(),
+         start=lazy.window.get_position()),
+    Drag([mod], "Button3", lazy.window.set_size_floating(),
+         start=lazy.window.get_size()),
+    Click([mod], "Button2", lazy.window.bring_to_front())
 ]
 
 dgroups_key_binder = None
@@ -134,69 +274,27 @@ floating_layout = layout.Floating(float_rules=[
     Match(wm_class='ssh-askpass'),  # ssh-askpass
     Match(title='branchdialog'),  # gitk
     Match(title='pinentry'),  # GPG key password entry
-    Match(title='nemo-preview-start'),  # GPG key password entry
 ])
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 reconfigure_screens = True
 
+# If things like steam games want to auto-minimize themselves when losing
+# focus, should we respect this or not?
 auto_minimize = True
 
 wmname = "LG3D"
 
-@hook.subscribe.startup_complete
-def set_manhole():
-    aiomanhole.start_manhole(port=7113, namespace={"qtile": qtile})
 
-# ----- END DEFAULT CONFIG ----- 
-
+import subprocess
+def execute_once(process):
+    subprocess.Popen(process.split())
 
 @hook.subscribe.startup_once
 def autostart():
-    #logger.error(qtile.screens)
-    #qtile.screens[1].set_group(qtile.groups_map["alt1"])
-    # put output of of autostart.sh into ~/.local/share/qtile/qtile.log
-    #https://github.com/qtile/qtile/issues/1169
-    # if os.environ['DISPLAY'] == ':0': 
-    #     output = subprocess.check_output(
-    #         os.path.expanduser('~/dot//qtile/autostart.sh'),
-    #         shell=True
-    #     ).decode('utf-8')
-    #     logger.error(output)
-
-    # startup apps have to be started like this
-    # https://github.com/qtile/qtile/issues/685#issuecomment-445555560
-    # when starting apps in bash autostart.sh with &, any errors can cause qtile not to start up
-    processes = [
-        ['dunst'],
-        ['xmousepasteblock'],  
-        ['redshift', '-P', '-O', '4900'],
-        #['f_start_nemo_preview.sh'], # I think this might be causing monitor freeze
-        #"xrandr --output DP-0 --off --output DP-1 --off --output DP-2 --off --output DP-3 --off --output DP-4 --mode 3840x2160 --pos 0x0 --rotate normal --output DP-5 --off --output DP-6 --off --output DP-7 --off --output eDP-1-1 --mode 2560x1600 --pos 3840x560 --rotate normal --output DP-1-1 --off --output DP-1-2 --off --output DP-1-3 --off --output DP-1-4 --off".split(" "),
-        #['xset', 'dpms', 'force', 'off'],
-        #['xset', '-dpms'],
-    ]
-    for p in processes:
-        subprocess.Popen(p)
-
-    
-@hook.subscribe.screens_reconfigured
-def screens_reconfigured():
-    # qtile DEFAULT is reconfigure_screens=True -> 
-    # when any xrandr event happens, qtile reconfigures the internal screen setup, and then fires this hook
-    #logger.error(qtile.screens)
-    qtile.screens[1].set_group(qtile.groups_map["alt1"])
-
-
-
-@hook.subscribe.client_new
-def func(window):
-    c_wm_class = window.window.get_wm_class()[0]
-    #if window.window.get_wm_class()[1] == 'nemo-preview-start':
-    if c_wm_class == "nemo-preview-start":
-        window.floating = True
-        window.set_size_floating(640,360)
-        window.set_position_floating(1600,1800)
-
-
-
+    execute_once('dunst')
+    execute_once('xmousepasteblock')
+    execute_once('redshift -P -O 4900')
+    execute_once('autorandr --load monitor_left')
+    # execute_once('/home/f1/dot/qtile/autostart.sh')
+    execute_once("sudo kmonad ~/dot/kmonad/config.kbd")

@@ -1,0 +1,5 @@
+[[item]]
+file = '~/dot/qtile/colors.py'
+template = 'qtile'
+subtemplate = 'qtile'
+rewrite = true

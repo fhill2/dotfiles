@@ -12,6 +12,7 @@ require("snippy").setup({
     sh = _G.get_snippy_shell_scopes,
     bash = _G.get_snippy_shell_scopes,
     zsh = _G.get_snippy_shell_scopes,
+    direnv = _G.get_snippy_shell_scopes, -- need direnv.vim plugin to create direnv filetype
   },
   -- mappings = {
   --   is = {

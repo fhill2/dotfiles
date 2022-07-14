@@ -1,7 +1,7 @@
 local parser = require("util.old.parser")
 local nui = require("plugin.nui.popup")
 local uv = vim.loop
-local fs = require"util.fs"
+local fs = require "util.fs"
 local M = {}
 
 function M.parse(cfp)
@@ -32,14 +32,14 @@ function M.parse(cfp)
       end,
     },
     {
-      { f.dev_cl .. "/lua/standalone" },
+      { vim.loop.os_homedir() .. "/dev/cl/lua/standalone" },
       transform = function(old)
         dump(old)
         return old.cfp:gsub("cl/lua", "cl/old/lua")
       end
     },
-  {
-    { f.dev_cl .. "/shell" },
+    {
+      { vim.loop.os_homedir() .. "/dev/cl/shell" },
       transform = function(old)
         dump(old)
         return old.cfp:gsub("cl/shell", "cl/old/shell")
@@ -50,21 +50,20 @@ function M.parse(cfp)
   return parser.parse(config, cfp, cft)
 end
 
-
 --local function show_gui(old_path)
 --vim.defer_fn(function()
-    --nui.open({ name = "send_to_old", action = "open_file", action_args = { pos = "btm" }, filepath = old_path })
+--nui.open({ name = "send_to_old", action = "open_file", action_args = { pos = "btm" }, filepath = old_path })
 --end, 50)
 --end
 
 function M.show(old_path)
---local cfp = vim.fn.expand("%:p")
---local old_path = M.parse(cfp)
---show_gui(old_path)
-nui.popup({ name = "old", fp = old_path })
+  --local cfp = vim.fn.expand("%:p")
+  --local old_path = M.parse(cfp)
+  --show_gui(old_path)
+  nui.popup({ name = "old", fp = old_path })
 end
 
-M.test = function() M.send({ dry = true}) end
+M.test = function() M.send({ dry = true }) end
 
 
 
@@ -72,14 +71,14 @@ M.send = vim.schedule_wrap(function(opts)
   opts = opts or {}
   local cfp = vim.fn.resolve(vim.fn.expand("%:p"))
 
-  if opts.dry then 
+  if opts.dry then
     print("DRY:")
     print('current fp: ' .. cfp)
   end
   local filename = vim.fn.expand("%:t")
   local old_path = M.parse(cfp)
   if opts.dry then print("old_path: " .. old_path) return end
-  require"util.fs".create_fp_dirs(old_path)
+  require "util.fs".create_fp_dirs(old_path)
 
   local old_file_exists = uv.fs_stat(old_path)
   if opts.whole and not old_file_exists then
@@ -91,18 +90,18 @@ M.send = vim.schedule_wrap(function(opts)
     uv.fs_rename(cfp, f.home .. "/.local/share/Trash/files/" .. filename, function()
     end)
   elseif not opts.whole then
-    local visual = f.get_visual({lines=true})
+    local visual = f.get_visual({ lines = true })
     f.append_to_file(old_path, "\n\n" .. table.concat(visual, "\n"))
   end
 
-  
+
   if opts.whole then
-  vim.cmd("Bdelete! " .. vim.api.nvim_get_current_buf())
-else
-  local range = f.get_visual({range=true, lines=true})
-  vim.api.nvim_buf_set_lines(vim.api.nvim_get_current_buf(), range.start_row - 1, range.end_row, false, {})
-  M.show(old_path)
-end
+    vim.cmd("Bdelete! " .. vim.api.nvim_get_current_buf())
+  else
+    local range = f.get_visual({ range = true, lines = true })
+    vim.api.nvim_buf_set_lines(vim.api.nvim_get_current_buf(), range.start_row - 1, range.end_row, false, {})
+    M.show(old_path)
+  end
 end)
 
 return M

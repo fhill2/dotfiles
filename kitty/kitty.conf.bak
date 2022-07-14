@@ -11,7 +11,7 @@
 
 # my custom bindings remapping keys that dont work in neovim
 # https://sw.kovidgoyal.net/kitty/faq.html#how-do-i-map-key-presses-in-kitty-to-different-keys-in-the-terminal-program
-
+shell /usr/bin/zsh
 #####
 # LIST OF REMAPPED KEYS:
 # remaps done at interceptionk2k
@@ -31,38 +31,34 @@ map ctrl+tab send_text all \x1b[33~
 
 #####
 @include colors.conf
-@include themes/kitty_tokyonight_night.conf
 
-wheel_scroll_multiplier 50.0
+#wheel_scroll_multiplier 50.0
 # speed up scrolling up down with mouse
 
 ####### my settings from kittydefault.conf to try:
 
-cursor_shape block 
+#cursor_shape block 
 # block, beam, underline
-
-
-
-url_color #0087BD
-url_style double # none, single, double, curly
-open_url_modifiers ctrl
+# url_color #0087BD
+#url_style double # none, single, double, curly
+#open_url_modifiers ctrl
 
 
 # for nnn preview-tui plugin
 allow_remote_control yes
-listen_on unix:kitty
-close_on_child_death yes
+#listen_on unix:kitty
+#close_on_child_death yes
 #active_border_color #282c34
 #inactive_border_color #22262d
 
-editor . # use env variable EDITOR when opening kitty config "or similar tasks"
+#editor . # use env variable EDITOR when opening kitty config "or similar tasks"
 
- focus_follows_mouse no # Set the active window to the window under the mouse when moving the mouse around
+#focus_follows_mouse no # Set the active window to the window under the mouse when moving the mouse around
 
 scrollback_lines 10000000
 
-input_delay 0
-remember_window_size  yes
+#input_delay 0
+#remember_window_size  yes
 # TRY but not now:
 # wheel_scroll_multiplier 5
 # copy_on_select no
@@ -73,8 +69,6 @@ remember_window_size  yes
 ####### end my settings from kittydefault.conf
 
 
-dim_opacity 1
-dynamic_background_opacity no.local/
 
 
 
@@ -82,35 +76,13 @@ map ctrl+shift+c        copy_to_clipboard
 map ctrl+shift+v        paste_from_clipboard
 
 font_family     DejaVuSansMono Nerd Font Mono
-font_size 10
+#font_family Sans Mono Nerd Font Complete Mon
+#font_family Sans Mono Nerd Font Complete Mono
+#font_family Victor Mono Regular Nerd Font Complete
+#font_family VictorMono Nerd Font Mono
+font_size 12
 
 
-cursor white
-cursor_blink_interval      0
-
-enable_audio_bell yes
-window_alert_on_bell yes
-bell_on_tab yes
-window_border_width 1
-window_margin_width 0
-
-tab_bar_edge top
-background #282c34
-
-window_padding_width 0
-# inactive_border_color #22262d
-tab_bar_margin_width 4
-tab_bar_style fade
-tab_fade 1 1 1
-
-#active_tab_foreground   #282c34
-#active_tab_background   #abb2bf
-#active_tab_font_style   bold
-#inactive_tab_foreground #5c6370
-#inactive_tab_background #22262d
-#inactive_tab_font_style normal
-
-editor nvim
 
 
 enabled_layouts fat:bias=70;full_size=1;mirrored=false,grid,horizontal,splits,stack,tall,vertical
@@ -118,39 +90,39 @@ enabled_layouts fat:bias=70;full_size=1;mirrored=false,grid,horizontal,splits,st
 
 
 
-kitty_mod alt
+#kitty_mod alt
 # map kitty_mod+equal     change_font_size all +2.0
 # map kitty_mod+minus     change_font_size all -2.0
 # map kitty_mod+backspace change_font_size all 0
 
 
-map kitty_mod+l next_layout
-map kitty_mod+b   scroll_page_up
-map kitty_mod+f   scroll_page_down
-map page_up   scroll_page_up
-map page_down scroll_page_down
-map ctrl+shift+page_down scroll_page_down
-map ctrl+shift+page_up scroll_page_up
+# map kitty_mod+l next_layout
+# map kitty_mod+b   scroll_page_up
+# map kitty_mod+f   scroll_page_down
+# map page_up   scroll_page_up
+# map page_down scroll_page_down
+# map ctrl+shift+page_down scroll_page_down
+# map ctrl+shift+page_up scroll_page_up
 
 # WINDOWS
-map kitty_mod+enter new_window_with_cwd
-map kitty_mod+j previous_window
-map kitty_mod+k next_window
-map kitty_mod+shift+j move_window_backward
-map kitty_mod+shift+k move_window_forward
+# map kitty_mod+enter new_window_with_cwd
+# map kitty_mod+j previous_window
+# map kitty_mod+k next_window
+# map kitty_mod+shift+j move_window_backward
+# map kitty_mod+shift+k move_window_forward
 
 
 # TABS
-map kitty_mod+space      new_tab_with_cwd
-map kitty_mod+s       next_tab
-map kitty_mod+a       previous_tab
-map kitty_mod+shift+s   move_tab_forward
-map kitty_mod+shift+a    move_tab_backward
+# map kitty_mod+space      new_tab_with_cwd
+# map kitty_mod+s       next_tab
+# map kitty_mod+a       previous_tab
+# map kitty_mod+shift+s   move_tab_forward
+# map kitty_mod+shift+a    move_tab_backward
 
 # WINDOW TAB CLOSE
-map kitty_mod+q     close_tab
-map kitty_mod+w     close_window
-map shift+cmd+shift+w     close_os_window
+# map kitty_mod+q     close_tab
+# map kitty_mod+w     close_window
+# map shift+cmd+shift+w     close_os_window
 
 #map kitty_mod+1 goto_layout fat
 #map kitty_mod+2 goto_layout grid
@@ -161,17 +133,45 @@ map shift+cmd+shift+w     close_os_window
 #map kitty_mod+7 goto_layout stack
 
 
-map kitty_mod+1 no_op
-map kitty_mod+2 no_op
-map kitty_mod+3 no_op
-map kitty_mod+4 no_op
-map kitty_mod+5 no_op
-map kitty_mod+6 no_op
-map kitty_mod+7 no_op
-map kitty_mod+8 no_op
-map kitty_mod+9 no_op
+# map kitty_mod+1 no_op
+# map kitty_mod+2 no_op
+# map kitty_mod+3 no_op
+# map kitty_mod+4 no_op
+# map kitty_mod+5 no_op
+# map kitty_mod+6 no_op
+# map kitty_mod+7 no_op
+# map kitty_mod+8 no_op
+# map kitty_mod+9 no_op
 
-map kitty_mod+shift+r start_resizing_window
+# map kitty_mod+shift+r start_resizing_window
 
-map kitty_mod+g launch omni-kitty.lua
+# map kitty_mod+g launch omni-kitty.lua
 #zsh -c "omni-kitty.lua"
+
+
+# BEGIN_KITTY_THEME
+# Nord
+include current-theme.conf
+# END_KITTY_THEME
+
+
+#dim_opacity 1
+background_opacity 1
+# cursor_blink_interval      0
+
+# enable_audio_bell yes
+# window_alert_on_bell yes
+# bell_on_tab yes
+# window_border_width 1
+# window_margin_width 0
+
+# tab_bar_edge top
+# # background #282c34
+
+# window_padding_width 0
+# # inactive_border_color #22262d
+# tab_bar_margin_width 4
+# tab_bar_style fade
+# tab_fade 1 1 1
+
+# editor nvim
