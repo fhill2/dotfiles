@@ -38,6 +38,9 @@
     ~/.i3/i3-resurrect: ~/dot/i3/resurrect
     ~/.config/herbstluftwm: ~/dot/herbstluftwm
     ~/.config/polybar:
+    ~/.config/rofi:
+    ~/.themes:
+    ~/.config/bat:
 
     ~/.local/share/nemo: 
       force: true
@@ -51,6 +54,7 @@
     # ~/dev/bin/f_start_nemo_preview.sh: ~/dev/cl/shell/scripts/f_start_nemo_preview.sh
     # ~/dev/bin/f_lesspipe_nvimpager: ~/dev/cl/shell/scripts/f_lesspipe_nvimpager
     ~/dev/bin/f_nvimpager: ~/dev/app/f_nvimpager/f_nvimpager
+    ~/repos/packer: ~/.local/share/nvim/site/pack/packer
 
     # ~/.local/share/nvimpager/site/pack/packer/start/nvim-treesitter: 
     #   create: true
@@ -74,7 +78,8 @@
     #~/dev/bin/nvimpager_ref: ~/dev/app/nvimpager_ref/nvimpager_ref
     
     ~/dev/bin/kvm: ~/dev/app/kvm/kvm.py
-    ~/repos/lua/packer/start/neorg/lua/neorg/modules/utilities/vlc.lua: ~/dot/nvim/lua/plugin/neorg/modules/vlc.lua 
+    # ~/.local/share/nvim/site/pack/packer/start/neorg/lua/neorg/modules/vlc/module.lua: ~/dot/nvim/lua/plugin/neorg/modules/vlc.lua 
+    # ~/.local/share/nvim/site/pack/packer/start/neorg/lua/neorg/modules/tags/module.lua: ~/dot/nvim/lua/plugin/neorg/modules/tags.lua 
     # ~/.local/share/nvim/site/pack/packer/opt/neorg/lua/neorg/modules/utilities/vlc.lua: ~/dot/nvim/lua/plugin/neorg/modules/vlc.lua 
 
     # ~/.local/share/applications/discord.desktop: 

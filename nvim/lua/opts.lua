@@ -1,10 +1,11 @@
 local cmd = vim.cmd
 local indent = 2
 
+vim.notify = require("notify")
 
 vim.o.swapfile = false -- Living on the edge
 vim.opt.mouse = "a" -- enable mouse mode
-
+vim.cmd [[set winbar=%=%m\ %F]]
 vim.cmd "set title"
 --set titlestring+=%f\ filename
 -- vim.cmd [[set titlestring=nv ]]
@@ -119,7 +120,7 @@ end
 
 
 -- add ! to silent will still load config if color scheme isnt available (bootstrap)
-vim.cmd('silent! colorscheme material')
+-- vim.cmd('silent! colorscheme material')
 
 
 -- manually turn on nvim basic syntax highlighting if there is no treesitter module for that language

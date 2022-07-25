@@ -8,6 +8,7 @@ end
 require("snippy").setup({
   hl_group = "Search",
   snippet_dirs = _G.f.snippet_dirs,
+  -- snippet_dirs = home .. "/dev/cl/snippets/snippy",
   scopes = {
     sh = _G.get_snippy_shell_scopes,
     bash = _G.get_snippy_shell_scopes,

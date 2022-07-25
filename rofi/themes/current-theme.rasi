@@ -1,0 +1,89 @@
+// modified from dracula.rasi
+
+
+@import "themes/colors.rasi"
+
+configuration {
+  // font: "JetBrainsMono Nerd Font Medium 10";
+    font: "DejaVuSansMono Nerd Font Mono 24";
+
+  drun {
+    display-name: "";
+  }
+
+  run {
+    display-name: "";
+  }
+
+  window {
+    display-name: "";
+  }
+
+  timeout {
+    delay: 10;
+    action: "kb-cancel";
+  }
+}
+
+* {
+
+  margin: 0;
+  padding: 0;
+  spacing: 0;
+
+  // background: #282a36;
+  // foreground: #f8f8f2;
+  // selected-normal-foreground: #6272a4;
+  // purple: #bd93f9;
+
+  background-color: @background;
+  text-color: @foreground;
+}
+
+window {
+  transparency: "real";
+  border: 2px;
+  border-color: @blue;
+  border-radius: 6px;
+}
+
+mainbox {
+  children: [inputbar, listview];
+}
+
+inputbar {
+  background-color: @lightbg;
+  children: [prompt, entry];
+}
+
+entry {
+  background-color: inherit;
+  padding: 12px 3px;
+}
+
+prompt {
+  background-color: inherit;
+  padding: 12px;
+}
+
+listview {
+  lines: 8;
+}
+
+element {
+  children: [element-icon, element-text];
+  text-color: @foreground;
+}
+
+element-icon {
+  padding: 10px 10px;
+}
+
+element-text {
+  padding: 10px 0;
+  text-color: inherit;
+}
+
+element-text selected {
+  text-color: @blue;
+}

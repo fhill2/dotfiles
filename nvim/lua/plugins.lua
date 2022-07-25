@@ -12,28 +12,40 @@
 -- all plugins put in /start by default
 local use = require "packer".use
 
+-- attempt to find local repo, otherwise fallback to git
+local local_or_git = function(path, fallback)
+  if path:sub(1, 1) == "~" then
+    path = vim.loop.os_homedir() .. path:sub(2, -1)
+  end
+  if vim.loop.fs_stat(path) then
+    return path
+  else
+    return fallback
+  end
+end
+
 use({
-  "GustavoKatel/sidebar.nvim",
+  "sidebar-nvim/sidebar.nvim",
   config = function()
     require("plugin.sidebar.init")
   end,
 })
 
-
-use({
-  "kevinhwang91/nvim-bqf",
-  ft = "qf",
-  config = function()
-    require("plugin.bqf")
-  end,
-})
+use("rcarriga/nvim-notify")
+-- use({
+--   "kevinhwang91/nvim-bqf",
+--   ft = "qf",
+--   config = function()
+--     require("plugin.bqf")
+--   end,
+-- })
 
 -- use({ "wbthomason/packer.nvim", opt = true })
 
 
 use("skywind3000/asyncrun.vim")
 use({
-  "akinsho/nvim-bufferline.lua",
+  "akinsho/bufferline.nvim",
   config = function()
     require("plugin.bufferline")
   end,
@@ -55,7 +67,11 @@ use({
 
 use {
   'nvim-lualine/lualine.nvim',
-  requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+  after = "nvim-base16",
+  requires = {
+    { 'kyazdani42/nvim-web-devicons' },
+    { "RRethy/nvim-base16" }
+  },
   config = function() require("plugin/lualine") end
 
 }
@@ -78,12 +94,9 @@ use({ "kwkarlwang/bufresize.nvim",
   config = function() require "plugin/bufresize" end
 })
 
--- use({
---   "windwp/nvim-spectre",
---   module = "spectre",
---   wants = { "plenary.nvim", "popup.nvim" },
---   requires = { "nvim-lua/popup.nvim", "nvim-lua/plenary.nvim" },
--- })
+
+use({ "nvim-pack/nvim-spectre",
+config = function() require"plugin.spectre" end })
 
 use({
   "rafcamlet/nvim-luapad",
@@ -97,7 +110,6 @@ use({
   config = function() require "lsp.signature" end
 }) -- auto floating signature help - nvim compe doesnt support
 
-use("tjdevries/lsp_extensions.nvim")
 
 
 use("nvim-lua/lsp-status.nvim")
@@ -164,15 +176,15 @@ use({ "sudormrfbin/cheatsheet.nvim",
 })
 
 
-use({ "npxbr/glow.nvim", run = "GlowInstall" })
+use({"ellisonleao/glow.nvim", run = "GlowInstall" })
 
 use("honza/vim-snippets")
-use({
-  "akinsho/nvim-toggleterm.lua",
-  config = function()
-    require("plugin.toggleterm")
-  end,
-})
+-- use({
+--   "akinsho/toggleterm.nvim",
+--   config = function()
+--     require("plugin.toggleterm")
+--   end,
+-- })
 
 use("stsewd/sphinx.nvim")
 
@@ -181,7 +193,7 @@ use({ "voldikss/vim-floaterm", opt = true })
 
 -- use("lambdalisue/glyph-palette.vim")
 -- use("ryanoasis/vim-devicons")
-use("tjdevries/colorbuddy.vim")
+-- use("tjdevries/colorbudnvim-bufferline.lua",dy.nvim")
 
 
 
@@ -216,7 +228,7 @@ use({
 use({ "nvim-treesitter/playground", cmd = "TSHighlightCapturesUnderCursor" })
 --use("nvim-treesitter/nvim-treesitter-refactor")
 use("nvim-treesitter/nvim-treesitter-textobjects")
-use("romgrk/nvim-treesitter-context")
+use("nvim-treesitter/nvim-treesitter-context")
 use("RRethy/nvim-treesitter-textsubjects")
 
 
@@ -302,6 +314,7 @@ use("kmonad/kmonad-vim")
 use("fladson/vim-kitty")
 use("direnv/direnv.vim")
 use("mboughaba/i3config.vim")
+use("Fymyte/rasi.vim")
 -- syntax highlighting (from vim-polyglot list)
 -- https://github.com/sheerun/vim-polyglot
 use("MTDL9/vim-log-highlighting")
@@ -407,7 +420,9 @@ use({
   run = function() vim.fn["mkdp#util#install"]() end,
 })
 
-
+use({ "RRethy/nvim-base16",
+  config = function() require("colorscheme") end
+})
 
 -- use({
 --   "hkupty/iron.nvim",

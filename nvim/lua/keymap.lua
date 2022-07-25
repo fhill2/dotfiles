@@ -1,6 +1,4 @@
-local api = vim.api
 local wk = require("which-key")
-local telescope_actions = require "plugin.telescope.actions"
 --if leader key is space all of my custom mappings are added with mappings added by plugins
 vim.g.mapleader = [[\]]
 vim.g.maplocalleader = ","
@@ -10,39 +8,34 @@ wk.setup({ -- custom config
 
 
 local normal_keymaps = {
-  a = {
-    name = "+misc",
-    ["w"] = {
-      function()
-        require("plugin.nui.popup").popup({ close = true })
-      end,
-      "nui - close all floating windows",
-    },
-    --["<space>aq"] = { function() require("plugin/nui").focus() end, "nui - focus cycle" },
-    -- ["s"] = {
+    -- a = {
     --   function()
-    --     require("omnimenu").show_telescope()
+    --     require("plugin.nui.popup").popup({ close = true })
     --   end,
-    --   "omnimenu",
+    --   "nui - close all floating windows",
     -- },
-    ["h"] = {
-      function()
-        require("util/old").send({ whole = true })
-      end,
-      "old - send whole file open window",
-    },
-    ["j"] = {
-      function()
-        require("util/old").show()
-      end,
-      "old - open window",
-    },
+    a = {
+  --    ["h"] = {
+  --      function()
+  --        require("util/old").send({ whole = true })
+  --      end,
+  --      "old - send whole file open window",
+  --    },
+  -- 
+  --    o = {
+  --    ["j"] = {
+  --      function()
+  --        require("util/old").show()
+  --      end,
+  --      "old - open window",
+  --    },
+  --  },
 
-    ["d"] = { "<cmd>vsp<cr>", "new | window" },
-    ["f"] = { "<cmd>sp<cr>", "new -- window" },
-    ["c"] = { "<cmd>bo 30split<cr>", "new btm window" },
-    ["v"] = { "<cmd>to 31split<cr>", "new top window " },
-  },
+     ["d"] = { "<cmd>vsp<cr>", "new | window" },
+     ["s"] = { "<cmd>sp<cr>", "new -- window" },
+     ["f"] = { "<cmd>bo 30split<cr>", "new btm window" },
+     ["a"] = { "<cmd>to 31split<cr>", "new top window " },
+   },
   b = {
     name = "+buffer",
     ["b"] = { "<cmd>Telescope buffers show_all_buffers=true<cr>", "telescope Buffers" },
@@ -55,7 +48,7 @@ local normal_keymaps = {
     -- "b"] = { "<cmd>:e #<cr>", "Switch to Other Buffer" },
     --["d"] = { "<cmd>:bd<CR>", "Delete Buffer" },
   },
-  c = { "<cmd>NvimTreeToggle<cr>", "NvimTreeToggle" },
+  -- c = { "<cmd>NvimTreeToggle<cr>", "NvimTreeToggle" },
   s = {
     name = "+search",
     ["g"] = { "<cmd>Telescope live_grep<cr>", "telescope Live_Grep cwd interactive" },
@@ -66,14 +59,6 @@ local normal_keymaps = {
     ["m"] = { "<cmd>Telescope marks<cr>", "Jump to Mark" },
 
     ["r"] = { "<cmd>lua require('spectre').open()<CR>", "Replace (Spectre)" },
-  },
-  d = {
-    name = "+dirs",
-    -- ["d"] = { '<cmd>lua require("plugin.telescope.wrap").ff_dirs_only()<cr>', "Telescope - dirs only - cwd" },
-    -- ["f"] = { '<cmd>lua require("plugin.telescope.wrap").ff_dirs_only_home()<cr>', "Telescope - dirs only - home" },
-    --["z"] = { "<cmd>Telescope zoxide list<cr>", "telescope zoxide" },
-    --["p"] = { "<cmd>lua require'telescope'.extensions.project.project()<cr>", "telescope project" },
-    --["r"] = { [[<cmd>lua require"plugin.telescope.repo".show()<cr>]], "telescope cl+repo" },
   },
   e = {
     name = "+errors",
@@ -100,13 +85,7 @@ local normal_keymaps = {
       "show snippets [Snippy]",
     },
   },
-  -- n = {
-  -- name = "+notes",
-  --["n"] = { [[<cmd>lua require"plugin.telescope.wrap".notes_files()<cr>]], "telescope notes - files" },
-  -- ["n"] = { '<cmd>lua require("plugin.telescope.wrap").ff_files_notes()<cr>', "Telescope - files - notes" },
-  -- ["d"] = { '<cmd>lua require("plugin.telescope.wrap").ff_dirs_only_notes()<cr>', "Telescope - dirs - notes" },
-  --["d"] = { [[<cmd>lua require"plugin.telescope.wrap".notes_dirs()<cr>]], "telescope notes - dirs" },
-  -- },
+
   q = {
     name = "+qf",
     ["q"] = { [[<cmd>:copen<cr>]], "open qf" },
@@ -116,38 +95,29 @@ local normal_keymaps = {
     name = "+run",
     ["r"] = { [[<cmd>lua require"util.run.init".run()<cr>]], "run" },
     ["q"] = { [[<cmd>lua require"util.run.init".run_qtile()<cr>]], "run qtile" },
-  },
-  tab = {
-    name = "+tabpages",
-    --["<tab>"] = { "<cmd>tabnew<CR>", "New Tab" },
-    ["n"] = { "<cmd>tabnext<CR>", "Next" },
-    ["d"] = { "<cmd>tabclose<CR>", "Close" },
-    ["p"] = { "<cmd>tabprevious<CR>", "Previous" },
-    ["]"] = { "<cmd>tabnext<CR>", "Next" },
-    ["["] = { "<cmd>tabprevious<CR>", "Previous" },
-    ["f"] = { "<cmd>tabfirst<CR>", "First" },
-    ["l"] = { "<cmd>tablast<CR>", "Last" },
-  },
+  }, 
   f = {
     name = "+files",
     -- ["g"] = { '<cmd>lua require("plugin.telescope.wrap").ff_files_home()<cr>', "Telescope - files - home" },
     -- ["f"] = { '<cmd>lua require("plugin.telescope.wrap").ff_files()<cr>', "Telescope - files - cwd" },
-    ["d"] = { '<cmd>lua require("plugin.telescope.wrap").fb_dot()<cr>', "Telescope file_browser - dotfiles" },
-    ["f"] = { '<cmd>lua require("plugin.telescope.wrap").fb_cwd()<cr>', "Telescope file_browser - cwd" },
-    ["v"] = { '<cmd>lua require("plugin.telescope.wrap").fb_dev()<cr>', "Telescope file_browser - dev" },
-    ["h"] = { '<cmd>lua require("plugin.telescope.wrap").fb_home()<cr>', "Telescope file_browser - home" },
-    ["n"] = { '<cmd>lua require("plugin.telescope.wrap").fb_notes()<cr>', "Telescope file_browser - notes" },
-    ["b"] = { '<cmd>lua require("plugin.telescope.wrap").fb()<cr>', "telescope File Browser" },
+    ["d"] = { '<cmd>lua require("plugin.telescope.wrap").fb_dot()<cr>', "Telescope fb - dotfiles" },
+    ["f"] = { '<cmd>lua require("plugin.telescope.wrap").fb_cwd()<cr>', "Telescope fb  - cwd" },
+    ["v"] = { '<cmd>lua require("plugin.telescope.wrap").fb_dev()<cr>', "Telescope fb - dev" },
+    ["h"] = { '<cmd>lua require("plugin.telescope.wrap").fb_home()<cr>', "Telescope fb - home" },
+    ["r"] = { '<cmd>lua require("plugin.telescope.wrap").fb_repos()<cr>', "Telescope fb - repos" },
+    ["n"] = { '<cmd>lua require("plugin.telescope.wrap").fb_notes()<cr>', "Telescope fb - notes" },
+    ["m"] = { '<cmd>lua require("plugin.telescope.wrap").fb_notes_tags()<cr>', "Telescope fb - notes tags" },
+    ["b"] = { '<cmd>lua require("plugin.telescope.wrap").fb_cbuf()<cr>', "telescope fb - current buffer" },
+    ["n"] = { '<cmd>lua require("plugin.telescope.wrap").fb()<cr>', "telescope fb" },
     ["a"] = { "<cmd>Telescope find_files<cr>", "telescope Find Files" },
     ["t"] = { "<cmd>Telescope oldfiles<cr>", "telescope oldfiles (recent)" },
-    ["r"] = { '<cmd>lua require("plugin.telescope.wrap").ff_dirs_repos()<cr>', "Telescope - dirs - repos" },
-    ["e"] = { '<cmd>lua require("plugin.telescope.wrap").ff_files_repos()<cr>', "Telescope file_browser - dotfiles" },
+
   },
-  p = {
-    name = "+neorg",
-    ["p"] = { "<cmd>Neorg vlc save<cr>", "vlc save link" },
-    ["o"] = { "<cmd>Neorg vlc open<cr>", "vlc open link" },
-  },
+  -- p = {
+  --   name = "+neorg",
+  --   ["p"] = { "<cmd>Neorg vlc save<cr>", "vlc save link" },
+  --   ["o"] = { "<cmd>Neorg vlc open<cr>", "vlc open link" },
+  -- },
   w = {
     name = "+windows",
     ["e"] = { "<C-W>p", "other-window" },
@@ -171,11 +141,12 @@ local normal_keymaps = {
   ["<space>"] = {
     function()
       --require("plugin.telescope.find_frecency").show({ cwd = '/home/f1/dev/notes'})
-      require("plugin.telescope.wrap").ff_files_dirs_home()
+      -- require("plugin.telescope.wrap").ff_files_dirs_home()
       --{ cwd = '/home/f1/dev/notes/dev/dev-linux/nvim' }
     end,
     "telescope find_frecency",
   },
+  ["<space>"] = {"<cmd>Telescope resume<cr>", "Telescope resume" },
   ["?"] = { [[<cmd>lua require"cheatsheet".show_cheatsheet_telescope({bundled_cheatsheets=false, bundled_plugin_cheatsheets=false})<cr>]], "split-window-right" },
 }
 
@@ -187,14 +158,12 @@ require('legendary').bind_whichkey(normal_keymaps, { prefix = "<space>" }, false
 
 -- visual mode mappings
 local visual_keymaps = {
-  a = {
-    ["g"] = {
+    o = {
       function()
         require("util/old").send()
       end,
       "old - send visual open window",
     },
-  },
   m = {
     name = "+snippets",
     ["m"] = {
@@ -204,10 +173,11 @@ local visual_keymaps = {
       "save snippet - visual [Snippy]",
     },
   },
+
+    p = { function() require('legendary').find('commands') end, "Legendary - Commands" },
   l = {
     name = "+legendary",
     ["k"] = { function() require('legendary').find('keymaps') end, "Legendary - Keymaps" },
-    ["c"] = { function() require('legendary').find('commands') end, "Legendary - Commands" },
     ["l"] = { function() require('plugin.legendary').find_by_desc('[LSP]') end, "Legendary - [LSP]" },
   },
   f = { function() _G.format_github_repos_dotbot() end, "dotbot - format github repos yaml" },
@@ -215,9 +185,41 @@ local visual_keymaps = {
 
 wk.register(visual_keymaps, { prefix = "<space>", mode = "v" })
 require('legendary').bind_whichkey(visual_keymaps, { prefix = "<space>", mode = "v" }, false)
-
-
-
+    --["<space>aq"] = { function() require("plugin/nui").focus() end, "nui - focus cycle" },
+    -- ["s"] = {
+    --   function()
+    --     require("omnimenu").show_telescope()
+    --   end,
+    --   "omnimenu",
+    -- },
+  -- d = {
+  --   name = "+dirs",
+  --   -- ["d"] = { '<cmd>lua require("plugin.telescope.wrap").ff_dirs_only()<cr>', "Telescope - dirs only - cwd" },
+  --   -- ["f"] = { '<cmd>lua require("plugin.telescope.wrap").ff_dirs_only_home()<cr>', "Telescope - dirs only - home" },
+  --   --["z"] = { "<cmd>Telescope zoxide list<cr>", "telescope zoxide" },
+  --   --["p"] = { "<cmd>lua require'telescope'.extensions.project.project()<cr>", "telescope project" },
+  --   --["r"] = { [[<cmd>lua require"plugin.telescope.repo".show()<cr>]], "telescope cl+repo" },
+  -- },
+ -- ["Tab"] = {
+  --   name = "+tabpages",
+  --   --["<tab>"] = { "<cmd>tabnew<CR>", "New Tab" },
+  --   ["n"] = { "<cmd>tabnext<CR>", "Next" },
+  --   ["d"] = { "<cmd>tabclose<CR>", "Close" },
+  --   ["p"] = { "<cmd>tabprevious<CR>", "Previous" },
+  --   ["]"] = { "<cmd>tabnext<CR>", "Next" },
+  --   ["["] = { "<cmd>tabprevious<CR>", "Previous" },
+  --   ["f"] = { "<cmd>tabfirst<CR>", "First" },
+  --   ["l"] = { "<cmd>tablast<CR>", "Last" },
+  -- },
+    -- ["r"] = { '<cmd>lua require("plugin.telescope.wrap").ff_dirs_repos()<cr>', "Telescope - dirs - repos" },
+    -- ["e"] = { '<cmd>lua require("plugin.telescope.wrap").ff_files_repos()<cr>', "Telescope file_browser - dotfiles" },
+  -- n = {
+  -- name = "+notes",
+  --["n"] = { [[<cmd>lua require"plugin.telescope.wrap".notes_files()<cr>]], "telescope notes - files" },
+  -- ["n"] = { '<cmd>lua require("plugin.telescope.wrap").ff_files_notes()<cr>', "Telescope - files - notes" },
+  -- ["d"] = { '<cmd>lua require("plugin.telescope.wrap").ff_dirs_only_notes()<cr>', "Telescope - dirs - notes" },
+  --["d"] = { [[<cmd>lua require"plugin.telescope.wrap".notes_dirs()<cr>]], "telescope notes - dirs" },
+  -- },
 
 -- old mappings 2022
 -- wk.register({
@@ -286,26 +288,26 @@ require('legendary').bind_whichkey(visual_keymaps, { prefix = "<space>", mode = 
 
 
 -- toggleterm
-local opts = { noremap = true }
-function _G.set_terminal_keymaps()
-  vim.api.nvim_buf_set_keymap(0, "t", "<C-Space>", [[<C-\><C-n>]], opts)
-  -- vim.api.nvim_buf_set_keymap(0, 't', 'jk', [[<C-\><C-n>]], opts)
-  --  vim.api.nvim_buf_set_keymap(0, 't', '<C-h>', [[<C-\><C-n><C-W>h]], opts)
-  --vim.api.nvim_buf_set_keymap(0, 't', '<C-j>', [[<C-\><C-n><C-W>j]], opts)
-  --vim.api.nvim_buf_set_keymap(0, 't', '<C-k>', [[<C-\><C-n><C-W>k]], opts)
-  --vim.api.nvim_buf_set_keymap(0, 't', '<C-l>', [[<C-\><C-n><C-W>l]], opts)
-  vim.api.nvim_buf_set_keymap(0, "t", "<A-1>", [[<cmd>lua focus_toggleterm(1)<cr>]], opts)
-  vim.api.nvim_buf_set_keymap(0, "t", "<A-2>", [[<cmd>lua focus_toggleterm(2)<cr>]], opts)
-  vim.api.nvim_buf_set_keymap(0, "t", "<A-3>", [[<cmd>lua focus_toggleterm(3)<cr>]], opts)
-end
+-- local opts = { noremap = true }
+-- function _G.set_terminal_keymaps()
+--   vim.api.nvim_buf_set_keymap(0, "t", "<C-Space>", [[<C-\><C-n>]], opts)
+--   -- vim.api.nvim_buf_set_keymap(0, 't', 'jk', [[<C-\><C-n>]], opts)
+--   --  vim.api.nvim_buf_set_keymap(0, 't', '<C-h>', [[<C-\><C-n><C-W>h]], opts)
+--   --vim.api.nvim_buf_set_keymap(0, 't', '<C-j>', [[<C-\><C-n><C-W>j]], opts)
+--   --vim.api.nvim_buf_set_keymap(0, 't', '<C-k>', [[<C-\><C-n><C-W>k]], opts)
+--   --vim.api.nvim_buf_set_keymap(0, 't', '<C-l>', [[<C-\><C-n><C-W>l]], opts)
+--   -- vim.api.nvim_buf_set_keymap(0, "t", "<A-1>", [[<cmd>lua focus_toggleterm(1)<cr>]], opts)
+--   -- vim.api.nvim_buf_set_keymap(0, "t", "<A-2>", [[<cmd>lua focus_toggleterm(2)<cr>]], opts)
+--   -- vim.api.nvim_buf_set_keymap(0, "t", "<A-3>", [[<cmd>lua focus_toggleterm(3)<cr>]], opts)
+-- end
 
 local a = require("util/keymap")
-a.nnoremap("<A-1>", [[<cmd>lua focus_toggleterm(1)<cr>]])
-a.nnoremap("<A-2>", [[<cmd>lua focus_toggleterm(2)<cr>]])
-a.nnoremap("<A-3>", [[<cmd>lua focus_toggleterm(3)<cr>]])
+-- a.nnoremap("<A-1>", [[<cmd>lua focus_toggleterm(1)<cr>]])
+-- a.nnoremap("<A-2>", [[<cmd>lua focus_toggleterm(2)<cr>]])
+-- a.nnoremap("<A-3>", [[<cmd>lua focus_toggleterm(3)<cr>]])
 
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
-vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
+-- vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 
 --- NORMAL MAPPINGS ----
 
@@ -341,6 +343,13 @@ a.cnoremap("<C-j>", "<Down>")
 a.cnoremap("<C-k>", "<Up>")
 a.cnoremap("<C-l>", "<Right>")
 
+a.nnoremap("<C-Space>", [[<cmd>lua require"plugin.telescope.actions".toggle_focus_picker()<cr>]])
+a.inoremap("<C-Space>", [[<cmd>lua require"plugin.telescope.actions".toggle_focus_picker()<cr>]])
+a.nnoremap("<C-a>", [[<cmd>lua require"plugin.telescope.actions".toggle_focus_previewer()<cr>]])
+a.inoremap("<C-a>", [[<cmd>lua require"plugin.telescope.actions".toggle_focus_previewer()<cr>]])
+
+a.nnoremap("<C-.>", [[<cmd>lua require"plugin.telescope.actions".close_or_resume()<cr>]])
+a.inoremap("<C-.>", [[<cmd>lua require"plugin.telescope.actions".close_or_resume()<cr>]])
 --nmap <space>lP :call Paste(v:register, "l", "P")<CR>
 --a.nnore('p', 'call Paste(v:register, "l", "p")<CR>')
 --a.nmap('P', ':call Paste(v:register, "v", "P")<CR>')

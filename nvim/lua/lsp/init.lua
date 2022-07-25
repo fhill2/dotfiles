@@ -60,7 +60,7 @@ vim.lsp.protocol.CompletionItemKind = {
 
 
 -- https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Avoiding-LSP-formatting-conflicts
-local lsp_formatting = function(bufnr)
+_G.lsp_formatting = function(bufnr)
   vim.lsp.buf.format({
     filter = function(clients)
       -- filter out clients that you don't want to use
@@ -79,16 +79,17 @@ local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
 local on_attach = function(client, bufnr)
   --https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Avoiding-LSP-formatting-conflicts
-  if client.supports_method("textDocument/formatting") then
-    vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      group = augroup,
-      buffer = bufnr,
-      callback = function()
-        lsp_formatting(bufnr)
-      end,
-    })
-  end
+  -- enable format on save
+  -- if client.supports_method("textDocument/formatting") then
+  --   vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+  --   vim.api.nvim_create_autocmd("BufWritePre", {
+  --     group = augroup,
+  --     buffer = bufnr,
+  --     callback = function()
+  --       lsp_formatting(bufnr)
+  --     end,
+  --   })
+  -- end
 
   --https://github.com/mjlbach/nix-dotfiles/blob/master/home-manager/configs/neovim/init.lua
 
@@ -101,9 +102,9 @@ local on_attach = function(client, bufnr)
   --     command! -range FormatRange  execute 'lua FormatRange()'
   --     ]])
 
-  -- vim.cmd([[
-  --     command! Format execute 'lua vim.lsp.buf.formatting()'
-  --     ]])
+  vim.cmd([[
+      command! Format execute 'lua _G.lsp_formatting()'
+      ]])
 
   require('legendary').bind_keymaps({
     { 'gr', require('navigator.reference').async_ref, description = "[LSP] navigator - references definitions" },
@@ -165,7 +166,6 @@ local on_attach = function(client, bufnr)
     --{ '<c-k>', 'signature_help()', '' },
   })
 
-  print("on attach")
 
 end -- end on_attach
 

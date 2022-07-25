@@ -5,6 +5,7 @@ local my_utils = require "plugin.telescope.util"
 local state = require "telescope.state"
 local pickers = require "telescope.pickers"
 local action_state = require "telescope.actions.state"
+local fb_utils = require "telescope._extensions.file_browser.utils"
 
 local function fp()
   local entry = entry()
@@ -45,13 +46,13 @@ function A.live_grep(prompt_bufnr)
   require("telescope.builtin").live_grep({ cwd = fp() })
 end
 
-function A.create_note(prompt_bufnr)
-  close_or_exit(prompt_bufnr)
-  require("util.fs").create_file_prompt({
-    dest = fp(),
-    ext = "norg",
-  })
-end
+-- function A.create_note(prompt_bufnr)
+--   close_or_exit(prompt_bufnr)
+--   require("util.fs").create_file_prompt({
+--     dest = fp(),
+--     ext = "norg",
+--   })
+-- end
 
 function A.resize(prompt_bufnr)
   local picker = action_state.get_current_picker(prompt_bufnr)
@@ -66,7 +67,7 @@ function A.close_from_editor()
   pickers.on_close_prompt(my_utils.find_prompt())
 end
 
-function A.toggle_picker()
+function A.toggle_focus_picker()
   local prompt_bufnr = my_utils.find_prompt()
   if not prompt_bufnr then return end
 
@@ -80,14 +81,12 @@ function A.toggle_picker()
 end
 
 local last_win
-function A.toggle_previewer()
+function A.toggle_focus_previewer()
   local picker = my_utils.find_picker()
   if not picker then return end
 
   local cwin = vim.api.nvim_get_current_win()
-  dump(picker.preview_win)
   local previewer_focused = cwin == picker.preview_win
-  dump(previewer_focused)
   if previewer_focused then
     return last_win and vim.api.nvim_set_current_win(_G.current_editor_win) or vim.api.nvim_set_current_win(last_win)
   else
@@ -96,13 +95,39 @@ function A.toggle_previewer()
   end
 end
 
-function A.which_key(prompt_bufnr, opts)
-  -- fix for standard preview - which key errors
+-- function A.which_key(prompt_bufnr, opts)
+--   -- fix for standard preview - which key errors
+--   local picker = action_state.get_current_picker(prompt_bufnr)
+--   local old_preview = picker.preview_win
+--   picker.preview_win = nil
+--   actions.which_key(prompt_bufnr, opts)
+--   picker.preview_win = old_preview
+-- end
+
+function A.fb_change_depth(prompt_bufnr)
   local picker = action_state.get_current_picker(prompt_bufnr)
-  local old_preview = picker.preview_win
-  picker.preview_win = nil
-  actions.which_key(prompt_bufnr, opts)
-  picker.preview_win = old_preview
+  local finder = picker.finder
+  local opts = picker.initial_opts
+  if not opts.depth then
+    opts.depth = 1
+  else
+    opts.depth = false
+  end
+  actions.close(prompt_bufnr)
+  require "telescope".extensions.file_browser.file_browser(opts)
+end
+
+function A.close_or_resume()
+local picker = my_utils.find_picker()
+-- if vim.tbl_contains({picker.prompt_win, picker.preview_win}, vim.api.nvim_get_current_win()) then
+  -- print("telescope selection")
+-- end
+if picker == nil then
+  vim.cmd("Telescope resume")
+else
+actions.close(picker.prompt_bufnr)
+end
+
 end
 
 return A

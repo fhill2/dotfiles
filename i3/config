@@ -1,4 +1,3 @@
-# set $mod Mod4
 font pango:DejaVuSansMono Nerd Font Mono 12
 
 # exec --no-startup-id dex --autostart --environment i3
@@ -7,9 +6,30 @@ exec --no-startup-id nm-applet
 
 exec --no-startup-id i3_daemon 2>&1 | tee -a $HOME/logs/i3_daemon.log & disown
 
-# exec_always --no-startup-id kitti3 --name tree --position CB --shape 1.0 0.4 -- watch -n 0.9 ~/dev/bin/i3_get_tree
-# exec_always --no-startup-id kitti3 --name wininfo --position CB --shape 1.0 0.25 -- i3_watch_get
-# exec_always --no-startup-id kitti3 --name floater --position CB --shape 1.0 0.25 -- kitty
+# Start flavours colors
+## Base16 Material Darker
+# Author: Nate Peterson
+#
+# You can use these variables anywhere in the i3 configuration file.
+
+set $base00 #212121
+set $base01 #303030
+set $base02 #353535
+set $base03 #4A4A4A
+set $base04 #B2CCD6
+set $base05 #EEFFFF
+set $base06 #EEFFFF
+set $base07 #FFFFFF
+set $base08 #F07178
+set $base09 #F78C6C
+set $base0A #FFCB6B
+set $base0B #C3E88D
+set $base0C #89DDFF
+set $base0D #82AAFF
+set $base0E #C792EA
+set $base0F #FF5370
+# End flavours colors
+
 show_marks yes
 focus_follows_mouse no
 
@@ -22,23 +42,41 @@ workspace_layout tabbed
 # when custom i3 scripts change focus, the previous focused container is marked urgent. this disables this
 focus_on_window_activation focus
 
+
+# Start flavours client-properties
+# Basic color configuration using the Base16 variables for windows and borders.
+# Property Name         Border  BG      Text    Indicator Child Border
+client.focused          $base05 $base0D $base00 $base0D $base0D
+client.focused_inactive $base01 $base03 $base05 $base03 $base01
+client.unfocused        $base01 $base00 $base05 $base01 $base01
+client.urgent           $base08 $base08 $base00 $base08 $base08
+client.placeholder      $base00 $base00 $base05 $base00 $base00
+client.background       $base07
+# End flavours client-properties
+
+for_window [title="Event Tester"] floating enable
+for_window [class="OtoDecks"] floating enable
+
+# OLD
+
+# set $mod Mod4
+# exec_always --no-startup-id kitti3 --name tree --position CB --shape 1.0 0.4 -- watch -n 0.9 ~/dev/bin/i3_get_tree
+# exec_always --no-startup-id kitti3 --name wininfo --position CB --shape 1.0 0.25 -- i3_watch_get
+# exec_always --no-startup-id kitti3 --name floater --position CB --shape 1.0 0.25 -- kitty
 # 4.21. Changing colors
 #border - background - text - indicator - child_border
 # indicator = used to indicate where a new window will be opened
 # 
-client.focused          #4c7899 #285577 #ffffff #2e9ef4   #285577
-# client.focused          #ffed33 #D53AD5 #3AD5B6 #9AD53A
-client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
-client.unfocused        #333333 #222222 #888888 #292d2e   #222222
-client.urgent           #2f343a #900000 #ffffff #900000   #900000
-client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+# client.focused          #4c7899 #285577 #ffffff #2e9ef4   #285577
+# # client.focused          #ffed33 #D53AD5 #3AD5B6 #9AD53A
+# client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
+# client.unfocused        #333333 #222222 #888888 #292d2e   #222222
+# client.urgent           #2f343a #900000 #ffffff #900000   #900000
+# client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+#
+# client.background       #ffffff
 
-client.background       #ffffff
 
-
-for_window [title="Event Tester"] floating enable
-
-# OLD
 # exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 

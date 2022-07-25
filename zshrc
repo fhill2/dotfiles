@@ -21,7 +21,7 @@ zplug "marlonrichert/zsh-edit"
 
 # https://github.com/zsh-users/zsh-syntax-highlighting/issues/871
 ZVM_INIT_MODE='sourcing'
-source ~/dev/shell/zsh-src/vi-mode.zsh
+source ~/dev/zsh-src/vi-mode.zsh
 
 if ! zplug check --verbose; then
   printf "Install? [y/N]: "
@@ -181,7 +181,7 @@ export FZF_DEFAULT_COMMAND='fd --type f --exclude .git --follow --hidden'
 # zoxide doesnt read from $FZF_DEFAULT_OPTS by default
 export _ZO_FZF_OPTS="$FZF_DEFAULT_OPTS"
 
-source ~/dev/shell/scripts/fzf-wiki-examples-using.zsh
+# source ~/dev/shell/scripts/fzf-wiki-examples-using.zsh
 
 
 tmuxit() {

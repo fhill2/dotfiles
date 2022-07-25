@@ -103,130 +103,130 @@ function fs.trash_current_file()
   vim.cmd("Bdelete! " .. vim.api.nvim_get_current_buf())
 end
 
-function fs.create_template(opts)
-  -- not using
-  dump("create template called")
-  -- dest
-  -- template --> filename in templates folder (source)
-  local template_dir = ("%s/templates"):format(f.dev_cl)
-  if not uv.fs_stat(template_dir) then
-    vim.api.nvim_err_writeln("cant find templates folder")
-    return
-  end
-  if not opts.dest then
-    vim.api.nvim_err_writeln("specify opt.dest")
-    return
-  end
-
-  local on_submit = function(value)
-    local filename = value
-    -- copy default template file, then rename to input given name, then load file
-    local dest = ("%s/%s"):format(opts.dest, filename)
-    local source = ("%s/%s"):format(template_dir, opts.template)
-    fs.copy_file({
-      source = source,
-      dest = dest,
-    })
-  end
-
-  f.prompt({
-    title = ("create File from Template - %s/x"):format(opts.dest),
-    on_submit = on_submit,
-  })
-end
-
-function fs.create_file_prompt(opts)
-  local opts = opts or {}
-  f.prompt({
-    title = ("create File - %s/x"):format(opts.dest),
-    on_submit = function(value)
-      fs.create_file({
-        dest = ("%s/%s"):format(opts.dest, value),
-        ext = opts.ext,
-        open = true,
-      })
-    end,
-  })
-end
+-- function fs.create_template(opts)
+--   -- not using
+--   dump("create template called")
+--   -- dest
+--   -- template --> filename in templates folder (source)
+--   local template_dir = ("%s/templates"):format(f.dev_cl)
+--   if not uv.fs_stat(template_dir) then
+--     vim.api.nvim_err_writeln("cant find templates folder")
+--     return
+--   end
+--   if not opts.dest then
+--     vim.api.nvim_err_writeln("specify opt.dest")
+--     return
+--   end
+--
+--   local on_submit = function(value)
+--     local filename = value
+--     -- copy default template file, then rename to input given name, then load file
+--     local dest = ("%s/%s"):format(opts.dest, filename)
+--     local source = ("%s/%s"):format(template_dir, opts.template)
+--     fs.copy_file({
+--       source = source,
+--       dest = dest,
+--     })
+--   end
+--
+--   f.prompt({
+--     title = ("create File from Template - %s/x"):format(opts.dest),
+--     on_submit = on_submit,
+--   })
+-- end
+--
+-- function fs.create_file_prompt(opts)
+--   local opts = opts or {}
+--   f.prompt({
+--     title = ("create File - %s/x"):format(opts.dest),
+--     on_submit = function(value)
+--       fs.create_file({
+--         dest = ("%s/%s"):format(opts.dest, value),
+--         ext = opts.ext,
+--         open = true,
+--       })
+--     end,
+--   })
+-- end
 
 --https://github.com/kyazdani42/nvim-tree.lua/blob/ec3f10e2116f344d9cc5c9980bddf7819f27d8ae/lua/nvim-tree/fs.lua#L22
-function fs.create_file(opts)
-  -- dest
-  -- ext = force file to be this extension
-  -- force = disables prompting if file exists - will overrwrite
-  -- silent = no print
-  -- creates a BLANK file
-  -- fs.write also creates a blank file and writes to it
-  local opts = opts or {}
+-- function fs.create_file(opts)
+--   -- dest
+--   -- ext = force file to be this extension
+--   -- force = disables prompting if file exists - will overrwrite
+--   -- silent = no print
+--   -- creates a BLANK file
+--   -- fs.write also creates a blank file and writes to it
+--   local opts = opts or {}
+--
+--   -- make sure ext always has .
+--   if opts.ext and not opts.ext:match("%.") then
+--     opts.ext = "." .. opts.ext
+--   end
+--   -- if I didnt specify an extension, use the overridable extension
+--   -- if I specify another extension, use mine
+--   if not f.get_filename(opts.dest):match("%.") and opts.ext then
+--     opts.dest = opts.dest .. opts.ext
+--   end
+--
+--   if not opts.force and uv.fs_access(opts.dest, "r") ~= false then
+--     local utils = require("nvim-tree.utils")
+--     print(file .. " already exists. Overwrite? y/n")
+--     local ans = utils.get_user_input_char()
+--     utils.clear_prompt()
+--     if ans ~= "y" then
+--       return
+--     end
+--   end
+--
+--
+--   uv.fs_open(
+--     opts.dest,
+--     "w",
+--     420,
+--     vim.schedule_wrap(function(err, fd)
+--       if err then
+--         vim.api.nvim_err_writeln("Couldn't create file " .. file)
+--       else
+--         if not opts.silent then print(opts.dest .. " - successfully created") end
+--         uv.fs_close(fd)
+--       end
+--     end)
+--   )
+--   if opts.open then vim.cmd(("e %s"):format(opts.dest)) end
+-- end
 
-  -- make sure ext always has .
-  if opts.ext and not opts.ext:match("%.") then
-    opts.ext = "." .. opts.ext
-  end
-  -- if I didnt specify an extension, use the overridable extension
-  -- if I specify another extension, use mine
-  if not f.get_filename(opts.dest):match("%.") and opts.ext then
-    opts.dest = opts.dest .. opts.ext
-  end
-
-  if not opts.force and uv.fs_access(opts.dest, "r") ~= false then
-    local utils = require("nvim-tree.utils")
-    print(file .. " already exists. Overwrite? y/n")
-    local ans = utils.get_user_input_char()
-    utils.clear_prompt()
-    if ans ~= "y" then
-      return
-    end
-  end
-
-
-  uv.fs_open(
-    opts.dest,
-    "w",
-    420,
-    vim.schedule_wrap(function(err, fd)
-      if err then
-        vim.api.nvim_err_writeln("Couldn't create file " .. file)
-      else
-        if not opts.silent then print(opts.dest .. " - successfully created") end
-        uv.fs_close(fd)
-      end
-    end)
-  )
-  if opts.open then vim.cmd(("e %s"):format(opts.dest)) end
-end
-
-function fs.copy_file(opts)
-  local opts = opts or {}
-  -- copy existing file
-  local parent_exists = uv.fs_stat(f.parent(opts.dest))
-  local source_exists = uv.fs_stat(opts.source).type == "file"
-  local dest_exists = uv.fs_stat(opts.dest).type == "file"
-
-  if not parent_exists then
-    fs.create_fp_dirs(opts.dest)
-  end
-
-  if dest_exists then
-    vim.api.nvim_err_writeln(opts.dest .. " - already Exists")
-    return
-  end
-
-  if source_exists then
-    uv.fs_copyfile(opts.source, opts.dest, nil, function(err, success)
-      if err then
-        vim.api.nvim_err_writeln(err)
-        return
-      else
-        print(success)
-        print(("template %s copied to %s"):format(opts.template, opts.dest))
-      end
-    end)
-  else
-    vim.api.nvim_err_writeln(opts.source .. "doesn't exist")
-    return
-  end
-end
+-- function fs.copy_file(opts)
+--   local opts = opts or {}
+--   -- copy existing file
+--   local parent_exists = uv.fs_stat(f.parent(opts.dest))
+--   local source_exists = uv.fs_stat(opts.source).type == "file"
+--   local dest_exists = uv.fs_stat(opts.dest).type == "file"
+--
+--   if not parent_exists then
+--     fs.create_fp_dirs(opts.dest)
+--   end
+--
+--   if dest_exists then
+--     vim.api.nvim_err_writeln(opts.dest .. " - already Exists")
+--     return
+--   end
+--
+--   if source_exists then
+--     uv.fs_copyfile(opts.source, opts.dest, nil, function(err, success)
+--       if err then
+--         vim.api.nvim_err_writeln(err)
+--         return
+--       else
+--         print(success)
+--         print(("template %s copied to %s"):format(opts.template, opts.dest))
+--       end
+--     end)
+--   else
+--     vim.api.nvim_err_writeln(opts.source .. "doesn't exist")
+--     return
+--   end
+-- end
 
 function fs.create_fp_dirs(fp)
   local uv = vim.loop

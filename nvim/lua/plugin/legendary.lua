@@ -30,11 +30,12 @@ require('legendary').setup({
   },
   -- Initial commands to bind
   commands = {
-     { ':OldTest', require("util.old.init").test, description = 'send to old - dry run - print output path' },
-     { ':ParserUnlock', require("util.run.init").unlock_parser, description = 'run - unlock parser' },
-     { ':ParserLock', require("util.run.init").lock_parser, description = 'run - lock parser - default no ft raw output', { "default" } },
-     { ':SnipRunReplToggle', require"plugin.sniprun.repl".toggle, description = 'sniprun REPL toggle' }, 
-     { ':FormatGithubReposDotbot', _G.format_github_repos_dotbot, description = 'dotbot - format github repos' }, 
+     { ':FOldTest', require("util.old.init").test, description = 'old - dry run - print output paths' },
+     { ':FOldWhole', require("util.old.init").send_whole, description = 'old - send whole file' },
+     { ':FParserUnlock', require("util.run.init").unlock_parser, description = 'run - unlock parser' },
+     { ':FParserLock', require("util.run.init").lock_parser, description = 'run - lock parser - default no ft raw output', { "default" } },
+     { ':FSnipRunReplToggle', require"plugin.sniprun.repl".toggle, description = 'sniprun REPL toggle' }, 
+     { ':FformatGithubReposDotbot', _G.format_github_repos_dotbot, description = 'dotbot - format github repos' }, 
     -- your command tables here
   },
   -- Initial augroups and autocmds to bind

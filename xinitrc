@@ -1,20 +1,19 @@
 #!bin/sh
 
-### RUN /etc/X11/xinit/xinitrc
-#. /etc/X11/xinit/xinitrc
-
-#https://wiki.archlinux.org/title/environment_variables
-#export PATH="${PATH}:/home/my_user/bin"
 
 
-#xrandr --dpi 196
-#xrandr --dpi 196
+# needs to be run twice
+# this only changes title bars
+# xrandr --dpi 266
+# xrandr --dpi 266
 
-#if [[ "$HOSTNAME" == "arch-lap" ]]; then
-# exec /usr/bin/prime-offload
-# xrandr --setprovideroutputsource modesetting NVIDIA-0
-# xrandr --auto
+# manually merge Xresources into X server
+# without this, the dpi setting in ~/.Xresources only applies to GUI elements like i3 title bars
+# with this, dpi also affects fonts too
+xrdb -merge ~/.Xresources
 
+
+# how to set only the X server font DPI?
 
 
 # exported from arandr
@@ -40,7 +39,7 @@ dunst &
 xmousepasteblock &
 redshift -P -O 4900
 nm-applet &
-autorandr --change
+# autorandr --change
 # setxkbmap -model pc105 -layout us
 
 sudo kmonad ~/dot/kmonad/config.kbd >> $HOME/logs/kmonad.log 2>&1 &
@@ -51,3 +50,20 @@ sxhkd >> $HOME/logs/sxhkd.log 2>&1 &
 exec i3 -V -d all &>> "$HOME/logs/i3.log"
 # exec i3
 #exec herbstluftwm
+
+
+
+
+#### OLD
+
+### RUN /etc/X11/xinit/xinitrc
+#. /etc/X11/xinit/xinitrc
+
+#https://wiki.archlinux.org/title/environment_variables
+#export PATH="${PATH}:/home/my_user/bin"
+
+
+#if [[ "$HOSTNAME" == "arch-lap" ]]; then
+# exec /usr/bin/prime-offload
+# xrandr --setprovideroutputsource modesetting NVIDIA-0
+# xrandr --auto

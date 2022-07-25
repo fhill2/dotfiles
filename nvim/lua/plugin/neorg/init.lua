@@ -41,7 +41,8 @@ require("neorg").setup({
         extensions = "all",
       },
     },
-    ["utilities.vlc"] = {},
+    ["vlc"] = {},
+    ["tags"] = {},
     ["core.export"] = {
       config = {}
     },

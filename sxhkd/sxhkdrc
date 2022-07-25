@@ -80,6 +80,8 @@ super + f
 super + shift + space
     i3-msg floating toggle
 
+super + f
+    i3-msg fullscreen toggle
 
 
 # workspaces
@@ -149,3 +151,8 @@ XF86AudioMute
 XF86AudioMicMute 
     pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
+
+XF86MonBrightnessUp
+    light -A 10
+XF86MonBrightnessDown
+    light -U 10

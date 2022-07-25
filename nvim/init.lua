@@ -1,13 +1,16 @@
-print("init lua ran")
-vim.cmd "set rtp+=~/repos/lua/packer/start/*"
-vim.cmd "set rtp+=~/repos/lua/packer/start/*/after"
+-- vim.cmd"set packpath+=~/repos/packer-fork"
+-- vim.cmd "set rtp+=~/repos/pack/packer/start/*"
+-- vim.cmd "set rtp+=~/repos/pack/packer/start/*/after"
+
+-- if changing repo install path, they must be under $packpath/pack/packer/opt
+--vim.cmd "set packpath+=~/repos"
 require('globals/init')
 require "opts"
 
 -- https://github.com/wbthomason/dotfiles/blob/linux/neovim/.config/nvim/lua/plugins.lua
 local packer = require "packer"
 packer.init({
-  package_root = vim.loop.os_homedir() .. "/repos/lua",
+  -- package_root = vim.loop.os_homedir() .. "/repos/pack",
   --plugin_package = "packer",
   -- snapshot_path = vim.loop.os_homedir() .. "/repos/snapshots",
 })
