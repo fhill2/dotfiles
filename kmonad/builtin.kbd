@@ -1,11 +1,8 @@
 ;; https://github.com/kmonad/kmonad/issues/339
 (defcfg 
-
 input (device-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd") 
 output (uinput-sink "Builtin KMonad Output" "/bin/sleep 2 && setxkbmap -model pc105 -layout us") 
 fallthrough true
-
-
 )
 
 ;; tab (tap-hold-next-release 100 tab lmet)

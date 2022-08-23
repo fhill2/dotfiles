@@ -1,0 +1,13 @@
+[Unit]
+BindsTo=default.target
+Description=swhkd hotkey daemon
+
+[Service]
+ExecStart=/home/f1/dot/swhkd/swhkd-start.sh
+#ExecReload=/bin/kill -HUP $MAINPID
+ExecReload=sudo /bin/killall --signal HUP swhkd
+ExecStop=sudo /bin/killall swhkd
+Restart=always
+Type=simple
+StandardError=journal
+StandardOutput=journal

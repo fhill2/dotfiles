@@ -14,10 +14,12 @@ neorg_callbacks.on_event("core.keybinds.events.enable_keybinds", function(_, key
     n = { -- Bind keys in normal mode
 
       -- Keys for managing TODO items and setting their states
-      { "gtd", "core.norg.qol.todo_items.todo.task_done" },
-      { "gtu", "core.norg.qol.todo_items.todo.task_undone" },
-      { "gtp", "core.norg.qol.todo_items.todo.task_pending" },
-      { "<C-Space>", "core.norg.qol.todo_items.todo.task_cycle" },
+      -- { "gtd", "core.norg.qol.todo_items.todo.task_done" },
+      -- { "gtu", "core.norg.qol.todo_items.todo.task_undone" },
+      -- { "gtp", "core.norg.qol.todo_items.todo.task_pending" },
+      -- { "<C-Space>", "core.norg.qol.todo_items.todo.task_cycle" },
+      {"<space>o", "vlc.save"},
+      {"<space>i", "vlc.open"}
       --{ "mn", "utilities.vlc.save" },
    --   { "<C-s>", "core.integrations.telescope.find_linkable" },
       --{ "<C-LeftMouse>", "" }

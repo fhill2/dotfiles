@@ -1,8 +1,3 @@
-# [[item]]
-# file = '~/dot/qtile/colors.py'
-# template = 'qtile'
-# subtemplate = 'qtile'
-# rewrite = true
 
 # author's dotfiles https://github.com/Misterio77/dotfiles/blob/sway/home/.config/flavours/config.toml
 
@@ -26,19 +21,9 @@ rewrite = true
 [[item]]
 file = '~/.config/kitty/current-theme.conf'
 template = 'kitty'
+subtemplate = 'default-256'
 rewrite = true
 
-# [[item]]
-# file = "~/.themes/flavours/gtk-2.0/gtkrc"
-# template = 'gtk-flatcolor'
-# subtemplate = 'gtk-2'
-# rewrite = true
-#
-# [[item]]
-# file = "~/.themes/flavours/gtk-3.0/gtk.css"
-# template = 'gtk-flatcolor'
-# subtemplate = 'gtk-3'
-# rewrite = true
 
 
 # https://github.com/Misterio77/base16-gtk-flatcolor
@@ -60,34 +45,16 @@ rewrite = true
 
 
 [[item]]
-file = "~/.config/i3/config"
-template = "i3"
-subtemplate = "colors"
-rewrite = false
-start = "# Start flavours colors"
-end = "# End flavours colors"
-hook = "i3-msg reload"
-
-[[item]]
 file = "~/dot/nvim/lua/plugin/base16.lua"
 template = "nvim"
 rewrite = true
 
+# import colours into python custom scripts so scripts like sway_print_tree for i3status-rs can use the colors
+[[item]]
+file = "~/dev/lib/futil.py"
+template="python"
+rewrite = false
 
-# [[item]]
-# file = "~/.config/i3/config"
-# template = "i3"
-# subtemplate = "client-properties"
-# rewrite = false
-# start = "# Start flavours client-properties"
-# end = "# End flavours client-properties"
-# [[item]]
-# file = '~/.zshrc'
-# template = 'fzf'
-# subtemplate = 'default'
-# rewrite = false
-# start = '# Start flavours fzf'
-# end = '# End flavours fzf'
 
 
 

@@ -1,0 +1,3 @@
+#!/usr/bin/sh
+notify-send "corsair plugged in - starting kmonad"
+kmonad /home/f1/dot/kmonad/corsair.kbd

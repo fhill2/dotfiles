@@ -1,0 +1,12 @@
+# there is kanshi.service provided  by aur kanshi-git but it relies on graphical-session.target
+[Unit]
+Description=Waybar
+BindsTo=sway-session.target
+; After=dunst.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/waybar
+
+[Install]
+WantedBy=sway-session.target

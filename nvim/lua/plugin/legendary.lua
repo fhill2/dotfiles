@@ -30,12 +30,15 @@ require('legendary').setup({
   },
   -- Initial commands to bind
   commands = {
-     { ':FOldTest', require("util.old.init").test, description = 'old - dry run - print output paths' },
-     { ':FOldWhole', require("util.old.init").send_whole, description = 'old - send whole file' },
+     { ':FOldTest', require("util.old").test, description = 'old - dry run - print output paths' },
+     { ':FOldWhole', require("util.old").send_whole, description = 'old - send whole file' },
+     { ':FOldOpenWindow', require("util.old").open_window, description = 'old - open window' },
+     { ':FWriteSudo', _G.write_sudo, description = 'write sudo' },
      { ':FParserUnlock', require("util.run.init").unlock_parser, description = 'run - unlock parser' },
      { ':FParserLock', require("util.run.init").lock_parser, description = 'run - lock parser - default no ft raw output', { "default" } },
      { ':FSnipRunReplToggle', require"plugin.sniprun.repl".toggle, description = 'sniprun REPL toggle' }, 
      { ':FformatGithubReposDotbot', _G.format_github_repos_dotbot, description = 'dotbot - format github repos' }, 
+     {":FReload", ":source $MYVIMRC", description = "resource reload nvim config"},
     -- your command tables here
   },
   -- Initial augroups and autocmds to bind

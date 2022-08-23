@@ -1,0 +1,11 @@
+[init]
+Description=swhkd hotkey daemon
+BindsTo=default.target
+
+[Service]
+Type=simple
+# $HOME not allowed
+ExecStart=/home/f1/dev/bin/start_swhkd
+
+[Install]
+WantedBy=default.target

@@ -114,6 +114,7 @@ use({
 
 use("nvim-lua/lsp-status.nvim")
 use("nvim-telescope/telescope-ui-select.nvim")
+use("nvim-telescope/telescope-live-grep-args.nvim")
 
 -- cmp lsp
 
@@ -188,7 +189,7 @@ use("honza/vim-snippets")
 
 use("stsewd/sphinx.nvim")
 
-use({ "voldikss/vim-floaterm", opt = true })
+-- use({ "voldikss/vim-floaterm", opt = true })
 
 
 -- use("lambdalisue/glyph-palette.vim")
@@ -359,7 +360,7 @@ use({
 use({ 'ray-x/guihua.lua',
   run = 'cd lua/fzy && make'
 })
-use({ 'ray-x/navigator.lua' })
+-- use({ 'ray-x/navigator.lua' })
 
 
 
@@ -422,6 +423,21 @@ use({
 
 use({ "RRethy/nvim-base16",
   config = function() require("colorscheme") end
+})
+
+use({ 
+  "mfussenegger/nvim-dap",
+  config = function() require("plugin.dap") end,
+  after = { "nvim-dap-python", "nvim-dap-ui"},
+})
+use("mfussenegger/nvim-dap-python")
+use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
+
+use({
+  "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+  config = function()
+    require("lsp_lines").setup()
+  end,
 })
 
 -- use({

@@ -1,0 +1,15 @@
+[Unit]
+Description=swhkd hotkey server
+After=graphical-session-pre.target
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=/home/f1/dot/swhkd/swhks-start.sh
+KillMode=process
+PIDFile=/run/user/1000/swhks.pid
+RemainAfterExit=true
+Restart=always
+Type=forking
+
+[Install]
+WantedBy=graphical-session.target

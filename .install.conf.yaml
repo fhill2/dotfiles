@@ -33,7 +33,6 @@
     ~/.config/kmonad:
     ~/.config/i3:
     ~/.config/qutebrowser:
-    ~/.config/sxhkd:
     ~/.config/starship.toml: ~/dot/starship.toml
     ~/.i3/i3-resurrect: ~/dot/i3/resurrect
     ~/.config/herbstluftwm: ~/dot/herbstluftwm
@@ -41,6 +40,10 @@
     ~/.config/rofi:
     ~/.themes:
     ~/.config/bat:
+    ~/.config/sway:
+    ~/.config/kanshi:
+    ~/.config/starfarm:
+    ~/.config/waybar:
 
     ~/.local/share/nemo: 
       force: true

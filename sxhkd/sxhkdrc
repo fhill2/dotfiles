@@ -91,6 +91,11 @@ super + {1,2,3,4,5,6,7,8,9}
 super + shift+{1-9}
     i3-msg move container to workspace number {1-9}
 
+super + shift + less
+    i3-msg move workspace to output right
+
+super + shift + greater
+    i3-msg move workspace to output left
 # launchers
 super + Return 
     i3-sensible-terminal

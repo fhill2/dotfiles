@@ -51,14 +51,26 @@ local normal_keymaps = {
   -- c = { "<cmd>NvimTreeToggle<cr>", "NvimTreeToggle" },
   s = {
     name = "+search",
-    ["g"] = { "<cmd>Telescope live_grep<cr>", "telescope Live_Grep cwd interactive" },
-    ["s"] = { ([[<cmd>lua require"plugin.telescope.wrap".grep()<cr>]]):format(f.cl), "telescope Live_Grep cl fuzzy" },
-    ["c"] = { ([[<cmd>Telescope live_grep cwd=%s<cr>]]):format(f.cl), "telescope Live_Grep cl interactive" },
+    ["s"] = { "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", "Telescope live_grep_args"},
+    ["d"] = { "<cmd>Telescope live_grep<cr>", "telescope Live_Grep cwd interactive" },
     ["b"] = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Buffer" },
     ["h"] = { "<cmd>Telescope command_history<cr>", "Command History" },
     ["m"] = { "<cmd>Telescope marks<cr>", "Jump to Mark" },
 
     ["r"] = { "<cmd>lua require('spectre').open()<CR>", "Replace (Spectre)" },
+  },
+  d = {
+    name = "+debug",
+   ["d"] = { "<Cmd>silent lua require'dap'.continue()<CR>", "dap - continue"},
+   -- ["s"] = { "<Cmd>silent lua require'dap'.step_over()<CR>", "dap - step over" },
+   -- ["f"] = { "<Cmd>silent lua require'dap'.step_into()<CR>", "dap - step into" },
+   -- ["a"] = { "<Cmd>silent lua require'dap'.step_out()<CR>", "dap - step out" },
+   ["s"] = { "<Cmd>silent lua require'dap'.terminate()<CR>", "dap - terminate" },
+   ["b"] = { "<Cmd>silent lua require'dap'.toggle_breakpoint()<CR>", "dap - toggle breakpoint" },
+   ["B"] = { "<Cmd>silent lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", "dap - set breakpoint condition" },
+   ["N"] = { "<Cmd>silent lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>", "dap - set breakpoint log" },
+   ["r"] = { "<Cmd>silent lua require'dap'.repl.open()<CR>", "dap - open repl" },
+   ["f"] = { "<Cmd>silent lua require'dap'.run_last()<CR>", "dap - last run" },
   },
   e = {
     name = "+errors",
@@ -73,7 +85,7 @@ local normal_keymaps = {
   l = {
     name = "+legendary",
     ["k"] = { function() require('legendary').find('keymaps') end, "Legendary - Keymaps" },
-    ["c"] = { function() require('legendary').find('commands') end, "Legendary - Commands" },
+    --["c"] = { function() require('legendary').find('commands') end, "Legendary - Commands" },
     ["l"] = { function() require('plugin.legendary').find_by_desc('[LSP]') end, "Legendary - [LSP]" },
   },
   m = {
@@ -108,9 +120,13 @@ local normal_keymaps = {
     ["n"] = { '<cmd>lua require("plugin.telescope.wrap").fb_notes()<cr>', "Telescope fb - notes" },
     ["m"] = { '<cmd>lua require("plugin.telescope.wrap").fb_notes_tags()<cr>', "Telescope fb - notes tags" },
     ["b"] = { '<cmd>lua require("plugin.telescope.wrap").fb_cbuf()<cr>', "telescope fb - current buffer" },
-    ["n"] = { '<cmd>lua require("plugin.telescope.wrap").fb()<cr>', "telescope fb" },
-    ["a"] = { "<cmd>Telescope find_files<cr>", "telescope Find Files" },
+    ["o"] = { '<cmd>lua require("plugin.telescope.wrap").fb_old()<cr>', "telescope fb - old" },
+    ["j"] = { '<cmd>lua require("plugin.telescope.wrap").fb()<cr>', "telescope fb" },
+    ["a"] = { '<cmd>lua require("plugin.telescope.wrap").fb_repos_flat()<cr>', "telescope fb - repos-flat" },
+    ["s"] = { '<cmd>lua require("plugin.telescope.wrap").fb_repos_tags()<cr>', "telescope fb - repos-tags" },
+    ["q"] = { "<cmd>Telescope find_files<cr>", "telescope Find Files" },
     ["t"] = { "<cmd>Telescope oldfiles<cr>", "telescope oldfiles (recent)" },
+
 
   },
   -- p = {
@@ -118,6 +134,7 @@ local normal_keymaps = {
   --   ["p"] = { "<cmd>Neorg vlc save<cr>", "vlc save link" },
   --   ["o"] = { "<cmd>Neorg vlc open<cr>", "vlc open link" },
   -- },
+  p = { function() require('legendary').find('commands') end, "Legendary - Commands" },
   w = {
     name = "+windows",
     ["e"] = { "<C-W>p", "other-window" },
@@ -162,7 +179,7 @@ local visual_keymaps = {
       function()
         require("util/old").send()
       end,
-      "old - send visual open window",
+      "old - send visual",
     },
   m = {
     name = "+snippets",
@@ -185,129 +202,8 @@ local visual_keymaps = {
 
 wk.register(visual_keymaps, { prefix = "<space>", mode = "v" })
 require('legendary').bind_whichkey(visual_keymaps, { prefix = "<space>", mode = "v" }, false)
-    --["<space>aq"] = { function() require("plugin/nui").focus() end, "nui - focus cycle" },
-    -- ["s"] = {
-    --   function()
-    --     require("omnimenu").show_telescope()
-    --   end,
-    --   "omnimenu",
-    -- },
-  -- d = {
-  --   name = "+dirs",
-  --   -- ["d"] = { '<cmd>lua require("plugin.telescope.wrap").ff_dirs_only()<cr>', "Telescope - dirs only - cwd" },
-  --   -- ["f"] = { '<cmd>lua require("plugin.telescope.wrap").ff_dirs_only_home()<cr>', "Telescope - dirs only - home" },
-  --   --["z"] = { "<cmd>Telescope zoxide list<cr>", "telescope zoxide" },
-  --   --["p"] = { "<cmd>lua require'telescope'.extensions.project.project()<cr>", "telescope project" },
-  --   --["r"] = { [[<cmd>lua require"plugin.telescope.repo".show()<cr>]], "telescope cl+repo" },
-  -- },
- -- ["Tab"] = {
-  --   name = "+tabpages",
-  --   --["<tab>"] = { "<cmd>tabnew<CR>", "New Tab" },
-  --   ["n"] = { "<cmd>tabnext<CR>", "Next" },
-  --   ["d"] = { "<cmd>tabclose<CR>", "Close" },
-  --   ["p"] = { "<cmd>tabprevious<CR>", "Previous" },
-  --   ["]"] = { "<cmd>tabnext<CR>", "Next" },
-  --   ["["] = { "<cmd>tabprevious<CR>", "Previous" },
-  --   ["f"] = { "<cmd>tabfirst<CR>", "First" },
-  --   ["l"] = { "<cmd>tablast<CR>", "Last" },
-  -- },
-    -- ["r"] = { '<cmd>lua require("plugin.telescope.wrap").ff_dirs_repos()<cr>', "Telescope - dirs - repos" },
-    -- ["e"] = { '<cmd>lua require("plugin.telescope.wrap").ff_files_repos()<cr>', "Telescope file_browser - dotfiles" },
-  -- n = {
-  -- name = "+notes",
-  --["n"] = { [[<cmd>lua require"plugin.telescope.wrap".notes_files()<cr>]], "telescope notes - files" },
-  -- ["n"] = { '<cmd>lua require("plugin.telescope.wrap").ff_files_notes()<cr>', "Telescope - files - notes" },
-  -- ["d"] = { '<cmd>lua require("plugin.telescope.wrap").ff_dirs_only_notes()<cr>', "Telescope - dirs - notes" },
-  --["d"] = { [[<cmd>lua require"plugin.telescope.wrap".notes_dirs()<cr>]], "telescope notes - dirs" },
-  -- },
-
--- old mappings 2022
--- wk.register({
---   ["<space>o"] = { name = "+omni" },
---   ["<space>oo"] = {
---     function()
---       require("plugin.omni.show").show()
---     end,
---     "telescope omnimenu",
---   },
--- })
--- wk.register({
---   ["<space>i"] = { name = "+sidebar" },
---   ["<space>ii"] = { "<cmd>SidebarNvimToggle<cr>", "sidebar toggle" },
--- })
-
--- ["<space>ae"] = {
---   function()
---     TelescopeGlobalState.persist.picker.close_windows(TelescopeGlobalState.persist)
---   end,
---   "telescope - close persistent",
--- },
--- ["<space>a<tab>"] = {
---   function()
---     TelescopeGlobalState.persist:focus()
---   end,
---   "telescope - focus persistent",
--- },
-
-
---- old mappings 2021
--- ["<space>1"] = { "1gt", "go to tabpage 1" },
--- ["<space>2"] = { "2gt", "go to tabpage 2" },
--- ["<space>3"] = { "3gt", "go to tabpage 3" },
--- ["<space>4"] = { "4gt", "go to tabpage 4" },
--- ["<space>5"] = { "5gt", "go to tabpage 5" },
--- ["<space>6"] = { "6gt", "go to tabpage 6" },
--- ["<space>7"] = { "7gt", "go to tabpage 7" },
--- ["<space>8"] = { "7gt", "go to tabpage 8" },
--- wk.register({
---   ["<space>1"] = { name = "+Trouble" },
---   ["<space>11"] = { "<cmd><cr>", "Trouble" },
--- })
-
---["<space>rs"] = { [[<cmd>lua require"util.run.init".sniprun()<cr>]], "run sniprun"},
---["<space>rd"] = { [[<cmd>lua require"sniprun.api".run_range(1, 20)<cr>]], "run sniprun range API"},
---["<space>rt"] = { [[<cmd>lua require"sniprun.api".run_string('print("hello world")', 'python')<cr>]], "run sniprun range API"},
-
---["<space>rr"] = { "<cmd>lua toggleterm_exec(1)<cr>", "run current file count=1 (toggleterm)" },
---["<space>rt"] = { "<cmd>lua toggleterm_exec(1)<cr>", "run last file count=1 (toggleterm)" },
-
-----["<space>r1"] = { "<cmd>lua toggleterm_exec(1)<cr>", "run current file count=1 (toggleterm)" },
-----["<space>r2"] = { "<cmd>lua toggleterm_exec(2)<cr>", "run current file count=2 (toggleterm)" },
-----["<space>r3"] = { "<cmd>lua toggleterm_exec(3)<cr>", "run current file count=3 (toggleterm)" },
-
--- toggleterm jump to error msgs
---["<space>ree"] = { "<cmd>lua toggleterm_jump_traceback(1)<cr>", "jump to err msg count=1 (top) (toggleterm)" },
---["<space>re1"] = { "<cmd>lua toggleterm_jump_traceback(1)<cr>", "jump to err msg count=1 (top) (toggleterm)" },
---["<space>re2"] = { "<cmd>lua toggleterm_jump_traceback(2)<cr>", "jump to err msg count=2 (top) (toggleterm)" },
---["<space>re3"] = { "<cmd>lua toggleterm_jump_traceback(3)<cr>", "jump to err msg count=3 (top) (toggleterm)" },
---["<space>re4"] = { "<cmd>lua toggleterm_jump_traceback(4)<cr>", "jump to err msg count=4 (top) (toggleterm)" },
-
-
-
-
-
-
--- toggleterm
--- local opts = { noremap = true }
--- function _G.set_terminal_keymaps()
---   vim.api.nvim_buf_set_keymap(0, "t", "<C-Space>", [[<C-\><C-n>]], opts)
---   -- vim.api.nvim_buf_set_keymap(0, 't', 'jk', [[<C-\><C-n>]], opts)
---   --  vim.api.nvim_buf_set_keymap(0, 't', '<C-h>', [[<C-\><C-n><C-W>h]], opts)
---   --vim.api.nvim_buf_set_keymap(0, 't', '<C-j>', [[<C-\><C-n><C-W>j]], opts)
---   --vim.api.nvim_buf_set_keymap(0, 't', '<C-k>', [[<C-\><C-n><C-W>k]], opts)
---   --vim.api.nvim_buf_set_keymap(0, 't', '<C-l>', [[<C-\><C-n><C-W>l]], opts)
---   -- vim.api.nvim_buf_set_keymap(0, "t", "<A-1>", [[<cmd>lua focus_toggleterm(1)<cr>]], opts)
---   -- vim.api.nvim_buf_set_keymap(0, "t", "<A-2>", [[<cmd>lua focus_toggleterm(2)<cr>]], opts)
---   -- vim.api.nvim_buf_set_keymap(0, "t", "<A-3>", [[<cmd>lua focus_toggleterm(3)<cr>]], opts)
--- end
 
 local a = require("util/keymap")
--- a.nnoremap("<A-1>", [[<cmd>lua focus_toggleterm(1)<cr>]])
--- a.nnoremap("<A-2>", [[<cmd>lua focus_toggleterm(2)<cr>]])
--- a.nnoremap("<A-3>", [[<cmd>lua focus_toggleterm(3)<cr>]])
-
--- if you only want these mappings for toggle term use term://*toggleterm#* instead
--- vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 
 --- NORMAL MAPPINGS ----
 
@@ -350,83 +246,16 @@ a.inoremap("<C-a>", [[<cmd>lua require"plugin.telescope.actions".toggle_focus_pr
 
 a.nnoremap("<C-.>", [[<cmd>lua require"plugin.telescope.actions".close_or_resume()<cr>]])
 a.inoremap("<C-.>", [[<cmd>lua require"plugin.telescope.actions".close_or_resume()<cr>]])
---nmap <space>lP :call Paste(v:register, "l", "P")<CR>
---a.nnore('p', 'call Paste(v:register, "l", "p")<CR>')
---a.nmap('P', ':call Paste(v:register, "v", "P")<CR>')
---a.nmap('p', [[:call Paste('+', "v", "p")<CR>]])
-
---a.nmap('P', '<cmd>lua f.paste("P")<cr>')
---a.nmap('p', '<cmd>lua f.paste("p")<cr>')
-
--- no noremap for <Plug> mappings
---a.nmap("P", "<Plug>(unimpaired-put-above-reformat)")
---<C-l> <Right>
 
 
--- quicker beginning of line
---a.nnoremap("<S-f>", "^i")
 
--- manual reload whole config
---a.allremap('<A-p>', [[<cmd>lua require("util/resource").resource_init_only()<cr>]])
---a.allremap("<A-p>", [[<cmd>lua f.reload_current_file()<cr>]])
-
--- local function t(str)
---   return vim.api.nvim_replace_termcodes(str, true, true, true)
--- end
-
--- function _G.pum_up(dir)
---   dump("trig")
---   dump(vim.fn.pumvisible())
---   return vim.fn.pumvisible() == 1 and t'<Esc>ki' or t'<Up>'
--- end
--- function _G.pum_down(dir)
---   dump("trig")
---   dump(vim.fn.pumvisible())
---   return vim.fn.pumvisible() == 1 and t'<Esc>ji' or t'<Down>'
--- end
---api.nvim_set_keymap("i", "<Up>", [[pumvisible() ? "\<Esc>ki" : "<Up>"]], { expr = true })
---api.nvim_set_keymap("i", "<Down>", [[pumvisible() ? "\<Esc>ji" : "<Down>"]], { expr = true })
-
---vim.api.nvim_set_keymap("i", "<Up>", 'v:lua.pum_up_down("<Up>")', { expr = true, noremap = true })
---vim.api.nvim_set_keymap("i", "<Down>", 'v:lua.pum_up_down("<Down>")', { expr = true, noremap = true })
-
--- function _G.up_down(key)
---   dump("up down trig")
---   if require"cmp".visible() then
---     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>' .. key .. 'i', true, true, true), '', true)
---   else
---     vim.api.nvim_feedkeys(key, '', true)
---   end
--- end
--- vim.api.nvim_set_keymap("i", "<Up>", '', { expr = true, noremap = true })
--- vim.api.nvim_set_keymap("i", "<Down>", 'v:lua.up_down("j")', { expr = true, noremap = true })
-
--- local opts = { noremap = true, silent = true }
--- local nvim_set_keymap = vim.api.nvim_set_keymap
--- local mappings = require("xplr.mappings")
--- local set_keymap = mappings.set_keymap
--- local on_previewer_set_keymap = mappings.on_previewer_set_keymap
--- wk.register({
---   ["<space>1"] = { name = "+xplr" },
--- })
---
--- nvim_set_keymap("n", "<space>11", '<Cmd>lua require"xplr".open()<CR>', opts) -- open/focus cycle
--- set_keymap("t", "<space>11", '<Cmd>lua require"xplr".focus()<CR>', opts) -- open/focus cycle
---
--- nvim_set_keymap("n", "<space>12", '<Cmd>lua require"xplr".close()<CR>', opts)
--- set_keymap("t", "<space>12", '<Cmd>lua require"xplr".close()<CR>', opts)
---
--- nvim_set_keymap("n", "<space>13", '<Cmd>lua require"xplr".toggle()<CR>', opts)
--- set_keymap("t", "<space>13", '<Cmd>lua require"xplr".toggle()<CR>', opts)
-
--- on_previewer_set_keymap("t", "<space>14", '<Cmd>lua require"xplr.actions".scroll_previewer_up()<CR>', opts)
--- on_previewer_set_keymap("t", "<space>15", '<Cmd>lua require"xplr.actions".scroll_previewer_down()<CR>', opts)
---
--- vim.api.nvim_set_keymap("n", "<space>xx", "<cmd>Trouble<cr>", { silent = true, noremap = true })
--- vim.api.nvim_set_keymap("n", "<space>xw", "<cmd>Trouble lsp_workspace_diagnostics<cr>", { silent = true, noremap = true })
--- --vim.api.nvim_set_keymap("n", "<space>xx", "<cmd>Trouble lsp_document_diagnostics<cr>",
--- --  {silent = true, noremap = true}
--- --)
--- vim.api.nvim_set_keymap("n", "<space>xl", "<cmd>Trouble loclist<cr>", { silent = true, noremap = true })
--- vim.api.nvim_set_keymap("n", "<space>xq", "<cmd>Trouble quickfix<cr>", { silent = true, noremap = true })
--- vim.api.nvim_set_keymap("n", "gR", "<cmd>Trouble lsp_references<cr>", { silent = true, noremap = true })
+-- :h dap-mappings
+   vim.cmd[[nnoremap <silent> <F5> <Cmd>lua require'dap'.continue()<CR>]]
+   vim.cmd[[nnoremap <silent> <F10> <Cmd>lua require'dap'.step_over()<CR>]]
+   vim.cmd[[nnoremap <silent> <F11> <Cmd>lua require'dap'.step_into()<CR>]]
+   vim.cmd[[nnoremap <silent> <F12> <Cmd>lua require'dap'.step_out()<CR>]]
+   -- vim.cmd[[nnoremap <silent> <Leader>b <Cmd>lua require'dap'.toggle_breakpoint()<CR>]]
+   -- vim.cmd[[nnoremap <silent> <Leader>B <Cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>]]
+   -- vim.cmd[[nnoremap <silent> <Leader>lp <Cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>]]
+   -- vim.cmd[[nnoremap <silent> <Leader>dr <Cmd>lua require'dap'.repl.open()<CR>]]
+   -- vim.cmd[[nnoremap <silent> <Leader>dl <Cmd>lua require'dap'.run_last()<CR>]]

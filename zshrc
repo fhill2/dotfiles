@@ -159,6 +159,12 @@ echo "$selection"
 }
 
 
+fzf_md() {
+  file=$(fd readme --exact-depth 1 -e .md -e .rst $(find_git_repos $PWD) | xargs realpath --no-symlinks --relative-to="${PWD}" | fzf --preview 'mdcat {}')
+  mdcat $file
+}
+
+
 
 mkcd() {
   dir="$*";
@@ -234,150 +240,14 @@ autoscript() {
   touch $1 && chmod +x $1 && nvim $1
 }
 
-
-
-#### OLD
-
-
-#alias qtilekb='qtile_kb_rofi.sh -c ~/dev/dot/home-manager/config/qtile/config.py'
-# doesnt work on nixos - move to nix config
-#function nvim() {
-# nvim wrapper
-# if [[ -v NVIM_LISTEN_ADDRESS ]]; then
-#    nvr --servername "$NVIM_LISTEN_ADDRESS" -c "lua vim.api.nvim_set_current_win(require'futil.terminal'.last_editor_winnr)"
-#    nvr --servername "$NVIM_LISTEN_ADDRESS" $@
-#  else
-#    /usr/bin/nvim $@
-#  fi
-#
-#}
-
-# stowth() {
-#   stow -vSt ~ $1
-# }
-#
-# unstowth() {
-#   stow -vDt ~ $1
-# }
-
-#
-# turns on less syntax highlighting
-#export LESS=' -R '
-
-# export LESSOPEN="|batpipe %s"
-# export BATPIPE="color"
-# LESS="$LESS -R"
-# unset LESSCLOSE
-
-
-
-# function xplr() {
-#   if [[ -v NVIM_LISTEN_ADDRESS ]]; then
-#   export NVIM_XPLR_ROOT=~/.local/share/nvim/site/pack/packer/start/xplr.nvim
-#   ~/bin/xplr -C "/home/f1/.local/share/nvim/site/pack/packer/start/xplr.nvim/xplr/init.lua" $@ # ~ isnt supported
-#   else
-#   ~/bin/xplr $@
-#   fi
-# }
-
-#luarocks() {
-#sudo /usr/bin/luarocks --lua-version=5.1 install $@
-#}
-#alias lua='lua5.1'
-# stow (th stands for target=home)
-
-# qemu wrappers
-
-# qmm() {
-# sudo virsh qemu-monitor-command --hmp win10-5 $1
-# }
-#
-# qmga() {
-# sudo virsh qemu-agent-command --domain win10-5 --cmd "{\"execute\":\"$1\"}"
-# }
-
-# pet
-
-# save previously used command
-# petp() {
-#   PREV=$(fc -lrn | head -n 1)
-#   sh -c "pet new `printf %q "$PREV"`"
-# }
-
-# # show fzf with hotkey otherwise pet fails as ZLE isnt active
-# pet-select() {
-# BUFFER=$(pet search --query "$LBUFFER")
-# CURSOR=$#BUFFER
-# zle redisplay
-# }
-
-# zle -N pet-select
-# stty -ixon
-# bindkey '^o' pet-select
-
-# tw() {
-#   BUFFER=$(the-way search --stdout --languages="sh")
-#   print -z $BUFFER
-# }
-
-# ghclone() {
-#   dir="${3:-$2}"
-#   git clone git@github.com:$1/$2.git $dir
-#   cd $dir
-# }
-
-# flog() {
-# log="$(fd --follow --extension 'log' . ~/.local/share/nvim | fzf --exit-0)" || return $?
-# tail -f $log
-# }
-
-# vagrant(){
-#   docker run -it --rm \
-#     -e LIBVIRT_DEFAULT_URI \
-#     -v /var/run/libvirt/:/var/run/libvirt/ \
-#     -v ~/.vagrant.d:/.vagrant.d \
-#     -v $(realpath "${PWD}"):${PWD} \
-#     -w $(realpath "${PWD}") \
-#     --network host \
-#     vagrantlibvirt/vagrant-libvirt:edge \
-#     vagrant $@
-#   }
-
-# f_list_keybinds() {
-# f_list_keybinds.py | fzf
-# }
-# nvd() {
-#     if [ -n "$1" ]; then
-#       nvim --cmd 'lua load_profile="dropdown"' -c $1
-#     else
-#       nvim --cmd 'lua load_profile="dropdown"'
-#     fi
-# }
-
-
-# nvdd() {
-#   nvim -c "lua CLI=true" -c "lua print(CLI)"
-# }
-#
-
-# sway_get_c_win() {
-# swaymsg -t get_tree | jq -r '.. | (.nodes? // empty)[] | if (.focused) then select(.focused) | "\(.rect.x),\(.rect.y) \(.rect.width)x\(.rect.height)" else (.floating_nodes? // empty)[] | select(.visible) | select(.focused) | "\(.rect.x),\(.rect.y) \(.rect.width)x\(.rect.height)" end'
-# }
-
-# https://www.reddit.com/r/archlinux/comments/n45j9b/running_a_script_after_the_current_user_has/
-# as optimus-manager doesnt install hooks if you arent using a display manager and i want to use  optimus-manager like this:
-# optimus-manager --switch nvidia
-# optimus-manager --switch intel
-# startx() {
-#   echo "startx custom function called"
-#   if [[ "$HOST" == "arch-lap" ]]; then
-#     exec sh -c "startx ; sudo prime-switch"
-#   fi
-
-
-#   if [[ "$HOST" == "arch-desk" ]]; then
-#     /usr/bin/startx
-#   fi
-# }
 # https://serverfault.com/questions/77162/how-to-get-pgrep-to-display-full-process-info
-function ppgrep() { pgrep "$@" | xargs --no-run-if-empty ps fp; }
+function pgrep() { /usr/bin/pgrep "$@" | xargs --no-run-if-empty ps fp; }
+
+function testjson() {
+    # set val (pikaur --query --sysupgrade --aur 2>/dev/null | wc --lines)
+    # if test $val -eq 0
+        # echo "{\"state\": \"Idle\", \"text\": \"AUR asd\"}"
+    # else
+        echo "{\"state\": \"Warning\", \"text\": \"AUR asd2\"}"
+    # end
+}

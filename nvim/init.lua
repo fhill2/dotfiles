@@ -4,7 +4,7 @@
 
 -- if changing repo install path, they must be under $packpath/pack/packer/opt
 --vim.cmd "set packpath+=~/repos"
-require('globals/init')
+require('globals')
 require "opts"
 
 -- https://github.com/wbthomason/dotfiles/blob/linux/neovim/.config/nvim/lua/plugins.lua

@@ -1,0 +1,331 @@
+# tag names unsorted & packer are not allowed
+shell:
+- jarun/nnn
+- kovidgoyal/kitty
+
+#kittens_builtin:
+- #kovidgoyal/kitty/tree/master/kittens
+
+kittens_ex:
+- GermainZ/kitty-weechat-hints
+- knubie/vim-kitty-navigator
+- adi1090x/kitty-cat
+- muchzill4/kitty-session
+- #nerdrew/kittens/blob/master/password.py
+
+dotfiles_nix:
+- sherubthakur/dotfiles
+- teto/home
+- notusknot/dotfiles-nix
+- breuerfelix/nixos
+- m0lentum/dotfiles
+- elianiva/dotfiles
+
+dotfiles_lua:
+- gf3/dotfiles
+- jameswalmsley/dotfiles
+- LunarVim/LunarVim
+- NvChad/NvChad
+- Conni2461/dotfiles
+- tjdevries/config_manager
+- weilbith/dotfiles
+- fdschmidt93/dotfiles
+
+dotfiles_shell:
+- junegunn/dotfiles
+
+dotfiles_rice:
+- cherrry9/dots
+- igmt-official/dotfiles
+- jorgeloopzz/dotfiles
+- the-argus/rose-pine-dots
+- Misterio77/Dotfiles
+- misterio77/nix-config
+
+dotfiles_i3:
+- altercation/dotfiles-tilingwm
+- EllaTheCat/dopamine
+
+dotfiles_herb*:
+- wlard/dotfiles
+- ssh0/dotfiles
+
+
+vim:
+- skywind3000/asyncrun.vim
+- kmonad/kmonad-vim
+
+lua/nvim:
+- sindrets/diffview.nvim
+- lewis6991/gitsigns.nvim
+- nvim-lualine/lualine.nvim
+- simrat39/symbols-outline.nvim
+- nvim-treesitter/playground
+- akinsho/bufferline.nvim
+- kwkarlwang/bufresize.nvim
+- sudormrfbin/cheatsheet.nvim
+- hrsh7th/cmp-nvim-lsp
+- hrsh7th/cmp-nvim-lua
+- quangnguyen30192/cmp-nvim-tags
+- norcalli/nvim-terminal.lua
+- ray-x/lsp_signature.nvim
+- nvim-lua/lsp-status.nvim
+- folke/lua-dev.nvim
+- numToStr/Comment.nvim
+- stevearc/dressing.nvim
+- ellisonleao/glow.nvim
+- lukas-reineke/indent-blankline.nvim
+- nvim-neorg/neorg
+- iamcco/markdown-preview.nvim
+- mrjones2014/legendary.nvim
+- jbyuki/nabla.nvim
+- TimUntersberger/neogit
+- hrsh7th/cmp-buffer
+- saadparwaiz1/cmp_luasnip
+- hrsh7th/cmp-path
+- dcampos/cmp-snippy
+- ibhagwan/fzf-lua
+- ray-x/guihua.lua
+- L3MON4D3/LuaSnip
+- nanotee/luv-vimdocs
+- ray-x/navigator.lua
+- folke/neoscroll.nvim
+- MunifTanjim/nui.nvim
+- jose-elias-alvarez/null-ls.nvim
+- windwp/nvim-autopairs
+- RRethy/nvim-base16
+- hrsh7th/nvim-cmp
+- weilbith/nvim-code-action-menu
+- norcalli/nvim-colorizer.lua
+- vijaymarupudi/nvim-fzf
+- neovim/nvim-lspconfig
+- rafcamlet/nvim-luapad
+- rcarriga/nvim-notify
+- dcampos/nvim-snippy
+- nvim-pack/nvim-spectre
+- nvim-treesitter/nvim-treesitter
+- nvim-treesitter/nvim-treesitter-context
+- nvim-treesitter/nvim-treesitter-textobjects
+- RRethy/nvim-treesitter-textsubjects
+- kyazdani42/nvim-web-devicons
+- folke/persistence.nvim
+- nvim-lua/plenary.nvim
+- nvim-lua/popup.nvim
+- ahmedkhalf/project.nvim
+- simrat39/rust-tools.nvim
+- sidebar-nvim/sidebar.nvim
+- stsewd/sphinx.nvim
+- cljoly/telescope-repo.nvim
+- jvgrootveld/telescope-zoxide
+- folke/todo-comments.nvim
+- folke/twilight.nvim
+- folke/ultra-runner
+- folke/which-key.nvim
+- AckslD/nvim-neoclip.lua
+- akinsho/git-conflict.nvim
+- akinsho/toggleterm.nvim
+- anott03/nvim-lspinstall
+- axkirillov/easypick.nvim
+- b0o/incline.nvim
+- beauwilliams/focus.nvim
+- beauwilliams/statusline.lua
+- chentau/marks.nvim
+- chentoast/marks.nvim
+- chipsenkbeil/distant.nvim
+- cooperuser/glowbeam.nvim
+- da-moon/telescope-toggleterm.nvim
+- dstein64/nvim-scrollview
+- famiu/nvim-reload
+- FeiyouG/command_center.nvim
+- fhill2/floating.nvim
+- folke/trouble.nvim
+- gelguy/wilder.nvim
+- ggandor/leap.nvim
+- ggandor/lightspeed.nvim
+- ghillb/cybu.nvim
+- glepnir/galaxyline.nvim
+- glepnir/zephyr-nvim
+- HallerPatrick/py_lsp.nvim
+- hood/popui.nvim
+- hrsh7th/nvim-compe
+- hoschi/yode-nvim
+- iron-e/nvim-highlite
+- is0n/fm-nvim
+- jakewvincent/texmagic.nvim
+- jose-elias-alvarez/typescript.nvim
+- jubnzv/mdeval.nvim
+- kevinhwang91/nvim-bqf
+
+
+lua/telescope/extensions:
+- nvim-telescope
+
+- #from wiki extensions page
+- GustavoKatel/telescope-asynctasks.nvim
+- bi0ha2ard/telescope-ros.nvim
+- fhill2/telescope-ultisnips.nvim
+- luc-tielen/telescope_hoogle
+- brandoncc/telescope-harpoon.nvim
+- TC72/telescope-tele-tabby.nvim
+- gbrlsnchs/telescope-lsp-handlers.nvim
+- fannheyward/telescope-coc.nvim
+- dhruvmanila/telescope-bookmarks.nvim
+
+lua/telescope:
+- nvim-telescope/telescope.nvim
+
+lua/awesome:
+- streetturtle/awesome-wm-widgets
+- awesomeWM/awesome
+- Elv13/awesome-1
+
+rofi:
+- davatorium/rofi
+- adi1090x/rofi
+- jluttine/rofi-power-menu
+# -- gitlab distrotube
+# - dwt1/dmscripts
+- Murzchnvok/rofi-collection
+
+nested_tag/nested:
+- noborus/ov
+
+polybar:
+- polybar/polybar-scripts
+- Murzchnvok/polybar-collection
+
+nix:
+- NixOS/nixpkgs
+
+python:
+  #- ghill2/pytower_proj
+- polygon-io/client-python
+- polygon-io/client-examples
+- qtile/qtile-examples
+- qtile/qtile
+- saghul/pyuv
+
+rust:
+- sayanarijit/xplr
+- sharkdp/bat
+- starship/starship
+- rust-lang/rustlings
+- ogham/exa
+- dandavison/delta
+- Rigellute/spotify-tui
+- uutils/coreutils
+- sharkdp/hyperfine
+- denisidoro/navi
+- out-of-cheese-error/the-way
+- lotabout/skim
+
+kmonad:
+- kmonad/kmonad-contrib
+
+python_evdev:
+  # https//gist.github.com/t184256/f4994037a2a204774ef3b9a2b38736dc:
+  #https://www.reddit.com/r/VFIO/comments/m8glcs/announcing_vfiokvm_20_a_service_for_toggling/
+- gvalkov/python-evdev
+- SirAeroWN/remappy
+- CappyT/VFIO-Switcher
+- mciupak/libvirt-evdev
+- aiberia/persistent-evdev
+- dangle/akeydo
+- kempniu/evmapy
+- sebastiansam55/uinput-keyboard-mapper
+
+python_hypothesis*:
+  # https://hypothesis.readthedocs.io/en/latest/usage.html
+- cdown/aur
+- hynek/argon2-cffi
+- python-attrs/attrs
+- Axelrod-Python/Axelrod
+- jab/bidict
+- audreyfeldroy/binaryornot
+- python-hyper/brotlicffi
+- pyca/cryptography
+- stratis-storage/dbus-signature-pyparsing
+- dry-python/returns
+- SethMMorton/fastnumbers
+- ClusterHQ/flocker
+- debsankha/flownetpy
+- mozilla-releng/funsize
+- fusionapp/fusion-index
+- python-hyper/h2
+- stratis-storage/into-dbus-python
+- mulkieran/justbases
+- mulkieran/justbytes
+- loris-imageserver/loris
+- adamchainz/mariadb-dyncol
+- SethMMorton/natsort
+- poliastro/poliastro
+- moreati/b-prefix-all-the-doctests
+- python-hyper/priority
+- AustinRochford/PyCEbox
+- tobgu/pyrsistent
+- webyneter/python-humble-utils
+- pyudev/pyudev
+- qutebrowser/qutebrowser
+- d9pouces/RubyMarshal
+- sixty-north/segpy
+- andsor/pysimoa
+- cdown/srt
+- uber/tchannel-python
+- pimutils/vdirsyncer
+- gsnedders/wcag-contrast-ratio
+- KrzysiekJ/yacluster
+- cdown/yturl
+- zenml-io/zenml
+
+i3:
+- i3/i3
+- JonnyHaystack/i3-resurrect
+- eliep/i3-layouts
+- olemartinorg/i3-alternating-layout
+- talwrii/i3-clever-layout
+- budlabs/i3ass
+- LandingEllipse/kitti3
+- micahcc/i3-wm-scripts
+- talwrii/i3-rofi-mark
+- talwrii/i3parse
+- xmendez/i3-scripts
+- justbuchanan/i3scripts
+- OliverUv/quickswitch-for-i3
+- altdesktop/i3-style
+- cornerman/i3-easyfocus
+- Anachron/i3blocks
+- stav121/i3wm-themer
+- pitkley/i3nator
+- altdesktop/i3ipc-python
+- dustbyte/i3-cycle
+# https://github.com/EllaTheCat/dopamine/blob/master/i3files/i3-wrapper
+
+
+ansible_only:
+- ansible/ansible-examples
+- ruzickap/ansible-role-my_common_defaults
+- ruzickap/ansible-role-virtio-win
+
+ansible_vagrant:
+- xcad2k/boilerplates
+- geerlingguy/ansible-for-devops
+- geerlingguy/ansible-vagrant-examples
+
+packer:
+- chef/bento
+- StefanScherer/packer-windows
+- mwrock/packer-templates
+- ruzickap/packer-templates
+- jeffskinnerbox/Windows-10-Vagrant-Box
+- ferventcoder/vagrant-windows-puppet
+- jakobadam/packer-qemu-templates
+
+
+arch_pacman:
+- mdaffin/arch-pkgs
+- #https//gitlab.com/anarchyinstaller/installer:
+- archlinux/arch-install-scripts
+- naelstrof/auto-usb-arch-scripts
+- ChrisTitusTech/ArchTitus
+- rickellis/ArchMatic
+

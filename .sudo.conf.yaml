@@ -10,10 +10,14 @@
     /etc/xdg/reflector/reflector.conf: /home/f1/dev/sys/reflector.conf 
     /etc/snapper/configs/root: /home/f1/dev/sys/snapper-root 
     /etc/udev/rules.d/90-backlight.rules: /home/f1/dev/sys/90-backlight.rules
-    /etc/kmonad/config.kbd: /home/f1/dot/kmonad/config.kbd
+    # /etc/kmonad/config.kbd: /home/f1/dot/kmonad/config.kbd
     /etc/sysconfig/ntpd: /home/f1/dev/sys/ntpd
     # /usr/lib/python3.10/site-packages/futil: /home/f1/dev/python_lib
     /usr/lib/python3.10/site-packages/futil.py: /home/f1/dev/lib/futil.py
+    /usr/bin/start_kmonad_corsair.sh: /home/f1/dev/sys/start_kmonad_corsair.sh
+    /usr/bin/start_kmonad_builtin.sh: /home/f1/dev/sys/start_kmonad_builtin.sh
+    /etc/swhkd/swhkdrc: /home/f1/dot/swhkd/swhkdrc
 
 - create:
     /etc/pacman.d/hooks:
+    /etc/swhkd:

@@ -1,0 +1,18 @@
+[[block]]
+block = "custom"
+command = "sway_print_tree bar"
+interval = 1
+json = true
+# format = "{text}"
+
+# [[block]] 
+# block = "custom"
+# command = "zsh -c 'testjson'"
+# json = true
+# #
+# [[block]] 
+# block = "custom"
+# command = "echo '{\"icon\":\"weather_thunder\",\"state\":\"critical\", \"text\": \"dangerrr!\"}'"
+# json = true
+#
+

@@ -1,7 +1,7 @@
   require('neorg.modules.base')
   require('neorg.events')
 
-local module = neorg.modules.create("utilities.vlc")
+local module = neorg.modules.create("vlc")
 local log = require('neorg.external.log')
 
 module.setup = function()
@@ -9,9 +9,8 @@ module.setup = function()
 end
 
 module.load = function()
-  neorg.events.broadcast_event(neorg.events.create(module, "utilities.vlc.events.our_event"))
-  module.required["core.keybinds"].register_keybinds(module.name, 
-    { "save", "open" })
+  neorg.events.broadcast_event(neorg.events.create(module, "vlc.events.our_event"))
+  module.required["core.keybinds"].register_keybinds(module.name, { "save", "open" })
 
 
 
@@ -45,12 +44,19 @@ end
 
 module.on_event = function(event)
 
+  dump("on event trig")
   if event.split_type[1] == "core.neorgcmd" then
     if event.split_type[2] == "save" then
       vim.schedule(function() module.public.save() end)
     elseif event.split_type[2] == "open" then
       vim.schedule(function() module.public.open() end)
     end
+  elseif event.split_type[1] == "core.keybinds" then
+  if event.split_type[2] == "vlc.save" then
+    module.public.save()
+  elseif event.split_type[2] == "vlc.open" then
+  module.public.open()
+  end
   end
 end
 
@@ -61,7 +67,6 @@ local function exec(cmd)
   local handle = io.popen(cmd)
   local result = handle:read "*a"
   handle:close()
-  dump(result)
   local result = result:gsub("[\r]?\n", "")
   return result
 end
@@ -88,11 +93,6 @@ module.public = {
 
 
   save = function()
-    --precheck()
-    
-   dump("===== SAVE NEW RUN ======") 
-
-
     -- fix nil error - cba to asyncify
     repeat
       time = exec([[echo "get_time" | nc -U -q0 /tmp/vlc]])
@@ -123,7 +123,8 @@ module.public = {
   end
 
   exec("exec vlc " .. fp .. " 2>/dev/null")
-  exec([[sleep 0.3 && echo "seek ]] .. time .. [[" | nc -U -q0 /tmp/vlc]])
+  dump(time)
+  exec([[sleep 2 && echo "seek ]] .. time .. [[" | nc -U -q0 /tmp/vlc]])
     end,
 }
 
@@ -135,11 +136,12 @@ module.events.defined = {
 
 module.events.subscribed = {
 
-  ["utilities.vlc"] = {
+  ["vlc"] = {
     our_event = true
   },
   ["core.keybinds"] = {
-    ["utilities.vlc.save"] = true
+    ["vlc.save"] = true,
+    ["vlc.open"] = true
   },
   ["core.neorgcmd"] = {
     ["open"] = true,

@@ -24,6 +24,9 @@ lo = function(msg)
 end
 
 
+_G.write_sudo = function()
+  vim.cmd(("silent w !sudo tee %s"):format(vim.api.nvim_buf_get_name(0)))
+end
 
 
 _G.print_package_path = function()
@@ -109,53 +112,6 @@ end
 
 _G.f.non_editor_filetypes = { "TelescopePrompt", "TelescopeResults", "guihua", "guihua_rust", "clap_input", "NvimTree", "toggleterm" }
 
--- _G.f.list_wins = function(filter_tabpage)
---   -- A BETTER nvim_list_wins() fn -- 2021
---   -- get all opened filepaths in windows with their associated bufnr with key as winnr
---   -- ignores nvim-tree, toggleterm etc. editor windows returned only
---   -- optional: returns each table sorted by position on the screen top left - bot right
---
---   local ignore = { "NvimTree", "toggleterm" }
---
---   local ctabpage
---   if filter_tabpage then
---     ctabpage = vim.api.nvim_get_current_tabpage()
---   end
---
---   local windows = {}
---   for _, win in ipairs(vim.api.nvim_list_wins()) do
---     dump("ITERATE ON " .. win)
---     local bufnr = vim.api.nvim_win_get_buf(win)
---     local window = {}
---
---     window.tabpage = vim.api.nvim_win_get_tabpage(win)
---     if filter_tabpage and window.tabpage ~= ctabpage then
---       break
---     end
---     window.ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
---     window.winnr = win
---     window.fp = vim.api.nvim_buf_get_name(bufnr)
---     window.bufnr = bufnr
---     local pos = vim.api.nvim_win_get_position(win)
---     window.x = pos[2]
---     window.y = pos[1]
---
---     if not vim.tbl_contains(ignore, window.ft) then
---       table.insert(windows, window)
---     end
---   end
---
---   table.sort(windows, function(a, b)
---     if a.x ~= b.x then
---       return a.x < b.x
---     end
---     return a.y < b.y
---   end)
---   return windows
---
---   -- cb() tests:
---   -- exclusive to current tabpage:
--- end
 
 function _G.f.send_key(key, mode)
   dump(vim.api.nvim_get_mode().mode)
@@ -253,33 +209,4 @@ _G.f.reload_current_file = function()
     end
     reload(req)
   end
-end
-
-_G.f.append_to_file = function(fp, data)
-  local Path = require("plenary.path")
-  local fp = Path:new(fp)
-  -- plenary path write creates new file if file doesnt exist yet
-  fp:write(data, "a")
-end
-
-_G.f.enter_insert = function()
-  local mode = vim.api.nvim_get_mode().mode
-
-  if mode == "n" then
-    vim.api.nvim_feedkeys("i", "n", false)
-  end
-end
-
-_G.f.get_filename = function(fp)
-  return fp:match("^.+/(.+)$")
-end
-
-_G.f.parent = function(fp)
-  -- ~/dev/cl/file.py --> ~/dev/cl
-  return fp:match("^(.*)/")
-end
--- check if all folders in a filepath exist. if not, create them
--- only works for folders in current user folder
-_G.f.create_fp_dirs = function(...)
-  require("util.fs").create_fp_dirs(...)
 end

@@ -1,0 +1,11 @@
+profile laptop_monitor {
+    # to get the correct output name: WAYLAND_DEBUG=1 kanshi - and copy paste the make()
+    output "Unknown Sceptre Z27 0x00000000" mode 3840x2160@60.000Hz scale 1.2 position 1920,0
+    output eDP-1 mode 3840x2400@59.994Hz scale 1.6 position 5122,85
+    exec notify-send "applying laptop + 1 monitor"
+  }
+
+profile laptop {
+    output eDP-1 mode 3840x2400@59.994Hz scale 1.4
+    exec notify-send "applying laptop screen only"
+  }
