@@ -98,6 +98,9 @@ vim.cmd [[augroup end]]
 vim.cmd [[autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o]]
 vim.cmd [[autocmd FileType norg set nofoldenable]]
 
+-- for python codeblocks in mardkown - 4 spaces
+vim.cmd [[autocmd Filetype markdown set tabstop=4 shiftwidth=4 ]]
+
 --vim.cmd[[autocmd FileType * ColorizerAttachToBuffer]]
 -- _G.set_colorscheme = function()
 --   print("colorscheme set")

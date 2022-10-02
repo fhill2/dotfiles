@@ -61,6 +61,10 @@ eval "$(starship init zsh)"
 alias rm=trash
 alias ls='ls --color'
 alias lua='lua5.1'
+alias nv='nvim'
+
+
+alias howdoi='~/.venv/howdoi/bin/howdoi'
 
 eval "$(zoxide init zsh)"
 #
@@ -209,7 +213,7 @@ lspci -v | grep -A 10 -E "(VGA|3D)"
 # anything within /lua rtp can be required by lua require""
 # packer output install path also has to be by rtp
 # TODO: optionally install plugins for dropdown straight into ~/dot/nvim-dropdown and .gitignore
-
+# TODO: try set rtp in init.lua without shell wrappers for dropdown and test
 #--cmd "set rtp+=$HOME/tmp/nvim-tmp/pack/*/start/*" \
 nvd() {
   nvim --clean \
@@ -251,3 +255,17 @@ function testjson() {
         echo "{\"state\": \"Warning\", \"text\": \"AUR asd2\"}"
     # end
 }
+
+
+# function howdoi() {
+  # source 
+# }
+
+
+function src() {
+  export SRC_ENDPOINT=http://localhost:7080
+  export SRC_ACCESS_TOKEN=$(pass show src/graphql-pat)
+  /usr/bin/src $@
+}
+
+source /home/f1/.config/broot/launcher/bash/br

@@ -124,6 +124,7 @@ local normal_keymaps = {
     ["j"] = { '<cmd>lua require("plugin.telescope.wrap").fb()<cr>', "telescope fb" },
     ["a"] = { '<cmd>lua require("plugin.telescope.wrap").fb_repos_flat()<cr>', "telescope fb - repos-flat" },
     ["s"] = { '<cmd>lua require("plugin.telescope.wrap").fb_repos_tags()<cr>', "telescope fb - repos-tags" },
+    ["p"] = { '<cmd>lua require("plugin.telescope.wrap").python()<cr>', "telescope fb - python" },
     ["q"] = { "<cmd>Telescope find_files<cr>", "telescope Find Files" },
     ["t"] = { "<cmd>Telescope oldfiles<cr>", "telescope oldfiles (recent)" },
 
@@ -134,7 +135,7 @@ local normal_keymaps = {
   --   ["p"] = { "<cmd>Neorg vlc save<cr>", "vlc save link" },
   --   ["o"] = { "<cmd>Neorg vlc open<cr>", "vlc open link" },
   -- },
-  p = { function() require('legendary').find('commands') end, "Legendary - Commands" },
+  p = { function() require('legendary').find({ kind = 'commands'}) end, "Legendary - Commands" },
   w = {
     name = "+windows",
     ["e"] = { "<C-W>p", "other-window" },
@@ -222,7 +223,9 @@ a.nnoremap("<C-j>", "<C-w>j")
 a.nnoremap("<C-k>", "<C-w>k")
 a.nnoremap("<C-l>", "<C-w>l")
 
+a.nnoremap(";", "<cmd>write<cr>")
 a.allremap("<F14>", "<cmd>qa!<cr>")
+
 
 -- cut copy paste undo
 --api.nvim_set_keymap('', '<C-x>', 'd', {})
@@ -259,3 +262,35 @@ a.inoremap("<C-.>", [[<cmd>lua require"plugin.telescope.actions".close_or_resume
    -- vim.cmd[[nnoremap <silent> <Leader>lp <Cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>]]
    -- vim.cmd[[nnoremap <silent> <Leader>dr <Cmd>lua require'dap'.repl.open()<CR>]]
    -- vim.cmd[[nnoremap <silent> <Leader>dl <Cmd>lua require'dap'.run_last()<CR>]]
+
+-- _G.set_magma_keymaps = function(buf)
+--   dump(buf)
+-- end
+
+vim.api.nvim_create_autocmd("FileType", {
+            pattern = "json",
+            callback = function(opts)
+               keymap_opts = { silent = true, noremap  = true } 
+              vim.api.nvim_buf_set_keymap(opts.buf, "n", "<leader>rr","<cmd>MagmaEvaluateLine<cr>", keymap_opts)
+              vim.api.nvim_buf_set_keymap(opts.buf, "n", "<leader>rv","<cmd>MagmaEvaluateVisual<cr>", keymap_opts)
+              vim.api.nvim_buf_set_keymap(opts.buf, "n", "<leader>rf","<cmd>MagmaReevaluateCell<cr>", keymap_opts)
+              vim.api.nvim_buf_set_keymap(opts.buf, "n", "<leader>rd","<cmd>MagmaDelete<cr>", keymap_opts)
+              vim.api.nvim_buf_set_keymap(opts.buf, "n", "<leader>ro","<cmd>MagmaShowOutput<cr>", keymap_opts)
+            end,
+        })
+
+-- commands not added
+-- :MagmaShowOutput
+-- :MagmaInterrupt
+-- MagmaRestart
+-- MagmaRestart!
+--
+-- nnoremap <silent><expr> <localleader>r  :magmaevaluateoperator<cr>
+-- nnoremap <silent>       <localleader>rr :magmaevaluateline<cr>
+-- xnoremap <silent>       <localleader>r  :<c-u>magmaevaluatevisual<cr>
+-- nnoremap <silent>       <localleader>rc :magmareevaluatecell<cr>
+-- nnoremap <silent>       <localleader>rd :magmadelete<cr>
+-- nnoremap <silent>       <localleader>ro :magmashowoutput<cr>
+--
+-- let g:magma_automatically_open_output = v:false
+-- let g:magma_image_provider = "ueberzug"

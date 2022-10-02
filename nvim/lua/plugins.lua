@@ -24,6 +24,13 @@ local local_or_git = function(path, fallback)
   end
 end
 
+use { 'dccsillag/magma-nvim', run = ':UpdateRemotePlugins' }
+use {"williamboman/mason.nvim",
+config = function() require"plugin.mason" end
+}
+
+use("wellle/targets.vim")
+
 use({
   "sidebar-nvim/sidebar.nvim",
   config = function()
@@ -41,6 +48,11 @@ use("rcarriga/nvim-notify")
 -- })
 
 -- use({ "wbthomason/packer.nvim", opt = true })
+
+use({
+  "kylechui/nvim-surround",
+  config = function() require"plugin.surround" end
+})
 
 
 use("skywind3000/asyncrun.vim")
@@ -414,7 +426,7 @@ use({
 })
 
 
-
+use("tridactyl/vim-tridactyl")
 
 use({
   "iamcco/markdown-preview.nvim",
@@ -439,6 +451,17 @@ use({
     require("lsp_lines").setup()
   end,
 })
+
+use {
+  'gelguy/wilder.nvim',
+  config = function() require"plugin.wilder" end,
+}
+
+
+use{
+  "ThePrimeagen/git-worktree.nvim",
+  config = function() require"plugin.git-worktree" end,
+}
 
 -- use({
 --   "hkupty/iron.nvim",

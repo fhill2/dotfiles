@@ -73,6 +73,7 @@ _G.lsp_formatting = function(bufnr)
         --return client.name ~= "tsserver"
       end, clients)
     end,
+    -- async = true,
     bufnr = bufnr,
   })
 end
@@ -81,29 +82,6 @@ local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
 
 local on_attach = function(client, bufnr)
-  --https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Avoiding-LSP-formatting-conflicts
-  -- enable format on save
-  -- if client.supports_method("textDocument/formatting") then
-  --   vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-  --   vim.api.nvim_create_autocmd("BufWritePre", {
-  --     group = augroup,
-  --     buffer = bufnr,
-  --     callback = function()
-  --       lsp_formatting(bufnr)
-  --     end,
-  --   })
-  -- end
-
-  --https://github.com/mjlbach/nix-dotfiles/blob/master/home-manager/configs/neovim/init.lua
-
-  -- FormatRange = function()
-  --   local start_pos = vim.api.nvim_buf_get_mark(0, "<")
-  --   local end_pos = vim.api.nvim_buf_get_mark(0, ">")
-  --   vim.lsp.buf.range_formatting({}, start_pos, end_pos)
-  -- end
-  -- vim.cmd([[
-  --     command! -range FormatRange  execute 'lua FormatRange()'
-  --     ]])
 
   vim.cmd([[
       command! Format execute 'lua _G.lsp_formatting()'
@@ -138,7 +116,8 @@ local on_attach = function(client, bufnr)
     -- { '<Space>wa', require('navigator.workspace').add_workspace_folder, description = '[LSP] navigator - add workspace folder' },
     -- { '<Space>wr', require('navigator.workspace').remove_workspace_folder, description = '[LSP] navigator - remove workspace folder' },
     -- { '<Space>wl', require('navigator.workspace').list_workspace_folders, description = '[LSP] navigator - list workspace folders' },
-    { '<leader>ff', function() vim.lsp.buf.format({ async = true }) end, description = '[LSP] native - format whole buffer', mode = 'n' },
+    -- { '<leader>ff', function() vim.lsp.buf.format({ async = true }) end, description = '[LSP] native - format whole buffer', mode = 'n' },
+    { '<leader>ff', function() _G.lsp_formatting() end, description = '[LSP] native - format whole buffer', mode = 'n' },
     --{ '<leader>fr', vim.lsp.buf_range_formatting, description = '[LSP] navigator - format range', mode = 'v' },
     -- { '<Space>la', require('navigator.codelens').run_action, description = '[LSP] navigator - codelens action', mode = 'n' },
 
@@ -179,32 +158,32 @@ capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
 -- https://github.com/Conni2461/dotfiles/blob/191ace7b9002547e36cf2ef26ed1f26013e6a31d/.config/nvim/lua/module/lsp.lua#L195
 
--- lspconfig.sumneko_lua.setup(require("lua-dev").setup({
---   lspconfig = {
---     cmd = { "lua-language-server" },
---     --on_attach = on_attach,
---     capabilities = capabilities,
---     settings = {
---       Lua = {
---         telemetry = {
---           enable = false,
---         },
---         runtime = {
---           version = "LuaJIT",
---           path = vim.split(package.path, ";"),
---         },
---         diagnostics = {
---           enable = true,
---           globals = { "vim", "describe", "it", "before_each", "teardown", "pending" },
---         },
---         workspace = {
---           maxPreload = 1000,
---           preloadFileSize = 1000,
---         },
---       },
---     }
---   }
--- }))
+lspconfig.sumneko_lua.setup(require("lua-dev").setup({
+  lspconfig = {
+    cmd = { "lua-language-server" },
+    on_attach = on_attach,
+    capabilities = capabilities,
+    settings = {
+      Lua = {
+        telemetry = {
+          enable = false,
+        },
+        runtime = {
+          version = "LuaJIT",
+          path = vim.split(package.path, ";"),
+        },
+        diagnostics = {
+          enable = true,
+          globals = { "vim", "describe", "it", "before_each", "teardown", "pending" },
+        },
+        workspace = {
+          maxPreload = 1000,
+          preloadFileSize = 1000,
+        },
+      },
+    }
+  }
+}))
 
 
 --https://github.com/neovim/nvim-lspconfig/issues/500#issuecomment-851247107
@@ -240,8 +219,6 @@ lspconfig.pyright.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   on_init = function(client)
-    print('pyright on_init')
-    --dump('pyright on_init')
     --client.config.settings.python.pythonPath = "/usr/bin/python"
     client.config.settings.python.pythonPath = get_python_path(client.config.root_dir)
   end,
@@ -259,33 +236,33 @@ lspconfig.pyright.setup {
 }
 
 
--- local servers = {
---   rnix = {},
---   bashls = {},
---   cssls = {},
---   dockerls = {},
---   html = {},
---   jsonls = {},
---   tsserver = {}, -- tsserver needs a npm project in root for it to start
---   vimls = {},
---   yamlls = {},
---   --ember = {},
---   clangd = {},
---   -- null-ls doesnt have to be added to servers
---   --["null-ls"] = {},
---   rust_analyzer = {},
--- }
+local servers = {
+  rnix = {},
+  bashls = {},
+  cssls = {},
+  dockerls = {},
+  html = {},
+  jsonls = {},
+  tsserver = {}, -- tsserver needs a npm project in root for it to start
+  vimls = {},
+  yamlls = {},
+  --ember = {},
+  clangd = {},
+  -- null-ls doesnt have to be added to servers
+  -- ["null-ls"] = {},
+  -- rust_analyzer = {},
+}
 
 
--- for server, config in pairs(servers) do
---   lspconfig[server].setup(vim.tbl_deep_extend("force", {
---     --on_attach = on_attach,
---     capabilities = capabilities,
---     -- flags = {
---     --   debounce_text_changes = 150,
---     -- },
---   }, config))
--- end
+for server, config in pairs(servers) do
+  lspconfig[server].setup(vim.tbl_deep_extend("force", {
+    --on_attach = on_attach,
+    capabilities = capabilities,
+    -- flags = {
+    --   debounce_text_changes = 150,
+    -- },
+  }, config))
+end
 
 --
 --

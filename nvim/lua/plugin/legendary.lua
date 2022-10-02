@@ -39,6 +39,7 @@ require('legendary').setup({
      { ':FSnipRunReplToggle', require"plugin.sniprun.repl".toggle, description = 'sniprun REPL toggle' }, 
      { ':FformatGithubReposDotbot', _G.format_github_repos_dotbot, description = 'dotbot - format github repos' }, 
      {":FReload", ":source $MYVIMRC", description = "resource reload nvim config"},
+     { ':FLspLinesToggle', require"lsp_lines".toggle, description = 'lsp_lines - toggle' }, 
     -- your command tables here
   },
   -- Initial augroups and autocmds to bind

@@ -1,62 +1,49 @@
-version = "0.15.0"
-local xplr = xplr
-local keys = xplr.config.modes.builtin.default.key_bindings.on_key
-home = os.getenv("HOME")
-package.path = home .. "/.config/xplr/plugins/?/src/init.lua;" .. home .. "/.config/xplr/?.lua"
-package.path = package.path .. ";" .. home .. "/dev/cl/lua/standalone/?.lua"
+version = "0.19.0"
+local home = os.getenv("HOME")
+local xpm_path = home .. "/.local/share/xplr/dtomvan/xpm.xplr"
+local xpm_url = "https://github.com/dtomvan/xpm.xplr"
 
-local inspect = require("lib.inspect")
-local function log(msg)
-  local outfile = home .. "/logs/xplr.log"
-  local fp = io.open(outfile, "a")
-  fp:write(string.format("\n%s", inspect(msg)))
-  fp:close()
-end
+package.path = package.path .. ";" .. xpm_path .. "/?.lua;" .. xpm_path .. "/?/init.lua"
 
-log("==== XPLR STARTUP =====")
+os.execute(
+  string.format(
+    "[ -e '%s' ] || git clone '%s' '%s'",
+    xpm_path,
+    xpm_url,
+    xpm_path
+  )
+)
 
-require("icons")
-require"colors"
---xplr.config.node_types.extension.py = { meta = { icon = "" }, style = { fg = "Red" } }
 
-xplr.config.modes.builtin.default.key_bindings.on_key.space = {}
+-- xpm plugin manager
+require("xpm").setup({
+  plugins = {
+    -- Let xpm manage itself
+    'dtomvan/xpm.xplr',
+    'sayanarijit/preview-tabbed.xplr',
+    'sayanarijit/dual-pane.xplr',
+  },
+  auto_install = true,
+  auto_cleanup = true,
+})
 
---xplr.config.general.focus_ui.style.fg = { Rgb = { 170, 150, 130 } }
-xplr.config.general.focus_ui.style.fg = "White"
 
-local extension = xplr.config.node_types.extension
-local colors = {}
-colors.ext = {
-  { "less", { 255, 0, 255 } },
+require("dual-pane").setup{
+  active_pane_width = { Percentage = 70 },
+  inactive_pane_width = { Percentage = 30 },
 }
 
-colors.file = {
-  { "README", { 14, 0, 255 } },
+-- -- preview-tabbed
+-- package.path = home
+-- .. "/.config/xplr/plugins/?/init.lua;"
+-- .. home
+-- .. "/.config/xplr/plugins/?.lua;"
+-- .. package.path
+
+require("preview-tabbed").setup{
+  mode = "action",
+  key = "p",
+  fifo_path = "/tmp/xplr.fifo",
+  previewer = "/usr/share/nnn/plugins/preview-tui"
+  -- previewer = os.getenv("HOME") .. "/.config/nnn/plugins/preview-tabbed",
 }
-
-for _, v in ipairs(colors.ext) do
-  local ext = v[1]
-  local rgb = v[2]
-  if not extension[ext] then
-    extension[ext] = { style = { fg = { Rgb = rgb } } }
-  elseif not extension[ext].style then
-    extension[ext].style = { fg = { Rgb = rgb } }
-  end
-end
-
-local special = xplr.config.node_types.special
-for _, v in ipairs(colors.file) do
-  local ext = v[1]
-  local rgb = v[2]
-  if not special[ext] then
-    special[ext] = { style = { fg = { Rgb = rgb } } }
-  elseif not special[ext].style then
-    special[ext].style = { fg = { Rgb = rgb } }
-  end
-end
-
---xplr.config.node_types.extension.less.style.fg = { Rgb = { 255, 0, 255 } }
-
-log("XPLR SETUP FINISHED")
-
---xplr.config.node_types.extension["css"]. color = { Rgb = { 118, 118, 118 }}

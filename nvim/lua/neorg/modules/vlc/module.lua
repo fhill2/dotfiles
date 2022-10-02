@@ -43,8 +43,6 @@ module.load = function()
 end
 
 module.on_event = function(event)
-
-  dump("on event trig")
   if event.split_type[1] == "core.neorgcmd" then
     if event.split_type[2] == "save" then
       vim.schedule(function() module.public.save() end)

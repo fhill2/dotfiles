@@ -2977,22 +2977,22 @@ rc-unix=/tmp/vlc
 #compressor-rms-peak=0.200000
 
 # Attack time (float)
-#compressor-attack=25.000000
+compressor-attack=17.900000
 
 # Release time (float)
-#compressor-release=100.000000
+compressor-release=2.000000
 
 # Threshold level (float)
-#compressor-threshold=-11.000000
+compressor-threshold=-22.420000
 
 # Ratio (float)
-#compressor-ratio=4.000000
+compressor-ratio=7.460000
 
 # Knee radius (float)
 #compressor-knee=5.000000
 
 # Makeup gain (float)
-#compressor-makeup-gain=7.000000
+compressor-makeup-gain=6.680000
 
 [chorus_flanger] # Sound Delay
 
@@ -3665,7 +3665,7 @@ rc-unix=/tmp/vlc
 #role=video
 
 # Audio filters (string)
-#audio-filter=
+audio-filter=compressor
 
 # Audio visualizations (string)
 #audio-visual=none

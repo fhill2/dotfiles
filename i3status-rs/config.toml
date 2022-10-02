@@ -1,18 +1,120 @@
+icons_format = " <span size='x-large' stretch='ultraexpanded' font_family='DejaVuSansMono Nerd Font Mono'>{icon}</span> "
+# icons_format = " <span size='x-large'>{icon}</span>"
+[icons]
+icons = "awesome"
+# icons = "awesome"
+
+[icons.overrides]
+backlight_1 = ""
+backlight_2 = ""
+backlight_3 = ""
+backlight_4 = ""
+backlight_5 = ""
+backlight_6 = ""
+backlight_7 = ""
+backlight_8 = ""
+backlight_9 = ""
+backlight_10 = ""
+backlight_11 = ""
+backlight_12 = ""
+backlight_13 = ""
+backlight_empty = ""
+backlight_full = ""
+
+# [[block]]
+# block = "custom"
+# command = "swaymsg -t get_tree | jq 'recurse(.nodes[]) | first(select(.name==\"__i3\")) | .floating_nodes | length'"
+# interval = 3
+# format = "{} "
+
 [[block]]
 block = "custom"
-command = "sway_print_tree bar"
-interval = 1
+command = "sway_print_bar.py"
+interval = 0.5
 json = true
-# format = "{text}"
-
-# [[block]] 
-# block = "custom"
-# command = "zsh -c 'testjson'"
-# json = true
 # #
-# [[block]] 
-# block = "custom"
-# command = "echo '{\"icon\":\"weather_thunder\",\"state\":\"critical\", \"text\": \"dangerrr!\"}'"
-# json = true
-#
+# https://greshake.github.io/i3status-rust/i3status_rs/blocks/index.html# # # https://greshake.github.io/i3status-rust/i3status_rs/blocks/index.html
+# https://man.archlinux.org/man/community/i3status-rust/i3status-rs.1.en# # # https://man.archlinux.org/man/community/i3status-rust/i3status-rs.1.en
+[[block]]# # [[block]]
+block = "backlight"# # block = "backlight"
+device = "intel_backlight"# # device = "intel_backlight"
+# icons_format = " <span size='large' stretch='ultraexpanded' font_family='DejaVuSansMono Nerd Font Mono'>{icon}</span> "
 
+
+
+# ssid cant render - maybe because the ssid has a - in name?
+# [[block]]
+# block = "net"
+# device = "wlp0s20f3"
+# # format = "{$signal_strength $ssid $frequency|Wired connection} via $device"
+# format = "$frequency $ssid $device"
+
+[[block]]
+block = "memory"
+# format_mem = "mem_used_percents.eng(1)"
+format_mem = "$mem_used_percents $swap_used_percents"
+# format_swap = "swap_used_percents"
+clickable = false
+interval = 30
+warning_mem = 70
+critical_mem = 90
+
+
+
+
+[[block]]
+block = "load"
+format = "$1m"
+interval = 1
+
+[[block]]
+block = "hueshift"
+hue_shifter = "wl_gammarelay_rs"
+step = 10
+click_temp = 3900
+
+
+[[block]]# # [[block]]
+block = "battery"# # block = "battery"
+device = "BAT0"
+format = "$percentage"# # format = "$percentage|N/A"
+full_format = "$percentage"
+empty_format = "$percentage"
+hide_missing = true
+
+[[block]]
+block = "sound"
+# show name, but the name has been converted into an icon using  block.mappings below
+format = "$output_name{ $volume|}"
+show_volume_when_muted = true
+# format = "$volume"
+device_kind = "sink"
+[block.mappings]
+"alsa_output.pci-0000_00_1f.3-platform-sof_sdw.HiFi__hw_sofsoundwire_5__sink" = ""
+"alsa_output.pci-0000_00_1f.3-platform-sof_sdw.HiFi__hw_sofsoundwire__sink" = ""
+"alsa_output.pci-0000_00_1f.3-platform-sof_sdw.HiFi__hw_sofsoundwire_2__sink" = "ﰝ"
+
+[[block]]
+block = "sound"
+# format = "$output_name{ $volume|$volume}"
+# format = "$volume"
+device_kind = "source"
+show_volume_when_muted = true
+max_vol = 150
+name = "alsa_input.pci-0000_00_1f.3-platform-sof_sdw.HiFi__hw_sofsoundwire_4__source" # dell xps laptop  built in mic
+[block.mappings]
+"alsa_input.pci-0000_00_1f.3-platform-sof_sdw.HiFi__hw_sofsoundwire_4__source" = "" # dell xps laptop built in mic
+
+[[block]]
+block = "temperature"
+# format = "$min min, $max max, $average avg|"
+format = "$max"
+interval = 10
+collapsed = false
+
+[[block]]
+block = "time"
+interval = 1
+[block.format]
+full = "%d/%m %T"
+short = "%R"

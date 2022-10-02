@@ -1,0 +1,11 @@
+
+[Unit]
+Description=Promnesia browser extension backend
+
+[Install]
+WantedBy=default.target
+
+[Service]
+ExecStart=/home/f1/.local/bin/promnesia serve --db /home/f1/.local/share/promnesia/promnesia.sqlite --timezone America/Los_Angeles --port 13131
+Type=simple
+Restart=always

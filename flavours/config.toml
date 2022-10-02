@@ -2,19 +2,19 @@
 # author's dotfiles https://github.com/Misterio77/dotfiles/blob/sway/home/.config/flavours/config.toml
 
 # multiple templates
-[[item]]
-file = '~/.config/rofi/themes/colors.rasi'
-template = 'rofi'
-subtemplate = 'colors'
-rewrite = true
+# [[item]]
+# file = '~/.config/rofi/themes/colors.rasi'
+# template = 'rofi'
+# subtemplate = 'colors'
+# rewrite = true
 
 # single template
-[[item]]
-file = '~/.config/polybar/colors.ini'
-template = 'polybar'
-subtemplate = 'custom'
-hook = 'bash ~/.config/polybar/launch.sh'
-rewrite = true
+# [[item]]
+# file = '~/.config/polybar/colors.ini'
+# template = 'polybar'
+# subtemplate = 'custom'
+# hook = 'bash ~/.config/polybar/launch.sh'
+# rewrite = true
 
 
 # single template

@@ -1,0 +1,19 @@
+[Desktop Entry]
+Name=Discord - Wayland
+Comment=discord wayland
+Exec=/usr/bin/electron16 --enable-features=UseOzonePlatform --enable-gpu --ozone-platform=wayland /usr/lib/discord/app.asar
+#Icon=com.visualstudio.code.oss
+Type=Application
+# StartupNotify=false
+# StartupWMClass=Code
+#Categories=TextEditor;Development;IDE;
+#MimeType=text/plain;application/x-code-oss-workspace;
+#Actions=new-empty-window;
+#Keywords=vscode;
+
+#[Desktop Action new-empty-window]
+#Name=New Empty Window
+#Exec=/usr/bin/code-oss --new-window %F
+#Icon=com.visualstudio.code.oss
+
+# /usr/bin/electron16 --enable-features=WebRTCPipeWireCapturer --enable-features=UseOzonePlatform --enable-gpu --ozone-platform=wayland /usr/lib/discord/app.asar

@@ -62,3 +62,10 @@ function! Log(message)
   call writefile(['['.timestamp.'] '.fname.': '.a:message],
         \ '/home/f1/logs/nvim.log', 'a')
 endfunction
+
+command! -bang -nargs=? Fd
+  \ call fzf#run(fzf#wrap({
+  \   'source': printf('echo %s; fd --color=always %s', shellescape('$ fd ' . <q-args>), shellescape(<q-args>)),
+  \   'options': '--reverse --bind "ctrl-p:reload(echo mode 2; fd --color=always -uu)" --header-lines 1',
+  \   'sink': 'e'},
+  \   <bang>0))
