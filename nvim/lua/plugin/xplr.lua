@@ -1,58 +1,58 @@
 require("xplr").setup({
-  ui = {
-    border = {
-      style = "single",
-      highlight = "FloatBorder",
-    },
- position = {
-     row = "99%",
-     col = "99%",
-    },
-    relative = "editor",
-    size = {
-      width = "99%",
-      height = "99%",
-    },
-  },
-  previewer = {
-    split = true,
-    split_percent = 0.5,
-    ui = {
-      border = {
-        style = "single",
-        highlight = "FloatBorder",
-      },
-      position = { row = "1%", col = "99%" },
-      relative = "editor", -- editor only supported for now
-      size = {
-        width = "30%",
-        height = "99%",
-      },
-    },
-  },
-  xplr = {
-    open_selection = {
-      enabled = true,
-      mode = "action",
-      key = "o",
-    },
-    preview = {
-      enabled = true,
-      mode = "action",
-      key = "i",
-      fifo_path = "/tmp/nvim-xplr.fifo",
-    },
-    set_nvim_cwd = {
-      enabled = true,
-      mode = "action",
-      key = "j",
-    },
-    set_xplr_cwd = {
-      enabled = true,
-      mode = "action",
-      key = "h",
-    },
-  },
+	ui = {
+		border = {
+			style = "single",
+			highlight = "FloatBorder",
+		},
+		position = {
+			row = "99%",
+			col = "99%",
+		},
+		relative = "editor",
+		size = {
+			width = "99%",
+			height = "99%",
+		},
+	},
+	previewer = {
+		split = true,
+		split_percent = 0.5,
+		ui = {
+			border = {
+				style = "single",
+				highlight = "FloatBorder",
+			},
+			position = { row = "1%", col = "99%" },
+			relative = "editor", -- editor only supported for now
+			size = {
+				width = "30%",
+				height = "99%",
+			},
+		},
+	},
+	xplr = {
+		open_selection = {
+			enabled = true,
+			mode = "action",
+			key = "o",
+		},
+		preview = {
+			enabled = true,
+			mode = "action",
+			key = "i",
+			fifo_path = "/tmp/nvim-xplr.fifo",
+		},
+		set_nvim_cwd = {
+			enabled = true,
+			mode = "action",
+			key = "j",
+		},
+		set_xplr_cwd = {
+			enabled = true,
+			mode = "action",
+			key = "h",
+		},
+	},
 })
 
 -- bottom config
@@ -71,20 +71,6 @@ require("xplr").setup({
 --       height = "30%",
 --     },
 --   },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 -- ~/.config/nvim/lua/plugin/xplr.lua-
 -- require("xplr").setup({
@@ -128,7 +114,7 @@ require("xplr").setup({
 --     mode = "action",
 --     key = "i",
 --     fifo_path = "/tmp/nvim-xplr.fifo",
---   }, 
+--   },
 --  set_nvim_cwd = {
 --       enabled = true,
 --       mode = "action",
@@ -148,8 +134,6 @@ require("xplr").setup({
 -- local set_keymap = mappings.set_keymap
 -- local on_previewer_set_keymap = mappings.on_previewer_set_keymap
 
-
-
 -- nvim_set_keymap("n", "<space>xx", '<Cmd>lua require"xplr".open()<CR>', opts) -- open/focus cycle
 -- set_keymap("t", "<space>xx", '<Cmd>lua require"xplr".focus()<CR>', opts) -- open/focus cycle
 
@@ -161,6 +145,3 @@ require("xplr").setup({
 
 -- on_previewer_set_keymap("t", "<space>xb", '<Cmd>lua require"xplr.actions".scroll_previewer_up()<CR>', opts)
 -- on_previewer_set_keymap("t", "<space>xn", '<Cmd>lua require"xplr.actions".scroll_previewer_down()<CR>', opts)
-
-
-

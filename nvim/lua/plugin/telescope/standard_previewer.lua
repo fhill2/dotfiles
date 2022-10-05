@@ -83,4 +83,3 @@
 --
 
 -- vim.cmd([[autocmd User TelescopePreviewerLoaded lua _G.telescope_previewer_loaded()]])
-

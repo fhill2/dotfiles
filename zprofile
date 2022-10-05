@@ -6,7 +6,7 @@
 # TODO: add dev/bin subfolders to PATH
 # https://youtu.be/vt33Hp-4RXg?t=90
 export PATH="$PATH:${$(find ~/dev/bin -type d -printf %p:)%%:}"
-export PATH=/home/f1/dev/bin:/home/f1/.cargo/bin:/home/f1/dev/cl/shell/scripts:/home/f1/.local/bin:$PATH
+export PATH=/home/f1/.local/share/nvim/mason/bin:/home/f1/dev/bin:/home/f1/.cargo/bin:/home/f1/.local/bin:$PATH
 
 export QT_QPA_PLATFORMTHEME=qt5ct
 export QT_AUTO_SCREEN_SCALE_FACTOR=0

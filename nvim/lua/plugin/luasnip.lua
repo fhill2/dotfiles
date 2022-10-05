@@ -1,9 +1,7 @@
-
-require'snippy'.setup({
-  hl_group = 'Search',
-  snippet_dirs = _G.f.snippet_dirs,
+require("snippy").setup({
+	hl_group = "Search",
+	snippet_dirs = _G.f.snippet_dirs,
 })
-
 
 --------- snippy.nvim setup above here -------------
 
@@ -43,18 +41,16 @@ ls.config.set_config({
 	enable_autosnippets = true,
 })
 
-
 ls.snippets = {
-all = {
- s("trig", {
-     	i(1),
-     	f(function(args, user_arg_1) 
-          dump(args[1][1], user_arg_1)
-          return args[1][1] .. user_arg_1 end,
-     		{1},
-     		"Will be appended to text from i(0)"),
-     	i(0)
-     }),
-s("trigger", t({"Wow! Text!", "And another line."}))
-}
+	all = {
+		s("trig", {
+			i(1),
+			f(function(args, user_arg_1)
+				dump(args[1][1], user_arg_1)
+				return args[1][1] .. user_arg_1
+			end, { 1 }, "Will be appended to text from i(0)"),
+			i(0),
+		}),
+		s("trigger", t({ "Wow! Text!", "And another line." })),
+	},
 }

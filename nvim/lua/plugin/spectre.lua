@@ -1,5 +1,4 @@
-require('spectre').setup()
-
+require("spectre").setup()
 
 -- 2022-07-24
 -- require('spectre').setup({

@@ -5,4 +5,4 @@ vim.g.nord_disable_background = false
 vim.g.nord_italic = false
 
 -- Load the colorscheme
-require('nord').set()
+require("nord").set()

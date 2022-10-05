@@ -178,6 +178,56 @@ python_evdev:
 - kempniu/evmapy
 - sebastiansam55/uinput-keyboard-mapper
 
+  # a list of javascript libraries used top 500 highest traffic shopify websites
+  # wappalyzer api export
+  # bottom are less used, top is most used
+js_libraries:
+- zloirock/core-js
+- jquery/jquery
+- googlechrome/web-vitals
+- akamai/boomerang
+- afarkas/lazysizes
+- preactjs/preact
+- jquery/jquery-ui
+- jashkenas/underscore
+- moment/moment
+- lodash/lodash
+- jquery/jquery-migrate
+- kenwheeler/slick
+- metafizzy/flickity
+- modernizr/modernizr
+- select2/select2
+- zenorocha/clipboard.js
+- choices-js/choices
+- maxboeck/emergency-site
+- maxboeck/mxb
+- fancyapps/fancybox
+- lit/lit
+- nolimits4web/swiper
+- lokesh/lightbox2
+- ganlanyuan/tiny-slider
+- financial-times/polyfill-service
+- dimsemenov/photoswipe
+- metafizzy/isotope
+- hammerjs/hammer.js
+- axios/axios
+- datatables/datatables
+- fingerprintjs/fingerprintjs
+- sweetalert2/sweetalert2
+- scaron/prettyphoto
+- mobxjs/mobx
+- atomiks/tippyjs
+- floating-ui/floating-ui
+- highlightjs/highlight.js
+- brix/crypto-js
+- realrashid/sweet-alert
+- instantpage/instant.page
+- iamkun/dayjs
+- josdejong/mathjs
+- dropzone/dropzone
+- apollographql/apollo-client
+
+
 python_hypothesis*:
   # https://hypothesis.readthedocs.io/en/latest/usage.html
 - cdown/aur

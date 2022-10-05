@@ -4,16 +4,16 @@
 
 -- if changing repo install path, they must be under $packpath/pack/packer/opt
 --vim.cmd "set packpath+=~/repos"
-require('globals')
-require "opts"
+require("globals")
+require("opts")
 
 -- https://github.com/wbthomason/dotfiles/blob/linux/neovim/.config/nvim/lua/plugins.lua
-local packer = require "packer"
+local packer = require("packer")
 packer.init({
-  -- package_root = vim.loop.os_homedir() .. "/repos/pack",
-  --plugin_package = "packer",
-  -- snapshot_path = vim.loop.os_homedir() .. "/repos/snapshots",
+	-- package_root = vim.loop.os_homedir() .. "/repos/pack",
+	--plugin_package = "packer",
+	-- snapshot_path = vim.loop.os_homedir() .. "/repos/snapshots",
 })
 packer.reset()
-require "plugins"
-require "plugins-shared"
+require("plugins")
+require("plugins-shared")
