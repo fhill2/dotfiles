@@ -7,29 +7,8 @@ wk.setup({ -- custom config
 })
 
 local normal_keymaps = {
-	-- a = {
-	--   function()
-	--     require("plugin.nui.popup").popup({ close = true })
-	--   end,
-	--   "nui - close all floating windows",
-	-- },
 	a = {
-		--    ["h"] = {
-		--      function()
-		--        require("util/old").send({ whole = true })
-		--      end,
-		--      "old - send whole file open window",
-		--    },
-		--
-		--    o = {
-		--    ["j"] = {
-		--      function()
-		--        require("util/old").show()
-		--      end,
-		--      "old - open window",
-		--    },
-		--  },
-
+		name = "+windows",
 		["d"] = { "<cmd>vsp<cr>", "new | window" },
 		["s"] = { "<cmd>sp<cr>", "new -- window" },
 		["f"] = { "<cmd>bo 30split<cr>", "new btm window" },
@@ -46,20 +25,6 @@ local normal_keymaps = {
 		["g"] = { "<cmd>:BufferLinePick<CR>", "Goto Buffer" },
 		-- "b"] = { "<cmd>:e #<cr>", "Switch to Other Buffer" },
 		--["d"] = { "<cmd>:bd<CR>", "Delete Buffer" },
-	},
-	-- c = { "<cmd>NvimTreeToggle<cr>", "NvimTreeToggle" },
-	s = {
-		name = "+search",
-		["s"] = {
-			"<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",
-			"Telescope live_grep_args",
-		},
-		["d"] = { "<cmd>Telescope live_grep<cr>", "telescope Live_Grep cwd interactive" },
-		["b"] = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Buffer" },
-		["h"] = { "<cmd>Telescope command_history<cr>", "Command History" },
-		["m"] = { "<cmd>Telescope marks<cr>", "Jump to Mark" },
-
-		["r"] = { "<cmd>lua require('spectre').open()<CR>", "Replace (Spectre)" },
 	},
 	d = {
 		name = "+debug",
@@ -80,16 +45,41 @@ local normal_keymaps = {
 		["r"] = { "<Cmd>silent lua require'dap'.repl.open()<CR>", "dap - open repl" },
 		["f"] = { "<Cmd>silent lua require'dap'.run_last()<CR>", "dap - last run" },
 	},
-	e = {
-		name = "+errors",
+	x = {
+		name = "+trouble",
 		["x"] = { "<cmd>TroubleToggle<cr>", "Trouble" },
-		["w"] = { "<cmd>TroubleWorkspaceToggle<cr>", "Workspace Trouble" },
-		["d"] = { "<cmd>TroubleDocumentToggle<cr>", "Document Trouble" },
-		["t"] = { "<cmd>TodoTrouble<cr>", "Todo Trouble" },
-		["T"] = { "<cmd>TodoTelescope<cr>", "Todo Telescope" },
-		["l"] = { "<cmd>lopen<cr>", "Open Location List" },
-		["q"] = { "<cmd>copen<cr>", "Open Quickfix List" },
+		["w"] = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "Trouble - workspace" },
+		["d"] = { "<cmd>TroubleToggle document_diagnostics<cr>", "Trouble - document" },
+		["q"] = { "<cmd>TroubleToggle quickfix<cr>", "Trouble - quickfix" },
+		["l"] = { "<cmd>TroubleToggle loclist<cr>", "Trouble - loclist" },
+		["R"] = { "<cmd>TroubleToggle lsp_references<cr>", "Trouble - lsp_references" },
+		-- ["t"] = { "<cmd>TodoTrouble<cr>", "Todo Trouble" },
+		-- ["T"] = { "<cmd>TodoTelescope<cr>", "Todo Telescope" },
+		-- ["l"] = { "<cmd>lopen<cr>", "Open Location List" },
+		-- ["q"] = { "<cmd>copen<cr>", "Open Quickfix List" },
 	},
+
+	f = {
+		name = "+files",
+		-- ["g"] = { '<cmd>lua require("plugin.telescope.wrap").ff_files_home()<cr>', "Telescope - files - home" },
+		-- ["f"] = { '<cmd>lua require("plugin.telescope.wrap").ff_files()<cr>', "Telescope - files - cwd" },
+		["d"] = { '<cmd>lua require("plugin.telescope.wrap").fb_dot()<cr>', "Telescope fb - dotfiles" },
+		["f"] = { '<cmd>lua require("plugin.telescope.wrap").fb_cwd()<cr>', "Telescope fb  - cwd" },
+		["v"] = { '<cmd>lua require("plugin.telescope.wrap").fb_dev()<cr>', "Telescope fb - dev" },
+		["h"] = { '<cmd>lua require("plugin.telescope.wrap").fb_home()<cr>', "Telescope fb - home" },
+		["r"] = { '<cmd>lua require("plugin.telescope.wrap").fb_repos()<cr>', "Telescope fb - repos" },
+		["n"] = { '<cmd>lua require("plugin.telescope.wrap").fb_notes()<cr>', "Telescope fb - notes" },
+		["m"] = { '<cmd>lua require("plugin.telescope.wrap").fb_notes_tags()<cr>', "Telescope fb - notes tags" },
+		["b"] = { '<cmd>lua require("plugin.telescope.wrap").fb_cbuf()<cr>', "telescope fb - current buffer" },
+		["o"] = { '<cmd>lua require("plugin.telescope.wrap").fb_old()<cr>', "telescope fb - old" },
+		["j"] = { '<cmd>lua require("plugin.telescope.wrap").fb()<cr>', "telescope fb" },
+		["a"] = { '<cmd>lua require("plugin.telescope.wrap").fb_repos_flat()<cr>', "telescope fb - repos-flat" },
+		["s"] = { '<cmd>lua require("plugin.telescope.wrap").fb_repos_tags()<cr>', "telescope fb - repos-tags" },
+		["p"] = { '<cmd>lua require("plugin.telescope.wrap").python()<cr>', "telescope fb - python" },
+		["q"] = { "<cmd>Telescope find_files<cr>", "telescope Find Files" },
+		["t"] = { "<cmd>Telescope oldfiles<cr>", "telescope oldfiles (recent)" },
+	},
+	h = { "<cmd>Telescope help_tags<cr>", "telescope - help tags" },
 	l = {
 		name = "+legendary",
 		["k"] = {
@@ -115,7 +105,7 @@ local normal_keymaps = {
 			"show snippets [Snippy]",
 		},
 	},
-
+	n = { "<cmd>Telescope notify<cr>", "telescope - notifications" },
 	q = {
 		name = "+qf",
 		["q"] = { [[<cmd>:copen<cr>]], "open qf" },
@@ -125,26 +115,6 @@ local normal_keymaps = {
 		name = "+run",
 		["r"] = { [[<cmd>lua require"util.run.init".run()<cr>]], "run" },
 		["q"] = { [[<cmd>lua require"util.run.init".run_qtile()<cr>]], "run qtile" },
-	},
-	f = {
-		name = "+files",
-		-- ["g"] = { '<cmd>lua require("plugin.telescope.wrap").ff_files_home()<cr>', "Telescope - files - home" },
-		-- ["f"] = { '<cmd>lua require("plugin.telescope.wrap").ff_files()<cr>', "Telescope - files - cwd" },
-		["d"] = { '<cmd>lua require("plugin.telescope.wrap").fb_dot()<cr>', "Telescope fb - dotfiles" },
-		["f"] = { '<cmd>lua require("plugin.telescope.wrap").fb_cwd()<cr>', "Telescope fb  - cwd" },
-		["v"] = { '<cmd>lua require("plugin.telescope.wrap").fb_dev()<cr>', "Telescope fb - dev" },
-		["h"] = { '<cmd>lua require("plugin.telescope.wrap").fb_home()<cr>', "Telescope fb - home" },
-		["r"] = { '<cmd>lua require("plugin.telescope.wrap").fb_repos()<cr>', "Telescope fb - repos" },
-		["n"] = { '<cmd>lua require("plugin.telescope.wrap").fb_notes()<cr>', "Telescope fb - notes" },
-		["m"] = { '<cmd>lua require("plugin.telescope.wrap").fb_notes_tags()<cr>', "Telescope fb - notes tags" },
-		["b"] = { '<cmd>lua require("plugin.telescope.wrap").fb_cbuf()<cr>', "telescope fb - current buffer" },
-		["o"] = { '<cmd>lua require("plugin.telescope.wrap").fb_old()<cr>', "telescope fb - old" },
-		["j"] = { '<cmd>lua require("plugin.telescope.wrap").fb()<cr>', "telescope fb" },
-		["a"] = { '<cmd>lua require("plugin.telescope.wrap").fb_repos_flat()<cr>', "telescope fb - repos-flat" },
-		["s"] = { '<cmd>lua require("plugin.telescope.wrap").fb_repos_tags()<cr>', "telescope fb - repos-tags" },
-		["p"] = { '<cmd>lua require("plugin.telescope.wrap").python()<cr>', "telescope fb - python" },
-		["q"] = { "<cmd>Telescope find_files<cr>", "telescope Find Files" },
-		["t"] = { "<cmd>Telescope oldfiles<cr>", "telescope oldfiles (recent)" },
 	},
 	-- p = {
 	--   name = "+neorg",
@@ -156,6 +126,19 @@ local normal_keymaps = {
 			require("legendary").find({ kind = "commands" })
 		end,
 		"Legendary - Commands",
+	},
+	s = {
+		name = "+search",
+		["s"] = {
+			"<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",
+			"Telescope live_grep_args",
+		},
+		["d"] = { "<cmd>Telescope live_grep<cr>", "telescope Live_Grep cwd interactive" },
+		["b"] = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Buffer" },
+		["h"] = { "<cmd>Telescope command_history<cr>", "Command History" },
+		["m"] = { "<cmd>Telescope marks<cr>", "Jump to Mark" },
+
+		["r"] = { "<cmd>lua require('spectre').open()<CR>", "Replace (Spectre)" },
 	},
 	w = {
 		name = "+windows",
@@ -175,15 +158,6 @@ local normal_keymaps = {
 		["="] = { "<C-W>=", "balance-window" },
 		["s"] = { "<C-W>s", "split-window-below" },
 		["v"] = { "<C-W>v", "split-window-right" },
-	},
-	--["`"] = { "<cmd>:e #<cr>", "prev<->current buffer" },
-	["<space>"] = {
-		function()
-			--require("plugin.telescope.find_frecency").show({ cwd = '/home/f1/dev/notes'})
-			-- require("plugin.telescope.wrap").ff_files_dirs_home()
-			--{ cwd = '/home/f1/dev/notes/dev/dev-linux/nvim' }
-		end,
-		"telescope find_frecency",
 	},
 	["<space>"] = { "<cmd>Telescope resume<cr>", "Telescope resume" },
 	["?"] = {
@@ -291,6 +265,9 @@ a.inoremap("<C-a>", [[<cmd>lua require"plugin.telescope.actions".toggle_focus_pr
 a.nnoremap("<C-.>", [[<cmd>lua require"plugin.telescope.actions".close_or_resume()<cr>]])
 a.inoremap("<C-.>", [[<cmd>lua require"plugin.telescope.actions".close_or_resume()<cr>]])
 
+a.allremap("<C-[>", "<cmd>:BufferLineCyclePrev<CR>")
+a.allremap("<C-]>", "<cmd>:BufferLineCycleNext<CR>")
+
 -- :h dap-mappings
 vim.cmd([[nnoremap <silent> <F5> <Cmd>lua require'dap'.continue()<CR>]])
 vim.cmd([[nnoremap <silent> <F10> <Cmd>lua require'dap'.step_over()<CR>]])
@@ -306,16 +283,35 @@ vim.cmd([[nnoremap <silent> <F12> <Cmd>lua require'dap'.step_out()<CR>]])
 --   dump(buf)
 -- end
 
+json_ft_cb = function(opts)
+	keymap_opts = { silent = true, noremap = true }
+	vim.api.nvim_buf_set_keymap(opts.buf, "n", "<leader>rr", "<cmd>MagmaEvaluateLine<cr>", keymap_opts)
+	vim.api.nvim_buf_set_keymap(opts.buf, "n", "<leader>rv", "<cmd>MagmaEvaluateVisual<cr>", keymap_opts)
+	vim.api.nvim_buf_set_keymap(opts.buf, "n", "<leader>rf", "<cmd>MagmaReevaluateCell<cr>", keymap_opts)
+	vim.api.nvim_buf_set_keymap(opts.buf, "n", "<leader>rd", "<cmd>MagmaDelete<cr>", keymap_opts)
+	vim.api.nvim_buf_set_keymap(opts.buf, "n", "<leader>ro", "<cmd>MagmaShowOutput<cr>", keymap_opts)
+
+	wk.register({
+		["<leader>"] = {
+			r = { name = "+magma jupyter" },
+		},
+	})
+end
+
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "json",
-	callback = function(opts)
-		keymap_opts = { silent = true, noremap = true }
-		vim.api.nvim_buf_set_keymap(opts.buf, "n", "<leader>rr", "<cmd>MagmaEvaluateLine<cr>", keymap_opts)
-		vim.api.nvim_buf_set_keymap(opts.buf, "n", "<leader>rv", "<cmd>MagmaEvaluateVisual<cr>", keymap_opts)
-		vim.api.nvim_buf_set_keymap(opts.buf, "n", "<leader>rf", "<cmd>MagmaReevaluateCell<cr>", keymap_opts)
-		vim.api.nvim_buf_set_keymap(opts.buf, "n", "<leader>rd", "<cmd>MagmaDelete<cr>", keymap_opts)
-		vim.api.nvim_buf_set_keymap(opts.buf, "n", "<leader>ro", "<cmd>MagmaShowOutput<cr>", keymap_opts)
-	end,
+	callback = json_ft_cb,
+})
+
+markdown_ft_cb = function(opts)
+	print("markdown filetype autocmd trig!")
+	vim.keymap.set("", "<space>o", require("util/vlc").save, { desc = "vlc Save" })
+	vim.keymap.set("", "<space>i", require("util/vlc").open, { desc = "vlc Open" })
+end
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "markdown",
+	callback = markdown_ft_cb,
 })
 
 -- commands not added
@@ -327,6 +323,28 @@ vim.api.nvim_create_autocmd("FileType", {
 -- nnoremap <silent><expr> <localleader>r  :magmaevaluateoperator<cr>
 -- nnoremap <silent>       <localleader>rr :magmaevaluateline<cr>
 -- xnoremap <silent>       <localleader>r  :<c-u>magmaevaluatevisual<cr>
+-- nnoremap <silent>       <localleader>rc :magmareevaluatecell<cr>
+-- nnoremap <silent>       <localleader>rd :magmadelete<cr>
+-- nnoremap <silent>       <localleader>ro :magmashowoutput<cr>
+--
+-- let g:magma_automatically_open_output = v:false
+-- let g:magma_image_provider = "ueberzug"
+
+-- commands not added
+-- :MagmaShowOutput
+-- :MagmaInterrupt
+-- MagmaRestart
+-- MagmaRestart!
+--
+-- nnoremap <silent><expr> <localleader>r  :magmaevaluateoperator<cr>
+-- nnoremap <silent>       <localleader>rr :magmaevaluateline<cr>
+-- xnoremap <silent>       <localleader>r  :<c-u>magmaevaluatevisual<cr>
+-- nnoremap <silent>       <localleader>rc :magmareevaluatecell<cr>
+-- nnoremap <silent>       <localleader>rd :magmadelete<cr>
+-- nnoremap <silent>       <localleader>ro :magmashowoutput<cr>
+--
+-- let g:magma_automatically_open_output = v:false
+-- let g:magma_image_provider = "ueberzug"
 -- nnoremap <silent>       <localleader>rc :magmareevaluatecell<cr>
 -- nnoremap <silent>       <localleader>rd :magmadelete<cr>
 -- nnoremap <silent>       <localleader>ro :magmashowoutput<cr>

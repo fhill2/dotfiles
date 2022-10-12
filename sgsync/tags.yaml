@@ -1,22 +1,20 @@
-markdown:
-- commonmark/commonmark-spec
-- markdoc/markdoc
+
 
 shell:
 - jarun/nnn
-- kovidgoyal/kitty
 
 #kittens_builtin:
 - #kovidgoyal/kitty/tree/master/kittens
 
-kittens_ex:
+shell/kitty:
 - GermainZ/kitty-weechat-hints
 - knubie/vim-kitty-navigator
 - adi1090x/kitty-cat
 - muchzill4/kitty-session
 - #nerdrew/kittens/blob/master/password.py
+- kovidgoyal/kitty
 
-dotfiles_nix:
+dotfiles/nix:
 - sherubthakur/dotfiles
 - teto/home
 - notusknot/dotfiles-nix
@@ -24,7 +22,7 @@ dotfiles_nix:
 - m0lentum/dotfiles
 - elianiva/dotfiles
 
-dotfiles_lua:
+dotfiles/lua:
 - gf3/dotfiles
 - jameswalmsley/dotfiles
 - LunarVim/LunarVim
@@ -34,10 +32,10 @@ dotfiles_lua:
 - weilbith/dotfiles
 - fdschmidt93/dotfiles
 
-dotfiles_shell:
+dotfiles/shell:
 - junegunn/dotfiles
 
-dotfiles_rice:
+dotfiles/rice:
 - cherrry9/dots
 - igmt-official/dotfiles
 - jorgeloopzz/dotfiles
@@ -45,15 +43,15 @@ dotfiles_rice:
 - Misterio77/Dotfiles
 - misterio77/nix-config
 
-dotfiles_i3:
+dotfiles/i3:
 - altercation/dotfiles-tilingwm
 - EllaTheCat/dopamine
 
-dotfiles_herb*:
+dotfiles/herb*:
 - wlard/dotfiles
 - ssh0/dotfiles
 
-dotfiles:
+dotfiles/dotfiles:
 - mfussenegger/dotfiles
 - dwmkerr/dotfiles
 - theprimeagen/.dotfiles
@@ -66,15 +64,14 @@ dotfiles:
 - issmirnov/dotfiles
 - eli-schwartz/dotfiles.sh
 - jbernard/dotfiles
+- saurabhchardereal/dotfiles
+
+dotfiles/xplr:
 - sayanarijit/.files
+- dtomvan/.config
+- maximbaz/dotfiles
 
-browser:
-- mdn/webextensions-examples
 
-promnesia markdown:
-- karlicoss/promnesia
-- karlicoss/HPI
-- seanbreckenridge/browserexport
 
 vim:
 - skywind3000/asyncrun.vim
@@ -122,24 +119,6 @@ awesome:
 - randallkanna/awesome-job-list
 - rothgar/awesome-tmux
 
-rofi:
-- davatorium/rofi
-- adi1090x/rofi
-- jluttine/rofi-power-menu
-# -- gitlab distrotube
-# - dwt1/dmscripts
-- Murzchnvok/rofi-collection
-
-nested_tag/nested:
-- noborus/ov
-
-polybar:
-- polybar/polybar-scripts
-- Murzchnvok/polybar-collection
-
-nix:
-- NixOS/nixpkgs
-
 python:
   #- ghill2/pytower_proj
 - polygon-io/client-python
@@ -148,6 +127,18 @@ python:
 - qtile/qtile
 - saghul/pyuv
 - python/cpython
+
+python/evdev:
+  # https//gist.github.com/t184256/f4994037a2a204774ef3b9a2b38736dc:
+  #https://www.reddit.com/r/VFIO/comments/m8glcs/announcing_vfiokvm_20_a_service_for_toggling/
+- gvalkov/python-evdev
+- SirAeroWN/remappy
+- CappyT/VFIO-Switcher
+- mciupak/libvirt-evdev
+- aiberia/persistent-evdev
+- dangle/akeydo
+- kempniu/evmapy
+- sebastiansam55/uinput-keyboard-mapper
 
 rust:
 - sayanarijit/xplr
@@ -163,25 +154,24 @@ rust:
 - out-of-cheese-error/the-way
 - lotabout/skim
 
-kmonad:
-- kmonad/kmonad-contrib
 
-python_evdev:
-  # https//gist.github.com/t184256/f4994037a2a204774ef3b9a2b38736dc:
-  #https://www.reddit.com/r/VFIO/comments/m8glcs/announcing_vfiokvm_20_a_service_for_toggling/
-- gvalkov/python-evdev
-- SirAeroWN/remappy
-- CappyT/VFIO-Switcher
-- mciupak/libvirt-evdev
-- aiberia/persistent-evdev
-- dangle/akeydo
-- kempniu/evmapy
-- sebastiansam55/uinput-keyboard-mapper
+dev/browser:
+- mdn/webextensions-examples
+
+# SUPPORTS DOUBLE TAGS
+dev/promnesia dev/markdown:
+- karlicoss/promnesia
+- karlicoss/HPI
+- seanbreckenridge/browserexport
+
+dev/markdown:
+- commonmark/commonmark-spec
+- markdoc/markdoc
 
   # a list of javascript libraries used top 500 highest traffic shopify websites
   # wappalyzer api export
   # bottom are less used, top is most used
-js_libraries:
+dev/js/libraries:
 - zloirock/core-js
 - jquery/jquery
 - googlechrome/web-vitals
@@ -228,7 +218,7 @@ js_libraries:
 - apollographql/apollo-client
 
 
-python_hypothesis*:
+python/hypothesis*:
   # https://hypothesis.readthedocs.io/en/latest/usage.html
 - cdown/aur
 - hynek/argon2-cffi
@@ -272,10 +262,20 @@ python_hypothesis*:
 - zenml-io/zenml
 
 
-sway:
-- gumieri/sway-session
+arch/rofi:
+- davatorium/rofi
+- adi1090x/rofi
+- jluttine/rofi-power-menu
+# -- gitlab distrotube
+# - dwt1/dmscripts
+- Murzchnvok/rofi-collection
 
-i3:
+arch/polybar:
+- polybar/polybar-scripts
+- Murzchnvok/polybar-collection
+
+
+arch/i3_sway:
 - lbonn/i3-focus-last
 - lbonn/i3-quickterm
 - i3/i3
@@ -298,20 +298,33 @@ i3:
 - pitkley/i3nator
 - altdesktop/i3ipc-python
 - dustbyte/i3-cycle
+# sway only
+- gumieri/sway-session
 # https://github.com/EllaTheCat/dopamine/blob/master/i3files/i3-wrapper
 
+arch/kmonad:
+- kmonad/kmonad-contrib
 
-ansible_only:
+arch/pacman:
+- mdaffin/arch-pkgs
+- #https//gitlab.com/anarchyinstaller/installer:
+- archlinux/arch-install-scripts
+- naelstrof/auto-usb-arch-scripts
+- ChrisTitusTech/ArchTitus
+- rickellis/ArchMatic
+
+
+devops/ansible_only:
 - ansible/ansible-examples
 - ruzickap/ansible-role-my_common_defaults
 - ruzickap/ansible-role-virtio-win
 
-ansible_vagrant:
+devops/ansible_vagrant:
 - xcad2k/boilerplates
 - geerlingguy/ansible-for-devops
 - geerlingguy/ansible-vagrant-examples
 
-packer:
+devops/packer:
 - chef/bento
 - StefanScherer/packer-windows
 - mwrock/packer-templates
@@ -321,14 +334,35 @@ packer:
 - jakobadam/packer-qemu-templates
 
 
-arch_pacman:
-- mdaffin/arch-pkgs
-- #https//gitlab.com/anarchyinstaller/installer:
-- archlinux/arch-install-scripts
-- naelstrof/auto-usb-arch-scripts
-- ChrisTitusTech/ArchTitus
-- rickellis/ArchMatic
-
+lua/xplr:
+- dtomvan/extra-icons.xplr
+- prncss-xyz/icons.xplr
+- sayanarijit/material-landscape2.xplr
+- sayanarijit/zentable.xplr
+- sayanarijit/material-landscape.xplr
+- sayanarijit/xclip.xplr
+- sayanarijit/zoxide.xplr
+- sayanarijit/trash-cli.xplr
+- sayanarijit/xargs.xplr
+- sayanarijit/scp.xplr
+- sayanarijit/preview-tabbed.xplr
+- sayanarijit/qrcp.xplr
+- dtomvan/paste-rs.xplr
+- dtomvan/ouch.xplr
+- sayanarijit/find.xplr
+- sayanarijit/dua-cli.xplr
+- sayanarijit/alacritty.xplr
+- sayanarijit/dragon.xplr
+- sayanarijit/wl-clipboard.xplr
+- sayanarijit/type-to-nav.xplr
+- igorepst/term.xplr
+- sayanarijit/registers.xplr
+- sayanarijit/offline-docs.xplr
+- sayanarijit/regex-search.xplr
+- sayanarijit/map.xplr
+- igorepst/context-switch.xplr
+- sayanarijit/dual-pane.xplr
+- sayanarijit/command-mode.xplr
 
 lua/nvim:
 - sindrets/diffview.nvim

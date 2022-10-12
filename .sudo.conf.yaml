@@ -18,6 +18,11 @@
     /usr/bin/start_kmonad_builtin.sh: /home/f1/dev/sys/start_kmonad_builtin.sh
     /etc/swhkd/swhkdrc: /home/f1/dot/swhkd/swhkdrc
 
+    # to automatically load my firefox extension without using web-ext, only normal firefox
+    # https://github.com/tsaost/autoload-temporary-addon
+    /opt/firefox-nightly/defaults/pref/config-prefs.js: /home/f1/dot/firefox/config-prefs.js
+    /opt/firefox-nightly/userChrome.js: /home/f1/dot/firefox/userChrome.js
+
 - create:
     /etc/pacman.d/hooks:
     /etc/swhkd:

@@ -96,7 +96,12 @@ use({
 	end,
 })
 
-use("rcarriga/nvim-notify")
+use({
+	"rcarriga/nvim-notify",
+	config = function()
+		require("plugin.notify")
+	end,
+})
 -- use({
 --   "kevinhwang91/nvim-bqf",
 --   ft = "qf",
@@ -324,15 +329,15 @@ use({
 	end,
 })
 
---use({
---  "folke/trouble.nvim",
---  event = "BufReadPre",
---  wants = "nvim-web-devicons",
---  cmd = { "TroubleToggle", "Trouble" },
---  config = function()
---    require("plugin.trouble")
---  end,
---})
+use({
+	"folke/trouble.nvim",
+	event = "BufReadPre",
+	wants = "nvim-web-devicons",
+	cmd = { "TroubleToggle", "Trouble" },
+	config = function()
+		require("plugin.trouble")
+	end,
+})
 
 use({
 	"TimUntersberger/neogit",
@@ -469,6 +474,7 @@ use({
 	"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
 	config = function()
 		require("lsp_lines").setup()
+		require("lsp_lines").toggle()
 	end,
 })
 

@@ -10,6 +10,11 @@ M.on_attach = function(client, bufnr)
 		buffer = bufnr,
 	})
 
+
+  -- vim.diagnostic.config({ virtual_lines = false })
+  -- lsp_lines to show only for the current line
+  vim.diagnostic.config({ virtual_lines = { only_current_line = true } })
+
 	autocmds.attach(client, bufnr)
 	formatting.attach(client, bufnr)
 	mappings.attach(client, bufnr)

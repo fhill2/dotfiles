@@ -11,6 +11,7 @@ local action_state = require("telescope.actions.state")
 local M = {}
 function M.show(opts)
 	local snippets = snippy.get_completion_items()
+	-- local snippets = vim.tbl_isempty(snippets) and { "snippy.get_completion_items() returned no snippets" } or snippets
 	local snippets_ft = vim.bo.filetype
 
 	local opts = opts or {}

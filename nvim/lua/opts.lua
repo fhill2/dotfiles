@@ -106,7 +106,7 @@ vim.cmd([[autocmd Filetype markdown set tabstop=4 shiftwidth=4 ]])
 
 -- syntax highlighting for vagrant
 
-_G.telescope_last_editor_win = function() end
+-- _G.telescope_last_editor_win = function() end
 
 -- add ! to silent will still load config if color scheme isnt available (bootstrap)
 -- vim.cmd('silent! colorscheme material')
@@ -119,5 +119,3 @@ _G.telescope_last_editor_win = function() end
 
 --vim.lsp.set_log_level("debug")
 --vim.cmd[[syntax on]]
-
--- batch sets up autocmds

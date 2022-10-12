@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Discord - Wayland
 Comment=discord wayland
-Exec=/usr/bin/electron16 --enable-features=UseOzonePlatform --enable-gpu --ozone-platform=wayland /usr/lib/discord/app.asar
+Exec=/usr/bin/electron19 --enable-features=UseOzonePlatform --enable-gpu --ozone-platform=wayland /usr/lib/discord/app.asar
 #Icon=com.visualstudio.code.oss
 Type=Application
 # StartupNotify=false

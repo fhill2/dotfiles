@@ -1,10 +1,3 @@
-require("snippy").setup({
-	hl_group = "Search",
-	snippet_dirs = _G.f.snippet_dirs,
-})
-
---------- snippy.nvim setup above here -------------
-
 local ls = require("luasnip")
 -- some shorthands...
 local s = ls.snippet

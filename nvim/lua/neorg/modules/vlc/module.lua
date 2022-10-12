@@ -97,7 +97,11 @@ module.public = {
 		local title = exec([[echo "get_title" | nc -U -q0 /tmp/vlc]])
 		local fp = exec(("cd %s && fd %s ."):format(vids, title))
 
-		local line = ("[%s](lt://%s/%s)"):format(vim.api.nvim_get_current_line(), time, fp)
+		-- only keep parent folder
+		local fp_split = vim.split(fp, "/")
+		local parent = fp_split[#fp_split]
+
+		local line = ("[%s](lt://%s/%s/%s)"):format(vim.api.nvim_get_current_line(), time, parent, title)
 		vim.api.nvim_set_current_line(line)
 	end,
 

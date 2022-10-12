@@ -76,6 +76,7 @@
     ~/dev/bin/looking-glass-client: 
       if: '[ `hostname` = arch-desk ]'
       path: ~/dev/app/looking-glass-b5-rc1/client/build/looking-glass-client
+
     
 - create:
     ~/.config:

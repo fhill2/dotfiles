@@ -1,3 +1,14 @@
+- smjonas/live-command.nvim
+- fman-users/fman
+- akatrevorjay/edid-generator
+- zikaari/webext-bridge
+- nvchad/base46
+- aca/emmet-ls
+- mattn/emmet-vim
+- pedro00dk/nvidia-exec
+- elianiva/telescope-npm.nvim
+- flightlessmango/mangohud
+- agalwood/motrix
 - simbaig/portfolio-nextjs
 - maggieappleton/maggieappleton.com-v2
 - moedayraki/moedayraki.github.io
@@ -21,7 +32,7 @@
 - gregsithole/gregsithole-react-portfolio
 - gndx/gndx.io
 - davzoku/personal-website-v1
-- jacobfv/jacobfv.github.io
+- jacobfv/old-jacobfv.github.io
 - jasmeetsinghbhatia/resume
 - paytonjewell/paytonpierce.dev
 - pycoder2000/blog
@@ -265,6 +276,7 @@
 - fymyte/rasi.vim
 - mtdl9/vim-log-highlighting
 - baskerville/vim-sxhkdrc
+- nvim-tree/nvim-web-devicons
 - tpope/vim-unimpaired
 - moll/vim-bbye
 - fladson/vim-kitty
@@ -351,12 +363,14 @@
 - tako8ki/gobang
 - lunaryorn/mdcat
 - tigrawap/slit
+- noborus/ov
 - lucc/nvimpager
 - wofr06/lesspipe
 - eth-p/bat-extras
 - smurphos/nemo_actions_and_cinnamon_scripts
 - alfcx/linux-mint-nemo-actions
 - sindresorhus/trash-cli
+- nixos/nixpkgs
 - yurikhan/kitty-smart-scroll
 - jzelinskie/faq
 - octocat/hello-world
@@ -463,5 +477,6 @@
 - xuyuanp/yanil
 - skywind3000/leaderf-snippet
 - neovim/neovim
+- nvim-tree/nvim-tree.lua
 - nvim-lua/wishlist
 - mhinz/vim-startify

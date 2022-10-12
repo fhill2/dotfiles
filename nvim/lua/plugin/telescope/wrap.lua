@@ -22,8 +22,14 @@ local wrap = {}
 --
 -- }
 --
+
+-- telescope fb uses plenary.scandir if:
+-- select_buffer=true
+-- OR
+-- grouped=true
+-- both are false by default so plenary.scandir is not used by default
+
 local fb = function(opts)
-	-- require "telescope".extensions.file_browser.file_browser(vim.tbl_deep_extend("keep", opts, defaults))
 	require("telescope").extensions.file_browser.file_browser(opts)
 end
 
@@ -80,7 +86,8 @@ function wrap.fb_repos_flat()
 end
 function wrap.fb_repos_tags()
 	local path = home .. "/repos-tags"
-	fb({ path = path })
+  -- files = false --> start in folder browse
+	fb({ path = path, files = false }) 
 end
 
 function wrap.fb_old()

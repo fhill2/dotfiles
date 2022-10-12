@@ -23,7 +23,7 @@ use({ "kyazdani42/nvim-web-devicons" })
 -- })
 
 use({
-	local_or_git("~/repos/packer-fork/telescope.nvim", "nvim-telescope/telescope.nvim"),
+	local_or_git("~/dev/packer-fork/telescope.nvim", "nvim-telescope/telescope.nvim"),
 	config = function()
 		require("plugin.telescope.init")
 	end,
@@ -40,7 +40,7 @@ use({
 })
 use("nvim-telescope/telescope-fzy-native.nvim")
 
-use(local_or_git("~/repos/packer-fork/telescope-file-browser.nvim", "nvim-telescope/telescope-file-browser.nvim"))
+use(local_or_git("~/dev/packer-fork/telescope-file-browser.nvim", "nvim-telescope/telescope-file-browser.nvim"))
 
 use({ "cljoly/telescope-repo.nvim" })
 use("jvgrootveld/telescope-zoxide")

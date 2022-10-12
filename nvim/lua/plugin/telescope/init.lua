@@ -2,12 +2,13 @@
 local telescope = require("telescope")
 local fb_actions = require("telescope").extensions.file_browser.actions
 local actions = require("telescope.actions")
-local action_state = require("telescope.actions.state")
-local action_set = require("telescope.actions.set")
+local layout_actions = require("telescope.actions.layout")
+-- local action_state = require("telescope.actions.state")
+-- local action_set = require("telescope.actions.set")
 local my_actions = require("plugin.telescope.actions")
-local my_utils = require("plugin.telescope.util")
-local lga_actions = require("telescope-live-grep-args.actions")
-local conf = require("telescope.config").values
+-- local my_utils = require("plugin.telescope.util")
+-- local lga_actions = require("telescope-live-grep-args.actions")
+-- local conf = require("telescope.config").values
 
 -- table.insert(conf.vimgrep_arguments, "-L")
 -- dump(conf.vimgrep_arguments)
@@ -41,6 +42,8 @@ local telescope_mappings = {
 		["<C-j>"] = actions.move_selection_next,
 		["<C-o>"] = my_actions.resize,
 		["<C-k>"] = actions.move_selection_previous,
+		["<C-[>"] = layout_actions.cycle_layout_prev,
+		["<C-]>"] = layout_actions.cycle_layout_next,
 		-- ["<C-Space>"] = my_actions.toggle_focus_picker,
 		["<S-CR>"] = actions.select_horizontal,
 		-- ["<C-a>"] = my_actions.toggle_focus_previewer,
@@ -48,7 +51,7 @@ local telescope_mappings = {
 		["<C-r>"] = fb_actions.rename,
 		["<C-v>"] = fb_actions.copy,
 		["<C-x>"] = fb_actions.remove,
-		["<C-S-v>"] = fb_actions.move,
+		["<C-b>"] = fb_actions.move,
 		["<F1>"] = actions.which_key,
 		["<C-p>"] = require("telescope.actions.layout").toggle_preview,
 		["<C-w>"] = actions.send_selected_to_qflist,
@@ -82,18 +85,28 @@ local file_browser_mappings = {
 	-- ["n"] = ,
 }
 
+local cycle_layout_list = {
+	{
+		layout_strategy = "vertical",
+		layout_config = { preview_height = 20 },
+	},
+	"horizontal",
+	"vertical",
+}
+
 local defaults = {
 	-- border = true,
 	-- borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
-	layout_strategy = "flex",
+	layout_strategy = "vertical",
 	layout_config = {
 		height = 0.99,
 		width = 0.99,
 		prompt_position = "bottom",
 		preview_cutoff = 1,
 		anchor = "S",
-		-- preview_height = 15,
+		-- preview_height = 40, -- adding this breaks vim.ui.select legendary.nvim
 	},
+	cycle_layout_list = cycle_layout_list,
 	prompt_prefix = " ",
 	sorting_strategy = "descending",
 	cache_picker = {
@@ -164,6 +177,7 @@ telescope.load_extension("gh")
 telescope.load_extension("live_grep_args")
 telescope.load_extension("bookmarks")
 telescope.load_extension("git_worktree")
+telescope.load_extension("notify")
 --telescope.load_extension("fzf")
 -- telescope.load_extension("ui-select")
 --telescope.load_extension('snippets')
