@@ -268,4 +268,12 @@ function src() {
   /usr/bin/src $@
 }
 
+
+# BROOT
 source /home/f1/.config/broot/launcher/bash/br
+
+# deep fuzzy cd
+function dcd {
+    br --only-folders --cmd "$1;:cd"
+}
+
