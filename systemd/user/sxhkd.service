@@ -1,0 +1,21 @@
+# https://github.com/baskerville/sxhkd/issues/195
+[Unit]
+Description=sxhkd
+PartOf=graphical-session.target
+
+[Service]
+; ExecStart=/usr/bin/sxhkd
+
+# as systemd user does not inherit env vars, source from .profile before executing
+ExecStart=/bin/sh -c 'source ~/.profile && /usr/bin/sxhkd'
+Restart=always
+RestartSec=2
+ExecReload=/usr/bin/kill -SIGUSR1 $MAINPID
+# as all sub processes are in the same cgroup as sxhkd.service
+# and all sub processes in the cgroup are terminated upon restart or stop
+# this sets systemd to not send kill signals to child processes in the same cgroup
+KillMode=process
+; Environment="SXHKD_SHELL=/bin/sh"
+
+[Install]
+WantedBy=xsession.target

@@ -1,6 +1,7 @@
 ;; https://github.com/kmonad/kmonad/issues/339
 (defcfg
-input (device-file "/dev/input/by-id/ckb-Corsair_Gaming_K55_RGB_Keyboard_vKB_-event")
+;; input (device-file "/dev/input/by-id/ckb-Corsair_Gaming_K55_RGB_Keyboard_vKB_-event")
+input (device-file "/dev/input/by-id/usb-Corsair_Corsair_Gaming_K55_RGB_Keyboard_AF6EA5275ED21F58F5001C0440048000-event-kbd")
 output (uinput-sink "Corsair Kmonad Output")
 fallthrough true
 )

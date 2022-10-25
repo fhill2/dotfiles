@@ -1,7 +1,6 @@
 local cmd = vim.cmd
 local indent = 2
 
-vim.notify = require("notify")
 
 vim.o.swapfile = false -- Living on the edge
 vim.opt.mouse = "a" -- enable mouse mode

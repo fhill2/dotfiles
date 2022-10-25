@@ -65,6 +65,7 @@ require("xpm").setup({
 		},
 		"sayanarijit/trash-cli.xplr",
 		"sayanarijit/find.xplr",
+		"sayanarijit/map.xplr",
 	},
 	auto_install = true,
 	auto_cleanup = true,
@@ -79,8 +80,8 @@ require("preview-tabbed").setup({
 	mode = "default",
 	key = "ctrl-p",
 	fifo_path = "/tmp/xplr.fifo",
-	previewer = "/usr/share/nnn/plugins/preview-tui",
-	-- previewer = os.getenv("HOME") .. "/.config/nnn/plugins/preview-tabbed",
+	-- previewer = os.getenv("HOME") .. "/dev/bin/preview_tui.sh", -- for wayland sway
+	previewer = os.getenv("HOME") .. "/dev/bin/preview_tabbed.bash", -- for x i3 - as non TUI previewers use xembed client / host model
 })
 
 -- https://github.com/sayanarijit/trash-cli.xplr
@@ -92,6 +93,25 @@ require("trash-cli").setup({
 	trash_list_selector = "fzf -m | cut -d' ' -f3-",
 })
 
+require("map").setup()
+-- local map = require("map")
+-- map.setup{
+--   mode = "default"  -- or `xplr.config.modes.builtin.default`,
+--   key = "M",
+--   editor = os.getenv("EDITOR") or "vim",
+--   editor_key = "ctrl-o",
+--   prefer_multi_map = false,
+--   placeholder = "{}",
+--   custom_placeholders = {
+--     ["{ext}"] = function(node)
+--       -- See https://xplr.dev/en/lua-function-calls#node
+--       return node.extension
+--     end,
+--
+--     ["{name}"] = map.placeholders["{name}"]
+--   },
+-- }
+--
 -- remap fs operations
 -- copy without -v, displaying without a popup shell window - only display logs
 -- Silently makes gui not flicker

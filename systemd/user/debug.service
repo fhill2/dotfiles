@@ -1,0 +1,11 @@
+[Unit]
+Description=dunst
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/dunst
+Restart=always
+
+[Install]
+WantedBy=xsession.target
+

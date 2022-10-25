@@ -1,0 +1,82 @@
+- yay:
+    # for the most minimal gnome install
+    - gnome-session
+    - gnome-shell
+
+    - nodejs
+    - python
+    - kitty
+    - git  
+    - man
+    - dunst
+    - jq
+    # audio
+    - pulseaudio
+    # otherwise external monitor HDMI sound outputs do not show in pavucontrol / pulseaudio
+    - sof-firmware 
+    # for floating point math in bash
+    - bc
+    # nvidia proprietary
+    - nvidia
+    - nvidia-utils
+    - nvidia-settings
+    
+    # x specific
+    - xorg
+    - xorg-xwininfo
+    - xorg-xev
+    
+    # gpu performance monitoring (for each driver)
+    - intel-gpu-tools
+
+    - gpg-tui # failed to build using cargo
+    - pass
+
+    # pulseaudio scripting
+    - pamixer
+
+    - vlc
+    - blender
+
+    # x server extras
+
+    # for vlc.lua link script
+    - wmctrl
+
+    # networking
+
+    # gnu-netcat does not have -U option for vlc link script
+    - openbsd-netcat
+
+    # file manager
+    - nemo
+    # otherwise no nemo context menu "extract here"
+    - nemo-fileroller
+
+    # ============== AUR PACKAGES START HERE ==========
+    
+    # needed for current version of corsair udev
+    - xpub
+    - kmonad-bin
+    - xmousepasteblock-git
+    - mons
+    # i3status-rs lists its dependencies in the aur package - and they are not installed automatically
+    # installing i3status-rs through cargo does not install the correct files into /usr/share/i3status-rs for icons and themes to work
+    - i3status-rs
+    - ttf-font-awesome
+    - upower
+    - speedtest-cli
+
+    # sourcegraph - installed this manually as validation did not pass
+    # had to install with yay -S --mflags '--skipchecksums' -S src-cli-bin
+    - src-cli-bin
+
+    # work
+    - slack
+
+    # 3d animation
+    - unityhub
+
+
+- shell
+  ['dotbot/install_extras.sh']

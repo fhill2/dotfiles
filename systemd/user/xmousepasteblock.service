@@ -1,0 +1,10 @@
+[Unit]
+Description=xmousepasteblock
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/xmousepasteblock
+Restart=always
+
+[Install]
+WantedBy=xsession.target

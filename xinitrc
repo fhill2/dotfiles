@@ -1,69 +1,45 @@
-#!bin/sh
 
-
-
-# needs to be run twice
-# this only changes title bars
-# xrandr --dpi 266
-# xrandr --dpi 266
-
-# manually merge Xresources into X server
-# without this, the dpi setting in ~/.Xresources only applies to GUI elements like i3 title bars
-# with this, dpi also affects fonts too
-xrdb -merge ~/.Xresources
-
-
-# how to set only the X server font DPI?
-
-
-# exported from arandr
-# xrandr monitor layout has to be before qtile because qtile needs the correct screen layout to place widgets, otherwise it errors
-
-#/home/f1/Desktop/xrandr.sh &
-
-#fi
-
-#/usr/bin/prime-offload
-
-#https://wiki.archlinux.org/title/Xorg/Keyboard_configuration#Using_setxkbmap
-# setxkbmap -model pc105 -layout us
-
-
-sudo tzupdate # auto change timezone based on IP address - before qtile starts otherwise clocks arent set
-# exec qtile start 2>&1 > ~/.local/share/qtile/qtile.log
-#exec qtile start -c ~/dot/qtile/config2.py
-
-
-# i3
-dunst &
-xmousepasteblock &
-redshift -P -O 4900
-nm-applet &
-# autorandr --change
-# setxkbmap -model pc105 -layout us
-
-sudo kmonad ~/dot/kmonad/config.kbd >> $HOME/logs/kmonad.log 2>&1 &
-# show stderr (custom script errors) and stdout (custom script print statements) in sxhkd.log
-sxhkd >> $HOME/logs/sxhkd.log 2>&1 &
-
-# https://www.reddit.com/r/i3wm/comments/i9xu28/where_does_i3_write_its_log_file/
-exec i3 -V -d all &>> "$HOME/logs/i3.log"
-# exec i3
-#exec herbstluftwm
-
-
-
-
-#### OLD
-
-### RUN /etc/X11/xinit/xinitrc
-#. /etc/X11/xinit/xinitrc
-
-#https://wiki.archlinux.org/title/environment_variables
-#export PATH="${PATH}:/home/my_user/bin"
-
-
-#if [[ "$HOSTNAME" == "arch-lap" ]]; then
-# exec /usr/bin/prime-offload
-# xrandr --setprovideroutputsource modesetting NVIDIA-0
-# xrandr --auto
+# # https://cewood.xyz/posts/my-i3-setup/
+# if the nvidia optimus prime render default xorg config is used
+# and this line is not set - all screens are black
+xrandr --setprovideroutputsource modesetting NVIDIA-0
+xrandr --auto
+# xrandr --output eDP-1-1 --set "PRIME Synchronization" 1 --output DP-1-3 --set "PRIME Synchronization" 1
+#
+# # main xrandr gets applied by mons when first starting up
+# # mons does not re apply xrandr if logging in /out
+#
+#
+# # ~/.Xresources IS NOT read when launching with startx / xinitrc
+# # ~/.Xresources does not support comments with #
+# # https://bbs.archlinux.org/viewtopic.php?id=208894
+xrdb -load ~/.Xresources
+#
+#
+# # Propogate DISPLAY vars to Systemd, for more info see this
+# #  https://wiki.archlinux.org/index.php/Systemd/User#Environment_variables
+# # https://wiki.archlinux.org/title/Systemd/User
+# # before starting any systemd user services, import the given environment variables into the user systemd environment
+systemctl --user import-environment DISPLAY WAYLAND_DISPLAY
+#
+#
+# # so I can use i3-msg or swaymsg interchangably in bash scripts
+if [[ ! -z "${DISPLAY}" ]]; then
+  [[ "$(readlink /usr/bin/swaymsg)" != "/usr/bin/i3-msg" ]] && sudo ln -sf /usr/bin/i3-msg /usr/bin/swaymsg
+fi
+#
+if [[ ! -z "${WAYLAND_DISPLAY}" ]]; then
+  [[ "$(readlink /usr/bin/i3-msg)" != "/usr/bin/swaymsg" ]] && sudo ln -sf /usr/bin/swaymsg /usr/bin/i3-msg
+fi
+#
+case "$1" in
+gnome)
+    exec /usr/bin/gnome-session
+    ;;
+i3-gnome)
+    exec /usr/bin/i3-gnome
+    ;;
+*)
+    exec /usr/bin/i3
+    ;;
+esac

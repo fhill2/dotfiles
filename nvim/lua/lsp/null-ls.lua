@@ -1,21 +1,22 @@
 local null_ls = require("null-ls")
 local on_attach = require("lsp.events").on_attach
 
-
 local actions = null_ls.builtins.code_actions
 local diagnostics = null_ls.builtins.diagnostics
 local formatting = null_ls.builtins.formatting
 
 null_ls.setup({
-  on_attach = on_attach,
-  debounce = vim.o.updatetime,
-  debug = true, -- View logs with `:NullLsLog` after setting to true
-  save_after_format = false,
-  sources = {
-    formatting.black,
-    formatting.prettierd,
-    formatting.stylua,
-  },
+	on_attach = on_attach,
+	debounce = vim.o.updatetime,
+	debug = true, -- View logs with `:NullLsLog` after setting to true
+	save_after_format = false,
+	sources = {
+		formatting.black,
+		formatting.prettierd,
+		formatting.stylua,
+		actions.shellcheck,
+    diagnostics.shellcheck,
+	},
 })
 
 -- function M.has_formatter(ft)
@@ -29,6 +30,6 @@ null_ls.setup({
 -- end
 
 require("mason-null-ls").setup({
-  -- ensure_installed = {},
-  automatic_installation = true,
+	-- ensure_installed = {},
+	automatic_installation = true,
 })

@@ -1,0 +1,45 @@
+# why I have forked certain dotbot plugins:
+
+# dotbot-rust - installs with cargo install --force by default (upgrades on every run) - I want this as an option
+# dotbot-sudo broken: with dotbot installed through yay or pip --user, dotbot-sudo looks for dotbot binary at /usr/lib/python3.10/site-packages/bin/dotbot, or ~/.local/lib/python3.10/site-packages, and the binary is not located there
+
+# why I am not using certain dotbot plugins:
+# dotbot-pacaur - it does install official and aur packages fully automated, however it requires pacaur to be installed to install AUR packages first.
+# the included dotbot-pacaur bootstrap script is broken, and there are no reliable pacaur bootstrap scripts available that I've found (oct 2022)
+# therefore - using dotbot-yay + 
+
+# dotbot-yay -> opens a subshell and performs yay --needed for every package - very slow
+# dotbot-paur -> is a dotbot-yay fork with the cmd changed - very slow
+
+
+
+# i3 scripts
+# - rofi
+# - i3ipc
+
+
+# OLD - before custom installer
+# - if:
+#     # if script does not exist - download it
+#     cond: '[ ! -e "$HOME/dev/bin/iconlookup" ]'
+#     met:
+#     - shell:
+#       - curl -L https://raw.githubusercontent.com/jarun/nnn/master/plugins/.iconlookup -o $HOME/dev/bin/iconlookup
+#
+#
+# # some programs need installing and then some extra post setup
+# # remember: yay --needed does not work correctly (does not detect if a package already exists)
+# # https://github.com/Jguer/yay/issues/1552
+# - if:
+#     # this condition checks if either an official or AUR package exists
+#     # if already installed, it will not run the shell command
+#     cond: 'pacman -Qe docker > /dev/null 2>&1'
+#     met:
+#     - shell:
+#       - './install_docker.sh'
+#
+# - if:
+#     cond: 'pacman -Qe ckb-next > /dev/null 2>&1'
+#     met:
+#     - shell:
+#       - 'pacaur -S ckb-next && sudo systemctl enable --now ckb-next'

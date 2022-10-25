@@ -3,11 +3,14 @@ super+p
     rofi -show combi -combi-modi "run#global:rofi_launch_menu" -modi combi
 super+o 
     source i3_wrapper && i3_global_menu
+super+i
+    exec firefox-nightly
 
 super + Escape
     pkill -USR1 -x sxhkd
 
-
+super + F1
+    /bin/notify-send "$PATH"
 
 # i3 specific
 super+{Left,Down,Up,Right}
@@ -97,12 +100,14 @@ super + shift + less
 super + shift + greater
     i3-msg move workspace to output left
 # launchers
-super + Return 
-    i3-sensible-terminal
 
 
-super + BackSpace 
-    i3-msg kill
+super+shift+minus 
+  i3-msg move scratchpad
+super+minus
+  i3-msg scratchpad show
+
+
 
 
 
@@ -119,14 +124,11 @@ super + space
 super + t
     i3-deck tabbed
 
-super + shift + r
-    i3-msg reload
 
-super + control + r
-    i3-msg restart
 
 # dropdowns
-
+super+n
+  exec sway_toggle_terminal_dropdown_ff toggle
 # super + n
 #     i3-msg nop tree
 #
@@ -138,14 +140,14 @@ super + control + r
 
 # get win info
 # how to do multiple dropdowns?
-super + n
-    tdrop -n 1 --monitor-aware --auto-detect-wm -w -4 -h 40% -y 60% kitty i3_watch_get
+# super + n
+    # tdrop -n 1 --monitor-aware --auto-detect-wm -w -4 -h 40% -y 60% kitty i3_watch_get
 
-super + m
-    tdrop -n 2 --monitor-aware --auto-detect-wm -w -4 -h 40% -y 60% kitty watch -n 0.6 i3_get_tree
+# super + m
+    # tdrop -n 2 --monitor-aware --auto-detect-wm -w -4 -h 40% -y 60% kitty watch -n 0.6 i3_get_tree
 
-super+comma
-    tdrop -n 3 --monitor-aware --auto-detect-wm -w 50% -x 25% -h 40% -y 60% kate
+# super+comma
+    # tdrop -n 3 --monitor-aware --auto-detect-wm -w 50% -x 25% -h 40% -y 60% kate
 
 XF86AudioRaiseVolume 
     pactl set-sink-volume @DEFAULT_SINK@ +10% 
@@ -161,3 +163,17 @@ XF86MonBrightnessUp
     light -A 10
 XF86MonBrightnessDown
     light -U 10
+
+
+
+# in i3 config:
+# super + shift + r
+    # i3-msg reload
+
+# super + control + r
+    # i3-msg restart
+
+# super + Return 
+    # i3-sensible-terminal
+# super + BackSpace 
+    # i3-msg kill

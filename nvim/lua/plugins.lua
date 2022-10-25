@@ -1,15 +1,16 @@
--- local fn = vim.fn
--- local install_path = fn.stdpath('data') .. '/site/pack/packer/opt/packer.nvim'
--- if fn.empty(fn.glob(install_path)) > 0 then
---   packer_bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
--- end
--- adding cmd = {} makes the plugin install into opt folder
-
--- vim.cmd([[packadd packer.nvim]])
--- require("packer").startup(function(use)
-
+local fn = vim.fn
+local install_path = fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
+if fn.empty(fn.glob(install_path)) > 0 then
+	packer_bootstrap =
+		fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
+end
+vim.cmd([[packadd packer.nvim]])
+local packer = require("packer")
 -- all plugins put in /start by default
-local use = require("packer").use
+local use = packer.use
+packer.init({})
+use({ "wbthomason/packer.nvim", opt = true })
+-- Oct 2022 - bootstrap packer config above
 
 -- attempt to find local repo, otherwise fallback to git
 local local_or_git = function(path, fallback)
@@ -109,8 +110,6 @@ use({
 --     require("plugin.bqf")
 --   end,
 -- })
-
--- use({ "wbthomason/packer.nvim", opt = true })
 
 use({
 	"kylechui/nvim-surround",
@@ -492,77 +491,9 @@ use({
 	end,
 })
 
--- use({
---   "hkupty/iron.nvim",
---   config = function()
---     require("plugin.iron")
---   end,
--- })
--- use({
---   "folke/tokyonight.nvim",
---   config = function()
---     require("plugin.tokyonight")
---   end,
--- })
-
---   use({
---   "shaunsingh/nord.nvim",
---   config = function() require"nord" end,
--- })
-
--- overrides all other virtual text
--- use({
---   "keyvchan/virt_context.nvim",
---   config = function() require("plugin/virt-context") end,
--- })
-
--- sort out
--- use({
---   me .. "/xplr.nvim",
---   config = function()
---     require("plugin.xplr")
---   end,
---   requires = { { "telescope/telescope.nvim" } },
--- })
-
--- use({
---   "b3nj5m1n/kommentary",
---   opt = true,
---   wants = "nvim-ts-context-commentstring",
---   keys = { "gc", "gcc" },
---   config = function()
---     require("plugin.kommentary")
---   end,
---   requires = "JoosepAlviste/nvim-ts-context-commentstring",
--- })
-
--- use { 'HallerPatrick/py_lsp.nvim',
---   config = function() require("lsp.py_lsp") end,
--- }
-
--- old ts config
-
--- use({
---   "nvim-treesitter/nvim-treesitter",
---   run = ":TSUpdate",
---   --cmd = { "TSInstall", "TSInstallInfo", "TSTSBufEnable", "TSBufDisable", "TSEnableAll", "TSDisableAll", "TSModuleInfo" },
---   opt = false,
---   --event = "BufRead",
---   requires = {
---     { "nvim-treesitter/playground", cmd = "TSHighlightCapturesUnderCursor" },
---     "nvim-treesitter/playground",
---     "nvim-treesitter/nvim-treesitter-refactor",
---     "nvim-treesitter/nvim-treesitter-textobjects",
---     "romgrk/nvim-treesitter-context",
---     "RRethy/nvim-treesitter-textsubjects",
---     "p00f/nvim-ts-rainbow",
---   },
---   config = function()
---     require('plugin.treesitter')
---   end,
--- })
-
--- UNUSED 1 ---
---- I hardly use these
-
---use("kevinhwang91/rnvimr")
+-- https://github.com/tjdevries/sg.nvim/issues/4
+use({
+	"tjdevries/sg.nvim",
+  config = function() 
+  end,
+})

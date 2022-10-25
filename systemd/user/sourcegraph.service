@@ -1,13 +1,9 @@
-# there is kanshi.service provided  by aur kanshi-git but it relies on graphical-session.target
 [Unit]
 Description=Sourcegraph
-; Documentation=https://sr.ht/~emersion/kanshi
 BindsTo=sway-session.target
-; After=dunst.service
 
 [Service]
 Type=simple
-# sleep is needed for kanshi config to surve sway reloads
 ExecStart=sh -c "/home/f1/dev/bin/start_sourcegraph.sh"
 
 [Install]

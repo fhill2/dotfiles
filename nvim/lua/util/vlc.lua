@@ -27,11 +27,11 @@ end
 M.save = function()
 	-- fix nil error - cba to asyncify
 	repeat
-		time = exec([[echo "get_time" | nc -U -q0 /tmp/vlc]])
+		time = exec([[echo "get_time" | nc -U -q0 /home/f1/tmp/vlc]])
 	until time:match("^%d+$")
 	local time = tonumber(time)
 
-	local title = exec([[echo "get_title" | nc -U -q0 /tmp/vlc]])
+	local title = exec([[echo "get_title" | nc -U -q0 /home/f1/tmp/vlc]])
 	local fp = exec(("cd %s && fd %s ."):format(vids, title))
 
 	-- only keep parent folder
@@ -58,7 +58,7 @@ M.open = function()
 
 	exec("exec vlc " .. fp .. " 2>/dev/null")
 	dump(time)
-	exec([[sleep 2 && echo "seek ]] .. time .. [[" | nc -U -q0 /tmp/vlc]])
+	exec([[sleep 2 && echo "seek ]] .. time .. [[" | nc -U -q0 /home/f1/tmp/vlc]])
 end
 
 return M

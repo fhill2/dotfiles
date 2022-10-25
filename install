@@ -1,13 +1,38 @@
 #!/usr/bin/env bash
 
 # https://github.com/anishathalye/dotfiles/blob/master/install
+
 set -e
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-dotbot -v -d "${BASEDIR}" -c .install.conf.yaml "${@}"
-sudo dotbot -v -d "${BASEDIR}" -c .sudo.conf.yaml "${@}"
-#dotbot -v -d "${BASEDIR}" -c .repos.conf.yaml -p dotbot-git/git.py "${@}"
-#sudo dotbot -v -d "${BASEDIR}" -c .packages.conf.yaml -p dotbot-yay/yay.py "${@}"
-#sudo dotbot -v -d "${BASEDIR}" -c .sudo.conf.yaml "${@}"
 
 
+# if no arguments are passed in
+if [ $# = 0 ];then
+  chosen="sym"
+else
+  chosen="$1"
+fi
 
+case $chosen in
+  "all")
+      configs=("sym pacman cargo pip extras")
+    ;;
+  "pkg")
+  configs=("pacman cargo pip extras")
+  ;;
+  *)
+      configs=("$1")
+  ;;
+esac
+
+
+for config in "${configs[@]}"; do
+dotbot -v -d "${BASEDIR}" \
+  -c "dotbot/$config.yaml" \
+  -p ~/dev/forks/dotbot-sudo/sudo.py \
+  -p ~/dev/forks/dotbot-rust/rust.py \
+  -p ~/.dotbot/dotbot-if/if.py \
+  -p ~/.dotbot/dotbot-yay/yay.py \
+  -p ~/.dotbot/dotbot-pip/pip.py
+
+done

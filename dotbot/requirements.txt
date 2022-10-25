@@ -1,0 +1,13 @@
+buku
+promnesia
+hpi
+gpustat
+# py user environment - sgsync
+emoji
+ghapi
+requests
+beautifulsoup
+bs4
+python_graphql_client
+# download youtube videos - splitting at chapters
+yt-dlp

@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-# https://github.com/anishathalye/dotfiles/blob/master/install
-set -e
-BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-sudo dotbot -v -d "${BASEDIR}" -c .sudo.conf.yaml "${@}"

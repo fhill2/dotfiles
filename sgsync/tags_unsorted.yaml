@@ -1,3 +1,22 @@
+- fman-users/core
+- toppair/peek.nvim
+- adriangoransson/renamer
+- yt-dlp/yt-dlp
+- kworkflow/kworkflow
+- muniftanjim/scripts.sh
+- gopasspw/gopass
+- sayanarijit/tri-pane.xplr
+- orhun/gpg-tui
+- alex-courtis/xlayoutdisplay
+- ashwinvis/xrandr-extend
+- liske/needrestart
+- i3-gnome/i3-gnome
+- greshake/i3status-rust
+- codingtony/udev-monitor-hotplug
+- burntcustard/x11-fractional-display-scaling
+- xrmx/bootchart
+- phillipberndt/autorandr
+- canop/termimad
 - smjonas/live-command.nvim
 - fman-users/fman
 - akatrevorjay/edid-generator
@@ -261,6 +280,7 @@
 - rickysarraf/laptop-mode-tools
 - smac89/autorandr-launcher
 - mtth/scratch.vim
+- n-shift/scratch.nvim
 - andreafrancia/trash-cli
 - emilk/egui
 - junker/nuke.xplr
@@ -287,7 +307,7 @@
 - mgunyho/tere
 - chriskempson/tomorrow-theme
 - jasperro/flatcolor
-- base16-project/base16-gtk-flatcolor
+- tinted-theming/base16-gtk-flatcolor
 - lifepillar/vim-colortemplate
 - ziberna/i3-py
 - pkieltyka/i3-powertools
@@ -321,7 +341,7 @@
 - jrwrigh/qtile-mutable-scratch
 - pydoit/doit
 - misterio77/flavours
-- base16-project/home
+- tinted-theming/home
 - glacambre/nwin
 - danymat/neogen
 - mitsuhiko/systemfd
@@ -370,6 +390,7 @@
 - smurphos/nemo_actions_and_cinnamon_scripts
 - alfcx/linux-mint-nemo-actions
 - sindresorhus/trash-cli
+- christianlempa/boilerplates
 - nixos/nixpkgs
 - yurikhan/kitty-smart-scroll
 - jzelinskie/faq
@@ -450,6 +471,7 @@
 - hugoreeves/elemental
 - joakker/lua-json5
 - jeffreytse/zsh-vi-mode
+- folke/neodev.nvim
 - robbert-vdh/yabridge
 - sayanarijit/fzf.xplr
 - nullsense/fuzzy-sys

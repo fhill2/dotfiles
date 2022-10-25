@@ -51,7 +51,7 @@ rewrite = true
 
 # import colours into python custom scripts so scripts like sway_print_tree for i3status-rs can use the colors
 [[item]]
-file = "~/dev/lib/futil.py"
+file = "~/dev/lib/f/util.py"
 template="python"
 rewrite = false
 

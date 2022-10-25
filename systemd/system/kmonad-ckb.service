@@ -1,0 +1,11 @@
+# old install - used ckb driver
+[Unit]
+BindsTo=dev-input-by\x2did-ckb\x2dCorsair_Gaming_K55_RGB_Keyboard_vKB_\x2devent.device
+After=dev-input-by\x2did-ckb\x2dCorsair_Gaming_K55_RGB_Keyboard_vKB_\x2devent.device
+
+[Service]
+ExecStart=/home/f1/dot/kmonad/start_corsair
+
+[Install]
+WantedBy=dev-input-by\x2did-ckb\x2dCorsair_Gaming_K55_RGB_Keyboard_vKB_\x2devent.device
+

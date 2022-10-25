@@ -1,0 +1,11 @@
+# https://cewood.xyz/posts/my-i3-setup/
+[Unit]
+Description=i3 session
+BindsTo=graphical-session.target
+Wants=dunst.service
+Wants=i3_daemon.service
+Wants=sxhkd.service
+Wants=xmousepasteblock.service
+Wants=sourcegraph.service
+# nm-applet
+; Wants=mons.service

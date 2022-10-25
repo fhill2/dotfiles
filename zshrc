@@ -7,6 +7,7 @@ zplug 'agkozak/zhooks'
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug 'NullSense/fuzzy-sys'
 zplug 'zsh-users/zsh-autosuggestions'
+zplug 'ssh0/dot', use:'*.sh'
 
 
 
@@ -73,15 +74,15 @@ eval "$(zoxide init zsh)"
 #https://askubuntu.com/questions/410048/utf-8-character-not-showing-properly-in-tmux
 # icons arent showing in tmux - this is because if UTF-8 substring doesnt exist in these variables, tmux doesnt display unicode
 # also tmux doesnt run without this
-export LC_ALL=en_GB.UTF-8
-export LANG=en_GB.UTF-8
+# export LC_ALL=en_GB.UTF-8
+# export LANG=en_GB.UTF-8
 
 #GHORG_GITHUB_TOKEN=$(pass show gh/pat-ghorg)
 
 # aliases less -> lesspipe which allows less pager to show contents of a lot of extra files, such as .pdf, .docx etc
-export LESSOPEN="|lesspipe.sh %s"
-export LESSQUIET=1
-export PAGER=nvimpager
+# export LESSOPEN="|lesspipe.sh %s"
+# export LESSQUIET=1
+# export PAGER=nvimpager
 
 
 
@@ -262,11 +263,11 @@ function testjson() {
 # }
 
 
-function src() {
-  export SRC_ENDPOINT=http://localhost:7080
-  export SRC_ACCESS_TOKEN=$(pass show src/graphql-pat)
-  /usr/bin/src $@
-}
+# function src() {
+#   export SRC_ENDPOINT=http://localhost:7080
+#   export SRC_ACCESS_TOKEN=$(pass show src/graphql-pat)
+#   /usr/bin/src $@
+# }
 
 
 # BROOT
@@ -277,3 +278,25 @@ function dcd {
     br --only-folders --cmd "$1;:cd"
 }
 
+# BROOT
+source /home/f1/.config/broot/launcher/bash/br
+
+# deep fuzzy cd
+function dcd {
+    br --only-folders --cmd "$1;:cd"
+}
+
+# ssh0/dot setup
+export DOT_REPO="https://github.com/fhill2/dotfiles.git"
+export DOT_DIR="$HOME/dot"
+
+
+function test_preview {
+  FIFO=$HOME/tmp/nnn.fifo
+  [ ! -p "$FIFO" ] && mkfifo $FIFO
+  NNN_FIFO=$FIFO preview_tabbed.bash &
+  ps aux | grep preview_tabbed
+  # preview_tabbed.bash "$1"
+  echo "$1" >> $FIFO
+
+}
