@@ -80,8 +80,8 @@ require("preview-tabbed").setup({
 	mode = "default",
 	key = "ctrl-p",
 	fifo_path = "/tmp/xplr.fifo",
-	-- previewer = os.getenv("HOME") .. "/dev/bin/preview_tui.sh", -- for wayland sway
-	previewer = os.getenv("HOME") .. "/dev/bin/preview_tabbed.bash", -- for x i3 - as non TUI previewers use xembed client / host model
+	previewer = os.getenv("HOME") .. "/dev/bin/preview_tui_orig.sh", -- for wayland sway
+	-- previewer = os.getenv("HOME") .. "/dev/bin/preview_tabbed.bash", -- for x i3 - as non TUI previewers use xembed client / host model
 })
 
 -- https://github.com/sayanarijit/trash-cli.xplr

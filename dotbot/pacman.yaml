@@ -10,6 +10,13 @@
     - man
     - dunst
     - jq
+
+
+
+    # for x11 config only - wayland uses wl_gammarelay_rs as this is the only screen brightness temp app that hooks into i3status-rs with live updates
+    - redshift
+
+
     # audio
     - pulseaudio
     # otherwise external monitor HDMI sound outputs do not show in pavucontrol / pulseaudio
@@ -76,6 +83,31 @@
 
     # 3d animation
     - unityhub
+
+    # pacman preview_tui dependencies
+    - less
+    - tree
+    - mediainfo
+    - mktemp
+    - unzip
+    - tar
+    - man
+    - bsdtar
+    - imagemagick
+    - ffmpegthumbnailer
+    - ffmpeg
+    - libreoffice
+    - poppler
+    - gnome-epub-thumbnailer
+    - glow
+    - w3m
+    # aur preview_tui dependencies
+    - pistol-git
+    - fontpreview
+
+    # aur monitor brightness control
+    - ddccontrol-db-git
+    - ddccontrol
 
 
 - shell

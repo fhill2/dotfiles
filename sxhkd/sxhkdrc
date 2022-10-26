@@ -122,7 +122,7 @@ super + space
     i3-msg layout toggle splith splitv tabbed stacked
 
 super + t
-    i3-deck tabbed
+    i3_deck tabbed
 
 
 

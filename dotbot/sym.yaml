@@ -36,11 +36,10 @@
     ~/.config/gnupg:
     ~/.config/fman:
     ~/.local/lib/python3.10/site-packages/f: ~/dev/lib/f
-    ~/.mozilla/native-messaging-hosts/com.fhill2.browser_integration.json: ~/dev/app/browser_integration/native/browser_integration.json
+    ~/.mozilla/native-messaging-hosts/browser_integration.json: ~/dev/app/browser_integration/native/browser_integration.json
     ~/.local/share/fonts: ~/data/fonts
     ~/dev/bin/db_install: ~/dot/install
 
-   
 - create:
    ~/.local/share/the-way/themes:
    ~/logs:
@@ -53,6 +52,14 @@
 
      # as there is no shared directory between python env - fman sys.path and system sys.path
      /opt/fman/f: /home/f1/dev/lib/f
+
+     # to automatically load my firefox extension without using web-ext, only normal firefox
+         # https://github.com/tsaost/autoload-temporary-addon
+    # TODO: automate these firefox settings (extension wont load if these are not set)
+    # xpsinstall.signatures.required FALSE
+    # extensions.experiments.enabled TRUE
+     /opt/firefox-nightly/defaults/pref/config-prefs.js: /home/f1/dot/firefox/config-prefs.js
+     /opt/firefox-nightly/userChrome.js: /home/f1/dot/firefox/userChrome.js
 
   - shell:
     - 

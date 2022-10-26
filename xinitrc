@@ -31,6 +31,8 @@ fi
 if [[ ! -z "${WAYLAND_DISPLAY}" ]]; then
   [[ "$(readlink /usr/bin/i3-msg)" != "/usr/bin/swaymsg" ]] && sudo ln -sf /usr/bin/swaymsg /usr/bin/i3-msg
 fi
+
+redshift -O 4900
 #
 case "$1" in
 gnome)

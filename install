@@ -33,6 +33,7 @@ dotbot -v -d "${BASEDIR}" \
   -p ~/dev/forks/dotbot-rust/rust.py \
   -p ~/.dotbot/dotbot-if/if.py \
   -p ~/.dotbot/dotbot-yay/yay.py \
-  -p ~/.dotbot/dotbot-pip/pip.py
+  -p ~/.dotbot/dotbot-pip/pip.py \
+  -p ~/.dotbot/dotbot-golang/go.py
 
 done

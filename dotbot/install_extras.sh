@@ -20,6 +20,11 @@ if ! pacman -Qe fman > /dev/null 2>&1; then
   ./install_fman.sh
 fi
 
+wget_chmod() {
+  curl -L "$1" -o "$2" && chmod +x "$2"
+}
+
 # if file doesnt exist
-[ ! -e "$HOME/dev/bin/iconlookup" ] && curl -L https://raw.githubusercontent.com/jarun/nnn/master/plugins/.iconlookup -o $HOME/dev/bin/iconlookup
+[ ! -e "$HOME/dev/bin/iconlookup" ] && wget_chmod https://raw.githubusercontent.com/jarun/nnn/master/plugins/.iconlookup "$HOME/dev/bin/iconlookup"
+
 
