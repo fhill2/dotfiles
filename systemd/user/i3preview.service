@@ -1,0 +1,15 @@
+[Unit]
+Description=i3preview.py
+PartOf=graphical-session.target
+After=dunst.service
+# https://unix.stackexchange.com/questions/722201/systemd-service-fails-to-start-python-project
+[Service]
+; ExecStart=/bin/sh -c '/home/f1/dev/bin/i3_preview.py'
+; ExecStart=/bin/sh -c '/usr/bin/python3 -u i3_preview.py'
+KillMode=process
+ExecStart=/home/f1/dev/bin/run_i3_preview.sh
+Type=notify
+WorkingDirectory=/home/f1/dev/bin
+
+[Install]
+WantedBy=xsession.target

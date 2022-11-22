@@ -1,0 +1,14 @@
+[Unit]
+Description=kvm
+After=syslog.target
+
+[Service]
+Environment=PYTHONUNBUFFERED=1
+Type=simple
+ExecStart=/home/f1/dev/bin/kvm
+Restart=always
+KillSignal=SIGQUIT
+#StandardOutput=file:/home/f1/logs/kvm.log
+
+[Install]
+WantedBy=multi-user.target

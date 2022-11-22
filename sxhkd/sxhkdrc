@@ -2,12 +2,13 @@
 super+p 
     rofi -show combi -combi-modi "run#global:rofi_launch_menu" -modi combi
 super+o 
-    source i3_wrapper && i3_global_menu
+    i3_global_menu.bash
 super+i
     exec firefox-nightly
-
+super+c
+    rofi -show calc -modi calc -no-show-match -no-sort > /dev/null
 super + Escape
-    pkill -USR1 -x sxhkd
+    pkill -USR1 -x sxhkd && notify-send "sxhkd restarted"
 
 super + F1
     /bin/notify-send "$PATH"
@@ -129,6 +130,10 @@ super + t
 # dropdowns
 super+n
   exec sway_toggle_terminal_dropdown_ff toggle
+
+super+control+p
+# super+0
+  echo "toggle" > "$HOME/tmp/preview.fifo"
 # super + n
 #     i3-msg nop tree
 #
@@ -164,6 +169,25 @@ XF86MonBrightnessUp
 XF86MonBrightnessDown
     light -U 10
 
+
+button2 
+  pactl set-source-mute @DEFAULT_SOURCE@ 0
+@button2 
+  pactl set-source-mute @DEFAULT_SOURCE@ 1
+
+
+# https://dev.to/dianjuar/i3wm-screenshot-shortcuts-3n7b
+##  Screenshots in files
+# maim --format=png "/home/$USER/Pictures/screenshot-$(date -u +'%Y%m%d-%H%M%SZ')-all.png"
+super + Home
+  maim --format=png --window $(xdotool getactivewindow) "/home/$USER/Pictures/screenshot-$(date -u +'%Y%m%d-%H%M%SZ')-current.png"
+super + End
+  maim --format=png --select "/home/$USER/Pictures/screenshot-$(date -u +'%Y%m%d-%H%M%SZ')-selected.png"
+
+# Screenshots in clipboards
+# maim --format=png | xclip -selection clipboard -t image/png
+# maim --format=png --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
+# maim --format=png --select | xclip -selection clipboard -t image/png
 
 
 # in i3 config:

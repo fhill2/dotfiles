@@ -8,10 +8,10 @@ local layout_actions = require("telescope.actions.layout")
 local my_actions = require("plugin.telescope.actions")
 -- local my_utils = require("plugin.telescope.util")
 -- local lga_actions = require("telescope-live-grep-args.actions")
--- local conf = require("telescope.config").values
+local conf = require("telescope.config").values
 
--- table.insert(conf.vimgrep_arguments, "-L")
--- dump(conf.vimgrep_arguments)
+-- live-grep-args and anything relying on ripgrep should follow symlinked directories to find results
+table.insert(conf.vimgrep_arguments, "-L")
 
 _G.current_editor_win = 1000
 _G.telescope_get_current_editor_win = function()

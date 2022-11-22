@@ -1,8 +1,8 @@
 lastupdatecheck: 0
 recentrepos:
-- /home/f1/dev/forks/dotbot-pacaur
-- /home/f1/dev/app/starfarm
 - /home/f1/dot
+- /home/f1/dev/forks/legends-docs
+- /home/f1/dev/app/starfarm
 startuppopupversion: 5
 customcommandshistory: []
 hidecommandlog: false

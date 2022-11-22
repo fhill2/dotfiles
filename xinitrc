@@ -1,4 +1,3 @@
-
 # # https://cewood.xyz/posts/my-i3-setup/
 # if the nvidia optimus prime render default xorg config is used
 # and this line is not set - all screens are black
@@ -32,7 +31,10 @@ if [[ ! -z "${WAYLAND_DISPLAY}" ]]; then
   [[ "$(readlink /usr/bin/i3-msg)" != "/usr/bin/swaymsg" ]] && sudo ln -sf /usr/bin/swaymsg /usr/bin/i3-msg
 fi
 
+# start scripts
+x_profiles 2
 redshift -O 4900
+
 #
 case "$1" in
 gnome)
@@ -42,6 +44,7 @@ i3-gnome)
     exec /usr/bin/i3-gnome
     ;;
 *)
-    exec /usr/bin/i3
+    exec /usr/bin/i3 > ~/logs/i3.log 2>&1
+
     ;;
 esac

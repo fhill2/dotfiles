@@ -433,6 +433,20 @@
 # Software gain (float)
 #alsa-gain=1.000000
 
+[jack] # JACK audio output
+
+# Automatically connect to writable clients (boolean)
+#jack-auto-connect=1
+
+# Connect to clients matching (string)
+#jack-connect-regex=system
+
+# JACK client name (string)
+#jack-name=
+
+# Software gain (float)
+#jack-gain=1.000000
+
 [afile] # File audio output
 
 # Output file (string)
@@ -1887,25 +1901,25 @@ rc-unix=/home/f1/tmp/vlc
 [compressor] # Dynamic range compressor
 
 # RMS/peak (float)
-#compressor-rms-peak=0.200000
+compressor-rms-peak=0.999000
 
 # Attack time (float)
-#compressor-attack=25.000000
+compressor-attack=1.500000
 
 # Release time (float)
-#compressor-release=100.000000
+compressor-release=67.800003
 
 # Threshold level (float)
-#compressor-threshold=-11.000000
+compressor-threshold=-14.690000
 
 # Ratio (float)
-#compressor-ratio=4.000000
+compressor-ratio=16.770000
 
 # Knee radius (float)
-#compressor-knee=5.000000
+compressor-knee=1.000000
 
 # Makeup gain (float)
-#compressor-makeup-gain=7.000000
+compressor-makeup-gain=6.310000
 
 [speex_resampler] # Speex resampler
 
@@ -1944,6 +1958,11 @@ rc-unix=/home/f1/tmp/vlc
 
 # Dry mix (float)
 #stereowiden-dry-mix=0.800000
+
+[samplerate] # Secret Rabbit Code (libsamplerate) resampler
+
+# Sample rate converter type (integer)
+#src-converter-type=2
 
 [spatializer] # Audio Spatializer
 
@@ -3074,6 +3093,17 @@ qt-privacy-ask=0
 # Musicbrainz Server (string)
 #musicbrainz-server=musicbrainz.org
 
+[smb] # SMB input
+
+# Username (string)
+#smb-user=
+
+# Password (string)
+#smb-pwd=
+
+# SMB domain (string)
+#smb-domain=
+
 [satip] # SAT>IP Receiver Plugin
 
 # Receive buffer (integer)
@@ -3190,6 +3220,19 @@ qt-privacy-ask=0
 
 # RTSP frame buffer size (integer)
 #rtsp-frame-buffer-size=250000
+
+[access_jack] # JACK audio input
+
+# Pace (boolean)
+#jack-input-use-vlc-pace=0
+
+# Auto connection (boolean)
+#jack-input-auto-connect=0
+
+[dvdread] # DVDRead Input (no menu support)
+
+# DVD angle (integer)
+#dvdread-angle=1
 
 [avio] # libavformat AVIO access
 
@@ -3325,6 +3368,14 @@ qt-privacy-ask=0
 
 # Audio configuration (string)
 #linsys-hdsdi-audio=0=1,1
+
+[dvdnav] # DVDnav Input
+
+# DVD angle (integer)
+#dvdnav-angle=1
+
+# Start directly in menu (boolean)
+#dvdnav-menu=1
 
 [rtp] # Real-Time Protocol (RTP) input
 
@@ -3539,7 +3590,7 @@ qt-privacy-ask=0
 #role=video
 
 # Audio filters (string)
-#audio-filter=
+audio-filter=compressor
 
 # Audio visualizations (string)
 #audio-visual=none

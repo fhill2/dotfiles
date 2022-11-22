@@ -1,10 +1,9 @@
-font pango:DejaVuSansMono Nerd Font Mono 10
+font pango:DejaVuSansMono Nerd Font Mono 9
 
-# exec --no-startup-id dex --autostart --environment i3
-# exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-# exec --no-startup-id nm-applet
-# exec --no-startup-id i3_daemon 2>&1 | tee -a $HOME/logs/i3_daemon.log & disown
-
+# when i3_window_startup.py is started at the start of config,
+# only WORKSPACE_INIT for workspace 3 is received ??
+# so I cant wait until workspaces are created
+# exec --no-startup-id /home/f1/dev/bin/i3_window_startup.py > ~/logs/python.log 2>&1 & disown
 
 # Start flavours colors
 ## Base16 Material Darker
@@ -33,8 +32,8 @@ set $base0F #FF5370
 # https://www.reddit.com/r/i3wm/comments/b1w9mr/dont_want_to_hardcode_monitor_name_in_i3_config/
 
 # integrated
-workspace 1 output DP-3
-workspace 2 output eDP-1
+# workspace 1 output DP-3
+# workspace 2 output eDP-1
 # nvidia optimus
 workspace 1 output DP-3-1
 workspace 2 output eDP-1-1
@@ -69,6 +68,12 @@ for_window [title="Event Tester"] floating enable
 for_window [class="OtoDecks"] floating enable, move position center
 for_window [class="Blender" title="Blender Preferences"] floating enable, move position center
 
+
+# Preview stuff
+# move these window with the mark
+# for_window [con_mark=^preview_mpv$] workspace preview
+# for_window [con_mark=^A$] preview
+
 set $mod Mod4
 # bind the minimal keybinds so if sxhkd fails I can still open terminal, exit 
 # start a terminal
@@ -87,7 +92,31 @@ for_window [class="terminal_dropdown_ff"] move scratchpad, border none, resize s
 # bindsym $mod+n exec sway_toggle_terminal_dropdown_ff toggle
 
 
-exec_always --no-startup-id exec systemctl --user start --no-block i3-session.target
+exec_always --no-startup-id systemctl --user start --no-block i3-session.target
+
+
+# mute built in microphone
+# exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ 0
+
+# start windows 
+# exec --no-startup-id /home/f1/dev/bin/i3_window_startup.py
+
+
+# startup previewer windows
+exec --no-startup-id /home/f1/dev/bin/i3_preview_startup.py > ~/logs/i3preview.log 2>&1
+
+# this does not run well under systemd - subprocesses do not spawn correctly to create i3 windows
+exec --no-startup-id /home/f1/dev/bin/i3_preview.py > ~/logs/i3preview.log 2>&1
+
+
+# exec --no-startup-id /home/f1/dev/bin/i3_subscribe_debug.py & disown
+# exec --no-startup-id i3_daemon 2>&1 | tee -a $HOME/logs/i3_daemon.log & disown
+
+
+# https://github.com/systemd/systemd/issues/6032
+# do not run sxhkd as a systemd service, as I want new processes spawned with it to inherit the login session env variables
+# for example: XDG_SESSION_ID is used to logout - this does not work if rofi_power_menu is called from a sxhkd hotkey
+exec --no-startup-id sxhkd > ~/logs/sxhkd.log 2>&1
 
 bar {
     font pango:DejaVu Sans Mono, FontAwesome 12

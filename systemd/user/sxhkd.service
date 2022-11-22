@@ -1,4 +1,5 @@
 # https://github.com/baskerville/sxhkd/issues/195
+# no longer using, as I do not want to deal with inheriting the correct login env variables to make rofi_power_menu script to work
 [Unit]
 Description=sxhkd
 PartOf=graphical-session.target

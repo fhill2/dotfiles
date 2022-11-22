@@ -63,6 +63,9 @@ alias rm=trash
 alias ls='ls --color'
 alias lua='lua5.1'
 alias nv='nvim'
+alias serve='python3 -m http.server'
+alias mysql='mysql -u root -p'
+alias alsa-info='alsa-info.sh'
 
 
 alias howdoi='~/.venv/howdoi/bin/howdoi'
@@ -231,10 +234,8 @@ nvt() {
 }
 
 
-audio_set_default_out() {
-index=$(pamixer --list-sinks | fzf | awk '{print $1}')
-pacmd set-default-sink $index
-}
+
+
 
 
 

@@ -8,10 +8,13 @@ Description="kmonad daemonized"
 [Service]
 Type=simple
 ; ExecStart=/home/f1/dot/kmonad/start_corsair
-ExecStart=sh -c 'kmonad /home/f1/dot/kmonad/corsair.kbd'
+ExecStart=sh -c 'kmonad /home/f1/dot/kmonad/builtin.kbd'
 RemainAfterExit=true
 StandardOutput=journal
 Restart=always
+
 ; [Install]
 ; WantedBy=dev-input-by\x2did-ckb\x2dCorsair_Gaming_K55_RGB_Keyboard_vKB_\x2devent.device
 
+[Install]
+WantedBy=multi-user.target

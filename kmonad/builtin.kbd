@@ -1,10 +1,9 @@
 ;; https://github.com/kmonad/kmonad/issues/339
-(defcfg 
-input (device-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd") 
-output (uinput-sink "Builtin KMonad Output" "/bin/sleep 2 && setxkbmap -model pc105 -layout us") 
+(defcfg
+input (device-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd")
+output (uinput-sink "Corsair Kmonad Output")
 fallthrough true
 )
-
 ;; tab (tap-hold-next-release 100 tab lmet)
 ;; tab (tap-next-release tab lmet)
 ;; tab (tap-hold 130 tab lmet)
@@ -14,17 +13,19 @@ fallthrough true
 ;;meta (tap-next lmet lmet (layer-toggle meta))
 
 (defalias 
-
-tab (tap-next tab C-A-S)
-;; tab (tap-hold 200 tab C-A-S)   ;; Tab as Tab/Meh
+;;
+;; ;; tab (tap-next tab (around-next o))
+;; ;;tab (around-next S-lctl)
+tab (tap-next tab C-A-lsft)   ;; Tab as Tab/Meh
+;; tab (tap-hold-next 500 tab C-A-lsft :timeout-button tab)
 
 meta (around met (layer-toggle meta))
 altt (around alt (layer-toggle altt))
 shift (around sft (layer-toggle shift))
 cntrl (around ctl (layer-toggle cntrl))
 )   ;; Tab as Tab/Meh ;; dell xps keyboard layout
-
-
+;;
+;;
 (defsrc
   `     1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab   q    w    e    r    t    y    u    i    o    p    [    ]
@@ -37,6 +38,16 @@ cntrl (around ctl (layer-toggle cntrl))
 ;; lfs (layer-toggle lshift)
 ;; )
 ;;
+;;
+;; (deflayer qwerty
+;;   `    1    2    3    4    5    6    7    8     9    0    -    =    bspc
+;;   tab  q    w    e    r    t    y    u    i    o    p    [    ]
+;;   lctl a    s    d    f    g    h    j    k    l    ;    '    \  ret
+;;   lsft \    z    x    c    v    b    n    m    ,    .    /    lsft up
+;;   lalt f13 met spc            ralt rctl left down right
+;; )
+
+
 (deflayer qwerty
   `    1    2    3    4    5    6    7    8     9    0    -    =    bspc
   @tab  q    w    e    r    t    y    u    i    o    p    [    ]
@@ -44,6 +55,9 @@ cntrl (around ctl (layer-toggle cntrl))
   @shift \    z    x    c    v    b    n    m    ,    .    /    @shift up
   @altt f13 @meta spc            @altt @cntrl left down right
 )
+
+
+
 
 
 ;; config when alt was meta

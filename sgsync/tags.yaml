@@ -140,6 +140,9 @@ python/evdev:
 - kempniu/evmapy
 - sebastiansam55/uinput-keyboard-mapper
 
+python/fman:
+- fman-users/Core
+
 rust:
 - sayanarijit/xplr
 - sharkdp/bat
@@ -154,6 +157,11 @@ rust:
 - out-of-cheese-error/the-way
 - lotabout/skim
 
+
+dev/docs:
+- kjhealy/pandoc-templates
+- kjhealy/socbibs
+- kjhealy/latex-custom-kjh
 
 dev/browser:
 - mdn/webextensions-examples
@@ -553,3 +561,6 @@ lua/nvim:
 - kkharji/sqlite.lua
 - b3nj5m1n/kommentary
 - th3whit3wolf/onebuddy
+
+
+

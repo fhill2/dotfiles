@@ -32,6 +32,7 @@
     ~/.zprofile:
     ~/.profile:
     ~/.xinitrc:
+    ~/.my.cnf:
     ~/.Xresources:
     ~/.config/gnupg:
     ~/.config/fman:
@@ -39,6 +40,9 @@
     ~/.mozilla/native-messaging-hosts/browser_integration.json: ~/dev/app/browser_integration/native/browser_integration.json
     ~/.local/share/fonts: ~/data/fonts
     ~/dev/bin/db_install: ~/dot/install
+    ~/.config/qmk:
+    ~/.config/pistol:
+    ~/.config/spacefm:
 
 - create:
    ~/.local/share/the-way/themes:
@@ -52,6 +56,8 @@
 
      # as there is no shared directory between python env - fman sys.path and system sys.path
      /opt/fman/f: /home/f1/dev/lib/f
+
+     /etc/samba/smb.conf: /home/f1/dev/sys/smb.conf 
 
      # to automatically load my firefox extension without using web-ext, only normal firefox
          # https://github.com/tsaost/autoload-temporary-addon

@@ -12,6 +12,10 @@
     - jq
 
 
+    # x only screenshots
+    - maim
+
+
 
     # for x11 config only - wayland uses wl_gammarelay_rs as this is the only screen brightness temp app that hooks into i3status-rs with live updates
     - redshift
@@ -45,12 +49,15 @@
     - vlc
     - blender
 
+    - lazygit
+
     # x server extras
 
     # for vlc.lua link script
     - wmctrl
 
     # networking
+    - nmap
 
     # gnu-netcat does not have -U option for vlc link script
     - openbsd-netcat
@@ -59,6 +66,13 @@
     - nemo
     # otherwise no nemo context menu "extract here"
     - nemo-fileroller
+
+    - rofi-calc
+    
+    # https://github.com/nana-4/materia-theme
+    # trying out a material theme, instead of material base64 theme
+    # as gtk base64 FlatColour does not work as well as I want it (cant see selection)
+    - materia-gtk-theme
 
     # ============== AUR PACKAGES START HERE ==========
     
@@ -101,6 +115,13 @@
     - gnome-epub-thumbnailer
     - glow
     - w3m
+
+    # pacman dependencies
+    # detects AUR packages that need to be rebuilt after upgrading system packages (very useful) 
+    # checks if AUR packages can find the requires shared link libraries
+    - rebuild-detector
+
+
     # aur preview_tui dependencies
     - pistol-git
     - fontpreview
@@ -108,6 +129,17 @@
     # aur monitor brightness control
     - ddccontrol-db-git
     - ddccontrol
+
+    # for file sharing
+    - samba
+    # for mounting smb shares using spaceFM - spaceFm dependency
+    - udevil
+
+    
+    # configuration for materia-gtk-theme is done with this
+    - themix-gui
+
+    - pandoc
 
 
 - shell

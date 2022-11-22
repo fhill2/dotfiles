@@ -1,3 +1,4 @@
+qmk
 buku
 promnesia
 hpi
@@ -11,3 +12,8 @@ bs4
 python_graphql_client
 # download youtube videos - splitting at chapters
 yt-dlp
+
+# vincent companion deps
+dbussy
+xcffib
+systemd

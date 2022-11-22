@@ -492,8 +492,8 @@ use({
 })
 
 -- https://github.com/tjdevries/sg.nvim/issues/4
-use({
-	"tjdevries/sg.nvim",
-  config = function() 
-  end,
-})
+-- use({
+	-- "tjdevries/sg.nvim",
+  -- config = function() 
+  -- end,
+-- })
