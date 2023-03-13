@@ -6,7 +6,7 @@ local command = vim.api.nvim_create_user_command
 -- Use formatters from null-ls only
 local lsp_formatting = function(bufnr)
   vim.lsp.buf.format({
-    name = "null-ls", -- Restrict formatting to client matching this name
+    -- name = "null-ls", -- Restrict formatting to client matching this name
     bufnr = bufnr,
     -- timeout = 9999999999999999,
     async = true,

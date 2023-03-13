@@ -14,6 +14,7 @@ shell/kitty:
 - #nerdrew/kittens/blob/master/password.py
 - kovidgoyal/kitty
 
+
 dotfiles/nix:
 - sherubthakur/dotfiles
 - teto/home
@@ -31,6 +32,7 @@ dotfiles/lua:
 - tjdevries/config_manager
 - weilbith/dotfiles
 - fdschmidt93/dotfiles
+- folke/dot
 
 dotfiles/shell:
 - junegunn/dotfiles
@@ -71,7 +73,9 @@ dotfiles/xplr:
 - dtomvan/.config
 - maximbaz/dotfiles
 
-
+# script collections
+dotfiles/scripts:
+- tri1976/bashscripts
 
 vim:
 - skywind3000/asyncrun.vim
@@ -83,6 +87,8 @@ uol:
 - world-class/repl
 - world-class/compass
 - world-class/notes
+
+
 
 lua/telescope/extensions:
 - nvim-telescope
@@ -158,10 +164,115 @@ rust:
 - lotabout/skim
 
 
+# docs repos - no full featured note taking apps here
 dev/docs:
+- jgm/pandoc
 - kjhealy/pandoc-templates
 - kjhealy/socbibs
 - kjhealy/latex-custom-kjh
+- gabyx/technical-markdown
+- shd101wyy/mume
+- shd101wyy/vscode-markdown-preview-enhanced
+- shd101wyy/markdown-preview-enhanced
+- craigbass76/pandoc-css-weasyprint-template
+- jez/pandoc-markdown-css-theme
+- edwardtufte/tufte-css
+- kurtpfeifle/pandoc-csl-testing
+- rhiokim/markdown-css
+- cab-1729/pandoc-themes
+- manubot/manubot
+- pandoc-scholar/pandoc-scholar
+- zopyx/print-css-rocks
+- wkhtmltopdf/wkhtmltopdf
+- tompollard/phd_thesis_markdown
+- masbicudo/pandoc-emojis-filter
+
+
+
+dev/websites/all:
+- learnbyexample/learnbyexample.github.io
+- mmacneil/devfolio
+- bharatkammakatla/developer-portfolio
+- simbaig/portfolio-nextjs
+- maggieappleton/maggieappleton.com-v2
+- moedayraki/moedayraki.github.io
+- mhbaando/protofolio-nextjs
+- th1nhng0/th1nhng0.vercel.app
+- antfu/antfu.me
+- timlrx/timlrx.com
+- ara-o/portfolio-website
+- efrencodes/efrencodes-2022
+- hicaku/portfolio
+- caglarturali/caglarturali.github.io
+- pyaesonepsn/portfolio-project
+- hamishmw/portfolio
+- nurodev/nuro.dev
+- kremalicious/portfolio
+- leon0399/leon0399.ru
+- braydentw/braydentw.io
+- nahuel61920/portafolio-nahuel
+- alfaizkhan/alfaizkhan.github.io
+- pcabreram1234/portfolio
+- gregsithole/gregsithole-react-portfolio
+- gndx/gndx.io
+- davzoku/personal-website-v1
+- jacobfv/old-jacobfv.github.io
+- jasmeetsinghbhatia/resume
+- paytonjewell/paytonpierce.dev
+- pycoder2000/blog
+- max-programming/usmans.me
+- mshahanwaz/portfolio-v4
+- leerob/leerob.io
+- nikolovlazar/nikolovlazar.com
+- reubence/reubence
+- bhavinvirani/protfolio
+- segunajibola/portfolio
+- jilink/personal-portfolio
+- azizstark/azizstark
+- superguigui/guillaumegouessan.com
+- andrewbaisden/andrew-baisden-portfolio-2022
+- williamssam/my-portfolio
+- haythemlazaar/portfolio-2022
+- dlarroder/dalelarroder
+- tri-dang/tri-dang.github.io
+- arifszn/gitprofile
+- napthedev/portfolio-next
+- micahlt/micahlt.github.io
+- jeferson-sb/portfolio
+- danger-ahead/flutter_dev_folio
+- serdargokhan/portfolio-website-v1
+- nayeemdev/nayeemdev.github.io
+- anishde12020/portfolio
+- benrobo/portfolio-v3
+- nirban256/personal_website
+- njmsaikat/portfolio
+- anandbaraik/anandbaraik.github.io
+- israelmitolu/premier-portfolio
+- communitypro/portfolio-html
+- zougari47/portfolio-template
+- aarshap/personal-site-2021
+- petertait/petertait.com
+- jlengstorf/jason.af
+- madebyporter/madebyporter
+- oluwadareseyi/folio-v2
+- rafaelconde/rafaelconde
+- brunosimon/folio-2019
+- iamschulz/iamschulz-hugo
+- adeolaadeoti/adeolaadeoti-v2
+- thanghuuvu/thvu-blog
+- avs1508/my-alternate-portfolio-website
+- jemimaabu/portfolio
+- whizkydee/olaolu.dev
+- braydoncoyer/braydoncoyer.dev
+- evavic44/eke
+- gorvgoyl/clone-wars # open source clones of popular sites
+- evavic44/portfolio-ideas # awesome website list
+
+# dev categories - all websites sorted into categories
+# duplicates
+dev/websites/gatsby:
+- vagr9k/gatsby-advanced-starter
+- lekoarts/gatsby-themes
 
 dev/browser:
 - mdn/webextensions-examples
@@ -226,6 +337,11 @@ dev/js/libraries:
 - apollographql/apollo-client
 
 
+# my personally found or used js or node libraries
+dev/js/libraries-personal:
+- node-formidable/formidable
+
+
 python/hypothesis*:
   # https://hypothesis.readthedocs.io/en/latest/usage.html
 - cdown/aur
@@ -269,6 +385,37 @@ python/hypothesis*:
 - cdown/yturl
 - zenml-io/zenml
 
+# random apps for desktop linux ive found that looks interesting
+# file browser, note taking, theming apps
+arch/apps/unsorted:
+- unitech/pm2
+- gnome/d-feet # 
+- themix-project/themix-gui
+- nana-4/materia-theme
+- baskerville/sxhkd
+- thermitegod/spacefm
+- ignorantguru/spacefm
+- linuxmint/nemo-extensions
+- alphaonex86/ultracopier # replace file transfer dialogs
+- suboptimaleng/orbital
+- kimlimjustin/xplorer
+- mickael-kerjean/filestash # cloud virtual file system
+- spacedriveapp/spacedrive # cloud virtual file system
+- unoconv/unoserver # libreoffice server
+- artempyanykh/marksman # markdown lsp
+- nelhage/reptyr # reparent a running program
+
+# full featured markdown editors
+arch/apps/notes:
+- 0xgg/crossnote
+- jamiemcg/remarkable
+- zettlr/zettlr
+
+shell/apps:
+- cshuaimin/scd
+- jumpfm/jumpfm
+- leo-arch/clifm
+- kamiyaa/joshuto
 
 arch/rofi:
 - davatorium/rofi
@@ -277,10 +424,12 @@ arch/rofi:
 # -- gitlab distrotube
 # - dwt1/dmscripts
 - Murzchnvok/rofi-collection
+- svenstaro/rofi-calc
 
 arch/polybar:
 - polybar/polybar-scripts
 - Murzchnvok/polybar-collection
+
 
 
 arch/i3_sway:
@@ -561,6 +710,30 @@ lua/nvim:
 - kkharji/sqlite.lua
 - b3nj5m1n/kommentary
 - th3whit3wolf/onebuddy
+- folke/neoconf.nvim
+- cshuaimin/ssr.nvim
+- princejoogie/dir-telescope.nvim
+- ggandor/leap-spooky.nvim
+- smjonas/inc-rename.nvim
+- toppair/peek.nvim
+- smjonas/live-command.nvim
+- elianiva/telescope-npm.nvim
+- folke/noice.nvim
+- jayp0521/mason-null-ls.nvim
+- wbthomason/packer.nvim
+- dccsillag/magma-nvim
+- glacambre/firenvim
+- sidofc/carbon.nvim
+- elihunter173/dirbuf.nvim
+- n-shift/scratch.nvim
+- nvim-tree/nvim-web-devicons
+
+
+vim/nvim:
+- mtth/scratch.vim
+- nvim-zh/better-escape.vim
+- wellle/targets.vim
+- fymyte/rasi.vim
 
 
 

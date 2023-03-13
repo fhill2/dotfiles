@@ -1,6 +1,7 @@
 qmk
 buku
 promnesia
+
 hpi
 gpustat
 # py user environment - sgsync
@@ -17,3 +18,9 @@ yt-dlp
 dbussy
 xcffib
 systemd
+
+
+# jupyter
+jupyterlab
+pandas
+numpy

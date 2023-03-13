@@ -6,4 +6,3 @@ def get_pass(query):
     else:
         print("which(pass) == false - pass not installed")
         exit()
-        # return "ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"

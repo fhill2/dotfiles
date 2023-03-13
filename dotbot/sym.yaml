@@ -36,7 +36,7 @@
     ~/.Xresources:
     ~/.config/gnupg:
     ~/.config/fman:
-    ~/.local/lib/python3.10/site-packages/f: ~/dev/lib/f
+    ~/.local/lib/python3.10/site-packages/f: ~/dot/lib/f
     ~/.mozilla/native-messaging-hosts/browser_integration.json: ~/dev/app/browser_integration/native/browser_integration.json
     ~/.local/share/fonts: ~/data/fonts
     ~/dev/bin/db_install: ~/dot/install

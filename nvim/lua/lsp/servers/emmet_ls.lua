@@ -4,6 +4,7 @@ local M = {
 		"html",
 		"typescriptreact",
 		"javascriptreact",
+        "ejs",
 		-- "css",
 		-- "sass",
 		-- "scss",

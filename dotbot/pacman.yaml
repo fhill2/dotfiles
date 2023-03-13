@@ -11,9 +11,17 @@
     - dunst
     - jq
 
+    - rofi-emoji
+
+    - net-tools # netstat
+
 
     # x only screenshots
     - maim
+
+    # a dependency for npm-check or pacman npm-check-updates
+    # to easily update npm project dependencies
+    - pnpm
 
 
 
@@ -75,6 +83,9 @@
     - materia-gtk-theme
 
     # ============== AUR PACKAGES START HERE ==========
+    - bluez
+    - bluez-utils
+    - bluetuith # tui bluetooth manager
     
     # needed for current version of corsair udev
     - xpub
@@ -140,6 +151,10 @@
     - themix-gui
 
     - pandoc
+    # install microsoft default installed fonts for web dev
+    - ttf-ms-win10-auto
+    # to use with rofi-emoji
+    - noto-fonts-emoji
 
 
 - shell

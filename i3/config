@@ -92,7 +92,6 @@ for_window [class="terminal_dropdown_ff"] move scratchpad, border none, resize s
 # bindsym $mod+n exec sway_toggle_terminal_dropdown_ff toggle
 
 
-exec_always --no-startup-id systemctl --user start --no-block i3-session.target
 
 
 # mute built in microphone
@@ -103,10 +102,10 @@ exec_always --no-startup-id systemctl --user start --no-block i3-session.target
 
 
 # startup previewer windows
-exec --no-startup-id /home/f1/dev/bin/i3_preview_startup.py > ~/logs/i3preview.log 2>&1
+exec --no-startup-id /home/f1/dot/bin/i3_preview_startup.py > ~/logs/i3preview.log 2>&1
 
 # this does not run well under systemd - subprocesses do not spawn correctly to create i3 windows
-exec --no-startup-id /home/f1/dev/bin/i3_preview.py > ~/logs/i3preview.log 2>&1
+exec --no-startup-id /home/f1/dot/bin/i3_preview.py > ~/logs/i3preview.log 2>&1
 
 
 # exec --no-startup-id /home/f1/dev/bin/i3_subscribe_debug.py & disown
@@ -117,6 +116,12 @@ exec --no-startup-id /home/f1/dev/bin/i3_preview.py > ~/logs/i3preview.log 2>&1
 # do not run sxhkd as a systemd service, as I want new processes spawned with it to inherit the login session env variables
 # for example: XDG_SESSION_ID is used to logout - this does not work if rofi_power_menu is called from a sxhkd hotkey
 exec --no-startup-id sxhkd > ~/logs/sxhkd.log 2>&1
+
+
+# debugging
+exec sudo busctl monitor org.freedesktop.login1 > ~/logs/login/$(date).log
+
+exec_always --no-startup-id systemctl --user start --no-block i3-session.target
 
 bar {
     font pango:DejaVu Sans Mono, FontAwesome 12
