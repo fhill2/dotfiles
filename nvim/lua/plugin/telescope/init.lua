@@ -90,8 +90,8 @@ local cycle_layout_list = {
     layout_strategy = "vertical",
     layout_config = { preview_height = 20 },
   },
-  "horizontal",
   "vertical",
+  "horizontal",
 }
 
 local defaults = {
@@ -128,6 +128,7 @@ local extensions = {
     hidden = true,
     cwd_to_path = true,
     mappings = file_browser_mappings,
+    layout_strategy = "horizontal",
   },
   live_grep_args = {
     auto_quoting = true, -- enable/disable auto-quoting

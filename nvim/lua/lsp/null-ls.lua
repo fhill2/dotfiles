@@ -18,9 +18,7 @@ null_ls.setup({
 		diagnostics.shellcheck,
 	},
 })
-dump("at null-ls")
 table.insert(formatting.prettierd.filetypes, "ejs")
-dump(formatting.prettierd.filetypes)
 
 -- function M.has_formatter(ft)
 --   local config = require("null-ls.config").get()

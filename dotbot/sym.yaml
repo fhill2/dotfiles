@@ -43,6 +43,8 @@
     ~/.config/qmk:
     ~/.config/pistol:
     ~/.config/spacefm:
+    # instead of using snippy.nvim snippet_dirs - symlink my personal snippets (for easier snippy.nvim configuration)
+    ~/.local/share/nvim/site/pack/packer/start/my_snippets: ~/dot/snippets
 
 - create:
    ~/.local/share/the-way/themes:

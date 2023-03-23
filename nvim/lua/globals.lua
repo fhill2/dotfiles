@@ -82,7 +82,6 @@ function _G.d(...)
 	_G.dump(...)
 end
 
-_G.f.snippet_dirs = home .. "/dev/snippets/snippy" -- snippy save snippets will also change
 
 _G.f.prompt = function(...)
 	require("plugin.nui.prompt").prompt(...)

@@ -7,8 +7,8 @@
 [General]
 
 [Window]
-width=1885
-height=2061
+width=1848
+height=2329
 maximized=0
 
 [Desktop]
@@ -62,7 +62,7 @@ main_terminal-key=65473
 main_save_tabs-b=1
 main_exit-key=113
 main_exit-keymod=4
-panel1_show-s=////home/f1/data////home/f1/Desktop////home/f1
+panel1_show-s=////home/f1/data////home/f1/Desktop////home/f1/Downloads
 panel1_show-x=2
 panel1_show-key=49
 panel1_show-keymod=4
@@ -363,7 +363,7 @@ panel1_detcol_perm0-b=2
 panel1_detcol_owner0-b=2
 panel1_detcol_date0-b=2
 panel1_slider_positions0-s=46
-panel1_slider_positions0-x=914
+panel1_slider_positions0-x=1000
 panel1_slider_positions0-y=62
 panel1_tool_l-child=cstm_4bb7eda4
 cstm_4bb7eda4-next=cstm_477e3825

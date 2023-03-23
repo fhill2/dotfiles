@@ -66,6 +66,7 @@ client.background       $base07
 
 for_window [title="Event Tester"] floating enable
 for_window [class="OtoDecks"] floating enable, move position center
+for_window [title="PreviewAnything"] floating enable, move position center
 for_window [class="Blender" title="Blender Preferences"] floating enable, move position center
 
 

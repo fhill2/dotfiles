@@ -62,7 +62,6 @@ end
 --
 --
 --
---   dump("asd")
 --   if not finder.path == vim.loop.cwd() then
 --       finder.path = path and path or vim.loop.cwd()
 --   end

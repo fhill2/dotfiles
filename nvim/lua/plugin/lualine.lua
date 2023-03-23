@@ -94,7 +94,6 @@ local pyright_venv = function()
 	end
 
 	return table.concat(clients, " ")
-	--return "ASD"
 end
 
 local get_ts = function()

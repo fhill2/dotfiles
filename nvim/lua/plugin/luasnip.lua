@@ -39,7 +39,6 @@ ls.snippets = {
 		s("trig", {
 			i(1),
 			f(function(args, user_arg_1)
-				dump(args[1][1], user_arg_1)
 				return args[1][1] .. user_arg_1
 			end, { 1 }, "Will be appended to text from i(0)"),
 			i(0),

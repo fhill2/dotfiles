@@ -168,7 +168,8 @@ local normal_keymaps = {
 
 wk.register(normal_keymaps, { prefix = "<space>" })
 -- false=which-key binds them, true=legendary binds them
-require("legendary").bind_whichkey(normal_keymaps, { prefix = "<space>" }, false)
+-- This errors legendary.nvim
+-- require("legendary").bind_whichkey(normal_keymaps, { prefix = "<space>" }, false)
 
 -- visual mode mappings
 local visual_keymaps = {
@@ -218,7 +219,7 @@ local visual_keymaps = {
 }
 
 wk.register(visual_keymaps, { prefix = "<space>", mode = "v" })
-require("legendary").bind_whichkey(visual_keymaps, { prefix = "<space>", mode = "v" }, false)
+-- require("legendary").bind_whichkey(visual_keymaps, { prefix = "<space>", mode = "v" }, false)
 
 local a = require("util/keymap")
 

@@ -111,10 +111,18 @@ use({
 --   end,
 -- })
 
+-- use({
+--   "zbirenbaum/copilot.lua",
+--   cmd = "Copilot",
+--   event = "InsertEnter",
+--   config = function()
+--     require("plugin.copilot")
+--   end,
+-- })
+
+-- TODO: get lazy loading working for this
 use({
   "zbirenbaum/copilot.lua",
-  cmd = "Copilot",
-  event = "InsertEnter",
   config = function()
     require("plugin.copilot")
   end,
@@ -216,8 +224,6 @@ use("nvim-telescope/telescope-live-grep-args.nvim")
 
 -- cmp lsp
 
-use("rafamadriz/friendly-snippets")
-
 use({
   "windwp/nvim-autopairs",
   config = function()
@@ -249,6 +255,13 @@ use("jbyuki/nabla.nvim")
 --     "vhyrro/neorg-telescope",
 --   },
 -- })
+use({
+  "SmiteshP/nvim-navic",
+  requires = "neovim/nvim-lspconfig",
+  config = function()
+    require("plugin.navic")
+  end,
+})
 
 use({
   "nvim-neorg/neorg",
@@ -272,7 +285,17 @@ use({
 
 use({ "ellisonleao/glow.nvim", run = "GlowInstall" })
 
-use("honza/vim-snippets")
+-- snippet providers
+use("rafamadriz/friendly-snippets") -- most popular vscode snippet repo
+-- use({ "dsznajder/vscode-es7-javascript-react-snippets", run = "yarn install --frozen-lockfile && yarn compile" }) -- some nice react typescript snippets
+use("honza/vim-snippets") -- most popular .snippet repo
+use({
+  "smjonas/snippet-converter.nvim",
+  config = function()
+    require("plugin.snippet-converter")
+  end,
+}) -- transform vscode snips into snipmate / ultisnips snippets (nicer syntax)
+
 -- use({
 --   "akinsho/toggleterm.nvim",
 --   config = function()
@@ -281,6 +304,12 @@ use("honza/vim-snippets")
 -- })
 
 use("stsewd/sphinx.nvim")
+use({
+  "kosayoda/nvim-lightbulb",
+  config = function()
+    require("plugin.lightbulb")
+  end,
+})
 
 -- use({ "voldikss/vim-floaterm", opt = true })
 
@@ -311,7 +340,7 @@ use({
 use({ "nvim-treesitter/playground", cmd = "TSHighlightCapturesUnderCursor" })
 --use("nvim-treesitter/nvim-treesitter-refactor")
 use("nvim-treesitter/nvim-treesitter-textobjects")
-use("nvim-treesitter/nvim-treesitter-context")
+-- use("nvim-treesitter/nvim-treesitter-context") -- deprecated in favor of nvim-navic
 use("RRethy/nvim-treesitter-textsubjects")
 
 -- telescope extensions
@@ -451,7 +480,7 @@ use({
   end,
 })
 
-use("folke/lua-dev.nvim") -- plugin and nvim api hover docs for lua lsp
+use("folke/neodev.nvim") -- plugin and nvim api hover docs for lua lsp
 
 use("dcampos/cmp-snippy")
 
@@ -492,7 +521,7 @@ use({
   "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
   config = function()
     require("lsp_lines").setup()
-    require("lsp_lines").toggle()
+    -- require("lsp_lines").toggle()
   end,
 })
 

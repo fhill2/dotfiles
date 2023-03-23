@@ -7,8 +7,8 @@
 [General]
 
 [Window]
-width=1912
-height=2089
+width=1976
+height=2329
 maximized=0
 
 [Desktop]
@@ -363,7 +363,7 @@ panel1_detcol_perm0-b=2
 panel1_detcol_owner0-b=2
 panel1_detcol_date0-b=2
 panel1_slider_positions0-s=46
-panel1_slider_positions0-x=914
+panel1_slider_positions0-x=1000
 panel1_slider_positions0-y=62
 panel1_tool_l-child=cstm_4bb7eda4
 cstm_4bb7eda4-next=cstm_477e3825

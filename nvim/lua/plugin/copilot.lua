@@ -1,4 +1,9 @@
-require("copilot").setup({})
+require("copilot").setup({
+  panel = {
+    auto_refresh = true,
+  },
+  filetypes = { ["*"] = true },
+})
 
 -- Default Config
 -- {
