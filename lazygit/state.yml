@@ -1,6 +1,8 @@
 lastupdatecheck: 0
 recentrepos:
 - /home/f1/dot
+- /home/f1/dev/forks/dotbot-sudo
+- /home/f1/dev/forks/dotbot-rust
 - /home/f1/dev/app/previewer
 - /home/f1/git/dnw
 - /home/f1/dev/app/ahrefs

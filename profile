@@ -16,8 +16,12 @@ export QT_QPA_PLATFORMTHEME=qt5ct
 # export QT_AUTO_SCREEN_SCALE_FACTOR=0
 
 # sg.nvim needs this - and sourcegraph cli
-export SRC_ACCESS_TOKEN=$(pass show src/fhill2-web-pat)
+export SRC_ACCESS_TOKEN=$(pass ls src/fhill2-web-pat)
 export SRC_ENDPOINT="https://github.com/sourcegraph"
+
+OPENAI_KEY=$(pass ls openai/api)
+export AICHAT_API_KEY="$OPENAI_KEY" # aichat rust TUI
+export OPENAI_API_KEY="$OPENAI_KEY" # chatGPT.nvim
 
 
 # OCT 2022

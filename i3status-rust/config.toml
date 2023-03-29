@@ -3,7 +3,7 @@
 # icons_format = " <span size='x-large' stretch='ultraexpanded' font_family='DejaVuSansMono Nerd Font Mono'>{icon}</span> "
 # icons_format = " <span size='x-large'>{icon}</span>"
 [icons]
-icons = "awesome"
+icons = "awesome6"
 
 [icons.overrides]
 backlight_1 = ""

@@ -74,6 +74,18 @@ use({
   end,
 })
 
+use({
+  "jackMort/ChatGPT.nvim",
+  config = function()
+    require("plugin.chatgpt")
+  end,
+  requires = {
+    "MunifTanjim/nui.nvim",
+    "nvim-lua/plenary.nvim",
+    "nvim-telescope/telescope.nvim",
+  },
+})
+
 use({ "williamboman/mason-lspconfig.nvim" })
 
 use({
@@ -125,6 +137,14 @@ use({
   "zbirenbaum/copilot.lua",
   config = function()
     require("plugin.copilot")
+  end,
+})
+
+use({
+  "zbirenbaum/copilot-cmp",
+  after = { "copilot.lua" },
+  config = function()
+    require("plugin.copilot_cmp")
   end,
 })
 

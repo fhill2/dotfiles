@@ -1,0 +1,26 @@
+# OLD - before custom installer
+# - if:
+#     # if script does not exist - download it
+#     cond: '[ ! -e "$HOME/dev/bin/iconlookup" ]'
+#     met:
+#     - shell:
+#       - curl -L https://raw.githubusercontent.com/jarun/nnn/master/plugins/.iconlookup -o $HOME/dev/bin/iconlookup
+#
+#
+# # some programs need installing and then some extra post setup
+# # remember: yay --needed does not work correctly (does not detect if a package already exists)
+# # https://github.com/Jguer/yay/issues/1552
+# - if:
+#     # this condition checks if either an official or AUR package exists
+#     # if already installed, it will not run the shell command
+#     cond: 'pacman -Qe docker > /dev/null 2>&1'
+#     met:
+#     - shell:
+#       - './install_docker.sh'
+#
+# - if:
+#     cond: 'pacman -Qe ckb-next > /dev/null 2>&1'
+#     met:
+#     - shell:
+#       - 'pacaur -S ckb-next && sudo systemctl enable --now ckb-next'
+

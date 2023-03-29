@@ -29,21 +29,17 @@
     - redshift
 
 
-    # audio
-    - pulseaudio
-    # otherwise external monitor HDMI sound outputs do not show in pavucontrol / pulseaudio
-    - sof-firmware 
+
     # for floating point math in bash
     - bc
-    # nvidia proprietary
-    - nvidia
-    - nvidia-utils
-    - nvidia-settings
+
     
     # x specific
     - xorg
     - xorg-xwininfo
     - xorg-xev
+    # for vlc.lua link script
+    - wmctrl
     
     # gpu performance monitoring (for each driver)
     - intel-gpu-tools
@@ -51,18 +47,17 @@
     - gpg-tui # failed to build using cargo
     - pass
 
-    # pulseaudio scripting
-    - pamixer
 
-    - vlc
-    - blender
+    # pulseaudio scripting - replaced with pipewire
+    # - pulseaudio
+    # - pamixer
+
+
 
     - lazygit
 
-    # x server extras
 
-    # for vlc.lua link script
-    - wmctrl
+
 
     # networking
     - nmap
@@ -81,6 +76,9 @@
     # trying out a material theme, instead of material base64 theme
     # as gtk base64 FlatColour does not work as well as I want it (cant see selection)
     - materia-gtk-theme
+
+    - vlc
+    # - blender
 
     # ============== AUR PACKAGES START HERE ==========
     - bluez
@@ -132,6 +130,8 @@
     # checks if AUR packages can find the requires shared link libraries
     - rebuild-detector
 
+    - syncthing
+
 
     # aur preview_tui dependencies
     - pistol-git
@@ -155,6 +155,11 @@
     - ttf-ms-win10-auto
     # to use with rofi-emoji
     - noto-fonts-emoji
+
+    # nfs server and client
+    - nfs-utils
+
+
 
 
 - shell

@@ -2,7 +2,52 @@
 # this assumes I have installed with the arch automated installer
 # https://wiki.archlinux.org/title/Archinstall
 
+
+
+# install
+if [ "$EUID" -ne 1000 ]
+then echo "Please run as f1 user"
+  exit
+fi
+
+
+# 1: Install SSH Key
+
+# can be run as f1 user
+#su f1 -c './ssh'
+#source /home/f1/.ssh
+
+ssh-keygen -b 2048 -t ed25519 -f ~/.ssh/gh-cli -q -N "" -C "freddiehill000@gmail.com"
+ssh-keygen -b 2048 -t ed25519 -f ~/.ssh/id_ed25519 -q -N "" -C "freddiehill000@gmail.com"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+
+
+
 su root
+# if [ "$EUID" -ne 0 ]
+# then echo "Please run as root"
+#   exit
+# fi
+
+# 2: 
+git config --global user.name "Freddie Hill"
+git config --global user.email "freddiehill000@gmail.com"
+
+systemctl enable --now reflector.service
+systemctl enable reflector.timer
+
+systemctl enable --now syncthing@f1.service
+
+
+rm /home/f1/Sync # delete syncthing default folder
+
+# now turn syncthing on
+#xdg-open http://127.0.0.1:8384
+# http://192.168.0.100:8384/syncthing/ <- for NAS syncthing config
+
+echo "now do steps in manual.md"
+
 
 # archinstall script does not edit sudoers, and asks for password on each sudo invocation
 # https://stackoverflow.com/a/54309791

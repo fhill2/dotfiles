@@ -1,5 +1,5 @@
 ﻿###
-###  vlc 3.0.17.4
+###  vlc 3.0.18
 ###
 
 ###
@@ -131,6 +131,29 @@
 
 # Delay of the ES (ms) (integer)
 #sout-delay-delay=0
+
+[stream_out_chromecast] # Chromecast stream output
+
+# ? (string)
+#sout-chromecast-ip=
+
+# ? (integer)
+#sout-chromecast-port=8009
+
+# ? (boolean)
+#sout-chromecast-video=1
+
+# HTTP port (integer)
+#sout-chromecast-http-port=8010
+
+# Performance warning (integer)
+#sout-chromecast-show-perf-warning=1
+
+# Enable Audio passthrough (boolean)
+#sout-chromecast-audio-passthrough=0
+
+# Conversion quality (integer)
+#sout-chromecast-conversion-quality=1
 
 [smem] # Stream output to memory buffer
 
@@ -535,7 +558,7 @@
 #sout-avi-subject=
 
 # Encoder (string)
-#sout-avi-encoder=VLC Media Player - 3.0.17.4 Vetinari
+#sout-avi-encoder=VLC Media Player - 3.0.18 Vetinari
 
 # Keywords (string)
 #sout-avi-keywords=
@@ -640,6 +663,20 @@
 
 # Scaling quality (integer)
 #vdpau-scaling=0
+
+[twolame] # Libtwolame audio encoder
+
+# Encoding quality (float)
+#sout-twolame-quality=0.000000
+
+# Stereo mode (integer)
+#sout-twolame-mode=0
+
+# VBR mode (boolean)
+#sout-twolame-vbr=0
+
+# Psycho-acoustic model (integer)
+#sout-twolame-psy=3
 
 [vpx] # WebM video decoder
 
@@ -3189,38 +3226,6 @@ qt-privacy-ask=0
 # Size (integer)
 #imem-size=0
 
-[live555] # RTP/RTSP/SDP demuxer (using Live555)
-
-# Use RTP over RTSP (TCP) (boolean)
-#rtsp-tcp=0
-
-# Client port (integer)
-#rtp-client-port=-1
-
-# Force multicast RTP via RTSP (boolean)
-#rtsp-mcast=0
-
-# Tunnel RTSP and RTP over HTTP (boolean)
-#rtsp-http=0
-
-# HTTP tunnel port (integer)
-#rtsp-http-port=80
-
-# Kasenna RTSP dialect (boolean)
-#rtsp-kasenna=0
-
-# WMServer RTSP dialect (boolean)
-#rtsp-wmserver=0
-
-# Username (string)
-#rtsp-user=
-
-# Password (string)
-#rtsp-pwd=
-
-# RTSP frame buffer size (integer)
-#rtsp-frame-buffer-size=250000
-
 [access_jack] # JACK audio input
 
 # Pace (boolean)
@@ -3590,7 +3595,7 @@ qt-privacy-ask=0
 #role=video
 
 # Audio filters (string)
-audio-filter=compressor
+#audio-filter=
 
 # Audio visualizations (string)
 #audio-visual=none

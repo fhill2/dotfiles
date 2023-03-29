@@ -1,6 +1,13 @@
 require("copilot").setup({
   panel = {
+    enabled = true,
     auto_refresh = true,
+    layout = {
+      position = "right", -- | top | left | right
+    },
+  },
+  suggestion = {
+    enabled = false,
   },
   filetypes = { ["*"] = true },
 })

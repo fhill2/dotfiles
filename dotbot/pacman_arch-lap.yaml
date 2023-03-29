@@ -1,0 +1,7 @@
+# nvidia proprietary
+- nvidia
+- nvidia-utils
+- nvidia-settings
+
+# otherwise external monitor HDMI sound outputs do not show in pavucontrol / pulseaudio
+- sof-firmware 

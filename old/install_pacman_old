@@ -1,0 +1,65 @@
+#!/bin/bash
+
+# Created a standalone pacman installer instead of using dotbot
+# because I need to toggle --noconfirm on the yay command while installing - as sometimes I need to manually resolve package conflicts
+# maybe there is a way to do this with dotbot 
+
+set +e #otherwise the script will exit on error
+containsElement () {
+  local e match="$1"
+  shift
+  for e; do [[ "$e" == "$match" ]] && return 0; done
+  return 1
+}
+
+# https://wiki.archlinux.org/title/Pacman/Tips_and_tricks
+# -q -> removes version information to make the output parsable
+# -e -> list explicitly installed packages
+# pkgs=$(pacman -Qqe)
+readarray -t installed_pkgs < <(pacman -Qq)
+source pacman.bash
+
+pkgs_to_install=()
+
+find_not_installed() {
+  local array=("$@")
+  for pkg in "${array[@]}"; do
+    # if pkg is not already installed
+    if ! containsElement "$pkg" "${installed_pkgs[@]}"; then
+      echo "$pkg is not installed" 
+      pkgs_to_install+=("$pkg")
+    fi
+  done
+}
+
+find_not_installed "${shared_pkgs[@]}"
+
+case "$HOST" in
+  "arch-desk")
+    find_not_installed "${arch_desk_pkgs[@]}"
+  ;;
+  "arch-lap")
+    echo "arch lap ran"
+    find_not_installed "${arch_lap_pkgs[@]}"
+  ;;
+esac
+
+# automatically replace packages
+# https://unix.stackexchange.com/questions/274727/how-to-force-pacman-to-answer-yes-to-all-questions/584001#584001
+
+pkgs_install_str="${pkgs_to_install[*]}"
+# if pkgs_install_str is not empty
+if [ -n "$pkgs_install_str" ]; then
+  echo "installing these packages: $pkgs_install_str"
+  exit
+  sudo pacman -S "$pkgs_install_str"
+fi
+
+
+
+
+
+# TODO - could create optional uninstaller/clean here
+# pacman -Qqe to list all explicitly installed packages (when you manually install a package, pacman fills in the Install Reason metadata in the databased as: Explicit Installed)
+# script can remove any packages that are not explicitly installed or dependencies of explicitly installed packages to clean the system
+

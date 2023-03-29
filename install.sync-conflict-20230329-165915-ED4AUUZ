@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+# https://github.com/anishathalye/dotfiles/blob/master/install
+
+set -e
+BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+
+# if no arguments are passed in, install syms only
+if [ $# = 0 ];then
+  chosen="sym"
+else
+  chosen="$1"
+fi
+
+# if all is passed as first argument, install all parts of config
+
+# pacman config:
+# pacman -> shared between both
+# arch-desk -> desktop / tower only config
+# arch-lap -> laptop only config
+
+case $chosen in
+  "all")
+      configs=("sym" "pacman" "cargo" "pip" "extras")
+    ;;
+  "pkg")
+  configs=("pacman pacman_$HOST cargo pip extras")
+  ;;
+  *)
+      configs=("$1")
+  ;;
+esac
+
+
+for config in "${configs[@]}"; do
+"$HOME/.local/bin/dotbot" -v -d "${BASEDIR}" \
+  -c "dotbot/$config.yaml" \
+  -p ~/.dotbot/dotbot-sudo/sudo.py \
+  -p ~/.dotbot/dotbot-rust/rust.py \
+  -p ~/.dotbot/dotbot-if/if.py \
+  -p ~/.dotbot/dotbot-yay/yay.py \
+  -p ~/.dotbot/dotbot-pip/pip.py \
+  -p ~/.dotbot/dotbot-golang/go.py
+
+done
