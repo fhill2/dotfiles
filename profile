@@ -9,8 +9,7 @@
 # adds dev/bin subfolders to PATH
 # NOT POSTIX compliant
 # export PATH="$PATH:${$(find ~/dev/bin -type d -printf %p:)%%:}"
-
-export PATH=~/.local/share/nvim/mason/bin:~/dot/bin:~/.cargo/bin:~/.local/bin:$PATH
+export PATH=~/.local/share/nvim/mason/bin:~/dot/bin:~/.cargo/bin:~/.local/bin:$PATH:~/npm/bin
 
 export QT_QPA_PLATFORMTHEME=qt5ct
 # export QT_AUTO_SCREEN_SCALE_FACTOR=0

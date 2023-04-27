@@ -133,7 +133,7 @@ super+n
 
 super+control+p
 # super+0
-  echo "toggle" > "$HOME/tmp/preview.fifo"
+  echo "toggle" | nc -N -U "$HOME/tmp/previewer.sock"
 # super + n
 #     i3-msg nop tree
 #

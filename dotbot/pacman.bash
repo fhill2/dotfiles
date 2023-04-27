@@ -173,4 +173,6 @@ shared_pacman_pkgs=(
 
   # nfs server and client
   "nfs-utils"
+
+  "bitwarden" # electron bitwarden GUI - CLI installed via npm
 )

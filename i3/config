@@ -35,8 +35,8 @@ set $base0F #FF5370
 # workspace 1 output DP-3
 # workspace 2 output eDP-1
 # nvidia optimus
-workspace 1 output DP-3-1
-workspace 2 output eDP-1-1
+workspace 1 output DP-2
+# workspace 2 output eDP-1-1
 
 show_marks yes
 focus_follows_mouse no
@@ -66,7 +66,8 @@ client.background       $base07
 
 for_window [title="Event Tester"] floating enable
 for_window [class="OtoDecks"] floating enable, move position center
-for_window [title="PreviewAnything"] floating enable, move position center
+for_window [title="PreviewAnything"] floating enable, move scratchpad
+# for_window [title="PreviewAnything"] floating enable
 for_window [class="Blender" title="Blender Preferences"] floating enable, move position center
 
 
@@ -103,10 +104,10 @@ for_window [class="terminal_dropdown_ff"] move scratchpad, border none, resize s
 
 
 # startup previewer windows
-exec --no-startup-id /home/f1/dot/bin/i3_preview_startup.py > ~/logs/i3preview.log 2>&1
+# exec --no-startup-id /home/f1/dot/bin/i3_preview_startup.py > ~/logs/i3preview.log 2>&1
 
 # this does not run well under systemd - subprocesses do not spawn correctly to create i3 windows
-exec --no-startup-id /home/f1/dot/bin/i3_preview.py > ~/logs/i3preview.log 2>&1
+# exec --no-startup-id /home/f1/dot/bin/i3_preview.py > ~/logs/i3preview.log 2>&1
 
 
 # exec --no-startup-id /home/f1/dev/bin/i3_subscribe_debug.py & disown
@@ -116,13 +117,19 @@ exec --no-startup-id /home/f1/dot/bin/i3_preview.py > ~/logs/i3preview.log 2>&1
 # https://github.com/systemd/systemd/issues/6032
 # do not run sxhkd as a systemd service, as I want new processes spawned with it to inherit the login session env variables
 # for example: XDG_SESSION_ID is used to logout - this does not work if rofi_power_menu is called from a sxhkd hotkey
+
+exec --no-startup-id i3-msg "workspace 1"
 exec --no-startup-id sxhkd > ~/logs/sxhkd.log 2>&1
+
+exec --no-startup-id /home/f1/dev/app/previewer/release/build/previewer-4.6.0.AppImage
 
 
 # debugging
 exec sudo busctl monitor org.freedesktop.login1 > ~/logs/login/$(date).log
 
 exec_always --no-startup-id systemctl --user start --no-block i3-session.target
+
+# exec_always workspace 1; focus parent
 
 bar {
     font pango:DejaVu Sans Mono, FontAwesome 12
