@@ -1,0 +1,121 @@
+#!/usr/bin/zsh
+
+
+
+  case $1 in
+    "fd")
+      #CMD='find . \( -name {} -o -name .cache -o -name .git \) -prune -o -printf "%TF.%TH:%TM:%.2TS %p\n" 2>&1 | f_fd_add_col.py'
+      #CMD='find . -printf "%TF.%TH:%TM:%.2TS %p\n" -name "{}" -not -path "*/.git/*" 2>&1 | f_fd_add_col.py'
+      CMD='find . \( -name .cache -o -name .git \) -prune -o -name "*{}*" -printf "%TF.%TH:%TM:%.2TS %p\n" 2>&1 | f_fd_add_col.py'
+      SK_PROMPT="files dirs"
+      ;;
+
+    "fd_1")
+      CMD='find . \( -name .cache -o -name .git \) -prune -o -name "*{}*" -printf "%TF.%TH:%TM:%.2TS %p\n" -type d 2>&1 | f_fd_add_col.py'
+      SK_PROMPT="fd depth 1"
+      ;;
+
+    "files")
+      #CMD_PREFIX="fd -l --type f"
+      SK_PROMPT="files"
+      ;;
+
+    "dir")
+      #CMD_PREFIX="fd -l --type d"
+      SK_PROMPT="dir"
+      ;;
+
+    "rg")
+      #CMD_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
+      SK_PROMPT="rg"
+      ;;
+    "notes")
+      CMD='find ~/dev/notes/dev \( -name .cache -o -name .git \) -prune -o -name "*{}*" -printf "%TF.%TH:%TM:%.2TS %p\n" 2>&1 | f_fd_add_col.py'
+      ;;
+    *)
+      echo "specify fd,fd_1,dir,rg"
+      ;;
+  esac
+
+
+  if [ -z "$1" ]; then
+    return
+  fi
+
+
+
+
+export RUST_BACKTRACE=full 
+export RUST_LOG=trace 
+#echo "1 apples\n4 carrots\n6 orange\n3 orange\n5 peach\n1 orange\n2 orange" | \
+  
+/home/f1/dev/app/skim/target/release/sk \
+    --ansi \
+    -i \
+    -c "$CMD" \
+    --sortn '0' \
+    --header "c-q:fuzzy_search c-d:sort_modified_date c-f:sort_frecency ':exact_match_in_fuzzy_search c-p:toggle-preview" \
+    --bind 'ctrl-f:sortn(1)' \
+    --bind 'ctrl-d:sortn(0)' \
+    --no-sort \
+    --layout reverse \
+    --tac \
+    2> /home/f1/logs/sk.log
+# #OIFS=$IFS
+
+# case $1 in
+#   "fd"|"fd_1"|"files"|"dir")
+#     CMD_PIPE="f_fd_add_col.py"
+#     FZF_DEFAULT_COMMAND="$CMD_PREFIX $CMD_SUFFIX | $CMD_PIPE"
+#     export FZF_BIND_RELOAD="$CMD_PREFIX -name '*{q}*' $CMD_SUFFIX | $CMD_PIPE"
+#     FZF_EXTRA_ARGS=(
+#     )
+#           IFS=':'
+#           ;;
+#       esac
+
+
+
+# # tr -s to normalize spaces of result string
+# result=$(
+
+# #fd -l $(printf %q "$INITIAL_QUERY") 
+# eval "$FZF_DEFAULT_COMMAND" | fzf --ansi \
+#   --height 100% \
+#   --border bottom \
+#   --color "hl:-1:underline,hl+:-1:underline:reverse" \
+#   --disabled --query "$INITIAL_QUERY" \
+#   --bind "change:reload:sleep 0.1; $FZF_BIND_RELOAD || true" \
+#   --bind "ctrl-f:unbind(change,ctrl-f)+change-prompt(2. fzf> )+enable-search+clear-query" \
+#   --bind "ctrl-p:toggle-preview" \
+#   --prompt "1. $FZF_PROMPT> " \
+#   --delimiter : \
+#   --preview "f_nvimpager {1} {2}" \
+#   --preview-window 'right,50%,noborder' \
+#   --header-first \
+#   "${FZF_EXTRA_ARGS[@]}" | tr -s " "
+# )
+# #
+# #converts string into a bash array with delimiter as IFS variable above
+# setopt shwordsplit
+# result=(${result})
+
+# case $1 in
+#   "fd"|"fd_1"|"files"|"dir")
+#     [ -n "${result[-1]}" ] && nvim "${result[-1]}"
+#     ;;
+#   "rg")
+#     [ -n "${result[1]}" ] && nvim "${result[1]}" "+${result[2]}"
+#     ;;
+# esac
+
+# # for x in $result
+# # do
+# #   echo "> $x"
+# # done
+
+# unset IFS
+
+
+#     FZF_DEFAULT_COMMAND="$CMD_PREFIX $CMD_SUFFIX | $CMD_PIPE"
+

@@ -1,0 +1,10 @@
+#!/usr/bin/zsh
+#fd . '/home/f1' --hidden --no-ignore -a -E .git -E .cache -E .npm -E .venv -E .pyenv -E virtualenv -E virtualenvs -E .vscode -E .vscode-insiders -E .cargo -E .rustup -E target -E nerd-fonts -E /seagate/ -E Trash -E build -E google-chrome -E Slack -E 'Code - Insiders' -E google-chrome-unstable  | nvim
+
+# .venv = matches the absolute path excluding the filename with regex
+# not sure how to match across multiple sub dirs e.g intro-to-prog-2/assets with using --glob 'intro-to-prog-2/assets'
+cd ~
+fd . '/home/f1' --hidden --no-ignore-vcs -a | nvim
+#fd . '/home/f1' --hidden --no-ignore -a --full-path --glob /.git/ --glob .cache --glob .npm --glob .venv --glob .pyenv --glob virtualenv --glob virtualenvs --glob .vscode --glob .vscode-insiders --glob .cargo --glob .rustup --glob target --glob nerd-fonts --glob /seagate/ --glob Trash --glob build --glob google-chrome --glob Slack --glob 'Code - Insiders' --glob google-chrome-unstable
+#fd . '/home/f1' --hidden --no-ignore -a --full-path
+cd ~/dev/cl/shell/scripts

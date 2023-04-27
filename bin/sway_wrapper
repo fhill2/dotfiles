@@ -1,0 +1,32 @@
+#!/usr/bin/bash
+
+
+sway_restart_process() {
+  chosen=$(echo -e "i3status-rs\ni3_daemon\nkanshi" | wofi --show dmenu --width 400 --height 400 -p "Choose Process:" | xargs)
+  # -f -> matches against the full command line, instead of process name
+  # -x exactly match the pattern
+  if [ "$chosen" = "i3status-rs" ]; then
+    sudo pkill -f -SIGUSR2-x $chosen
+  elif [ "$chosen" = "kanshi" ]; then
+    systemctl --user restart kanshi.service
+  elif [ "$chosen" = "i3status-rs" ]; then
+    # -USR1 only force updates all blocks
+    # -USR2 reloads config and updates blocks
+    sudo pkill -f -USR2 -x $chosen
+  else
+    sudo pkill -f -USR1 -x $chosen
+  fi
+
+}
+
+
+sway_manual_set_mark_rofi() {
+  sway_manual_set_mark $(wofi -dmenu -p "Set Mark:")
+}
+sway_manual_set_mark() {
+swaymsg -t command mark $1
+}
+
+sway_notify_curr_id() {
+notify-send $(swaymsg -t get_tree | jq 'recurse(.nodes[]) | select(.nodes[].focused == true).id')
+}

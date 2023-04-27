@@ -1,0 +1,79 @@
+#!/usr/bin/bash
+
+
+if [[ ! -z "${MONS_NUMBER}" ]]; then
+  profile=$MONS_NUMBER
+else
+  profile=$1
+fi
+#
+# echo "$MONS_NUMBER"
+
+# copied from x_monitor_switch - get the connector and the name of the external monitor
+print_monitors() {
+	while read -r output conn hex; do
+		echo "$output	$conn	$(xxd -r -p <<< "${hex:-2d}")"
+	done < <(LC_ALL=C xrandr --prop | tr -d '\r' | awk '
+	h && /[^ \ta-f0-9]/ {
+		n = split(hex, names, "000000fc00")
+		hex = ""
+		for (i = 2; i <= n; i++) {
+			name = substr(names[i], 0, 26) "0a"
+			sub(/0a.*/, "", name)
+			if (name) {
+				if (hex) name = "20" (name "")
+				hex = hex (name "")
+			}
+		}
+		h = 0
+	}
+	!/^[ \t]/ {
+		if (ok) print output, conn, hex
+		output = $1
+		conn = output; sub(/-.*$/, "", conn)
+		ok = (output && (substr($2, 0, 1) == "c"))  # Connected output
+		hex = ""
+		h = 0
+	}
+	h {sub(/[ \t]+/, ""); hex = hex ($0 "")}
+	/EDID.*:/ {h=1; ok=(output && 1)}
+	/ConnectorType:/ {conn = $2}
+	END {if (ok) print output, conn, hex}
+	' | sort)
+}
+
+# xrandr params
+# --auto -> enable the output with its preferred mode
+
+
+case $profile in
+  "1_monitor" | 1)
+    # if no monitors are connected
+    notify-send "single monitor applied"
+    xrandr --output eDP-1 --scale 0.7x0.7
+  ;;
+  "2_monitor" | 2)
+    # if monitor + 1 monitor is connected
+    notify-send "2 monitors applied"
+    EXTMON=$(print_monitors | grep -v eDP-1)
+
+    # if $EXTMON is not null or space
+    if [[ -n "$EXTMON" ]]; then
+       CONN=$(echo "$EXTMON" | awk '{print $1}') 
+       if [[ $EXTMON == *"Sceptre Z27"* ]]; then
+         echo "applying xrandr Sceptre Z27 config"
+         xrandr --output "$CONN" --primary --scale 0.8x0.8 --left-of "eDP-1" \
+           --output eDP-1 --pos 0x0 --scale 0.7x0.7 --right-of "$CONN"
+       else
+         echo "applying DELL monitor config"
+        # apple dell
+        #xrandr --output "$EXTERNAL_MONITOR" --pos 2688x120 --primary --output eDP-1 --pos 0x0 --scale 0.7x0.7
+       fi
+    fi
+
+
+  ;;
+  *)
+    notify-send "asterisk applied"
+  ;;
+esac

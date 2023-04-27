@@ -1,0 +1,110 @@
+#!/usr/bin/bash
+i3_run_instance() {
+# $1 - program name
+# $2 - original instance name
+# $3 - new instance name
+i3run --instance $3 --rename-instance $2 -- $1
+}
+
+
+
+i3_manual_set_mark_rofi() {
+  i3_manual_set_mark $(rofi -dmenu -p "Set Mark:")
+}
+
+i3_manual_set_mark() {
+i3-msg -t command mark $1
+}
+
+
+# i3_global_menu() {
+#   chosen=$(i3_global_menu.py) && eval "$chosen"
+# }
+
+# i3_get_marks() {
+#
+# }
+
+# i3_focus_marked_container() {
+#   # focus marked container
+#   # focus child
+# }
+
+
+
+i3_open_mark_layout() {
+i3get -i dev_term
+# opens i3-resurrect profile, then marks the container
+  # [[ ${mark:=$1} ]] || ERX "no name specified"
+  # [[ ${mark:=$2} ]] || ERX "no app specified"
+
+  }
+
+
+# kill_python_process(){
+# ps -eaf| grep $1 |grep -v grep
+# kill $(ps -eaf|grep $1 |grep -v grep | awk '{ print $2 }')
+# }
+
+i3_restart_process() {
+  chosen=$(echo -e "kmonad\ni3_daemon\nsxhkd\ni3status-rs\ni3_preview.py" | rofi -dmenu -p "Choose Process:" | xargs)
+  if [ "$chosen" = "kmonad" ]; then
+    sudo systemctl restart kmonad.service
+  elif [ "$chosen" = "i3status-rs" ]; then
+    pkill -USR2 i3status-rs
+  elif [ "$chosen" = "i3_preview.py" ]; then
+    ps_kill_python "i3_preview.py"
+    python ~/dev/bin/i3_preview.py & disown
+  else
+    systemctl --user restart $chosen
+  fi
+}
+
+i3_save_layout() {
+chosen=$(rofi -dmenu -p "Save Layout Name:")
+i3-resurrect save --profile $chosen
+destination=~/dot/i3/resurrect/profiles/${chosen}_layout.json
+# delete all marks = [] arrays so the container marks load
+# https://github.com/i3/i3/issues/4334
+contents="$(jq 'del((.. | .marks?) | select(length == 0))' $destination)" && \
+echo -E "${contents}" > $destination
+}
+
+i3_restore_layout() {
+# xargs - trim whitespace
+profile=$(i3-resurrect ls profiles | awk '{$NF=""; $1=""; print $0}' | uniq | rofi -dmenu -p "Choose Layout:" | xargs)
+exec i3-resurrect restore --profile $profile
+}
+
+## CUSTOM LAYOUTS
+## This section is for adding simple container layouts into existing containers, as i3 save restore JSON doesnt support this
+i3_new_layout_dev_term() {
+  i3_new_tabbed_layout i3-sensible-terminal dev_term
+}
+
+i3_new_layout_alt_term() {
+  i3_new_tabbed_layout i3-sensible-terminal alt_term
+}
+
+i3_new_layout_dev_browser() {
+  i3_new_tabbed_layout google-chrome-stable dev_browser
+}
+i3_new_layout_alt_browser() {
+  i3_new_tabbed_layout google-chrome-stable alt_browser
+}
+i3_new_layout_notes() {
+  i3-msg "exec i3-sensible-terminal"
+  sleep 0.1
+  i3-msg "mark notes"
+}
+
+i3_new_tabbed_layout() {
+  app=$1
+  mark=$2
+i3-msg "exec $app"
+sleep 0.1
+i3-msg "splith; exec $app; layout tabbed"
+sleep 0.1
+i3-msg "focus parent; mark $mark; focus child"
+}
+

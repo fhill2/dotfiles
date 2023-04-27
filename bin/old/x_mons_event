@@ -1,0 +1,14 @@
+#!/bin/sh
+case ${MONS_NUMBER} in
+    1)
+      /home/f1/dev/bin/x_profiles "1_monitor"
+    ;;
+    2)
+      /home/f1/dev/bin/x_profiles "2_monitor"
+    ;;
+    *)
+      /home/f1/dev/bin/x_profiles
+    ;;
+esac
+
+

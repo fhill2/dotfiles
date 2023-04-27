@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+for i in `sudo ls /sys/class/drm/*/status`; do 
+  sudo echo detect > $i
+  cat $i
+done

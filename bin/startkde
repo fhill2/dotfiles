@@ -1,0 +1,4 @@
+#!/usr/bin/sh
+
+# how to start kde on wayland
+export XDG_SESSION_TYPE=wayland && export $(dbus-launch) && startplasma-x11

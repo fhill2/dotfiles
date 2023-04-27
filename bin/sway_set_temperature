@@ -1,0 +1,19 @@
+#!/usr/bin/bash
+# this script exists because:
+# - wl-gammarelay-rs does not re apply the temperature config set when sway reloads
+# - exec_always busctl rs.wl-gammarelay can be used from sway config to manually reset the temperature on sway reloads and startup, BUT
+# - wl-gammarelay-rs does not set the temperature if the temperature set is the same as the current temperature (means i cant get it from the daemon and set it with the exact amount)
+
+# sleep needed otherwise the script is not applied on sway reloads
+sleep 1
+current_temp=$(busctl --user get-property rs.wl-gammarelay / rs.wl.gammarelay Temperature | awk '{print $2}')
+
+# test if number is even or odd
+if [ $((current_temp%2)) -eq 0 ]
+then
+  let new_temp=$current_temp+1
+else
+  let new_temp=$current_temp-1
+fi
+
+busctl --user set-property rs.wl-gammarelay / rs.wl.gammarelay Temperature q $new_temp

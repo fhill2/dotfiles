@@ -1,0 +1,124 @@
+#!/usr/bin/zsh
+#
+#
+#
+  #https://github.com/junegunn/fzf/blob/master/ADVANCED.md#using-fzf-as-interative-ripgrep-launcher
+  #unset FZF_PROMPT
+  #unset CMD_PREFIX
+  #unset CMD_SUFFIX
+  #unset FZF_DEFAULT_COMMAND
+  unset FZF_EXTRA_ARGS
+  #unset FZF_BIND_RELOAD
+
+  #echo "$1" >> /home/f1/logs/python.log
+
+  case $1 in
+    "fd")
+      CMD=
+      CMD_PREFIX='find . \( -name .cache -o -name .git \) -prune -o'
+      CMD_SUFFIX='-printf "%TF.%TH:%TM:%.2TS %p\n" 2>&1'
+      FZF_PROMPT="files dirs"
+      ;;
+
+    "fd_1")
+      CMD_PREFIX="fd -l --maxdepth 1"
+      FZF_PROMPT="fd depth 1"
+      ;;
+
+    "files")
+      CMD_PREFIX="fd -l --type f"
+      FZF_PROMPT="files"
+      ;;
+
+    "dir")
+      CMD_PREFIX="fd -l --type d"
+      FZF_PROMPT="dir"
+      ;;
+
+    "rg")
+      CMD_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
+      FZF_PROMPT="rg"
+      ;;
+
+    *)
+      echo "specify fd,fd_1,dir,rg"
+      ;;
+  esac
+
+
+  if [ -z "$1" ]; then
+    return
+  fi
+
+
+#INITIAL_QUERY="${*:-}"
+#INITIAL_QUERY=""
+
+#FZF_DEFAULT_COMMAND="$CMD_PREFIX $(printf %q "$INITIAL_QUERY") | f_fd_add_col.py" \
+#export FZF_DEFAULT_COMMAND="fd -l"
+
+#OIFS=$IFS
+
+case $1 in
+  "fd"|"fd_1"|"files"|"dir")
+    CMD_PIPE="f_fd_add_col.py"
+    FZF_DEFAULT_COMMAND="$CMD_PREFIX $CMD_SUFFIX | $CMD_PIPE"
+    export FZF_BIND_RELOAD="$CMD_PREFIX -name '*{q}*' $CMD_SUFFIX | $CMD_PIPE"
+    FZF_EXTRA_ARGS=(
+      --header "c-f:fuzzy_search c-d:sort_modified_date c-s:sort_frecency ':exact_match_in_fuzzy_search c-p:toggle-preview"
+      --bind "ctrl-d:reload($CMD_PREFIX -name '*{q}*' $CMD_SUFFIX | $CMD_PIPE | sort -k 4nr || true)"
+      --bind "ctrl-s:reload($CMD_PREFIX -name '*{q}*' $CMD_SUFFIX | $CMD_PIPE | sort -r -k 3nr || true)"
+    )
+    IFS=' '
+    ;;
+  "rg")
+    FZF_DEFAULT_COMMAND="$CMD_PREFIX $(printf %q "$INITIAL_QUERY")"
+    FZF_BIND_RELOAD="$CMD_PREFIX {q}"
+    FZF_EXTRA_ARGS=(
+      --header "c-f:fuzzy_search ':exact_match_in_fuzzy_search c-p:toggle_preview" \
+    )
+          IFS=':'
+          ;;
+      esac
+
+
+
+# tr -s to normalize spaces of result string
+result=$(
+
+#fd -l $(printf %q "$INITIAL_QUERY") 
+eval "$FZF_DEFAULT_COMMAND" | fzf --ansi \
+  --height 100% \
+  --border bottom \
+  --color "hl:-1:underline,hl+:-1:underline:reverse" \
+  --disabled --query "$INITIAL_QUERY" \
+  --bind "change:reload:sleep 0.1; $FZF_BIND_RELOAD || true" \
+  --bind "ctrl-f:unbind(change,ctrl-f)+change-prompt(2. fzf> )+enable-search+clear-query" \
+  --bind "ctrl-p:toggle-preview" \
+  --prompt "1. $FZF_PROMPT> " \
+  --delimiter : \
+  --preview "f_nvimpager {1} {2}" \
+  --preview-window 'right,50%,noborder' \
+  --header-first \
+  "${FZF_EXTRA_ARGS[@]}" | tr -s " "
+)
+#
+#converts string into a bash array with delimiter as IFS variable above
+setopt shwordsplit
+result=(${result})
+
+case $1 in
+  "fd"|"fd_1"|"files"|"dir")
+    [ -n "${result[-1]}" ] && nvim "${result[-1]}"
+    ;;
+  "rg")
+    [ -n "${result[1]}" ] && nvim "${result[1]}" "+${result[2]}"
+    ;;
+esac
+
+# for x in $result
+# do
+#   echo "> $x"
+# done
+
+unset IFS

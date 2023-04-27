@@ -1,0 +1,50 @@
+#!/usr/bin/bash
+
+# ps -eo pid,cmd | grep -v grep | grep terminal_dropdown_ff
+
+APP="terminal_dropdown_ff"
+
+if [[ -n "${DISPLAY}" ]]; then
+  APPID_OR_CLASS="window_properties.class"
+  # i3 does not store the process pid with i3-msg -t get_tree output
+  win_pid=$(wmctrl -lp | grep "terminal_dropdown_ff" | awk '{ print $3 }')
+else
+  APPID_OR_CLASS="app_id"
+  win_pid="$(sway_print_tree key_value "$APPID_OR_CLASS" "$APP" | jq -r '.pid')"
+fi
+
+is_focused=$(swaymsg -t get_tree | jq -r ".. | select(.type?) | select(.focused==true) | .$APPID_OR_CLASS")
+echo "$win_pid"
+echo "$is_focused"
+
+[ -z "$1" ] && echo '$1 specify either toggle or launch' && exit
+
+
+
+toggle_win() {
+  if [ "$is_focused" == "$APP" ]; then
+    swaymsg scratchpad show
+  else
+      [ -z "$win_pid" ] && launch_win # if win doesnt exist, launch the window
+      swaymsg "[class=$APP] focus"
+  fi
+}
+
+launch_win() {
+  kill $win_pid
+  kitty --class "$APP" zsh -c "$COMMAND; zsh" &
+  sleep 0.5
+  # swaymsg scratchpad show
+}
+
+
+case $1 in
+  "toggle")
+    toggle_win
+  ;;
+  "launch")
+  [ -z "$2" ] && echo '$2 enter command for launch' && exit
+  COMMAND=$2
+  launch_win
+  ;;
+esac

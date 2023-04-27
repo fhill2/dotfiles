@@ -1,0 +1,7 @@
+#!/usr/bin/python
+def run_sh(cmd):
+    output = subprocess.run(cmd, capture_output=True, shell=True)
+    return output.stdout.decode('utf-8')
+
+
+if __name__ == '__main__':

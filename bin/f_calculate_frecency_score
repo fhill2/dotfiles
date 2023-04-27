@@ -1,0 +1,15 @@
+#!/usr/bin/bash
+
+# while IFS= read -r line ; do
+#     printf "%s\n" "$line"
+# done < file
+
+# while read line; do
+#   # your code
+# done < <(cat /dev/stdin)
+
+
+{ cat $1; cat; } | while read line
+do
+  echo "ASDASD $line"
+done

@@ -1,0 +1,3 @@
+#!/usr/bin/sh
+chosen=$(sway_global_menu.py "$(sway_global_menu.py | wofi --show dmenu --width 400 --height 400)")
+eval "$chosen"

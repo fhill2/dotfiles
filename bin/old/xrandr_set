@@ -1,0 +1,27 @@
+
+#!/usr/bin/python
+import subprocess, os, tendo
+# from futil import log
+
+# because drm subsytem udev event cant produce a unique match with the given properties
+me = singleton.SingleInstance()
+
+HOST=os.uname()[1]
+def sh(cmd):
+    return subprocess.run([cmd], capture_output=True, shell=True).stdout.decode('utf-8').strip().split("\n")
+
+
+PROFILES = {}
+PROFILES["arch-lap"] = {
+        ["monitor_left"] = {
+            
+            }
+        }
+
+# =================== SCRIPT ========================
+print(HOST)
+
+MONITORS=sh("""
+        xrandr | grep " connected " | awk '{ print$1 }'
+        """)
+print(MONITORS)

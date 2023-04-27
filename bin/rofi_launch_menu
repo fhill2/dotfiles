@@ -1,0 +1,32 @@
+#!/usr/bin/bash
+
+# rofi -show launchmenu  -modi launchmenu:/home/f1/dev/bin/rofi_launch_menu
+
+if [ -n "${ROFI_INFO}" ]; then
+    source i3_wrapper
+    # notify-send "${ROFI_INFO}"
+    eval "${ROFI_INFO}"
+    exit 0
+fi
+
+declare -A texts
+texts[dev_term]="i3run - dev_term"
+texts[alt_term]="i3run - alt term"
+texts[notes_term]="i3run - notes_term"
+texts[dev_browser]="i3run - dev_browser"
+texts[alt_browser]="i3run - alt_browser"
+
+
+declare -A actions
+actions[dev_term]='i3_run_instance kitty kitty dev_term'
+actions[alt_term]='i3_run_instance kitty kitty alt_term'
+actions[notes_term]='i3_run_instance kitty kitty notes_term'
+actions[dev_browser]='i3_run_instance qutebrowser qutebrowser dev_browser'
+actions[alt_browser]='i3_run_instance qutebrowser qutebrowser alt_browser'
+
+
+for k in "${!texts[@]}"; do
+ echo -en "${texts[$k]}\x00info\x1f${actions[$k]}\n"
+ [ -z "${actions[$k]^}" ] && notify-send "Action for Menu Entry DOES NOT EXIST: ${texts[$k]}" && exit 0
+done
+

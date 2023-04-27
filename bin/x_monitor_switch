@@ -1,0 +1,251 @@
+#!/bin/bash
+#
+# https://github.com/MestreLion/scripts/blob/main/monitor-switch
+# monitor-switch - switch outputs using xrand
+#
+#    Copyright (C) 2012 Rodrigo Silva (MestreLion) <linux@rodrigosilva.com>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program. See <http://www.gnu.org/licenses/gpl.html>
+
+# TODO: Allow multiple monitors on --select
+
+declare -A monitor_opts
+declare -a monitors
+
+myname="${0##*/}"
+verbose=0
+debug=0
+list=0
+all=0
+force=0
+monitors=()
+enable=()
+
+print_monitors() {
+	while read -r output conn hex; do
+		echo "# $output	$conn	$(xxd -r -p <<< "${hex:-2d}")"
+	done < <(LC_ALL=C xrandr --prop | tr -d '\r' | awk '
+	h && /[^ \ta-f0-9]/ {
+		n = split(hex, names, "000000fc00")
+		hex = ""
+		for (i = 2; i <= n; i++) {
+			name = substr(names[i], 0, 26) "0a"
+			sub(/0a.*/, "", name)
+			if (name) {
+				if (hex) name = "20" (name "")
+				hex = hex (name "")
+			}
+		}
+		h = 0
+	}
+	!/^[ \t]/ {
+		if (ok) print output, conn, hex
+		output = $1
+		conn = output; sub(/-.*$/, "", conn)
+		ok = (output && (substr($2, 0, 1) == "c"))  # Connected output
+		hex = ""
+		h = 0
+	}
+	h {sub(/[ \t]+/, ""); hex = hex ($0 "")}
+	/EDID.*:/ {h=1; ok=(output && 1)}
+	/ConnectorType:/ {conn = $2}
+	END {if (ok) print output, conn, hex}
+	' | sort)
+}
+
+inarray() {
+	local i item=$1; shift;
+	for i; do if [[ "$i" == "$item" ]]; then return 0; fi; done
+	return 1
+}
+
+num2out() {
+	if [[ -z "$1" ]]; then missing "" OUTPUT; fi
+	if [[ "$1" != *[!0-9]* ]]; then
+		if (($1 < 1 || $1 > ${#monitors[@]})); then
+			argerr "invalid OUTPUT: $1"
+		fi
+		out=${monitors[$(($1-1))]}
+	else
+		out=$1
+	fi
+}
+
+message() { printf "%s\n" "$1" >&2 ; }
+fatal()   { [[ "${1:-}" ]] && echo -e "$myname: error: $@" >&2 ; exit 1; }
+argerr()  { printf "%s: %s\n" "$myname" "${1:-error}" >&2 ; usage 1 ; }
+invalid() { argerr "invalid argument: $1" ; }
+missing() { argerr "missing ${2:+$2 }operand${1:+ from $1}." ; }
+
+usage() {
+	cat <<-USAGE
+	Usage: $myname [options]
+	USAGE
+	if [[ "$1" ]] ; then
+		cat >&2 <<- USAGE
+		Try '$myname --help' for more information.
+		USAGE
+		exit 1
+	fi
+	cat <<-USAGE
+
+	Switch monitors using xrandr.
+
+	Options:
+	  -h|--help          - show this page.
+	  -v|--verbose       - print in terminal the full xrandr command executed.
+	  -d|--debug         - print debugging information on --list. Implies --verbose.
+
+	  -l|--list          - list connector and monitor names of connected outputs.
+	                       When --verbose, also list the configured monitors.
+	                       When --debug, also print the full unparsed output
+	                       of 'xrand --prop' and the contents of the config file.
+
+	  -a|--all           - enable all monitors.
+	  -e|--enable OUTPUT - enable monitor OUTPUT. Can be specified multiple times.
+	                       Monitors not enabled will be disabled.
+	  -s|--select OUTPUT - enable monitor OUTPUT, disable all others.
+	  -L|--left          - select leftmost monitor.  Alias for --select ${monitors[0]}
+	  -R|--right         - select rightmost monitor. Alias for --select ${monitors[-1]}
+	  -c|--center        - select center monitor.    Alias for --select ${monitors[1]}
+	                       It actually just selects the second one, so this just makes
+	                       sense in a 3-monitor setup.
+
+	OUTPUT in --enable and --select can be either an output name, as given by --list,
+	or the number of its position on the list, 1 being the first output.
+
+	The left-to-right order of monitors can be specified in the configuration file:
+	$config
+
+	Copyright (C) 2012 Rodrigo Silva (MestreLion) <linux@rodrigosilva.com>
+	License: GPLv3 or later. See <http://www.gnu.org/licenses/gpl.html>
+	USAGE
+	exit 0
+}
+
+
+# Read settings from config file
+config=${XDG_CONFIG_HOME:-"$HOME"/.config}/"$myname".conf
+if [[ -f "$config" ]]; then
+	source "$config"
+fi
+
+# if there's no pre-defined monitors list, read from xrandr
+# and save them to config file
+if [[ -z "$monitors" ]]; then
+	while read -r output ; do
+		monitors+=("$output")
+	done < <(xrandr | awk '$2 ~/^c/{print $1}' | sort)
+	cat > "$config" <<-EOF
+		# $myname config file
+
+		# List of monitors, from left to right. Edit to your actual layout
+		monitors=(${monitors[@]})
+
+		# Extra xrandr options for each monitor.
+		# Useful when EDID data does not reflect actual preferred mode
+		# Options for non-existing outputs (such as the examples below) are ignored
+		# Examples:
+		#monitor_opts[DFPx]="--mode 1920x1080 --rate 60"
+		#monitor_opts[DFPy]="--mode 1280x720"
+
+		# As a reference, these were the connected monitors when this config file was created
+		# use it as a guide when editing the above monitors list and extra options
+		$(print_monitors)
+
+		# For an updated list, run $myname --list
+	EOF
+fi
+
+# Option handling
+for arg in "$@"; do [[ "$arg" == "-h" || "$arg" == "--help" ]] && usage ; done
+while (( $# )); do
+	case "$1" in
+	-v|--verbose) verbose=1 ;;
+	-d|--debug) verbose=1; debug=1;;
+	-q|--no-notify) notify=0;;  # undocumented. For future `notify-send`
+	-l|--list) list=1 ;;
+	-f|--force) force=1;;
+	-s|--select) shift; num2out "$1"; enable=(  "$out" );;
+	-e|--enable) shift; num2out "$1"; enable+=( "$out" );;
+	-a|--all  )  enable=( "${monitors[@]}"  );;
+	-L|--left )  enable=( "${monitors[0]}"  );;
+	-R|--right)  enable=( "${monitors[-1]}" );;
+	-c|--center) enable=( "${monitors[1]}"  );;
+	*) invalid "$1" ;;
+	esac
+	shift
+done
+
+if ((list)); then
+	echo "Connected monitors:"
+	print_monitors
+	if ((verbose)); then
+		printf "\nConfigured monitors:\n"
+		for output in "${monitors[@]}"; do
+			echo -e "# ${output}${monitor_opts[$output]:+\t${monitor_opts[$output]}}"
+		done
+		printf "\nConfiguration file: %q\n" "$config"
+	fi
+	if ((debug)); then
+		dashes=-----------------------------------------------------------------
+		if [[ -f "$config" ]]; then
+			printf '\nContents of configuration file:\n%s\n' "$dashes"
+			cat "$config"
+		else
+			printf '\nNo configuration file found at %q\n' "$config"
+		fi
+		echo "$dashes"
+		xrandr --prop
+		echo "$dashes"
+	fi
+	exit
+fi
+
+if ! ((${#enable[@]})) && ! ((all)); then
+	usage
+fi
+
+# Loop outputs (monitors)
+previous=
+for output in "${monitors[@]}"; do
+	# Turn off monitors that were not chosen
+	if ! inarray "$output" "${enable[@]}"; then
+		xrandropts+=(--output "$output" --off)
+		continue
+	fi
+
+	# Load custom settings for that monitor
+	# monitor_opts is intentionally not quoted, to allow a single string
+	# to contain multiple options
+	xrandropts+=(--output "$output" --auto ${monitor_opts["$output"]})
+
+	if [[ -z "$previous" ]]; then
+		# Set first enabled monitor as primary
+		xrandropts+=(--pos 0x0 --primary)
+	else
+		# And subsequent ones to the right
+		xrandropts+=(--right-of "$previous")
+	fi
+	previous="$output"
+done
+
+if [[ -z "$previous" ]] && ! ((force)); then
+	fatal "Your request will result in all monitors being disabled,\n"   \
+	"check the configuration file at $config\n"                          \
+	"and use --force to confirm. This is the resulting xrand command:\n" \
+	"xrandr ${xrandropts[*]}"
+fi
+((verbose)) && message "$myname: executing xrandr ${xrandropts[*]}"
+xrandr "${xrandropts[@]}"

@@ -1,0 +1,144 @@
+#!/usr/bin/env python3
+from i3ipc import Connection
+import sys
+
+def dump(obj):
+    import inspect
+    x = []
+    print("===================== methods ====================")
+    for i in inspect.getmembers(obj):
+        if not i[0].startswith('_'):
+            if not inspect.ismethod(i[1]):
+                x.append(i)
+            else:
+                print(i)
+    print("===================== props ====================")
+    for props in x:
+        print(props)
+
+
+
+def is_container(node):
+    if node.window == None and node.type == "con":
+        return True
+    else:
+        return False
+
+
+
+########## PREV/NEXT ##########
+tabbed_containers = []
+def find_tabbed_containers(node, lim):
+    # finds the tabbed containers, scanning recursively from the workspace root to the focused window
+    if len(tabbed_containers) == lim:
+        return
+    if is_container(node) and node.layout == "tabbed":
+        if node.find_focused() is not None:
+            tabbed_containers.append(node)
+    dump(node)
+    for c in node.nodes:
+        find_tabbed_containers(c, lim)
+
+def focused_child_index(node):
+    # returns the index of the child that is focused in the passed in container
+    index = 0
+    focused = target_con.find_by_id(node.focus[0])
+    for i, c in enumerate(node.nodes):
+        if focused.id == c.id:
+            index = i
+            break
+    return index
+
+
+
+########## LEFT/RIGHT ##########
+def find_tabbed_across_splits(node):
+    containers = []
+    # pass in parent of found outermost tabbed container
+    for c in node.nodes:
+        # left right split tab containers containing marked containers are at this level
+        for cc in c.nodes:
+            containers.append(cc)
+    return containers
+
+
+
+########## SHARED ##########
+
+
+def handle_wrap(index, con):
+    last = len(con) - 1
+    if index > last:
+        index = 0
+    if index < 0:
+        index = last
+    return index
+
+def apply_dir(index, dir):
+        return index + 1 if dir == "next" or dir == "right" else index - 1
+
+
+def focus(node):
+    node.command("focus")
+    # also focus into containers
+    while node.focus:
+        node = node.find_by_id(node.focus[0])
+        node.command("focus")
+
+
+if __name__ == '__main__':
+    i3 = Connection()
+
+    
+    #level = sys.argv[1] if len(sys.argv) > 1 else None
+
+    # if len(sys.argv) != 2:
+    #     exit()
+
+    level = sys.argv[1]
+    dir = sys.argv[2]
+
+    # modes supported:
+    # inner prev/next
+    # outer prev/next
+    # outer left/right
+
+
+
+
+
+    if dir == "left" or dir == "right":
+        # start with the top most tabbed container, scanning recursively from the workspace root to the focused window
+        find_tabbed_containers(i3.get_tree().find_focused().workspace(), 1)
+        
+        target_con = tabbed_containers[0]
+        containers = find_tabbed_across_splits(target_con.parent)
+
+        index = 0
+        for i, c in enumerate(containers):
+            if c.focused or c.find_focused():
+                index = handle_wrap(apply_dir(i, dir), containers)
+
+        focus(containers[index])
+
+
+        
+    else:
+
+        find_tabbed_containers(i3.get_tree().find_focused().workspace(), 2)
+
+        
+        # get target container
+        tabbed_containers.reverse()
+        print(len(tabbed_containers))
+        if level == "outer" and len(tabbed_containers) > 1:
+            target_con = tabbed_containers[1]
+        else:
+            target_con = tabbed_containers[0]
+ 
+
+        index = focused_child_index(target_con)
+        target_index = handle_wrap(apply_dir(index, dir), target_con.nodes)
+
+        focus(target_con.nodes[target_index])
+        

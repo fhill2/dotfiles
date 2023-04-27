@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Define variables
+WIDTH=$2
+HEIGHT=$3
+
+# Subtract other monitors' sizes
+for MONITOR in $(xrandr --listmonitors | awk '{print $NF}' | tail -n+2); do
+    MONITOR_WIDTH=$(xrandr --query | awk '/^'"$MONITOR"'/ {print $4}' | cut -d'x' -f1)
+    MONITOR_HEIGHT=$(xrandr --query | awk '/^'"$MONITOR"'/ {print $4}' | cut -d'x' -f2)
+    WIDTH=$((WIDTH-MONITOR_WIDTH))
+    HEIGHT=$((HEIGHT-MONITOR_HEIGHT))
+done
+
+# Get container ID with xprop
+ID=$(xprop -root | awk '/_NET_ACTIVE_WINDOW\(WINDOW\)/{print $NF}')
+
+# Use i3 window manager API to move container
+i3-msg "$1" move position $WIDTH $HEIGHT
+
+# Read position from stdin
+read X Y
+i3-msg "$1" move position $X $Y
+
+exit 0

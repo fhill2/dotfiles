@@ -1,0 +1,9 @@
+#!/usr/bin/python
+# i3status-rs 0.30.0 nvidia_gpu block produces a parseIntError as it tries to parse the fan showing as N?A
+from f.util import run_sh
+stats = run_sh("nvidia-smi --query-gpu=utilization.memory,utilization.gpu, --format=csv,noheader,nounits")[0].split(", ")
+print("GPU " + stats[0] + "M% " + stats[1] + "%")
+
+
+
+

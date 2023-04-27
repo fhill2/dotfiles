@@ -1,0 +1,14 @@
+#!/usr/bin/bash
+APP="gedit"
+if sway_print_tree.py app_id | grep $APP > /dev/null; then
+    is_focused="$(swaymsg -t get_tree | jq -r '.. | select(.type?) | select(.focused==true) | .app_id ')"
+    echo "$is_focused"
+    if [ "$is_focused" == "$APP" ]; then
+        swaymsg scratchpad show
+    else
+        swaymsg "[app_id=$APP] focus"
+    fi
+else
+  gedit
+  swaymsg scratchpad show
+fi

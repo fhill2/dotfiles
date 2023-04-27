@@ -1,0 +1,6 @@
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+#cmd=$($(gentries.py 'get_entries') | fzf --with-nth 2 | ./gentries.py @1)
+entries=$($SCRIPT_DIR/gentries.py 'get_entries')
+cmd=$(echo "$entries" | fzf --with-nth 2.. | $SCRIPT_DIR/gentries.py $(awk '{print $1}'))
+eval '$cmd'
+

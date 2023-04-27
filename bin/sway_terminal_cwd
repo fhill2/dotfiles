@@ -1,0 +1,23 @@
+#!/usr/bin/bash
+
+#https://www.reddit.com/r/swaywm/comments/ayedi1/opening_terminals_at_the_same_directory/
+focused=$(swaymsg -t get_tree | jq '.. | select(.type?) | select(.type=="con") | select(.focused==true)')
+app_id=$(echo ${focused} | jq -r '.app_id')
+pid=$(echo ${focused} | jq -r '.pid')
+ppid=$(pgrep --newest --parent ${pid})
+
+function open_kitty_cwd() {
+  exec kitty $(readlink /proc/${1}/cwd || echo $HOME)
+}
+
+case $app_id in
+"kitty")
+  open_kitty_cwd $ppid
+  ;;
+"alacritty")
+  open_kitty_cwd $ppid
+  ;;
+*)
+  exec kitty
+  ;;
+esac

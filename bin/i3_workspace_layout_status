@@ -1,0 +1,183 @@
+#!/usr/bin/env python3
+from i3ipc import Connection
+def dump(obj):
+    import inspect
+    x = []
+    print("===================== methods ====================")
+    for i in inspect.getmembers(obj):
+        if not i[0].startswith('_'):
+            if not inspect.ismethod(i[1]):
+                x.append(i)
+            else:
+                print(i)
+    print("===================== props ====================")
+    for props in x:
+        print(props)
+# def con_type_to_text(con):
+#     if con.type != 'con':
+#         return con.type
+#     if len(con.nodes):
+#         return 'container'
+#     else:
+#         return 'view'
+theme = {
+
+        }
+
+
+
+# https://github.com/alberand/lemonbar/blob/master/utils.py
+def set_f_color(string, color):
+    '''
+    Set foreground color for string.
+    Args:
+        string: str
+        color: color in hex representation, should be with '#' sign. 
+               For example: #FFFFFF
+    Returns:
+        string
+    '''
+    return '%{{F{0}}}{1}%{{F-}}'.format(color, string)
+
+def set_b_color(string, color):
+    '''
+    Set background color for string.
+    Args:
+        string: str
+        color: color in hex representation, should be with '#' sign. 
+            For example: #FFFFFF
+    Returns:
+        string
+    '''
+    return '%{{B{0}}}{1}%{{B-}}'.format(color, string)
+
+
+def container_layout_to_txt(node):
+    match = {
+       "splith": "H",
+       "splitv": "V",
+       "tabbed": "T",
+       "stacked": "S"
+    }
+
+    try:
+        char = match[node.layout]
+    except KeyError:
+        char = "X"
+
+    if node.focused:
+        return set_f_color(char, "#fcba03")
+    else:
+        return char
+
+def window_to_text(node):
+    match = {
+            "google-chrome": "",
+            "kitty": ""
+            }
+
+    try:
+        icon = match[node.window_instance]
+    except KeyError:
+        icon = "w"
+
+    if node.focused:
+        return set_f_color(icon, "#fcba03")
+    else:
+        return icon
+
+
+
+
+
+def is_container(node):
+    if node.window == None and node.type == "con":
+        return True
+    else:
+        return False
+
+def is_window(node):
+    if node.window != None and node.type == "con":
+        return True
+    else:
+        return False
+
+def is_all_children_containers(node):
+    # checks to see if the containers children are all containers
+    if len(node.nodes) == 0:
+        return False
+
+    all_containers = True 
+    for c in node.nodes:
+        if not is_container(c):
+            all_containers = False
+            break
+    return all_containers
+
+
+def is_all_children_windows(node):
+    # checks to see if the containers children are all windows
+    if len(node.nodes) == 0:
+            return False
+
+    all_windows = True 
+    for c in node.nodes:
+        if not is_window(c):
+            all_windows = False
+            break
+    return all_windows
+
+
+# : - a container only containing containers
+# | 
+
+def find_tree_index(node):
+    index = 0
+    while node.parent:
+        node = node.parent
+        index += 1
+    return index - 3
+
+def is_workspace_root(node):
+    # if index is 0, returns True
+    return True if node.id == node.workspace().id else False
+
+def container_to_text(node):
+    # only container nodes passed here
+    index = find_tree_index(node)
+    # print(is_workspace_root(node))
+    txt = container_layout_to_txt(node)
+
+    if is_all_children_containers(node):
+        txt += ": "
+    elif is_all_children_windows(node):
+        pass
+    else:
+        txt += "[ "
+
+
+    for i, c in enumerate(node.nodes):
+        if is_container(c):
+            if i != 0:
+                txt += " "
+            txt += container_to_text(c)
+            # if not the last container, add a space
+            if c != node.nodes[-1]:
+                txt += " "
+        elif is_window(c):
+            txt += window_to_text(c)                
+    #
+    # if has_children:
+    #     txt += '\n' + (' ' * indent)
+    #
+    if not is_all_children_containers(node) and not is_all_children_windows(node):
+        txt += ' ]'
+    #
+    return txt
+
+if __name__ == '__main__':
+    i3 = Connection()
+    desc = i3.get_tree().find_focused().workspace()
+    print(container_to_text(desc))
+    # print(set_f_color("ASD", "#fcba03"))
+        

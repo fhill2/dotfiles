@@ -1,0 +1,24 @@
+#!/usr/bin/sh
+
+# card0 = intel iGPU
+# card1 = nouveau nvidia <-- once sudo modprobe nvidia is ran
+
+# https://github.com/swaywm/sway/wiki#i-have-a-multi-gpu-setup-like-intelnvidia-or-intelamd-and-sway-does-not-start
+# The first card is used for actual rendering, and display buffers are copied to the secondary cards for any displays connected to them.
+ #WLR_DRM_DEVICES=/dev/dri/card0:/dev/dri/card1 systemd-cat -t sway sway
+# WLR_DRM_DEVICES=/dev/dri/card0:/dev/dri/card1 sway -d > /home/f1/Desktop/drm_info/sway.txt 2>&1
+sway --unsupported-gpu -d > /home/f1/Desktop/drm_info/sway.txt 2>&1
+# WLR_DRM_DEVICES=/dev/dri/card1:/dev/dri/card0 sway
+ #systemd-cat -t sway sway
+
+
+# Anyone succesfully running nouveau+intel multi GPU setup using WLR_DRM_DEVICES env var? I'm trying to render sway on the dGPU and and copy display buffers to the intel iGpu. After starting sway with WLR_DRM_DEVICES=/dev/dri/card$dGPU:/dev/dri/card$iGPU sway fails to pick primary buffer format for all outputs. DEBUG LOG: https://paste.sr.ht/~fhill2/08d9f8a65136c7c69d81903bda26662f58b97285 drm_info: https://paste.sr.ht/~fhill2/1ef93665fba7076ad14a69a468c379b293eb4f24
+
+# https://github.com/swaywm/wlroots/wiki/DRM-Debugging
+# echo 0x19F | sudo tee /sys/module/drm/parameters/debug # Enable verbose DRM logging
+# sudo dmesg -C # Clear kernel logs
+# dmesg -w >dmesg.log & # Continuously write DRM logs to a file, in the background
+# export WLR_DRM_DEVICES=/dev/dri/card1:/dev/dri/card0
+# sway -d >sway.log 2>&1 # Reproduce the bug, then exit sway
+# fg # Kill dmesg with Ctrl+C
+# echo 0 | sudo tee /sys/module/drm/parameters/debug # Disable DRM logging

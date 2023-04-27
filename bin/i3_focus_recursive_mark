@@ -1,0 +1,25 @@
+#!/usr/bin/env python3
+
+from i3ipc import Connection
+import sys
+
+
+def focus(node):
+    node.command("focus")
+    # also focus into containers
+    while node.focus:
+        node = node.find_by_id(node.focus[0])
+        node.command("focus")
+
+
+if __name__ == "__main__":
+    mark = sys.argv[1] if len(sys.argv) > 1 else None
+    if not mark:
+        exit()
+    i3 = Connection()
+
+    workspace = i3.get_tree().find_focused().workspace()
+    matched = workspace.find_marked(mark) or workspace.find_marker(mark + "_" + workspace.name)
+
+    if matched:
+        focus(matched[0])

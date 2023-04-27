@@ -1,0 +1,4 @@
+#!/usr/bin/zsh
+
+FZF_DEFAULT_COMMAND="fd -l"
+eval $FZF_DEFAULT_COMMAND | fzf

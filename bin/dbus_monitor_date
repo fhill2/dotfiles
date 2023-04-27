@@ -1,0 +1,11 @@
+#!/bin/sh
+
+dbus-monitor --profile "$@" | while
+  read -r line; do
+
+
+  echo "$(date): ${line}"
+
+
+done
+         

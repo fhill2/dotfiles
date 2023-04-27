@@ -1,0 +1,36 @@
+#!/usr/bin/bash
+
+# rofi -show globalmenu -modi globalmenu:/home/f1/dev/bin/rofi_global_menu
+
+if [ -n "${ROFI_INFO}" ]; then
+    # source i3_wrapper
+    # notify-send "${ROFI_INFO}"
+    notify-send "GLOBAL MENU TRIG"
+    # zsh -c "${ROFI_INFO}"
+    # source i3_wrapper && eval "${ROFI_INFO}"
+    source i3_wrapper
+    exec /home/f1/dev/bin/i3_save_container_layout_dmenu
+    # echo "hello world" | dmenu -p "Save Layout Name:" <&-
+
+    # res=$(i3_save_container_layout_dmenu)
+    exit 0
+fi
+
+declare -A texts
+texts[i3_resurrect_dmenu]="i3_resurrect_dmenu - save restore layout original"
+texts[i3_save_container_layout_dmenu]="i3_save_container_layout_dmenu [F]"
+texts[i3_manual_set_mark_dmenu]="i3_manual_set_mark_dmenu [F]"
+texts[i3_restore_layout_dmenu]="i3_restore_layout_dmenu [F]"
+
+
+declare -A actions
+actions[i3_resurrect_dmenu]='i3_resurrect_dmenu'
+actions[i3_save_container_layout_dmenu]='i3_save_container_layout_dmenu'
+actions[i3_manual_set_mark_dmenu]="i3_manual_set_mark_dmenu"
+actions[i3_restore_layout_dmenu]="i3_restore_layout_dmenu"
+
+
+for k in "${!texts[@]}"; do
+ echo -en "${texts[$k]}\x00info\x1f${actions[$k]}\n"
+ [ -z "${actions[$k]^}" ] && notify-send "Action for Menu Entry DOES NOT EXIST: ${texts[$k]}" && exit 0
+done

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+killall swhks
+killall swhkd
+swhks & pkexec swhkd

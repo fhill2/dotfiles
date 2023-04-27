@@ -1,0 +1,5 @@
+#!/bin/sh
+rofi_power_menu="rofi_power_menu --confirm=''"
+rofi -show power-menu -modi "power-menu:$rofi_power_menu"
+# rofi_power_menu=''
+# $rofi_power_menu

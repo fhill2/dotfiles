@@ -1,0 +1,7 @@
+#!/usr/bin/bash
+for i in `sudo ls /sys/class/drm/*/edid`; do 
+  # sudo echo detect > $i
+  # cat $i
+  echo "EDID INFORMATION FOR: $i"
+  edid-decode < $i
+done

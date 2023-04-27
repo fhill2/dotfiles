@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+from i3ipc import Connection
+
+# sway does not support change titles on containers
+# repro: swaymsg "focus parent; focus parent; title_format asd"
+
+def prefix_con_ids(node):
+    if node.window_title:
+        title = node.window_title
+        node.command("title_format " + str(node.id) + " " + title)
+    else:
+        node.command("title_format " + str(node.id))
+
+    for c in node.nodes:
+        prefix_con_ids(c)
+
+if __name__ == '__main__':
+    i3 = Connection()
+    desc = i3.get_tree().find_focused().workspace()
+    prefix_con_ids(desc)
+

@@ -1,0 +1,12 @@
+#!/usr/bin/sh
+
+# this script is executed when the dell xps video adapter/dongle is connected
+# xrandr / x doesnt automatically re apply configuration
+# as no env variables are set, programs need an absolute path
+
+# Nov 2022 -> this no longer works to reconnect external mnoitor after sleep
+# most likely because of the user of nvidia prime and nvidia discrete gpu
+
+# env >> /home/f1/logs/reconnect.log
+notify-send "VIA-Labs video adapter connected"
+/home/f1/dev/bin/x_monitor_switch -a

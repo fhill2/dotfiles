@@ -1,0 +1,141 @@
+#!/usr/bin/bash
+# not POSIX compliant and not portable - WIP
+# mapfile is bash only
+
+# | .][ | ]
+# [{}, {}] --> {} {} 
+
+# .nodes? // empty | .[]
+# EQUALS
+# (.nodes? // empty)[]
+CONVERT="(.nodes? // empty)[]"
+
+get_focused_workspace_value() {
+  echo $(swaymsg -t get_workspaces | jq -r ".[] | select(.focused == true) | .$1")
+}
+
+# TODO:
+# REPLACE parts with this, as this gets .nodes and .floating_nodes too
+# swaymsg -t get_tree | jq -r '.. | select(.nodes and .floating_nodes)?'
+
+all_nodes_current_workspace() {
+  # currently active workspace window root
+  swaymsg -t get_tree | jq ".. | $CONVERT | select(.type == \"workspace\" and .id == $(get_focused_workspace_value id)) | .nodes"
+}
+
+all_visible_windows_on_visible_workspaces() {
+  # only sway has the 'visible' key for each window on swaymsg -t get_tree output
+
+  # to get all workspace windows
+  # https://www.reddit.com/r/i3wm/comments/50d75x/get_list_of_visible_windows/
+  # airliner xdotool --onlyvisible - this filters all windows on VISIBLE workspaces - ie all hidden tabbed windows are included 
+  # https://www.reddit.com/r/i3wm/comments/2nezf7/jump_to_visible_window/
+  # xwininfo - Map State IsViewable = this does not change if the window is hidden behind a tabbed layout
+
+  # to get all workspace windows - then filter windows that are hidden on screen (for example, non active windows of a visible tabbed container)
+  # xprop -id .window | grep _NET_WM_STATE_HIDDEN -> if window is hidden, _NET_WM_STATE(ATOM) will be set 
+  # TODO: replace with all_windows_on_visible_workspaces
+  mapfile -t all_workspace_windows < <(xdotool search --all --onlyvisible "" 2>/dev/null)
+
+declare -a visible_windows
+for id in "${all_workspace_windows[@]}"; do
+  ! xprop -id $id | grep "_NET_WM_STATE_HIDDEN" > /dev/null && visible_windows+=("$id")
+done
+
+  SELECT=""
+for id in "${visible_windows[@]}"; do
+  if [ "$id" == "${visible_windows[-1]}" ]; then
+    SELECT="$SELECT.window == $id"
+  else
+    SELECT="$SELECT.window == $id or"
+  fi
+done
+
+SELECT="select($SELECT)"
+swaymsg -t get_tree | jq -r ".. | $CONVERT | $SELECT"
+}
+
+all_nodes_visible_workspaces() {
+  # first get the visible workspaces from swaymsg -t get_workspaces
+  mapfile -t visible_workspace_ids < <(swaymsg -t get_workspaces | jq -r '.[] | select(.visible == true) | .id')
+  SELECT=""
+  for id in "${visible_workspace_ids[@]}"; do
+    if [ "$id" == "${visible_workspace_ids[-1]}" ]; then
+    SELECT="$SELECT.id == $id"
+    else
+    SELECT="$SELECT.id == $id or "
+    fi
+  done
+  SELECT="select($SELECT)"
+  swaymsg -t get_tree | jq ".. | $CONVERT | $SELECT"
+
+}
+
+all_windows_on_visible_workspaces() {
+  echo "$(all_nodes_visible_workspaces)" | jq -r ".. | $CONVERT | select(.window != null)"
+}
+
+case $1 in
+  "focused")
+    swaymsg -t get_tree | jq -r '.. | select(.type?) | select(.focused==true)'
+    ;;
+  "focused_no_children")
+    swaymsg -t get_tree | jq -r '.. | select(.type?) | select(.focused==true) | del(.nodes)'
+    ;;
+  "visi_wins_visi_workspace"|"all_visible_windows_on_visible_workspaces")
+    # gets all workspace windows - then filter windows that are hidden on screen (for example, non active windows of a visible tabbed container)
+    if [[ -n "${DISPLAY}" ]]; then
+      all_visible_windows_on_visible_workspaces
+    else
+    swaymsg -t get_tree | jq -r ".. | $CONVERT | select(.visible == true)"
+    fi
+    ;;
+  "all_windows_on_visible_workspaces")
+    all_windows_on_visible_workspaces
+    ;;
+  "all_nodes_on_workspace_name")
+    swaymsg -t get_tree | jq ".. | $CONVERT | select(.type == \"workspace\" and .name == \"$2\") | .nodes"
+
+
+    ;;
+  "visible_windows_current_workspace")
+  if [[ -n "${DISPLAY}" ]]; then
+    echo "not implemented"
+  else
+    echo "$(all_nodes_current_workspace)" | jq -r ".. | $CONVERT | select(.visible == true)"
+  fi
+  ;;
+  "all_windows_current_workspace")
+    # partially implemented
+    all_nodes_current_workspace
+  ;; 
+  "all_nodes_visible_workspaces")
+    # wrapper for debugging
+    all_nodes_visible_workspaces
+  ;;
+  "workspace_root")
+    # currently active workspace root - this is 1 level above where sway identifies the top level window
+    swaymsg -t get_tree | jq ".. | $CONVERT |  select(.type == \"workspace\" and .id == $(get_focused_workspace_value id))"
+    ;;
+
+  "key")
+    # returns all values for the passed in key
+    # eg $2=app_id --> kitty\nfirefox\nalacritty
+    [ -z "$2" ] && echo "pass in a key to recursively print" && exit
+    swaymsg -t get_tree | jq --raw-output ".. | .$2? | select(.!= []) | select(.!= null)"
+    ;;
+
+  "key_value")
+    # returns all window objects that match passed in key and value
+    # eg $2=app_id $3=kitty --> returns all kitty window objects
+    swaymsg -t get_tree | jq -r ".. | select(.nodes and .floating_nodes)? | select(.$2==\"$3\")"
+    ;;
+  "focused_ws_value" | "focused_workspace_value")
+    [ -z "$2" ] && echo "pass in a key to recursively print" && exit
+    echo $(get_focused_workspace_value $2)
+    ;;
+
+  *)
+    all_nodes_current_workspace
+    ;;
+esac

@@ -1,0 +1,2 @@
+index=$(pamixer --list-sinks | fzf | awk '{print $1}')
+pacmd set-default-sink $index

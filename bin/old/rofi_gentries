@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+# https://github.com/jluttine/rofi-power-menu/blob/master/rofi-power-menu
+# https://github.com/davatorium/rofi/blob/next/doc/rofi-script.5.markdown
+
+#rofi -show gentries -modi "gentries:rofi_gentries"
+
+source i3_wrapper
+
+# if [ ! -z "$@" ]; then
+# if [ -n "${ROFI_DATA}" ]; then
+#   notify-send "got here"
+#     notify-send "${ROFI_DATA}"
+#     eval "${ROFI_DATA}"
+#     exit 0
+# fi
+if [ -n "${ROFI_INFO}" ]; then
+    # notify-send "${ROFI_INFO}"
+    eval "${ROFI_INFO}"
+    exit 0
+fi
+
+declare -A texts
+texts[lockscreen]="text lock screen"
+texts[missing]="texts missing yes"
+declare -A actions
+actions[lockscreen]="actions lock screen"
+actions[missing]='notify-send "hello world"'
+
+# echo "oneone"
+# echo "i3_switch_layout"
+# echo -en "aap\0data\x1ftestadon\n"
+
+for k in "${!texts[@]}"; do
+ echo -en "${texts[$k]}\x00info\x1f${actions[$k]}\n"
+ [ -z "${actions[$k]^}" ] && notify-send "Action for Menu Entry DOES NOT EXIST: ${texts[$k]}" && exit 0
+done
+
+# echo -en 'aas\x00data\x1fnotify-send "hello world"\n'
+
+
+# echo -en 'aap\n'
+# echo -en "\x00info\x1fmonkey do, monkey did\n"
+# echo -en 'aas\n'
+# echo -en "\x00info\x1fthis entry123\n"
+
+# echo -en 'aap\x00info\x1fmonkey do, monkey did\n'
+# echo -en 'aas\x00info\x1fthis entry123\n'
+
+# TODO: make sure texts can show differently

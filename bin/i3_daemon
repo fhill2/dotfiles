@@ -1,0 +1,96 @@
+#!/usr/bin/env python3
+from i3ipc import Connection, Event
+from time import strftime, gmtime
+
+
+########## HELPER FUNCTIONS #########
+def dump(obj):
+    import inspect
+    x = []
+    print("===================== methods ====================")
+    for i in inspect.getmembers(obj):
+        if not i[0].startswith('_'):
+            if not inspect.ismethod(i[1]):
+                x.append(i)
+            else:
+                print(i)
+    print("===================== props ====================")
+    for props in x:
+        print(props)
+
+def print_time():
+    return strftime(strftime("%Y-%m-%d %H:%M:%S", gmtime()))
+
+
+
+
+
+
+
+
+
+
+########## CLEANING CONTAINERS ##########
+# fixed from: 
+# https://www.reddit.com/r/i3wm/comments/mtu53i/is_there_a_script_available_that_cleans_up/
+def is_container(node):
+    if node.window == None and node.type == "con":
+        return True
+    else:
+        return False
+
+def is_redundant_container(node):
+    
+    # a container is redundant if it has only 1 child and the only child is a container
+    # if len(node.nodes) == 1 and is_container(node.nodes[0]):
+    if len(node.nodes) == 1:
+        # if there is only 1 child, but it is the focused container return False (so I can manually create containers)
+        if node.nodes[0].focused:
+            return False 
+        else:
+            return True
+    else:
+        return False
+
+
+# unnest is broken for containers that are at root of sway_print_tree
+# cba to fix
+def unnest(node):
+    print("UNNESTING CONTAINER: " + str(node.id) + " len(" + str(len(node.nodes)) + ") - PARENT: " + str(node.parent.id))
+
+    child = node.nodes[0]
+    node.command('mark move_container')
+    child.command('move window to mark move_container')
+    node.command('unmark move_container')
+
+def clean_containers():
+    print("clean containers called")
+    # gather all redundant containers on the current workspace
+    containers = []
+    # for node in workspace_by_name(i3, "1").descendants():
+    for node in i3.get_tree().find_focused().workspace().descendants():
+        # print("CONTAINER: " + str(node.id) + " " + node.type, len(node.nodes), is_container(node), is_redundant_container(node))
+        if is_container(node) and is_redundant_container(node):
+            print("GATHERING CONTAINER: " + str(node.id) + " " + node.type, len(node.nodes))
+            containers.append(node)
+
+    containers.reverse()
+
+    # perform unnest action on each container
+    for con in containers:
+        unnest(con)
+
+
+
+
+
+########## EVENT HANDLERS ##########
+i3 = Connection()
+
+def on_binding(i3, e):
+    print("===============", print_time(), "===============")
+    clean_containers()
+
+
+i3.on(Event.BINDING, on_binding)
+i3.main()

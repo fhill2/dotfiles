@@ -1,0 +1,2 @@
+#!/usr/bin/bash
+watch -n 0.8 i3get --verbose -r 'tcidnm' --print-format '%k:\%v\\n'

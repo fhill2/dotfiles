@@ -1,0 +1,24 @@
+#!/usr/bin/bash
+
+APP="terminal_bookmarks"
+
+if [[ -n "${DISPLAY}" ]]; then
+  APPID_OR_CLASS="class"
+else
+  APPID_OR_CLASS="app_id"
+fi
+
+
+if sway_print_tree.py app_id | grep $APP > /dev/null; then
+    is_focused="$(swaymsg -t get_tree | jq -r '.. | select(.type?) | select(.focused==true) | .app_id ')"
+    echo "$is_focused"
+    if [ "$is_focused" == "$APP" ]; then
+        swaymsg scratchpad show
+    else
+        swaymsg "[$APPID_OR_CLASS=$APP] focus"
+    fi
+else
+  kitty --class "$APP" -- nvim -c '_G.dropdown = true' -c 'lua require"plugin.telescope.wrap".buku()'
+  # initial window placement
+  swaymsg scratchpad show
+fi

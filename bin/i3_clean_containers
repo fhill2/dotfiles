@@ -1,0 +1,55 @@
+#!/usr/bin/env python3
+from i3ipc import Connection
+
+def dump(obj):
+    import inspect
+    x = []
+    print("===================== methods ====================")
+    for i in inspect.getmembers(obj):
+        if not i[0].startswith('_'):
+            if not inspect.ismethod(i[1]):
+                x.append(i)
+            else:
+                print(i)
+    print("===================== props ====================")
+    for props in x:
+        print(props)
+
+def is_container(node):
+    if node.window == None and node.type == "con":
+        return True
+    else:
+        return False
+
+def is_redundant_container(node):
+    # a container is redundant if it has only 1 child and the only child is a container
+    if len(node.nodes) == 1 and is_container(node.nodes[0]):
+        return True
+    else:
+        return False
+
+
+
+def unnest(node):
+    print("UNNESTING CONTAINER: " + str(node.id) + " " + node.type, len(node.nodes), node.name)
+    child = node.nodes[0]
+    node.parent.command('mark myparent')
+    child.command('move window to mark myparent')
+    node.parent.command('unmark myparent')
+
+
+if __name__ == '__main__':
+    i3 = Connection()
+    # gather all redundant containers on the current workspace
+    containers = []
+    # for node in workspace_by_name(i3, "1").descendants():
+    for node in i3.get_tree().find_focused().workspace().descendants():
+        if is_container(node) and is_redundant_container(node):
+            print("GATHERING CONTAINER: " + str(node.id) + " " + node.type, len(node.nodes), node.name)
+            containers.append(node)
+
+    containers.reverse()
+
+    # perform unnest action on each container
+    for con in containers:
+        unnest(con)

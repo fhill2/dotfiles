@@ -1,0 +1,39 @@
+#!/usr/bin/bash
+# a delay is needed when opening an app otherwise layout isnt created properly
+
+# TODO; make script wait for the window and continue as soon as its ready, instead of SLEEPING
+BIGSLEEP=0.35
+
+WS=$(sway_print_tree workspace_value name)
+
+new_t() {
+  app=$1
+  mark=$2_$WS
+  swaymsg "exec $app"
+  sleep $BIGSLEEP
+  swaymsg "layout tabbed"
+  swaymsg "splith"
+  swaymsg "exec $app"
+  sleep $BIGSLEEP
+  swaymsg "layout tabbed"
+  swaymsg "focus parent; mark $mark" # end with focus on the container of the tabbed container
+  # swaymsg "focus parent" # 
+}
+
+new_t kitty alt_term
+new_t google-chrome-stable dev_browser
+swaymsg "focus parent"
+swaymsg "splith; exec kitty"
+sleep $BIGSLEEP
+swaymsg "splith; exec kitty" 
+sleep $BIGSLEEP
+swaymsg "layout tabbed; focus parent; mark dev_term_$WS; splith"
+
+# new_t kitty alt_term
+new_t google-chrome-stable alt_browser
+
+
+
+
+# focus parent; sway-deck tabbed; exec $app; splith; layout tabbed
+# splith; exec $app; layout tabbed; splith; exec $app; layout_tabbed
