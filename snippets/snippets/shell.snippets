@@ -51,5 +51,5 @@ snippet case "case"
 	    ;;
 	esac
 
-snippet _ "connect to SMB share"
-	sudo mount -vvvv -t cifs //192.168.0.100/syncthing /mnt -o username=f1,password=. 
+snippet mount_smb "mounts smb share"
+	sudo mount -t cifs //192.168.0.100/nb /mnt -o username=f1,password=.,nounix,sec=ntlmssp

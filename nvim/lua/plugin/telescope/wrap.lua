@@ -109,7 +109,7 @@ function wrap.fb_old()
 end
 
 function wrap.fb_notes()
-  local path = home .. "/dev/notes"
+  local path = home .. "/notes"
   fb({
     path = path,
     initial_sort = true,

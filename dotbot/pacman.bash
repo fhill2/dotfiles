@@ -128,6 +128,7 @@ shared_pacman_pkgs=(
   "tree"
   "mediainfo"
   "unzip"
+  "unrar"
   "man-db"
   "tar"
   "imagemagick"
@@ -175,4 +176,5 @@ shared_pacman_pkgs=(
   "nfs-utils"
 
   "bitwarden" # electron bitwarden GUI - CLI installed via npm
+  "pet"
 )

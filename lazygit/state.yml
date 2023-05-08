@@ -1,6 +1,7 @@
 lastupdatecheck: 0
 recentrepos:
 - /home/f1/dot
+- /home/f1/git/dotfiles
 - /home/f1/data/wombles/portal/ip-portal-react
 - /home/f1/dev/app/previewer
 - /home/f1/dev/forks/dotbot-sudo

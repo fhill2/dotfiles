@@ -34,11 +34,13 @@ zplug load
 
 
 
-
+# HGISTORY
 HISTFILE=~/.zsh_history
 HISTSIZE=100000
 SAVEHIST=100000
 setopt appendhistory
+# if the command line string already exists in ~/.zsh_history, do not add it again
+setopt HIST_IGNORE_DUPS
 
 
 ## ======= PLUGIN ZSH-AUTOCOMPLETE ======
@@ -117,28 +119,33 @@ command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 
 
 # the-way
-tws() {
+# tws() {
+#   PREV=$(fc -lrn | head -n 1)
+#   sh -c "the-way cmd `printf %q "$PREV"`"
+# }
+#
+# f_tw_zle() {
+#   BUFFER=$(the-way search --stdout --languages="sh")
+#    CURSOR=$#BUFFER
+#    #zle redisplay
+#   #print -z $BUFFER
+# }
+#
+# f_tw() {
+# result=$(the-way search --stdout --languages="sh")
+# eval "$result"
+# }
+#
+
+function prev() {
   PREV=$(fc -lrn | head -n 1)
-  sh -c "the-way cmd `printf %q "$PREV"`"
+  sh -c "pet new `printf %q "$PREV"`"
 }
 
-f_tw_zle() {
-  BUFFER=$(the-way search --stdout --languages="sh")
-   CURSOR=$#BUFFER
-   #zle redisplay
-  #print -z $BUFFER
-}
-
-f_tw() {
-result=$(the-way search --stdout --languages="sh")
-eval "$result"
-}
-
-
-
-
-zle -N f_tw
+# zle -N f_tw
 #bindkey '^m' tw
+
+
 
 ######
 
