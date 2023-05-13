@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+
+source "${BASH_SOURCE%/*}/shared.sh"
+
+require_installer package-manager
+
+dotheader "Setting up devtools..."
+
+function install_bat() {
+	brew_install bat
+	mkdir -p ~/.config/bat
+	symlink_dotfile bat/config ~/.config/bat/config
+}
+
+# brew_cask_install alacritty
+
+brew_install fd
+brew_install coreutils
+
+install_package sl
+install_package wget
+
+
+# ack is a grep-like source code search tool.
+brew_install ack 
+apt_install ack-grep
+
+brew_install gnu-tar
+
+
+
+brew_install node
+brew_install npm
+
+
+
+brew_install exa
+brew_install neofetch
+brew_install ripgrep
+apt_install ripgrep
+
+brew_install starship
+brew_install broot
+brew_install zoxide
+brew_install "colordiff"
+brew_install "fzf"
+brew_install "go"
+brew_install "jq"
+brew_install "less"
+brew_install "mas"
+brew_install "nmap"
+brew_install "node"
+brew_install "rename"
+brew_install "ripgrep"
+brew_install "rsync"
+brew_install "terminal-notifier"
+brew_install "rar" # <-- unrar moved due to licensing issues
+
+install_package direnv
+
+
+# pytower deps
+brew_tap_install "homebrew/cask"
+brew_tap_install "esolitos/ipa"
+brew_tap_install "yulrizka/tap"
+brew_install 'ta-lib'
+brew_install 'rustup-init' # for rustup analyzer vscode extension
+brew_install 'rust' # for rustc
+brew_install 'python@3.10' # /usr/local/bin/python3
+brew_install 'poetry'
+brew_install 'pre-commit'
+brew_install 'ta-lib'
+brew_cask_install 'tailscale'
+
+
+
+
+install_bat

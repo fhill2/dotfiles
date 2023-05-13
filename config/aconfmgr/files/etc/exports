@@ -1,0 +1,2 @@
+# * means server will not limit nfs share access to certain ip addresses
+/home/f1 *(rw,no_root_squash,no_subtree_check)

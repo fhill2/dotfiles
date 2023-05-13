@@ -1,0 +1,19 @@
+<!--
+WARNING: THIS IS AN AUTO-GENERATED FILE. CHANGES TO IT ARE LIKELY TO BE
+OVERWRITTEN AND LOST. Changes to this xml configuration should be made using:
+  virsh pool-edit win-11-dec-2021-rutracker
+or other application using the libvirt API.
+-->
+
+<pool type='dir'>
+  <name>win-11-dec-2021-rutracker</name>
+  <uuid>08da8dbb-89fe-4a2f-b1ef-1ec5f1fb99a6</uuid>
+  <capacity unit='bytes'>0</capacity>
+  <allocation unit='bytes'>0</allocation>
+  <available unit='bytes'>0</available>
+  <source>
+  </source>
+  <target>
+    <path>/home/f1/Downloads/win-11-dec-2021-rutracker</path>
+  </target>
+</pool>
