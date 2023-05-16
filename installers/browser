@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+brew_cask_install "firefox"
+pac_install "firefox-nightly-bin"
+
+brew_cask_install "google-chrome"
+
+symlink_absolute_dotfile ~/dev/app/browser_integration/native/browser_integration.json ~/.mozilla/native-messaging-hosts/browser_integration.json: 

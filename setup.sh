@@ -8,7 +8,7 @@ source "${BASH_SOURCE%/*}/installers/shared.sh"
 #require_installer mac-custom-apps
 #require_installer git
 require_installer devtools
-
+# is_linux && require_installer x
 #require_installer python
 #require_installer ruby
 #require_installer node

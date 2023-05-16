@@ -2,6 +2,7 @@
 
 source "${BASH_SOURCE%/*}/shared.sh"
 
-brew_cask_install "firefox"
-brew_cask_install "google-chrome"
+
 brew_cask_install "obsidian"
+pac_install "slack-desktop"
+linux_install "unityhub-beta"

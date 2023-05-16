@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+
+
+# Prompt the user
+echo "Do you want to install nvidia drivers?"
+read -n 1 -r -p "(y/N) " response
+
+# Run the command if the user said yes
+if [[ $response =~ [Yy] ]]; then
+  linux_install "nvidia"
+  linux_install "nvidia-utils"
+  linux_install "nvidia-settings"
+fi
+
+if [[ "$(hostname)" == "arch-lap" ]]; then
+  # dell xps only
+  # otherwise external monitor HDMI sound outputs do not show in pavucontrol / pulseaudio
+  linux_install "sof-firmware" 
+fi
+
+symlink_dotfile config/systemd/user ~/.config/systemd/user
+
+
+# TODO, from dotbot
+# - sudo:
+#   - link:
+
+#     # kmonad corsair udev rules
+#      /etc/udev/rule.d/99-arch-lap.rules: /home/f1/dot/sys/99-arch-lap.rules
+
+#     # /etc/udev/rules.d/90-backlight.rules /home/f1/dev/sys/90-backlight.rules
+
+#      # Enable Optimus Offload if this is symlinked.
+#      # This also needs to be turned on with the BIOS Setting, otherwise X starts with a blank screen
+#      # /etc/X11/xorg.conf.d/10-nvidia-optimus-prime-offload.conf:
+#      #    path: /home/f1/dot/sys/10-nvidia-optimus-prime-offload.conf
+#      #    if: '[ "$HOSTNAME" == "arch-lap" ]'
+
+#      # as there is no shared directory between python env - fman sys.path and system sys.path
+#      /opt/fman/f: /home/f1/dot/lib/f
+
+#      /etc/samba/smb.conf: /home/f1/dot/sys/smb.conf 
+
+#      # to automatically load my firefox extension without using web-ext, only normal firefox
+#          # https://github.com/tsaost/autoload-temporary-addon
+#     # TODO: automate these firefox settings (extension wont load if these are not set)
+#     # xpsinstall.signatures.required FALSE
+#     # extensions.experiments.enabled TRUE
+#      /opt/firefox-nightly/defaults/pref/config-prefs.js: /home/f1/dot/firefox/config-prefs.js
+#      /opt/firefox-nightly/userChrome.js: /home/f1/dot/firefox/userChrome.js
+
+#   - shell:
+#     - 
+#       command: /home/f1/dot/dotbot/db_sync_symlink_contents.sh /home/f1/dot/systemd/system /etc/systemd/system
+#       stdout: true
+#       description: symlinking ~/dot/systemd/system contents to /etc/systemd/system

@@ -6,7 +6,6 @@ arch_lap_pacman_pkgs=(
   "nvidia"
   "nvidia-utils"
   "nvidia-settings"
-  "an-arch-lap-pkg"
 
   # otherwise external monitor HDMI sound outputs do not show in pavucontrol / pulseaudio
   "sof-firmware" 

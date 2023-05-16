@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 
-# abalateros unmodified backup installer
+# dbalateros unmodified backup installer
 source "${BASH_SOURCE%/*}/shared.sh"
 
 require_installer package-manager

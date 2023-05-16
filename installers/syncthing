@@ -1,6 +1,6 @@
 
 install_syncthing() {
-brew_install syncthing
+install_package syncthing
 # syncthing needs to be started after install
 brew services start syncthing
 }

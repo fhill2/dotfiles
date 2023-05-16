@@ -427,6 +427,11 @@ setup_user_gitconfig() {
   # fi
 }
 
+replace_local_bin_with_dotfiles_bin() {
+ dotheader "Replacing local bin with dotfiles bin..."
+  symlink_dotfile bin ~/.local/bin
+}
+
 
 main() {
   install_xcode_command_line_tools

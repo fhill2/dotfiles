@@ -17,7 +17,7 @@ function install_packer_nvim() {
 	fi
 }
 
-function install_neovim_linux() {
+function install_neovim_debian() {
 	if ! apt_is_installed "neovim"; then
 		sudo add-apt-repository -y ppa:neovim-ppa/stable
 		sudo apt-get -y update
@@ -43,35 +43,18 @@ function install_neovim_mac() {
 function install_neovim() {
 	if is_macos; then
 		install_neovim_mac
-	else
-		install_neovim_linux
-	fi
-}
+	elif is_debian; then
+		install_neovim_debian
+	elif is_arch; then
 
-function setup_neovim_config() {
-	mkdir -p ~/.config
+	fi
 	symlink_dotfile nvim ~/.config/nvim
-}
-
-function ensure_plugin_directory() {
-	mkdir -p ~/.local/share/nvim/plugged
+	# symlink_absolute_dotfile ~/dot/snippets ~/.local/share/nvim/site/pack/packer/start/my_snippets
 }
 
 
 
-function install_rust() {
-	if ! command_exists "cargo"; then
-		brew_install rustup
-		rustup-init -y
-		source $HOME/.cargo/env
-	fi
-}
 
-function install_proximity_sort() {
-	if ! command_exists "proximity-sort"; then
-		cargo install --force proximity-sort
-	fi
-}
 
 
 
@@ -82,9 +65,9 @@ dotheader "Setting up Neovim..."
 brew_install luajit
 install_packer_nvim
 
-install_ruby_neovim
-install_typescript_language_server
-install_write_good
+#install_ruby_neovim
+#install_typescript_language_server
+#install_write_good
 install_neovim
 setup_neovim_config
 install_tern

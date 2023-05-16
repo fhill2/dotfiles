@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+ # x specific
+linux_install "xorg-xinit"
+linux_install "xorg-server"
+linux_install "xorg-xwininfo"
+linux_install "xorg-xev"
+# for vlc.lua link script
+linux_install "wmctrl"
+
+# needed for current version of corsair udev
+linux_install "xpub"
+pac_install "xmousepasteblock-git"
+
+# kmonad relies on X server
+linux_install "kmonad-bin"
+linux_install "mons"

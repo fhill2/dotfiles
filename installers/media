@@ -4,7 +4,12 @@ source "${BASH_SOURCE%/*}/shared.sh"
 
 require_installer package-manager
 
-dotheader "Setting up audio tools..."
+dotheader "Setting up media tools..."
+
+
+install_package vlc
+symlink_dotfile config/vlc ~/.config/vlc
 
 brew_install ffmpeg
 brew_install sox
+

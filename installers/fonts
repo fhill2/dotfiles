@@ -88,33 +88,24 @@ if is_linux; then
   setup_and_patch_fontforge
   install_nerd_fonts_repo
 
-  install_nerd_font_src "InconsolataGo/Regular/InconsolataGo-Regular.ttf" \
-    "InconsolataGo Nerd Font Complete.ttf"
-
-  install_nerd_font_src "InconsolataGo/Bold/InconsolataGo-Bold.ttf" \
-    "InconsolataGo Bold Nerd Font Complete.ttf"
-
-  install_nerd_font_src "FantasqueSansMono/Regular/FantasqueSansMono-Regular.ttf" \
-    "Fantasque Sans Mono Regular Nerd Font Complete.ttf"
-
-  install_nerd_font_src "FantasqueSansMono/Bold/FantasqueSansMono-Bold.ttf" \
-    "Fantasque Sans Mono Bold Nerd Font Complete.ttf"
-
-  install_nerd_font_src "FantasqueSansMono/Italic/FantasqueSansMono-Italic.ttf" \
-    "Fantasque Sans Mono Italic Nerd Font Complete.ttf"
-
-  install_nerd_font_src \
-    "FantasqueSansMono/Bold-Italic/FantasqueSansMono-BoldItalic.ttf" \
-    "Fantasque Sans Mono Bold Italic Nerd Font Complete.ttf"
+  # install_nerd_font_src "InconsolataGo/Regular/InconsolataGo-Regular.ttf" \
+  #   "InconsolataGo Nerd Font Complete.ttf"
+  symlink_absolute_dotfile ~/data/fonts ~/.local/share/fonts
 else
+  # if osx
+  # dbalatero
   # disabling for now
   # brew_cask_install homebrew/cask-fonts/font-inconsolatago-nerd-font
   # brew_install font-jetbrains-mono-nerd-font
 
-  if [ ! -d ~/.nerd-fonts ]; then
-    git clone --depth 1 https://github.com/ryanoasis/nerd-fonts.git ~/.nerd-fonts
+  # if [ ! -d ~/.nerd-fonts ]; then
+  #   git clone --depth 1 https://github.com/ryanoasis/nerd-fonts.git ~/.nerd-fonts
 
-    cp -v ~/.nerd-fonts/patched-fonts/JetBrainsMono/NoLigatures/**/*.ttf ~/Library/Fonts
-    cp -v ~/.nerd-fonts/patched-fonts/InconsolataGo/**/*.ttf ~/Library/Fonts
-  fi
+  #   cp -v ~/.nerd-fonts/patched-fonts/JetBrainsMono/NoLigatures/**/*.ttf ~/Library/Fonts
+  #   cp -v ~/.nerd-fonts/patched-fonts/InconsolataGo/**/*.ttf ~/Library/Fonts
+  # fi
+
+  # https://gist.github.com/davidteren/898f2dcccd42d9f8680ec69a3a5d350e
+  brew tap homebrew/cask-fonts
+  brew search '/font-.*-nerd-font/' | awk '{ print $1 }' | xargs -I{} brew install --cask {} || true
 fi
