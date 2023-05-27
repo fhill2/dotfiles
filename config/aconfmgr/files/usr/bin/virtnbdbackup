@@ -1,4 +1,0 @@
-#!/usr/bin/python3
-# EASY-INSTALL-SCRIPT: 'virtnbdbackup==0.36','virtnbdbackup'
-__requires__ = 'virtnbdbackup==0.36'
-__import__('pkg_resources').run_script('virtnbdbackup==0.36', 'virtnbdbackup')

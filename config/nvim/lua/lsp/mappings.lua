@@ -24,15 +24,17 @@ M.attach = function(client, bufnr)
     },
 
     -- { '<Space>ca', require('navigator.codeAction').code_action, description = '[LSP] navigator - code action', mode = 'n' },
-    { "<leader>cv", vim.lsp.buf_range_code_action, description = "[LSP] native - ranged code action", mode = "v" }, -- not working
+    { "<leader>cv", vim.lsp.buf_range_code_action,                     description = "[LSP] native - ranged code action",
+                                                                                                                            mode =
+      "v" },                                                                                                      -- not working
     { "<leader>ca", require("code_action_menu").open_code_action_menu, description = "[LSP] code action menu" },
-    { "<leader>cA", vim.lsp.buf.code_action, description = "[LSP] native - code action" },
+    { "<leader>cA", vim.lsp.buf.code_action,                           description = "[LSP] native - code action" },
 
     -- { '<Space>rn', require('navigator.rename').rename, description = '[LSP] navigator - rename' },rename
     -- { "<Leader>gi", vim.lsp.buf.incoming_calls, description = "[LSP] navigator - incoming fn calls" },
     -- { "<Leader>go", vim.lsp.buf.outgoing_calls, description = "[LSP] navigator - outgoing fn calls" },
     -- { '<leader>G', require('navigator.diagnostics').show_buf_diagnostics, description = '[LSP] navigator - show current buffer diagnostics' },
-    { "gG", require("telescope.builtin").diagnostics, description = "[LSP] telescope - diagnostics" },
+    { "gG",         require("telescope.builtin").diagnostics,          description = "[LSP] telescope - diagnostics" },
     -- { '<Leader>dt', require('navigator.diagnostics').toggle_diagnostics, description = '[LSP] navigator - toggle virtual text diagnostics' },
     {
       "]d",
@@ -67,7 +69,7 @@ M.attach = function(client, bufnr)
     -- { '<Space>la', require('navigator.codelens').run_action, description = '[LSP] navigator - codelens action', mode = 'n' },
 
     -- my own lsp mappings
-    { "gr", require("telescope.builtin").lsp_references, description = "[LSP] telescope - references" },
+    { "gr", require("telescope.builtin").lsp_references,  description = "[LSP] telescope - references" },
     { "gd", require("telescope.builtin").lsp_definitions, description = "[LSP] - telescope - definition" },
     ----buf_set_keymap("n", "<leader>G", vim.diagnostic.set_loclist())
     {
@@ -86,7 +88,7 @@ M.attach = function(client, bufnr)
       description = "[LSP] telescope - workspace symbols",
     },
     ----buf_set_keymap("n", "<leader>W", require("telescope.builtin").dynamic_workspace_symbols)
-    { "gi", require("telescope.builtin").lsp_implementations, description = "[LSP] telescope - implementation" },
+    { "gi",        require("telescope.builtin").lsp_implementations, description = "[LSP] telescope - implementation" },
     {
       "<space>D",
       require("telescope.builtin").lsp_type_definitions,
@@ -102,8 +104,7 @@ M.attach = function(client, bufnr)
       require("lsp_lines").toggle,
       description = "[LSP] lsp_lines toggle",
     },
-    { "<leader>r", vim.lsp.buf.rename, 
-    description = "[LSP] - native - rename" },
+    { "<leader>r", vim.lsp.buf.rename,                               description = "[LSP] - native - rename" },
     -- BROKEN
     --{ 'gL', require('navigator.diagnostics').show_diagnostics, description = '[LSP] navigator - show diagnostics' },
     -- --{ ']O', 'diagnostic.set_loclist()', '' }, -- broken
@@ -118,7 +119,7 @@ M.attach = function(client, bufnr)
     --{ mode = 'i', '<M-k>', 'signature_help()', '' }, -- auto shows by defailt
     --{ '<c-k>', 'signature_help()', '' },
   }
-  require("legendary").bind_keymaps(lsp_keymaps)
+  require("legendary").keymaps(lsp_keymaps)
   -- register labels for the keys above
   -- i could use require"legendary".bind_whichkey() but I'd have to use vim.keymap.set format
   wk.register({

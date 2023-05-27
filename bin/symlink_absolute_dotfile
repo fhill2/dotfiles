@@ -1,0 +1,4 @@
+from _symlink import symlink
+
+if __name__ == "__main__":
+  _symlink(sys.argv[0], sys.argv[1])

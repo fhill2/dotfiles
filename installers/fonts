@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-source "${BASH_SOURCE%/*}/shared.sh"
+#source "${BASH_SOURCE%/*}/shared.sh"
+source _installer.sh
 
 function setup_linux_font_dir() {
   if is_linux; then

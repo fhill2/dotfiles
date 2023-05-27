@@ -1,0 +1,6 @@
+from _symlink import symlink
+import os
+
+if __name__ == "__main__":
+  source = path.join(os.path.expanduser("~"), "dot", sys.argv[0])
+  _symlink(source, sys.argv[1])

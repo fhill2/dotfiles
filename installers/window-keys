@@ -1,0 +1,153 @@
+#!/usr/bin/env bash
+
+# source "${BASH_SOURCE%/*}/shared.sh"
+source _installer.sh
+
+#require_installer package-manager
+
+function install_keys() {
+  # install karabiner
+  mkdir -p ~/.config/karabiner
+  brew_cask_install karabiner-elements
+  symlink_dotfile config/karabiner/karabiner.json ~/.config/karabiner/karabiner.json
+  symlink_dotfile config/karabiner/assets ~/.config/karabiner/assets
+
+
+  # install hammerspoon before yabai stackline as stackline installer modifies hammerspoon lua env
+  dotheader "Setting up Hammerspoon..."
+  brew_cask_install hammerspoon --appdir=/Applications
+  mkdir -p ~/.hammerspoon
+  # do not symlink entire config folder, as stackline repo is downloaded into this folder
+  symlink_dotfile config/hammerspoon/init.lua ~/.hammerspoon/init.lua
+  brew services start hammerspoon
+
+brew install skhd
+symlink_dotfile config/skhd ~/.config/skhd
+brew services start skhd
+}
+
+
+function install_yabai() {
+  # https://github.com/koekeishiya/yabai/wiki/Disabling-System-Integrity-Protection#how-do-i-disable-system-integrity-protection
+#
+# 1. Reboot cmd + r
+# 2. Utilities > Terminal
+# 3. `csrutil disable --with kext --with dtrace --with basesystem`
+# 4. Reboot
+# 5. `sudo nvram boot-args=-arm64e_preview_abi`
+# 6. Reboot
+  if ! command_exists "yabai"; then
+
+    # ventura needs yabai development version for scripting addition to work
+    # https://github.com/koekeishiya/yabai/issues/787#issuecomment-1306347407
+    # https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(from-HEAD)
+    # TODO: MANUAL: self signed certificate needs to be created
+    #brew install koekeishiya/formulae/yabai --HEAD
+    brew install koekeishiya/formulae/yabai@5.0.3
+    # FIX: this wont work due to path containing commit
+    codesign -fs 'yabai-cert' /opt/homebrew/Cellar/yabai/HEAD-4d81baf/bin/yabai
+    # TODO: MANUAL: needs security privacy > accessibility > add homebrew yabai binary to this
+    
+    # programatically set default spaces hotkeys
+    # ensure yabai and skhd are running on boot
+    # disable SIP (manual step)
+
+  # install yabai stackline
+  if ! [ -d ~/.hammerspoon/stackline ]; then
+   git clone https://github.com/AdamWagner/stackline.git ~/.hammerspoon/stackline
+
+  # Make stackline run when hammerspoon launches
+  #cd ~/.hammerspoon
+  # echo 'stackline = require "stackline"' >> init.lua
+  # echo 'stackline:init()' >> init.lua
+
+    echo "Installed yabai, but you still need to reboot into boot options, open terminal, and disable SIP."
+   fi
+  fi
+      symlink_dotfile config/yabai ~/.config/yabai
+      # https://github.com/koekeishiya/yabai/issues/787
+      # after the first installation of yabai, we need to run:
+      sudo yabai --install-sa
+      yabai --start-service
+      sudo yabai --load-sa
+
+     
+      
+}
+
+function install_simplebar() {
+  # install ubersicht
+  # https://github.com/felixhageloh/uebersicht
+  brew install ubersicht
+
+  # install simple bar
+  # https://github.com/Jean-Tinland/simple-bar
+  git clone https://github.com/Jean-Tinland/simple-bar $HOME/Library/Application\ Support/Übersicht/widgets/simple-bar
+}
+
+
+# installed to test sketchybar presets
+# did not end up using
+function install_sketchybar() {
+  brew tap FelixKratz/formulae
+  brew install sketchybar
+  brew services start sketchybar
+
+  # https://github.com/FallenMax/sketchybar-config
+  # the configuration/logic of the bar needs to be built from scratch, as its made in typescript
+  git clone https://github.com/FallenMax/sketchybar-config ~/.apps/sketchybar-config
+  cd ~/.apps/sketchybar-config && npm install && make build
+  # now there is ~/.apps/sketchybar-config/update_sketchybar.mjs
+  symlink_absolute_dotfile ~/.apps/sketchybar-config/update_sketchybar.mjs ~/.config/sketchybar/update_sketchybar.mjs
+  mkdir -p ~/.config/sketchybar
+  symlink_dotfile config/sketchybar/sketchybarrc ~/.config/sketchybar/sketchybarrc
+
+
+# 
+brew install flock
+
+}
+
+function configure_scripting_addition() {
+  local sudoers_file="/private/etc/sudoers.d/yabai"
+
+  if [ ! -f "$sudoers_file" ]; then
+    echo "Adding new $sudoers_file file"
+    # local yabai_path=$(which yabai)
+    local sha256_hash=$(shasum -a 256 "/Users/f1/.apps/yabai/bin/yabai")
+    sudo sh -c "mkdir -p /private/etc/sudoers.d" # not created on ventura
+    sudo sh -c "echo '$USER ALL=(root) NOPASSWD: sha256:$sha256_hash $yabai_path --load-sa' > '$sudoers_file'"
+  fi
+}
+
+# TODO: self signed certificate needs to be created
+# function create_self_signed_key() {
+#   # self signed key needs to be created to install yabai from HEAD
+#   # Create a new RSA key pair.
+# openssl genrsa -out key.pem 2048
+
+# # Create a new X.509 certificate.
+# openssl req -new -sha256 -key key.pem -out csr.csr
+
+# # Sign the certificate.
+# openssl x509 -req -in csr.csr -days 365 -signkey key.pem -out certificate.pem
+
+# # Save the certificate and key pair to a file.
+# mv key.pem certificate.pem ~/.ssl
+# }
+
+
+if is_linux; then
+# setup x server
+  symlink_dotfile config/xinitrc ~/.xinitrc
+  symlink_dotfiles config/Xresources ~/.Xresources
+
+  install_package i3
+  symlink_dotfiles config/i3 ~/.config/i3
+
+elif is_macos; then
+  #install_keys
+  #install_yabai
+  #configure_scripting_addition
+  install_sketchybar
+fi

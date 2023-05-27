@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+source "${BASH_SOURCE%/*}/shared.sh"
+
+
+# tools used:
+# pyenv -> install multiple python versions on the system, and replace the system installed python (homebrew installed or pacman installed) with a pyenv virtualenv.
+# poetry -> install/maintain project dependencies and create virtual environments from pyenv installed python version.
+# direnv -> to switch virtual env based on shell's cwd
+
+# on osx, python is installed with xcode command line tools, this is /usr/bin/python3
+# when pyenv is installed, python from xcode command line tools is replaced with pyenv python on PATH.
+# note, ensure `pyenv init --path` is added to ~/.zshrc and PYENV exports too, for this to work.
+
+# do not use python installed via homebrew. why? 
+# - cannot change python versions easily.
+# - easier to reinit the system python environment with pyenv. with pyenv, delete the python virtualenv.
+
+# eg im not using PYENV_ROOT folder to store venvs, I store them with the each specific project.
+
+# What about my custom system library?
+# all pyenv virtual envs sys.path have the global python as fallback if packages arent found
+# as my system lib symlinks to the global pyenv, all virtual envs can find my custom python lib
+
+
+# function load_pyenv() {
+#   eval "$(pyenv init -)"
+#   eval "$(pyenv virtualenv-init -)"
+# }
+
+function install_python() {
+  # latest=$(pyenv latest)
+  # TODO, pyenv latest does not retrieve latest stable python release?
+  pyenv install -s 3.10.4
+  pyenv global 3.10.4
+  # symlink custom python library into pyenv global virtual environment
+  local pyenv_global_site_packages=($(pyenv which python) -c "import site; print(site.getsitepackages()[0])")
+  symlink_dotfile config/python_lib "$pyenv_global_site_packages/f"
+  pip install poetry
+  # othis was needed to remove the config warning message on each invocation
+  # mv ~/Library/Preferences/pypoetry/config.toml ~/Library/Application\ Support/pypoetry/config.toml
+
+  # https://github.com/alencarandre/pyenv-autoenv
+
+
+}
+
+dotheader "Setting up Python..."
+
+brew_install pyenv
+brew_install pyenv-virtualenv
+# load_pyenv
+install_python

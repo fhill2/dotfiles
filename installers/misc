@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 
-source "${BASH_SOURCE%/*}/shared.sh"
-
+# source "${BASH_SOURCE%/*}/shared.sh"
+source _installer.sh
 
 brew_cask_install "obsidian"
 pac_install "slack-desktop"
 linux_install "unityhub-beta"
+
+brew_cask_install "slack"
+install_package "slack"
+
+

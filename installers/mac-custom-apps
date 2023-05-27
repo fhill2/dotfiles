@@ -1,12 +1,6 @@
 #!/usr/bin/env bash
 
-source "${BASH_SOURCE%/*}/shared.sh"
 
-if is_macos; then
-  if dotfiles_config_set "no-mac-apps"; then
-    dotsay "@b@blue[[Skipping Mac app store, no-mac-apps set]]"
-  else
-    require_installer package-manager
 
     installer_download() {
       local url=$1
@@ -178,6 +172,22 @@ if is_macos; then
       fi
     }
 
+
+install_extfs() {
+  # when installing paragon-extfs using homebrew, you still have to install the dmg manually?
+  # it only downloads it to /opt/homebrew, does not install it.
+  brew_cask_install "paragon-extfs"
+  open "/opt/homebrew/Caskroom/paragon-extfs/11.7.569/FSInstaller.app"
+}
+
+source _installer.sh
+
+if is_macos; then
+    dotheader "Setting up custom Mac apps"
+    install_extfs
+  fi
+
+
     # install_1password() {
     #   local url="https://app-updates.agilebits.com/download/OPM7"
     #   install_pkg "1Password 7" "$url"
@@ -318,7 +328,6 @@ if is_macos; then
     #   install_simple_dmg_copy "HazeOver" "$url"
     # }
 
-    dotheader "Setting up custom Mac apps"
 
     # install_1password
     # install_aerial_screensavers
@@ -342,5 +351,4 @@ if is_macos; then
     # install_swinsian
     # install_vlc
     # install_zooom2
-  fi
-fi
+

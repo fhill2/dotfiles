@@ -219,26 +219,26 @@ print_result() {
   return "$1"
 }
 
-are_xcode_command_line_tools_installed() {
-  xcode-select --print-path &> /dev/null
-}
+# are_xcode_command_line_tools_installed() {
+#   xcode-select --print-path &> /dev/null
+# }
 
-install_xcode_command_line_tools() {
-  # If necessary, prompt user to install
-  # the `Xcode Command Line Tools`.
+# install_xcode_command_line_tools() {
+#   # If necessary, prompt user to install
+#   # the `Xcode Command Line Tools`.
 
-  xcode-select --install &> /dev/null
+#   xcode-select --install &> /dev/null
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+#   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  # Wait until the `Xcode Command Line Tools` are installed.
+#   # Wait until the `Xcode Command Line Tools` are installed.
 
-  execute \
-    "until are_xcode_command_line_tools_installed; do \
-    sleep 5; \
-  done" \
-  "Xcode Command Line Tools"
-}
+#   execute \
+#     "until are_xcode_command_line_tools_installed; do \
+#     sleep 5; \
+#   done" \
+#   "Xcode Command Line Tools"
+# }
 
 # ssh - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -366,6 +366,7 @@ install_package_manager() {
     eval "$(/opt/homebrew/bin/brew shellenv)"
 
     brew update
+    brew_install git
   fi
 
 elif is_linux; then
@@ -432,13 +433,27 @@ replace_local_bin_with_dotfiles_bin() {
   symlink_dotfile bin ~/.local/bin
 }
 
+clear_password_policies() {
+  dotheader "clearing osx default password policies (minimum password length req)..."
+  sudo pwpolicy -clearaccountpolicies
+  # change user pass temporarily
+  sudo dscl . -merge /Users/f1 UserShellInfo:. .
+}
+
+
+install_python() {
+  ./python
+}
 
 main() {
-  install_xcode_command_line_tools
+  # install_xcode_command_line_tools
+  clear_password_policies
   setup_ssh_keys
   setup_hostname
   install_package_manager
   setup_user_gitconfig
+  install_python
+  # install requirements for defaults script here
 
   # Bootstrap
   mkdir -p $HOME/.config

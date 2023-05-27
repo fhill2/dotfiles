@@ -78,7 +78,7 @@ local file_browser_mappings = {
     ["<A-y>"] = false, -- copy
     ["<A-d>"] = false, -- remove
     ["<A-m>"] = false, -- move
-    ["<C-1>"] = fb_actions.sort_by_date_once,
+    -- ["<C-1>"] = fb_actions.sort_by_date_once,
     ["<C-2>"] = my_actions.fb_change_depth,
     -- ["<C-2>"] = fb_actions.sort_by_size
   },
@@ -123,12 +123,17 @@ local defaults = {
 local extensions = {
   file_browser = {
     -- path_display = { absolute = true },
-    depth = false,
+    -- depth = 2, -- false for unlimited depth
+    grouped = true,
+    initial_browser = "tree",
+    auto_depth = true,
+    depth = 1,
     add_dirs = true,
     hidden = true,
-    cwd_to_path = true,
+    follow = true, -- this originally was cwd_to_path
     mappings = file_browser_mappings,
     layout_strategy = "horizontal",
+    prompt_path = true, -- shows relative path from CWD as the prompt prefix
   },
   live_grep_args = {
     auto_quoting = true, -- enable/disable auto-quoting
@@ -145,13 +150,13 @@ local extensions = {
   -- make sure there is only 1 override per sorter
   fzy_native = {
     override_generic_sorter = false, -- conf.generic_sorter() will load ffi fzy native
-    override_file_sorter = false, -- conf.file_sorter() will load ffi fzy native
+    override_file_sorter = false,  -- conf.file_sorter() will load ffi fzy native
   },
   fzf = {
-    fuzzy = false, -- false will only do exact matching
+    fuzzy = false,                -- false will only do exact matching
     override_generic_sorter = true, -- override the generic sorter
-    override_file_sorter = true, -- override the file sorter
-    case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+    override_file_sorter = true,  -- override the file sorter
+    case_mode = "smart_case",     -- or "ignore_case" or "respect_case"
     -- the default case_mode is "smart_case"
   },
   bookmarks = {

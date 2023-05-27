@@ -18,6 +18,15 @@ if [[ "$(hostname)" == "arch-lap" ]]; then
   linux_install "sof-firmware" 
 fi
 
+ # gpu performance monitoring (for each driver)
+  linux_install "intel-gpu-tools"
+
+# bluetooth
+linux_install "bluez"
+linux_install "bluez-utils"
+linux_install "bluetuith" # tui bluetooth manager
+
+
 symlink_dotfile config/systemd/user ~/.config/systemd/user
 
 

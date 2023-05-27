@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
 
-source "${BASH_SOURCE%/*}/shared.sh"
+#source "${BASH_SOURCE%/*}/shared.sh"
+source _installer.sh
 
 install_ext4fuse() {
 # to read/write ext4 drives, homebrew macfuse, and ext4fuse is needed.
 # https://github.com/gerard/ext4fuse/issues/66#issuecomment-1435992847
 # homebrew cannot install ext4fuse on osx anymore.
 # this installs ext4fuse from source...
+
+# after installing and mounting a drive, enable system extensions in boot options
 
 pushd .
 git clone https://github.com/gerard/ext4fuse.git ~/.apps/ext4fuse
@@ -19,3 +22,5 @@ popd
 # sudo ./ext4fuse /dev/disk4 ~/ext4_mount -o allow_other 
 }
 install_ext4fuse
+
+

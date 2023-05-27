@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 
-source "${BASH_SOURCE%/*}/shared.sh"
 
-require_installer package-manager
+########
+
+# Packages 
+# source "${BASH_SOURCE%/*}/shared.sh"
+source _installer.sh
+
+# require_installer package-manager
 
 dotheader "Setting up devtools..."
 
@@ -91,6 +96,7 @@ install_package broot
 symlink_dotfile config/broot ~/.config/broot
 
 # ========================================
+install_package trash
 
 pac_install gnome-session
 pac_install gnome-shell
@@ -167,6 +173,8 @@ apt_install ripgrep
 
 
 
+brew_install gnu-sed # some nvim app needs this on osx
+
 
 
 brew_install zoxide
@@ -227,3 +235,11 @@ linux_install "samba"
 
  install_package "bitwarden" # electron bitwarden GUI - CLI installed via npm
   "pet"
+
+
+
+# a secrets workflow:
+# gnupg -> installed via package manager
+# gpg private key -> stored in bw, unsynced
+# password store -> synced privately using syncthing
+install_package gnupug

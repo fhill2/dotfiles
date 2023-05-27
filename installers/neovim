@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
-source "${BASH_SOURCE%/*}/shared.sh"
-
-require_installer package-manager
-require_installer fonts
-require_installer ruby
-require_installer python
-require_installer node
+# source "${BASH_SOURCE%/*}/shared.sh"
+source _installer.sh
+#require_installer package-manager
+#require_installer fonts
+#require_installer ruby
+#require_installer python
+#require_installer node
 
 function install_packer_nvim() {
 	local location="$HOME/.local/share/nvim/site/pack/packer/start/packer.nvim"
@@ -34,7 +34,8 @@ function install_neovim_debian() {
 
 function install_neovim_mac() {
 	if ! brew_is_tapped "neovim/neovim"; then
-		brew_tap neovim/neovim
+		# brew_tap_install neovim/neovim # this installs latest stable version
+		brew install --HEAD neovim
 	fi
 
 	brew_install neovim --HEAD
@@ -46,9 +47,10 @@ function install_neovim() {
 	elif is_debian; then
 		install_neovim_debian
 	elif is_arch; then
-
+        echo "neovim installation for arch not implemented"
 	fi
-	symlink_dotfile nvim ~/.config/nvim
+	symlink_dotfile config/nvim ~/.config/nvim
+	brew_install luajit
 	# symlink_absolute_dotfile ~/dot/snippets ~/.local/share/nvim/site/pack/packer/start/my_snippets
 }
 
@@ -61,22 +63,8 @@ function install_neovim() {
 
 
 dotheader "Setting up Neovim..."
-
-brew_install luajit
+install_neovim
 install_packer_nvim
 
-#install_ruby_neovim
-#install_typescript_language_server
-#install_write_good
-install_neovim
-setup_neovim_config
-install_tern
-install_vim_node_rpc
-ensure_plugin_directory
-install_neovim_plugins
-install_rust
-install_proximity_sort
-install_stylua
-install_bat
-install_vscode_language_servers
-install_yaml_language_server
+
+

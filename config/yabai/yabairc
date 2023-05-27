@@ -1,0 +1,117 @@
+#!/usr/bin/env sh
+
+# for this to work you must configure sudo such that
+# it will be able to run the command without password
+#
+# see this wiki page for information:
+#  - https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)#configure-scripting-addition
+
+if [ -f "/private/etc/sudoers.d/yabai" ]; then
+  yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+  sudo yabai --load-sa
+fi
+
+# https://d12frosted.io/posts/2022-04-23-yabai-spaces.html
+function setup_space {
+  local idx="$1"
+  local name="$2"
+  local space=
+  echo "setup space $idx : $name"
+
+  space=$(yabai -m query --spaces --space "$idx")
+  if [ -z "$space" ]; then
+    yabai -m space --create
+  fi
+
+  yabai -m space "$idx" --label "$name"
+}
+
+setup_space 1 "one"
+setup_space 2 "two"
+setup_space 3 "three"
+setup_space 4 "four"
+setup_space 5 "five"
+setup_space 6 "six"
+
+# global settings
+yabai -m config                                 \
+    mouse_follows_focus          off            \
+    focus_follows_mouse          off            \
+    window_origin_display        default        \
+    window_placement             second_child   \
+    window_topmost               off            \
+    window_shadow                on             \
+    window_animation_duration    0.0            \
+    window_opacity_duration      0.0            \
+    active_window_opacity        1.0            \
+    normal_window_opacity        0.90           \
+    window_opacity               off            \
+    insert_feedback_color        0xffd75f5f     \
+    active_window_border_color   0xff775759     \
+    normal_window_border_color   0xff555555     \
+    window_border_width          4              \
+    window_border_radius         12             \
+    window_border_blur           off            \
+    window_border_hidpi          on             \
+    window_border                off            \
+    split_ratio                  0.50           \
+    split_type                   auto           \
+    auto_balance                 off            \
+    top_padding                  36             \
+    bottom_padding               12             \
+    left_padding                 12             \
+    right_padding                12             \
+    window_gap                   06             \
+    layout                       bsp            \
+    mouse_modifier               fn             \
+    mouse_action1                move           \
+    mouse_action2                resize         \
+    mouse_drop_action            swap
+
+echo "yabai configuration loaded.."
+
+
+
+# https://github.com/FallenMax/sketchybar-config/blob/main/.yabairc
+# https://github.com/koekeishiya/yabai/blob/master/doc/yabai.asciidoc#signal
+EVENTS_FOR_BAR=(
+  # application_launched
+  # application_terminated
+  # application_front_switched
+  # application_activated
+  # application_deactivated
+  application_visible
+  application_hidden
+  window_created
+  window_destroyed
+  # window_focused
+  # window_moved
+  # window_resized
+  window_minimized
+  window_deminimized
+  window_title_changed
+  space_changed
+  display_added
+  display_removed
+  # display_moved
+  # display_resized
+  # display_changed
+  # mission_control_enter
+  # mission_control_exit
+  # dock_did_restart
+  # menu_bar_hidden_changed
+  # dock_did_change_pref
+)
+
+# require flock: https://github.com/discoteq/flock
+
+for event in "${EVENTS_FOR_BAR[@]}"; do
+  echo "registering $event for update_sketchybar"
+
+  # patch $PATH so zx/node can be located by yabai
+  yabai -m signal --add \
+    event="$event" \
+    label="update_sketchybar__${event}" \
+    action="echo 'event:' $event && export PATH=$PATH:/usr/local/bin:/opt/homebrew/bin/:$HOME/Library/pnpm && flock -nE 0 $HOME/.config/sketchybar/update_sketchybar.lock $HOME/.config/sketchybar/update_sketchybar.mjs --quiet"
+done
+export PATH=$PATH:/usr/local/bin:/opt/homebrew/bin/:$HOME/Library/pnpm && "$HOME/.config/sketchybar/update_sketchybar.mjs" --quiet

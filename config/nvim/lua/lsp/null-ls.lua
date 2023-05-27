@@ -6,17 +6,17 @@ local diagnostics = null_ls.builtins.diagnostics
 local formatting = null_ls.builtins.formatting
 
 null_ls.setup({
-	on_attach = on_attach,
-	debounce = vim.o.updatetime,
-	debug = true, -- View logs with `:NullLsLog` after setting to true
-	save_after_format = false,
-	sources = {
-		formatting.black,
-		formatting.prettierd,
-		formatting.stylua,
-		actions.shellcheck,
-		diagnostics.shellcheck,
-	},
+  on_attach = on_attach,
+  debounce = vim.o.updatetime,
+  debug = true, -- View logs with `:NullLsLog` after setting to true
+  save_after_format = false,
+  sources = {
+    formatting.black,
+    formatting.prettierd,
+    formatting.stylua,
+    actions.shellcheck,
+    diagnostics.shellcheck,
+  },
 })
 table.insert(formatting.prettierd.filetypes, "ejs")
 
@@ -31,6 +31,6 @@ table.insert(formatting.prettierd.filetypes, "ejs")
 -- end
 
 require("mason-null-ls").setup({
-	-- ensure_installed = {},
-	automatic_installation = true,
+  ensure_installed = { "black", "prettierd", "stylua", "shellcheck" },
+  automatic_installation = true,
 })

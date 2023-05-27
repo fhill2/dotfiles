@@ -1,8 +1,0 @@
-[user]
-	email = freddiehill000@gmail.com
-	name = Freddie Hill
-
-# https://stackoverflow.com/questions/1257592/how-do-i-remove-files-saying-old-mode-100755-new-mode-100644-from-unstaged-cha
-# syncthing changes permissions of files - exclude in git commits until I fix it properly
-[core]
-  filemode = false

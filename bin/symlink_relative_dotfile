@@ -1,0 +1,5 @@
+from _symlink import symlink
+
+if __name__ == "__main__":
+  source = path.join(os.getcwd(), sys.argv[0])
+  _symlink(source, sys.argv[1])

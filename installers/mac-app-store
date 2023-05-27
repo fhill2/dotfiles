@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-source "${BASH_SOURCE%/*}/shared.sh"
+# source "${BASH_SOURCE%/*}/shared.sh"
+source _installer.sh
 
 if is_macos; then
   if dotfiles_config_set "no-mac-apps"; then

@@ -13,6 +13,7 @@
   new = green
 
 [alias]
+  # dbalatero aliases below here
   # add
   a = add                           # add
 
@@ -99,6 +100,10 @@
 
   # tag
   t = tag -n                        # show tags with <n> lines of each tag message
+
+  # discards all files in the git working directory that have only permission changes
+  # https://gist.github.com/jtdp/5443498
+	fix-perm = "!git diff -p --no-ext-diff --no-color --diff-filter=d | grep -E \"^(diff|old mode|new mode)\" | sed -e \"s/^old/NEW/;s/^new/old/;s/^NEW/new/\" | git apply"
 
 [format]
   pretty = format:%C(blue)%ad%Creset %C(yellow)%h%C(green)%d%Creset %C(blue)%s %C(magenta) [%an]%Creset

@@ -2,7 +2,8 @@
 
 
 # dbalateros unmodified backup installer
-source "${BASH_SOURCE%/*}/shared.sh"
+#source "${BASH_SOURCE%/*}/shared.sh"
+source _installer.sh
 
 require_installer package-manager
 

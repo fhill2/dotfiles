@@ -1,15 +1,21 @@
 #!/usr/bin/env bash
 
-source "${BASH_SOURCE%/*}/shared.sh"
+#source "${BASH_SOURCE%/*}/shared.sh"
+source _installer.sh
+
 
 require_installer package-manager
 
 dotheader "Setting up media tools..."
 
 
+brew_cask_install vlc
 install_package vlc
+brew_cask_install handbrake
+
 symlink_dotfile config/vlc ~/.config/vlc
 
 brew_install ffmpeg
 brew_install sox
+
 

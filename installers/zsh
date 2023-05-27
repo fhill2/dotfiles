@@ -1,14 +1,20 @@
 #!/usr/bin/env bash
 
-source "${BASH_SOURCE%/*}/shared.sh"
+# source "${BASH_SOURCE%/*}/shared.sh"
+source _installer.sh
 
 # require_installer package-manager
 
 function setup_zsh_symlinks() {
-  symlink_dotfile zshrc ~/.zshrc
-  symlink_dotfile zsh ~/.zsh
-  symlink_dotfile zsh/zshenv ~/.zshenv
-  symlink_dotfile zsh/zprofile ~/.zprofile
+  symlink_dotfile config/zshrc ~/.zshrc
+  symlink_dotfile config/zsh ~/.zsh
+  symlink_dotfile config/zsh/zshenv ~/.zshenv
+  symlink_dotfile config/zsh/zprofile ~/.zprofile
+  if macos; then
+  symlink_dotfile config/profile_osx ~/.profile
+  else
+  symlink_dotfile config/profile_linux ~/.profile
+  fi
 }
 
 function zsh_binary() {
@@ -78,7 +84,7 @@ setup_zsh_completions_repo
 install_package zsh
 install_package zsh-completions
 
-install_package direnv
+
 
 setup_zsh_symlinks
 

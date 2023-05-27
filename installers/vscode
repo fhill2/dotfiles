@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-source "${BASH_SOURCE%/*}/shared.sh"
-
+#source "${BASH_SOURCE%/*}/shared.sh"
+source _installer.sh
 
 VSCODE_CONFIG_DIR="$HOME/Library/Application Support/Code/User"
 

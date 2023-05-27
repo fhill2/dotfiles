@@ -91,7 +91,7 @@ log.new = function(config, standalone)
 		local sp = vim.split(info.short_src, "/")
 		local lineinfo = string.format("%s/%s/%s:%s ", sp[#sp - 2], sp[#sp - 1], sp[#sp], info.currentline)
 
-		local outfile = string.format("%s/%s.log", "/home/f1/.local/share/nvim", config.plugin)
+		local outfile = string.format("%s/%s.log", vim.fn.stdpath("data"), config.plugin)
 		-- Output to log file
 		if config.use_file then
 			local fp = io.open(outfile, "a")

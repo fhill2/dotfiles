@@ -359,9 +359,9 @@ use({
 
 use({ "nvim-treesitter/playground", cmd = "TSHighlightCapturesUnderCursor" })
 --use("nvim-treesitter/nvim-treesitter-refactor")
-use("nvim-treesitter/nvim-treesitter-textobjects")
+-- use("nvim-treesitter/nvim-treesitter-textobjects")
 -- use("nvim-treesitter/nvim-treesitter-context") -- deprecated in favor of nvim-navic
-use("RRethy/nvim-treesitter-textsubjects")
+-- use("RRethy/nvim-treesitter-textsubjects")
 
 -- telescope extensions
 use("nvim-telescope/telescope-cheat.nvim")
