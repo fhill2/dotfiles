@@ -1,0 +1,28 @@
+{
+  "title": "Caps to Esc",
+  "rules": [
+    {
+      "description": "CAPS_LOCK to CONTROL or ESCAPE (If Alone)",
+      "manipulators": [
+        {
+          "from": {
+            "key_code": "caps_lock",
+            "modifiers": {}
+          },
+          "to": [
+            {
+              "key_code": "left_control",
+              "modifiers": {}
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "escape"
+            }
+          ],
+          "type": "basic"
+        }
+      ]
+    }
+  ]
+}

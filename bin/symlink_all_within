@@ -1,0 +1,27 @@
+#!/usr/bin/env python
+import os, sys
+from _symlink import do_symlink
+
+
+# TEST:
+# is ~ and $HOME supported
+# only absolute filepaths supported now, if passed a relative path, make relative to dotfiles dir.
+# support dir paths that end with /
+
+
+if __name__ == "__main__":
+    source_parent = sys.argv[1]
+    dest_parent = sys.argv[2]
+
+    if os.path.isfile(source_parent) or os.path.isfile(dest_parent):
+        print(
+            "ERROR: pass in parent of folder for symlink_all_within: "
+            + source_parent
+            + " -> "
+            + dest_parent
+        )
+
+    for file in os.listdir(source_parent):
+        source = os.path.join(source_parent, file)
+        dest = os.path.join(dest_parent, file)
+        do_symlink(source, dest)

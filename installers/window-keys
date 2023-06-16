@@ -7,10 +7,10 @@ source _installer.sh
 
 function install_keys() {
   # install karabiner
-  mkdir -p ~/.config/karabiner
-  brew_cask_install karabiner-elements
+  mkdir -p ~/.config/karabiner/assets/complex_modifications
+  symlink_all_within "$HOME/dot/config/karabiner/complex_modifications" "$HOME/.config/karabiner/assets/complex_modifications"
   symlink_dotfile config/karabiner/karabiner.json ~/.config/karabiner/karabiner.json
-  symlink_dotfile config/karabiner/assets ~/.config/karabiner/assets
+  brew_cask_install karabiner-elements
 
 
   # install hammerspoon before yabai stackline as stackline installer modifies hammerspoon lua env

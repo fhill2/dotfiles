@@ -10,7 +10,7 @@ cd ~/.dotfiles
 # Why ./bootstrap and ./setup?
 /config/ - holds configuration files for apps.
 /installers/ - files related to the installation of the apps.
-./bootstrap -> installs once per install functions, and tools/requirements for installers.
+./bootstrap -> once per install setup functions in here, and tools/requirements/setup for installers. 
 bin/installer.sh -> once bootstrap.sh symlinks ~/dot/bin to ~/.local/bin, _installer.sh is on PATH.
 
 
