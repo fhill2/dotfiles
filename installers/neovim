@@ -39,6 +39,10 @@ function install_neovim_mac() {
 	fi
 
 	brew_install neovim --HEAD
+
+  # FIX: packer.nvim error in neovim:
+  # https://github.com/wbthomason/packer.nvim/issues/1199
+  ulimit -n 10240
 }
 
 function install_neovim() {

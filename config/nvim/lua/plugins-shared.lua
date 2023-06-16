@@ -41,7 +41,7 @@ use({
 use("nvim-telescope/telescope-fzy-native.nvim")
 
 -- use(local_or_git("~/dev/forks/telescope-file-browser.nvim", "nvim-telescope/telescope-file-browser.nvim"))
-use({ "nvim-telescope/telescope-file-browser.nvim", branch = "feat/tree" })
+use({ "nvim-telescope/telescope-file-browser.nvim" })
 
 use({ "cljoly/telescope-repo.nvim" })
 use("jvgrootveld/telescope-zoxide")

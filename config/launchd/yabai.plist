@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+
+  <!-- default launchagent PATH is: /usr/bin:/bin:/usr/sbin:/sbin -->
+  <!-- therefore launchcmd has to be wrapped in /bin/sh -c "yabai" to create the same env as a login environment  -->
+<dict>
+	<key>Label</key>
+	<string>yabai custom launchagent</string>
+  <key>ProgramArguments</key>
+  <array>
+  <string>/bin/sh</string>
+  <string>-c</string>
+  <string>export PATH=$PATH:/usr/local/bin; yabai</string>
+  </array>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>StandardErrorPath</key>
+  <string>/Users/f1/tmp/yabai.log</string>
+	<key>StandardOutPath</key>
+  <string>/Users/f1/tmp/yabai.log</string>
+</dict>
+</plist>

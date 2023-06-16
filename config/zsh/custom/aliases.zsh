@@ -58,6 +58,10 @@ pp() {
 echo $1 | tr ':' '\n'
 }
 
+ghcb() {
+  git clone --bare git@github.com:$1
+}
+
 ghc() {
   # clones by ssl link, which automatically sets remote origin to an ssl link
   # if first arg is actually a url, extract repo username from url

@@ -57,6 +57,10 @@ local telescope_mappings = {
     ["<C-w>"] = actions.send_selected_to_qflist,
     ["<C-q>"] = actions.send_to_qflist,
     ["<C-.>"] = my_actions.close_or_resume,
+    -- ["<C-c>"] = actions.close,
+    -- ["<C-c>"] = function()
+      -- vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc><C-c>", true, false, true), "i", false)
+    -- end,
   },
   n = {
     ["<C-Space>"] = my_actions.close_picker,
@@ -125,15 +129,22 @@ local extensions = {
     -- path_display = { absolute = true },
     -- depth = 2, -- false for unlimited depth
     grouped = true,
-    initial_browser = "tree",
+    -- initial_browser = "tree",
     auto_depth = true,
     depth = 1,
-    add_dirs = true,
     hidden = true,
     follow = true, -- this originally was cwd_to_path
     mappings = file_browser_mappings,
     layout_strategy = "horizontal",
     prompt_path = true, -- shows relative path from CWD as the prompt prefix
+    -- browser_opts = {
+    --   list = {
+    --     add_dirs = true,
+    --   },
+    --   tree = {
+    --     add_dirs = true,
+    --   },
+    -- },
   },
   live_grep_args = {
     auto_quoting = true, -- enable/disable auto-quoting
@@ -189,3 +200,12 @@ telescope.load_extension("notify")
 --telescope.load_extension('snippets')
 --telescope.load_extension("cheat")
 --telescope.load_extension("projects")
+
+-- https://github.com/nvim-telescope/telescope.nvim/issues/2027
+-- vim.api.nvim_create_autocmd("WinLeave", {
+--   callback = function()
+--     if vim.bo.ft == "TelescopePrompt" and vim.fn.mode() == "i" then
+--       vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "i", false)
+--     end
+--   end,
+-- })

@@ -1,5 +1,19 @@
 #!/usr/bin/env sh
 
+
+
+# FOR DEBUGGING LAUNCHD
+# echo "PATH IS: "
+# echo "$PATH"
+# echo "ENV IS: "
+# env
+
+
+# Get the current date and time.
+current_date_and_time=$(date)
+# Echo the current date and time.
+echo "$current_date_and_time: yabairc executed"
+
 # for this to work you must configure sudo such that
 # it will be able to run the command without password
 #

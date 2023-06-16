@@ -580,6 +580,10 @@ sudo pmset proximitywake 0  # Specifically when your iPhone or Apple Watch come 
 # Screen                                                                      #
 ###############################################################################
 
+
+# do not automatically dim the built in laptop display when power is disconnected
+defaults write -g AppleDisplayAutoBrightness -bool false
+
 # Save screenshots to Pictures
 defaults write com.apple.screencapture location -string "${HOME}/Pictures"
 

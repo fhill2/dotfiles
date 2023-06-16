@@ -2,13 +2,18 @@ local fn = vim.fn
 local install_path = fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
 if fn.empty(fn.glob(install_path)) > 0 then
   packer_bootstrap =
-  fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
+      fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
 end
 vim.cmd([[packadd packer.nvim]])
 local packer = require("packer")
 -- all plugins put in /start by default
 local use = packer.use
-packer.init({})
+packer.init({
+  max_jobs = 65,
+  clone_timeout = false,
+  -- FIX: https://github.com/wbthomason/packer.nvim/issues/1202
+  -- some packages hit git clone timeout
+})
 use({ "wbthomason/packer.nvim", opt = true })
 -- Oct 2022 - bootstrap packer config above
 
@@ -59,6 +64,10 @@ end
 --   module_pattern = string/list -- Specifies Lua pattern of Lua module names for require. When requiring a string which matches one of these patterns, the plugin will be loaded.
 -- }
 --
+
+use({"theprimeagen/harpoon", config = function() 
+  require("plugin.harpoon")
+end})
 
 use({ "dccsillag/magma-nvim", run = ":UpdateRemotePlugins" })
 
@@ -308,7 +317,7 @@ use({ "ellisonleao/glow.nvim", run = "GlowInstall" })
 -- snippet providers
 use("rafamadriz/friendly-snippets") -- most popular vscode snippet repo
 -- use({ "dsznajder/vscode-es7-javascript-react-snippets", run = "yarn install --frozen-lockfile && yarn compile" }) -- some nice react typescript snippets
-use("honza/vim-snippets") -- most popular .snippet repo
+use("honza/vim-snippets")           -- most popular .snippet repo
 use({
   "smjonas/snippet-converter.nvim",
   config = function()
@@ -408,7 +417,8 @@ use({
 use({
   "TimUntersberger/neogit",
   cmd = "Neogit",
-  config = function() end,
+  config = function()
+  end,
 })
 
 use({

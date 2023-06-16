@@ -67,6 +67,20 @@ dotfiles/xplr:
   - dtomvan/.config
   - maximbaz/dotfiles
 
+# repos with most stars on search -> topic:dotfiles topic:osx
+dotfiles/osx:
+  - nicknisi/dotfiles
+  - ctaylo21/jarvis
+  - keith/dotfiles
+  - 4lgn/dotfiles
+  - jh3y/kody
+  - t3chnoboy/dotfiles
+  - atidyshirt/MacOS-Dotfiles
+  - benmezger/dotfiles
+  - gokulkrishh/dotfiles
+  - metakirby5/.dots
+  - Drapegnik/env
+
 # script collections
 dotfiles/scripts:
   - tri1976/bashscripts

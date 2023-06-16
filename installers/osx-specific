@@ -24,3 +24,7 @@ popd
 install_ext4fuse
 
 
+
+# quicklook plugins
+# https://github.com/haokaiyang/Mac-QuickLook
+brew install --cask quicklook-csv
