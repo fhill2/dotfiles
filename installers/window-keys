@@ -7,18 +7,30 @@ source _installer.sh
 
 function install_keys() {
   # install karabiner
-  mkdir -p ~/.config/karabiner/assets/complex_modifications
-  symlink_all_within "$HOME/dot/config/karabiner/complex_modifications" "$HOME/.config/karabiner/assets/complex_modifications"
-  symlink_dotfile config/karabiner/karabiner.json ~/.config/karabiner/karabiner.json
+  # NOTE: only karabiner full config folder can be symlinked
+  # individual karabiner.json cannot be symlinked, as karabiner overwrites the karabiner.json whern adding new complex modifications, destroying the symlink
+
+  # NOTE: everytime a complex modification is edited inside assets/complex_modifications, the rule needs to be deleted and re-enabled in the GUI (does not need a restart)
+  # this rewriters the karabiner.json file
+  symlink_dotfile config/karabiner/karabiner ~/.config
   brew_cask_install karabiner-elements
 
 
   # install hammerspoon before yabai stackline as stackline installer modifies hammerspoon lua env
   dotheader "Setting up Hammerspoon..."
   brew_cask_install hammerspoon --appdir=/Applications
+  # when configuring hammerspoon, hs.configdir=~/.hammerspoon
   mkdir -p ~/.hammerspoon
   # do not symlink entire config folder, as stackline repo is downloaded into this folder
   symlink_dotfile config/hammerspoon/init.lua ~/.hammerspoon/init.lua
+  # symlink my custom spoons to ~/.hammerspoon/myspoons
+  symlink_dotfile config/hammerspoon/myspoons ~/.hammerspoons/
+
+  # install custom spoons not in the hammerspoon official list
+  # git clone https://github.com/dbalatero/HyperKey.spoon.git ~/.hammerspoon/Spoons/HyperKey.spoon
+  # download this manually
+  # https://github.com/Hammerspoon/Spoons/raw/master/Spoons/SpoonInstall.spoon.zip
+
   brew services start hammerspoon
 
 brew install skhd

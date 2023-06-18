@@ -1,3 +1,5 @@
+
+
 # Tmux UTF8 support
 export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
@@ -29,10 +31,18 @@ export EDITOR=nvim
 # export LESSQUIET=1
 # export PAGER=nvimpager
 
+
 # Path
+# homebrew binary after ~/.local/bin on path, so I can override fd with a shim that always invokes fd with -L (to use fd with a global config that is useful for telescope and invocation via CLI)
+export PATH=/opt/homebrew/bin:$PATH
+# Apparently `brew doctor` says i need it.
+export PATH="/opt/homebrew/sbin:$PATH"
+
 export PATH="$HOME/.local/bin:/usr/local/bin:$PATH"
 export PATH="$HOME/.yarn/bin:$PATH"
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
+
+
 
 
 
@@ -71,10 +81,7 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 
 # export PATH=$HOME/.work-cli/bin:$PATH
 
-# brew mac m1
-export PATH=/opt/homebrew/bin:$PATH
-# Apparently `brew doctor` says i need it.
-export PATH="/opt/homebrew/sbin:$PATH"
+
 
 # Keyboard/qmk
 #export PATH="/opt/homebrew/opt/avr-gcc@8/bin:$PATH"

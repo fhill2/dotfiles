@@ -128,6 +128,7 @@ local extensions = {
   file_browser = {
     -- path_display = { absolute = true },
     -- depth = 2, -- false for unlimited depth
+    follow = true,
     grouped = true,
     -- initial_browser = "tree",
     auto_depth = true,

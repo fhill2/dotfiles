@@ -18,7 +18,7 @@
                 },
                 "rules": [
                     {
-                        "description": "Tab to Hyper",
+                        "description": "tab NEWEST",
                         "manipulators": [
                             {
                                 "from": {
@@ -26,11 +26,21 @@
                                 },
                                 "to": [
                                     {
-                                        "key_code": "f18"
+                                        "key_code": "left_option",
+                                        "lazy": true
                                     }
                                 ],
                                 "to_if_alone": {
                                     "key_code": "tab"
+                                },
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "any": "key_code"
+                                },
+                                "to": {
+                                    "any": "key_code"
                                 },
                                 "type": "basic"
                             }

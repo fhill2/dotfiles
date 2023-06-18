@@ -94,7 +94,12 @@ end
 function wrap.fb_repos_tags()
   local path = home .. "/repos-tags"
   -- files = false --> start in folder browse
-  fb({ path = path, files = false })
+  fb({ path = path })
+end
+
+function wrap.fb_repos_packer()
+  local path = home .. "/repos/packer"
+  fb({ path = path })
 end
 
 function wrap.fb_old()
@@ -144,11 +149,11 @@ function wrap.buku()
   })
 end
 
-function wrap.python()
-  path = home .. "/a/python"
-  fb({
-    path = path,
-  })
-end
+-- function wrap.python()
+--   path = home .. "/a/python"
+--   fb({
+--     path = path,
+--   })
+-- end
 
 return wrap

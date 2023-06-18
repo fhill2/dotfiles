@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# This script creates a wrapper script for fd that always calls fd
+# with the follow symlinks -L argument.
+# why? telescope-file-browser.nvim does not allow full customization of the fd command, eg fd_args = ['fd', '-L']
+# + telescope find_files and telescope-file-browser.nvim do not share a global config for the fd command.
+
+fd_shim() {
+  /opt/homebrew/bin/fd -L "$@"
+}
+
+# If this script is run as a command, then invoke the wrapper script.
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
+  fd_shim "$@"
+fi
