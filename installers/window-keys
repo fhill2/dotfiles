@@ -20,11 +20,13 @@ function install_keys() {
   dotheader "Setting up Hammerspoon..."
   brew_cask_install hammerspoon --appdir=/Applications
   # when configuring hammerspoon, hs.configdir=~/.hammerspoon
-  mkdir -p ~/.hammerspoon
+  mkdir ~/.hammerspoon
   # do not symlink entire config folder, as stackline repo is downloaded into this folder
   symlink_dotfile config/hammerspoon/init.lua ~/.hammerspoon/init.lua
   # symlink my custom spoons to ~/.hammerspoon/myspoons
-  symlink_dotfile config/hammerspoon/myspoons ~/.hammerspoons/
+  mkdir ~/.hammerspoon/myspoons
+  mkdir ~/.hammerspoon/seal_plugins
+  symlink_all_within "$HOME/dot/config/hammerspoon" "$HOME/.hammerspoon" 
 
   # install custom spoons not in the hammerspoon official list
   # git clone https://github.com/dbalatero/HyperKey.spoon.git ~/.hammerspoon/Spoons/HyperKey.spoon
@@ -35,7 +37,6 @@ function install_keys() {
 
 brew install skhd
 symlink_dotfile config/skhd ~/.config/skhd
-brew services start skhd
 }
 
 
@@ -105,6 +106,9 @@ function install_sketchybar() {
   brew install sketchybar
   brew services start sketchybar
 
+
+  # install sketchybar-config
+  npm install -g zx # required as a dependancy
   # https://github.com/FallenMax/sketchybar-config
   # the configuration/logic of the bar needs to be built from scratch, as its made in typescript
   git clone https://github.com/FallenMax/sketchybar-config ~/.apps/sketchybar-config
@@ -115,9 +119,23 @@ function install_sketchybar() {
   symlink_dotfile config/sketchybar/sketchybarrc ~/.config/sketchybar/sketchybarrc
 
 
+
+
 # 
 brew install flock
 
+}
+
+function install_kmonad() {
+ # https://github.com/kmonad/kmonad/issues/334#issuecomment-1000106276
+ brew_install haskell-stack
+
+ # this was all that was needed
+ git clone --recursive https://github.com/kmonad/kmonad ~/.apps/kmonad
+ cd ~/.apps/kmonad
+open c_src/mac/Karabiner-DriverKit-VirtualHIDDevice/dist/Karabiner-DriverKit-VirtualHIDDevice-1.15.0.pkg
+/Applications/.Karabiner-VirtualHIDDevice-Manager.app/Contents/MacOS/Karabiner-VirtualHIDDevice-Manager activate
+stack --system-ghc --compiler ghc-8.10.7 install --flag kmonad:dext --extra-include-dirs=c_src/mac/Karabiner-DriverKit-VirtualHIDDevice/include/pqrs/karabiner/driverkit:c_src/mac/Karabiner-DriverKit-VirtualHIDDevice/src/Client/vendor/include
 }
 
 function configure_scripting_addition() {

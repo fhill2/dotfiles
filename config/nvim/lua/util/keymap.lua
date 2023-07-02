@@ -4,13 +4,13 @@ local M = {}
 local map = function(mode, key, cmd, opts, defaults)
 	opts = vim.tbl_deep_extend("force", { silent = true }, defaults or {}, opts or {})
 
-	if opts.buffer ~= nil then
-		local buffer = opts.buffer
-		opts.buffer = nil
-		return vim.api.nvim_buf_set_keymap(buffer, mode, key, cmd, opts)
-	else
+	-- if opts.buffer ~= nil then
+	-- 	local buffer = opts.buffer
+	-- 	opts.buffer = nil
+	-- 	return vim.api.nvim_buf_set_keymap(buffer, mode, key, cmd, opts)
+	-- else
 		return vim.api.nvim_set_keymap(mode, key, cmd, opts)
-	end
+	-- end
 end
 
 function M.map(mode, key, cmd, opt, defaults)
@@ -54,12 +54,17 @@ end
 function M.snoremap(key, cmd, opts)
 	return map("s", key, cmd, opts, { noremap = true })
 end
+function M.tnoremap(key, cmd, opts)
+  return map("t", key, cmd, opts, { noremap = true })
+end
 function M.cnoremap(key, cmd, opts)
 	return map("c", key, cmd, opts, { noremap = true })
 end
 function M.noremap(key, cmd, opts)
 	return map("", key, cmd, opts, { noremap = true })
 end
+
+
 
 function M.allremap(key, cmd, opts)
 	map("", key, cmd, opts, { noremap = true })

@@ -7,12 +7,13 @@
         {
           "from": {
             "key_code": "caps_lock",
-            "modifiers": {}
           },
           "to": [
             {
               "key_code": "left_control",
-              "modifiers": {}
+              "modifiers": [
+                "left_control"
+              ]
             }
           ],
           "to_if_alone": [

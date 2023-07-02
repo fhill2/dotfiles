@@ -80,6 +80,7 @@ dotfiles/osx:
   - gokulkrishh/dotfiles
   - metakirby5/.dots
   - Drapegnik/env
+  - koekeishiya/dotfiles
 
 # script collections
 dotfiles/scripts:
@@ -137,6 +138,7 @@ python:
   - qtile/qtile
   - saghul/pyuv
   - python/cpython
+  - microsoft/pyright
 
 python/evdev:
   # https//gist.github.com/t184256/f4994037a2a204774ef3b9a2b38736dc:
@@ -326,7 +328,7 @@ dev/js/libraries:
   - sweetalert2/sweetalert2
   - scaron/prettyphoto
   - mobxjs/mobx
-  - atomiks/tippyjs
+  - atomiks/tippyjs # tooltip, popover, dropdown, menu library
   - floating-ui/floating-ui
   - highlightjs/highlight.js
   - brix/crypto-js

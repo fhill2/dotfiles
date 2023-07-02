@@ -67,6 +67,10 @@ local space_keymaps = {
     -- ["f"] = { '<cmd>lua require("plugin.telescope.wrap").ff_files()<cr>', "Telescope - files - cwd" },
     ["d"] = { '<cmd>lua require("plugin.telescope.wrap").fb_dot()<cr>', "Telescope fb - dotfiles" },
     ["f"] = { '<cmd>lua require("plugin.telescope.wrap").fb_cwd()<cr>', "Telescope fb  - cwd" },
+    ["g"] = {
+      '<cmd>lua require("plugin.telescope.wrap").fb_cwd({respect_gitignore=false})<cr>',
+      "Telescope fb  - cwd with gitignore files",
+    },
     ["v"] = { '<cmd>lua require("plugin.telescope.wrap").fb_dev()<cr>', "Telescope fb - dev" },
     ["h"] = { '<cmd>lua require("plugin.telescope.wrap").fb_home()<cr>', "Telescope fb - home" },
     ["n"] = { '<cmd>lua require("plugin.telescope.wrap").fb_notes()<cr>', "Telescope fb - notes" },
@@ -84,12 +88,18 @@ local space_keymaps = {
   -- h = { "<cmd>Telescope help_tags<cr>", "telescope - help tags" },
   h = {
     name = "+harpoon",
-    { "<cmd>lua require('harpoon.ui').toggle_quick_menu()", "harpoon - toggle quick menu" },
+    ["g"] = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", "harpoon - toggle quick menu" },
+    ["h"] = { "<cmd>lua require('harpoon.ui').add_file()<cr>", "harpoon - add file" },
+    ["["] = { "<cmd>lua require('harpoon.ui').nav_prev()<cr>", "harpoon - nav prev" },
+    ["]"] = { "<cmd>lua require('harpoon.ui').nav_next()<cr>", "harpoon - nav next" },
   },
-  ["1"] = { "<cmd>lua require('harpoon.ui').nav_file(1)", "harpoon - nav file 1" },
-  ["2"] = { "<cmd>lua require('harpoon.ui').nav_file(2)", "harpoon - nav file 2" },
-  ["3"] = { "<cmd>lua require('harpoon.ui').nav_file(3)", "harpoon - nav file 3" },
-  ["4"] = { "<cmd>lua require('harpoon.ui').nav_file(4)", "harpoon - nav file 4" },
+  ["1"] = { "<cmd>lua require('harpoon.ui').nav_file(1)<cr>", "harpoon - nav file 1" },
+  ["2"] = { "<cmd>lua require('harpoon.ui').nav_file(2)<cr>", "harpoon - nav file 2" },
+  ["3"] = { "<cmd>lua require('harpoon.ui').nav_file(3)<cr>", "harpoon - nav file 3" },
+  ["4"] = { "<cmd>lua require('harpoon.ui').nav_file(4)<cr>", "harpoon - nav file 4" },
+  ["["] = { "<cmd>lua require('harpoon.ui').nav_prev()<cr>", "harpoon - nav prev" },
+  ["]"] = { "<cmd>lua require('harpoon.ui').nav_next()<cr>", "harpoon - nav next" },
+
   l = {
     name = "+legendary",
     ["k"] = {
@@ -181,6 +191,16 @@ wk.register(space_keymaps, { prefix = "<space>" })
 -- This errors legendary.nvim
 -- require("legendary").bind_whichkey(normal_keymaps, { prefix = "<space>" }, false)
 
+leader_keymaps = {
+  ["1"] = { "<cmd>lua require('harpoon.term').gotoTerminal(1)<cr>", "harpoon - go to Terminal 1" },
+  ["2"] = { "<cmd>lua require('harpoon.term').gotoTerminal(2)<cr>", "harpoon - go to Terminal 2" },
+  ["3"] = { "<cmd>lua require('harpoon.term').gotoTerminal(3)<cr>", "harpoon - go to Terminal 3" },
+  ["4"] = { "<cmd>lua require('harpoon.term').gotoTerminal(4)<cr>", "harpoon - go to Terminal 4" },
+  ["["] = { "<cmd>lua require('harpoon.term').gotoTerminal(1)<cr>", "harpoon - go to Terminal 1" },
+  ["]"] = { "<cmd>lua require('harpoon.term').gotoTerminal(2)<cr>", "harpoon - go to Terminal 1" },
+}
+wk.register(leader_keymaps, { prefix = "<leader>" })
+
 -- visual mode mappings
 local visual_keymaps = {
   o = {
@@ -237,10 +257,6 @@ local a = require("util/keymap")
 -- as tab is autocomplete, set normal tab as S-Tab
 a.inoremap("<S-Tab>", "<Tab>")
 
--- a.nnoremap("")
-
--- a.allremap("<C-Space>", [[<cmd>luafile %<cr>]])
-
 local opts = { noremap = true } -- silent = true
 -- vim.keymap.set("n", "<C-Space>", telescope_actions.close_picker, {})
 -- vim.keymap.set("i", "<C-Space>", telescope_actions.close_picker, {})
@@ -284,6 +300,9 @@ a.cnoremap("<C-l>", "<Right>")
 a.nnoremap("<C-]>", ":bnext<CR>")
 a.nnoremap("<C-[>", ":bprevious<CR>")
 a.nnoremap("<Leader>qw", ":bdelete<CR>")
+
+-- exit terminal with C-Space
+a.tnoremap("<C-Space>", "<C-\\><C-n>")
 
 -- :h dap-mappings
 vim.cmd([[nnoremap <silent> <F5> <Cmd>lua require'dap'.continue()<CR>]])

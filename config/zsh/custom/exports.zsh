@@ -26,6 +26,11 @@ export FZF_DEFAULT_COMMAND='fd --type f --exclude .git --follow --hidden'
 # Editor
 export EDITOR=nvim
 
+
+
+# current_time=$(date +"%Y-%m-%d %H:%M:%S")
+# echo "$current_time zsh sourced" >> /Users/f1/tmp/logs/zshenv.log
+
 # aliases less -> lesspipe which allows less pager to show contents of a lot of extra files, such as .pdf, .docx etc
 # export LESSOPEN="|lesspipe.sh %s"
 # export LESSQUIET=1
@@ -43,6 +48,10 @@ export PATH="$HOME/.yarn/bin:$PATH"
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 
 
+
+# distant.nvim plugin auto installs distant binary to ~/.local/share/nvim/distant.nvim/bin
+# + there is no homebrew package
+export PATH="$HOME/.local/share/nvim/distant.nvim/bin:$PATH"
 
 
 
@@ -96,9 +105,4 @@ OPENAI_KEY=$(pass ls openai/api)
 export AICHAT_API_KEY="$OPENAI_KEY" # aichat rust TUI
 export OPENAI_API_KEY="$OPENAI_KEY" # chatGPT.nvim
 
-
-# export PATH="$HOME/dev/app/trading/nautilus_trader:$HOME/dev/trading/pytower:$PATH"
-export PYTHONPATH="$HOME/dev/app/trading/nautilus_trader:$HOME/dev/trading/pytower:$PYTHONPATH"
-
-# pytower - trading
 

@@ -60,14 +60,17 @@ function wrap.fb_dot()
   })
 end
 
-function wrap.fb_cwd()
+function wrap.fb_cwd(opts)
   local path = _G.telescope_fb_repo_resolver(function()
     return _G.fb_current_dir
   end)
-  fb({
+
+  local default_opts = {
     path = path,
     file_ignore_patterns = ignore_patterns,
-  })
+  }
+
+  fb(vim.tbl_deep_extend("force", default_opts, opts or {}))
 end
 
 function wrap.fb_dev()

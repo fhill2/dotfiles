@@ -94,10 +94,12 @@ setopt extended_glob
 
 # =========== Custom settings ================
 
-for file in $HOME/.zsh/custom/**/*.zsh
-do
-  source $file
-done
+# for file in $HOME/.zsh/custom/**/*.zsh
+# do
+  # source $file
+# done
+
+source $HOME/.zsh/custom/aliases.zsh
 
 # source $HOME/.zsh/themes/original.zsh
 
@@ -190,3 +192,5 @@ done
 # zle -N f_tw
 #bindkey '^m' tw
 source /Users/f1/.config/broot/launcher/bash/br
+
+

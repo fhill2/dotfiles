@@ -201,7 +201,6 @@ brew_tap_install "yulrizka/tap"
 brew_install 'poetry'
 brew_install 'pre-commit'
 brew_install 'ta-lib'
-brew_cask_install 'tailscale'
 
 # https://github.com/nana-4/materia-theme
   # trying out a material theme, instead of material base64 theme
@@ -236,10 +235,15 @@ linux_install "samba"
  install_package "bitwarden" # electron bitwarden GUI - CLI installed via npm
   "pet"
 
-
+brew_install showkey
+brew_install yarn
 
 # a secrets workflow:
 # gnupg -> installed via package manager
 # gpg private key -> stored in bw, unsynced
 # password store -> synced privately using syncthing
 install_package gnupug
+
+
+brew_cask_install 'tailscale'
+brew_instal 'tailscale' # for tailscale debugging

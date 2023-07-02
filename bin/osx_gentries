@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# shows osx_gentries (osx global commands) in the format for the dropdown
+# dropdowns: termina fzf, choose-gui, alfred
+
+show_fzf() {
+  osx_gentries="$HOME/dot/bin/osx_gentries.py"
+  chosen=$(python "$osx_gentries" get_entries | fzf)
+  index="${chosen%% *}"
+  cmd=$(python "$osx_gentries" $index)
+  # echo "$cmd"
+
+  # source aliases so I can use my own shell aliases/functions in the fzf menu
+  source "$HOME/.zsh/custom/aliases.zsh"
+
+  eval "$cmd"
+}
+
+show_fzf

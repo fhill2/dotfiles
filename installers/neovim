@@ -58,7 +58,12 @@ function install_neovim() {
 	# symlink_absolute_dotfile ~/dot/snippets ~/.local/share/nvim/site/pack/packer/start/my_snippets
 }
 
-
+function install_distant() {
+  # https://github.com/chipsenkbeil/distant
+  cargo install distant
+  distant manager service install --user
+  distant manager service start
+}
 
 
 

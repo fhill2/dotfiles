@@ -1,0 +1,42 @@
+#!/bin/sh
+
+
+# OLD SH VERSION
+
+# always opens a new os window for the specific app
+# alfred triggers this from app chooser
+# also, hyper+n / hyper+enter triggers this from hammerspoon
+
+# $1 -> type: alfred|hammerspoon
+#    -> alfred = path is absolute to the application
+#    -> hammerspoon = find current window
+
+# terminal-notifier -message "OPEN ALWAYS"
+
+
+
+# open_always() {
+  # when adding new entries, make sure the conditional values align with the output of open_cwin osascript
+# /opt/homebrew/bin/terminal-notifier -message "OPEN_ALWAYS: $1"
+if [ "$1" = "Google Chrome" ]; then
+  /usr/bin/osascript -e 'tell application "Google Chrome" to make new window'
+elif [ "$1" = "kitty" ]; then
+  /usr/bin/nohup /opt/homebrew/bin/kitty --single-instance --working-directory ~ &
+fi
+# }
+
+# open_cwin() {
+#   appName=$(osascript -e 'tell application "System Events" to get name of application processes whose frontmost is true')
+#   open_always "$appName"
+# }
+#
+# terminal-notifier -message "$1 $2"
+#
+# if [ "$1" = "alfred" ]; then
+#   open_alfred "$2"
+# elif [ "$1" = "current_window" ]; then
+#   open_cwin "$2"
+# elif [ "$1" = "app" ]; then
+# # used from hammerspoon to open specific apps
+# open_always "$2"
+# fi

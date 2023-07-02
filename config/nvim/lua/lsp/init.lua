@@ -54,11 +54,6 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-servers["pyright"]["on_init"] = function(client)
-  --client.config.settings.python.pythonPath = "/usr/bin/python"
-  client.config.settings.python.pythonPath = require("lsp.servers.pyright").get_python_path(client.config.root_dir)
-end
-
 -- servers["pyright"]["flags"] = { allow_incremental_sync = true, debounce_text_changes = 500 }
 
 -- Setup all listed servers

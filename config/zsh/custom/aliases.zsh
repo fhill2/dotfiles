@@ -8,6 +8,9 @@ alias alsa-info='alsa-info.sh'
 alias less='less -r'
 alias l='ls -al'
 
+alias t2='sshpass -p '.' ssh -t g1@100.100.132.113 powershell'
+alias t2c='code -n --folder-uri=vscode-remote://ssh-remote+f1@100.100.132.113/Users/f1/git'
+
 
 get_identifier() {
 codesign -dv --verbose=4 "$1" | grep Identifier
@@ -24,7 +27,13 @@ autoscript() {
 }
 
 # https://serverfault.com/questions/77162/how-to-get-pgrep-to-display-full-process-info
-function pgrep() { /usr/bin/pgrep "$@" | xargs --no-run-if-empty ps fp; }
+function ppgrep() { /usr/bin/pgrep "$@" | xargs --no-run-if-empty ps fp; }
+
+
+plist_restart() {
+  PLIST="$HOME/Library/LaunchAgents/$1.plist"
+  launchctl unload "$PLIST" && launchctl load "$PLIST" && echo "$1.plist service restarted..."
+}
 
 
 
@@ -62,7 +71,7 @@ ghcb() {
   git clone --bare git@github.com:$1
 }
 
-ghc() {
+ghclone() {
   # clones by ssl link, which automatically sets remote origin to an ssl link
   # if first arg is actually a url, extract repo username from url
   if [[ $1 == http* ]]; then

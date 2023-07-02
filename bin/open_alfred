@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+
+# always opens a new os window for the specific app
+
+# /opt/homebrew/bin/terminal-notifier -message "OPEN ALFRED: $1"
+# terminal-notifier -message "$1"
+
+if [ "$1" = "/System/Volumes/Data/Applications/Google Chrome.app" ]; then
+       "$HOME/.local/bin/open_always" "Google Chrome"
+elif [ "$1" = "/System/Volumes/Data/Applications/kitty.app" ]; then
+        "$HOME/.local/bin/open_always" "kitty"
+else
+  /usr/bin/open "$1"
+fi

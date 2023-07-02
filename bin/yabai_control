@@ -1,0 +1,172 @@
+#!/usr/bin/env python
+
+import argparse
+import subprocess
+from contextlib import contextmanager
+from pathlib import Path
+import shlex
+import json
+import sys
+
+
+@contextmanager
+def singleton_lock():
+    lock = Path("/tmp/yabaictl.lock")
+
+    if lock.exists():
+        sys.exit(1)
+
+    lock.write_bytes(b"")
+    try:
+        yield
+    finally:
+        lock.unlink()
+
+
+def shlex_split(command):
+    """Split a command string into a list of arguments."""
+    lexer = shlex.shlex(command)
+    lexer.whitespace = " "
+    return list(lexer)
+
+
+# def yabai_message(msg):
+#     ret = subprocess.run(shlex.split(msg), capture_output=True)
+#     print(ret.returncode)
+#     if ret.returncode == 0:
+#         err_msg = ret.stderr.decode().strip()
+#         if err_msg:
+#             print(f"While running {msg} we received error: {err_msg}\n")
+#     return ret.stdout.decode()
+
+
+# def run_command(args):
+#     """Run a command and return the return code."""
+#     try:
+#         result = subprocess.run(["yabai", "-m", *args], capture_output=True, text=True)
+#     except subprocess.CalledProcessError as e:
+#         return False
+#     else:
+#         return result.stdout
+
+
+def run_command(msg):
+    """either returns true or false - used when no output is necessary. as swap_window was not handling conditional checks properly"""
+    # ret = subprocess.run(["yabai", "-m", *msg], capture_output=True)
+    ret = subprocess.run(msg, shell=True)
+    print(ret.returncode)
+
+    if ret.returncode == 1:
+        err_msg = ret.stderr.decode().strip()
+        print(f"While running {msg} we received error: {err_msg}\n")
+        return False
+
+    return True
+
+
+def yabai_query(msg):
+    ret = subprocess.run(msg, shell=True, capture_output=True)
+    if ret.returncode == 1:
+        raise ValueError(f"FAILED: command: {msg}, msg: {ret.stdout.decode('utf-8')}")
+    return json.loads(ret.stdout)
+
+
+# ========== SWAP WINDOW ========
+# to achieve i3 like behaviour when swapping
+# currently if a window is inserted into a stack in yabai, the window cannot be removed from the stack
+
+# source:
+# https://github.com/koekeishiya/yabai/issues/1758
+# https://github.com/koekeishiya/yabai/issues/708
+
+
+class YabaiControl:
+    def move_window(self, dir, into):
+        try:
+            # if a window does not exist in the direction given
+            dir_window = yabai_query(f"yabai -m query --windows --window {dir}")
+            cwin = yabai_query(f"yabai -m query --windows --window")
+        except ValueError as e:
+            print(e)
+        else:
+            # check if this window is a stack
+            dir_window_stacked = dir_window["stack-index"] > 0
+            cwin_stacked = cwin["stack-index"] > 0
+
+            if into and cwin_stacked and dir_window_stacked:
+                # this moves windows between stacks
+                run_command(f"yabai -m window {dir_window['id']} --insert stack")
+                # swap does not work here. swap will swap the 2 stacks
+                run_command(f"yabai -m window --warp {dir}")
+                return
+
+            if cwin_stacked and not dir_window_stacked:
+                # this moves a window out of a stack and creates a new root window
+                # this will always create a top level, and will not move the current window into a stack if one exists in the given direction
+
+                # why not --warp $dir here?
+                # if --warp is used on window that exists in a stack, if a stack exists in the given $dir, the given $dir stack is split.
+                # this creates a new root window between both elements
+                run_command(f"yabai -m window --insert {dir}")
+                run_command(f"yabai -m window {cwin['id']} --toggle float")
+                run_command(f"yabai -m window {cwin['id']} --toggle float")
+                return
+
+            if into and dir_window_stacked:
+                # if the current win is not stacked, swap it if i
+                # move the current window into the stack (into=True)
+                run_command(f"yabai -m window {dir} --stack {cwin['id']}")
+                return
+
+            # swap the window with the stack
+            run_command(f"yabai -m window --warp {dir}")
+
+
+            # if not in_stack:
+            # if dir_window_stacked:
+            #
+            #     # move the window out of the stack
+            # else:
+            #     # if the window in the given direction is not stacked
+            #     print(cwin)
+            #
+
+
+def add_subcommand(sub, func, subcommand_name, subcommand_args=[]):
+    parser = sub.add_parser(subcommand_name)
+    parser.set_defaults(func=func)
+    for arg in subcommand_args:
+        parser.add_argument(arg)
+
+
+def parse_args(yabai_control):
+    parser = argparse.ArgumentParser()
+    sub = parser.add_subparsers()
+    # add_subcommand(sub, yabai_control.swap_window, "swap_window", ["dir", "into"])
+
+    move_window_parser = sub.add_parser("move_window")
+    move_window_parser.set_defaults(func=yabai_control.move_window)
+    move_window_parser.add_argument("dir")
+    move_window_parser.add_argument("--into", default=False, action="store_true")
+    args = vars(parser.parse_args())
+    return args.pop("func"), args
+
+
+if __name__ == "__main__":
+    with singleton_lock():
+        yabai_control = YabaiControl()
+        func, args = parse_args(yabai_control)
+        func(**args)
+
+
+# window=$(yabai -m query --windows --window | jq -r '.id')
+
+# Stack this window onto existing stack if possible
+# yabai -m window $dir --stack $window
+# if [[ $? -ne 0 ]]; then
+# otherwise, float and un-float this window to reinsert it into
+# the bsp tree as a new window
+#   yabai -m window --insert $dir
+#   yabai -m window $window --toggle float
+#   yabai -m window $window --toggle float
+# fi

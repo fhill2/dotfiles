@@ -1,16 +1,26 @@
 require("legendary").setup({
-  include_builtin = false,
+  include_builtin = true,
   keymaps = {
-    { "<leader>c", _G.paste_code_with_md_code_block, description = "discord copy", mode = { "v" } },
+    {
+      "<leader>c",
+      _G.paste_code_with_md_code_block,
+      description = "discord copy",
+      mode = { "v" },
+    },
     -- your keymap tables here
   },
   -- Initial commands to bind
   commands = {
-    { ":FOldTest", require("util.old").test, description = "old - dry run - print output paths" },
-    { ":FOldWhole", require("util.old").send_whole, description = "old - send whole file" },
-    { ":FOldOpenWindow", require("util.old").open_window, description = "old - open window" },
-    { ":FWriteSudo", _G.write_sudo, description = "write sudo" },
-    { ":FParserUnlock", require("util.run.init").unlock_parser, description = "run - unlock parser" },
+  { ":LspAutoFormatToggle", description = "Toggle Lsp Auto Formatting" },
+    {
+      ":FOldTest",
+      require("util.old").test,
+      description = "old - dry run - print output paths",
+    },
+    { ":FOldWhole",      require("util.old").send_whole,         description = "old - send whole file" },
+    { ":FOldOpenWindow", require("util.old").open_window,        description = "old - open window" },
+    { ":FWriteSudo",     _G.write_sudo,                          description = "write sudo" },
+    { ":FParserUnlock",  require("util.run.init").unlock_parser, description = "run - unlock parser" },
     {
       ":FParserLock",
       require("util.run.init").lock_parser,
@@ -18,9 +28,17 @@ require("legendary").setup({
       { "default" },
     },
     { ":FSnipRunReplToggle", require("plugin.sniprun.repl").toggle, description = "sniprun REPL toggle" },
-    { ":FformatGithubReposDotbot", _G.format_github_repos_dotbot, description = "dotbot - format github repos" },
-    { ":FReload", ":source $MYVIMRC", description = "resource reload nvim config" },
-    { ":FLspLinesToggle", require("lsp_lines").toggle, description = "lsp_lines - toggle" },
+    {
+      ":FformatGithubReposDotbot",
+      _G.format_github_repos_dotbot,
+      description = "dotbot - format github repos",
+    },
+    {
+      ":FReload",
+      ":source $MYVIMRC",
+      description = "resource reload nvim config",
+    },
+    { ":FLspLinesToggle",    require("lsp_lines").toggle,           description = "lsp_lines - toggle" },
     {
       ":SnippyListPaths",
       function()

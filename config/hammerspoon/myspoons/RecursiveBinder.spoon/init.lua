@@ -1,5 +1,49 @@
 --- === RecursiveBinder ===
 
+
+
+-- CONFIG I WAS USING:
+-- local singleKey = RecursiveBinder.singleKey
+-- RecursiveBinder.keymaps = {
+--   [singleKey("q", "yabai - focus ws 1")] = function()
+--     -- yabai({ "-m", "space", "--focus", "1" })
+--     execTaskInShellAsync("yabai -m space --focus 1")
+--   end,
+--   [singleKey("w", "yabai - focus ws 2")] = function()
+--     -- yabai({ "-m", "space", "--focus", "2" })
+--     execTaskInShellAsync("yabai -m space --focus 2")
+--   end,
+--   [singleKey("e", "yabai - focus ws 3")] = function()
+--     -- yabai({ "-m", "space", "--focus", "3" })
+--     execTaskInShellAsync("yabai -m space --focus 3")
+--   end,
+--   [singleKey("r", "yabai - focus ws 4")] = function()
+--     -- yabai({ "-m", "space", "--focus", "4" })
+--     execTaskInShellAsync("yabai -m space --focus 4")
+--   end,
+--   [singleKey("space", "yabai - toggle float")] = function()
+--     -- yabai({ "-m", "window", "--toggle", "float" })
+--     execTaskInShellAsync("yabai -m space --focus 1")
+--   end,
+--   [singleKey("delete", "browser")] = function()
+--     hs.application.launchOrFocus("Firefox")
+--   end,
+--   [singleKey("t", "terminal")] = function()
+--     hs.application.launchOrFocus("Terminal")
+--   end,
+--   [singleKey("d", "domain+")] = {
+--     [singleKey("g", "github")] = function()
+--       hs.urlevent.openURL("https://github.com")
+--     end,
+--     [singleKey("y", "youtube")] = function()
+--       hs.urlevent.openURL("https://youtube.com")
+--     end,
+--   },
+-- }
+
+--- THIS does not work reliably...
+
+
 ---
 ---
 --- A spoon that let you bind sequential bindings.
@@ -241,33 +285,36 @@ end
 ---    And the table have the same format of top table: keys to keys, value to table or function
 
 -- the actual binding function
-function obj.recursiveBind(keymap)
+function obj.recursiveBind(keymap, initial)
   if type(keymap) == "function" then
     -- in this case "keymap" is actuall a function
     return keymap
   end
-  local modal = hs.hotkey.modal.new()
+  print("RECURSE BIND CALLED")
+  obj.modal = hs.hotkey.modal.new()
   local keyFuncNameTable = {}
   for key, map in pairs(keymap) do
     local func = obj.recursiveBind(map)
     -- key[1] is modifiers, i.e. {'shift'}, key[2] is key, i.e. 'f'
-    modal:bind(key[1], key[2], function()
-      modal:exit()
+    obj.modal:bind(key[1], key[2], function()
+      obj.modal:exit()
       obj.killHelper()
+      print("--- TRIGERRING FUNC", func)
       func()
     end)
-    modal:bind(obj.escapeKey[1], obj.escapeKey[2], function()
-      modal:exit()
+    obj.modal:bind(obj.escapeKey[1], obj.escapeKey[2], function()
+      obj.modal:exit()
       obj.killHelper()
     end)
     if #key >= 3 then
       keyFuncNameTable[createKeyName(key)] = key[3]
     end
   end
+  obj.keyFuncNameTable = keyFuncNameTable
   return function()
-    modal:enter()
+    obj.modal:enter()
     obj.killHelper()
-    if obj.showBindHelper then
+    if not initial then
       obj.showHelper(keyFuncNameTable)
     end
   end
@@ -275,7 +322,7 @@ end
 
 -- UTILS from dbalatero, combining recursivebinder with hyperkey.spoon
 -- https://github.com/dbalatero/HyperKey.spoon/blob/master/init.lua
-local function onHyperHold(keycode, timeoutMs, onHold, onRelease)
+local function onHyperHold(keycode, timeoutMs, onPress, onHold, onRelease)
   local state = {
     held = false,
     holdTimer = nil,
@@ -301,6 +348,7 @@ local function onHyperHold(keycode, timeoutMs, onHold, onRelease)
     local hyper_was_last_key = event_keycode == state.lastKey
     state.lastKey = event_keycode
     if key_is_hyper and not hyper_was_last_key then
+      onPress()
       state.holdTimer = hs.timer.doAfter(timeoutMs / 1000, function()
         state.held = true
         onHold()
@@ -327,14 +375,23 @@ local function onHyperHold(keycode, timeoutMs, onHold, onRelease)
 end
 
 function obj:init()
+  local onPress = function()
+    print("onPress")
+    -- activate shortcuts, do not display menu
+    obj.recursiveBind(obj.keymaps, true)()
+  end
+
   local onHold = function()
-    obj.recursiveBind(obj.keymaps)()
+    print("onHold")
+    obj.showHelper(obj.keyFuncNameTable)
   end
 
   local onRelease = function()
+    print("onRelease")
+    obj.modal:exit()
     obj.killHelper()
   end
-  onHyperHold(79, 1000, onHold, onRelease) -- 79 = f18
+  onHyperHold(79, 1000, onPress, onHold, onRelease) -- 79 = f18
 end
 
 return obj
