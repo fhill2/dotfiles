@@ -9,7 +9,7 @@ local my_actions = require("plugin.telescope.actions")
 -- local action_state = require "telescope.actions.state"
 local wrap = {}
 
--- why? I can't find a way to for telescope-file-browser extension only
+-- why? I can't find a way for telescope-file-browser extension only
 -- _TelescopeFileBrowserConfig = require "telescope".extensions.file_browser.config.values
 -- _TelescopeFileBrowserConfig = require "telescope._extensions.file_browser.config".values
 --
@@ -29,7 +29,7 @@ local wrap = {}
 -- grouped=true
 -- both are false by default so plenary.scandir is not used by default
 
-local ignore_patterns = { "/.git/" }
+local ignore_patterns = { "/.git/", "/Z/" } -- ignore Z eg pytower
 
 local fb = function(opts)
   require("telescope").extensions.file_browser.file_browser(opts)

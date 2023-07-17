@@ -10,8 +10,13 @@ local my_actions = require("plugin.telescope.actions")
 -- local lga_actions = require("telescope-live-grep-args.actions")
 local conf = require("telescope.config").values
 
--- live-grep-args and anything relying on ripgrep should follow symlinked directories to find results
+-- this affects live_grep, and live_grep_args.nvim extension
 table.insert(conf.vimgrep_arguments, "-L")
+-- ripgrep globs are matched against the start of the path, not a part of the path, therefore nested directories still shoe files
+-- excludes files from the search if they are inside a directory named Z (for pytower). The Z folder can be at any folder depth.
+-- NOTE: a .ignore file in the cwd also works like .gitignore.
+-- table.insert(conf.vimgrep_arguments, "--glob")
+-- table.insert(conf.vimgrep_arguments, "!**/Z/**")
 
 _G.current_editor_win = 1000
 _G.telescope_get_current_editor_win = function()
@@ -59,7 +64,7 @@ local telescope_mappings = {
     ["<C-.>"] = my_actions.close_or_resume,
     -- ["<C-c>"] = actions.close,
     -- ["<C-c>"] = function()
-      -- vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc><C-c>", true, false, true), "i", false)
+    -- vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc><C-c>", true, false, true), "i", false)
     -- end,
   },
   n = {
@@ -180,10 +185,13 @@ local extensions = {
 require("telescope").setup({
   defaults = defaults,
   extensions = extensions,
-  -- pickers = {
-  --   find_files = {
-  --   },
-  -- }
+  pickers = {
+    -- this was not working, instead add .rgignore or .ignore inside th e git repo
+    -- https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md
+    -- live_grep = {
+    -- glob_pattern = { "!/Z/*" },
+    -- },
+  },
 })
 
 telescope.load_extension("fzy_native")

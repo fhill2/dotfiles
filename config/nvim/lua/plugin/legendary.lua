@@ -12,6 +12,7 @@ require("legendary").setup({
   -- Initial commands to bind
   commands = {
   { ":LspAutoFormatToggle", description = "Toggle Lsp Auto Formatting" },
+  { ":NullLsInfo", description = "View Null-Ls LSP Info - currently used formatter" },
     {
       ":FOldTest",
       require("util.old").test,

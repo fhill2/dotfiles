@@ -129,6 +129,8 @@ local space_keymaps = {
   q = {
     name = "+qf",
     ["q"] = { [[<cmd>:copen<cr>]], "open qf" },
+    ["["] = { [[<cmd>:cprev<cr>]], "qf prev" },
+    ["]"] = { [[<cmd>:cnext<cr>]], "qf next" },
     ["w"] = { [[<cmd>call asyncrun#quickfix_toggle(8)<cr>]], "toggle quickfix list unfocused" },
   },
   r = {
@@ -149,11 +151,11 @@ local space_keymaps = {
   },
   s = {
     name = "+search",
-    ["s"] = {
+    ["d"] = {
       "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",
       "Telescope live_grep_args",
     },
-    ["d"] = { "<cmd>Telescope live_grep<cr>", "telescope Live_Grep cwd interactive" },
+    ["s"] = { "<cmd>Telescope live_grep<cr>", "telescope Live_Grep cwd interactive" },
     ["b"] = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Buffer" },
     ["h"] = { "<cmd>Telescope command_history<cr>", "Command History" },
     ["m"] = { "<cmd>Telescope marks<cr>", "Jump to Mark" },

@@ -59,7 +59,11 @@ setups = {
     "office-main-room-spectre": [
         "A53FE4E5-CAF6-5131-0857-D6964E3302DB", # left
         "37D8832A-2D66-02CA-B9F7-8F30A301B230" # right
-    ]
+    ],
+    "georges": [
+        "DDFAD54E-7191-1F39-0857-D6964E3302DB",
+        "37D8832A-2D66-02CA-B9F7-8F30A301B230"
+        ]
     # "laptop": [
     #     "37D8832A-2D66-02CA-B9F7-8F30A301B230",
     # ],

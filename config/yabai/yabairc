@@ -1,14 +1,5 @@
 #!/usr/bin/env sh
 
-
-
-# FOR DEBUGGING LAUNCHD
-# echo "PATH IS: "
-# echo "$PATH"
-# echo "ENV IS: "
-# env
-
-
 current_date_and_time=$(date)
 echo "========== $current_date_and_time: YABAIRC STARTUP ========="
 
@@ -22,40 +13,6 @@ if [ -f "/private/etc/sudoers.d/yabai" ]; then
   yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
   sudo yabai --load-sa
 fi
-
-
-# Yabai does not clear empty spaces by default when logging in and out
-
-# https://d12frosted.io/posts/2022-04-23-yabai-spaces.html
-# function setup_space {
-#   local idx="$1"
-#   local name="$2"
-#   local space=
-#   echo "setup space $idx : $name"
-#
-#   space=$(yabai -m query --spaces --space "$idx")
-#   if [ -z "$space" ]; then
-#     yabai -m space --create
-#   fi
-#
-#   yabai -m space "$idx" --label "$name"
-# }
-#
-# setup_space 1 "one"
-# setup_space 2 "two"
-# setup_space 3 "three"
-# setup_space 4 "four"
-# setup_space 5 "five"
-# setup_space 6 "six"
-
-# yabai -m space --create 1 --display 1 --label "one"
-# yabai -m space --create 2 --display 2 --label "two"
-# yabai -m space --create 3 --display 1 --label "three"
-# yabai -m space --create 4 --display 2 --label "four"
-# yabai -m space --create 5 --display 1 --label "five"
-# yabai -m space --create 6 --display 2 --label "six"
-# yabai -m space --create 7 --display 1 --label "seven"
-# yabai -m space --create 8 --display 2 --label "eight"
 
 
 # window_origin_display
@@ -103,49 +60,49 @@ echo "yabai configuration loaded.."
 
 # https://github.com/FallenMax/sketchybar-config/blob/main/.yabairc
 # https://github.com/koekeishiya/yabai/blob/master/doc/yabai.asciidoc#signal
-EVENTS_FOR_BAR=(
-  # application_launched
-  # application_terminated
-  # application_front_switched
-  # application_activated
-  # application_deactivated
-  application_visible
-  application_hidden
-  window_created
-  window_destroyed
-  # window_focused
-  # window_moved
-  # window_resized
-  window_minimized
-  window_deminimized
-  window_title_changed
-  space_changed
-  display_added
-  display_removed
-  # display_moved
-  # display_resized
-  # display_changed
-  # mission_control_enter
-  # mission_control_exit
-  # dock_did_restart
-  # menu_bar_hidden_changed
-  # dock_did_change_pref
-)
+# EVENTS_FOR_BAR=(
+#   # application_launched
+#   # application_terminated
+#   # application_front_switched
+#   # application_activated
+#   # application_deactivated
+#   application_visible
+#   application_hidden
+#   window_created
+#   window_destroyed
+#   # window_focused
+#   # window_moved
+#   # window_resized
+#   window_minimized
+#   window_deminimized
+#   window_title_changed
+#   space_changed
+#   display_added
+#   display_removed
+#   # display_moved
+#   # display_resized
+#   # display_changed
+#   # mission_control_enter
+#   # mission_control_exit
+#   # dock_did_restart
+#   # menu_bar_hidden_changed
+#   # dock_did_change_pref
+# )
 
 # require flock: https://github.com/discoteq/flock
-
-for event in "${EVENTS_FOR_BAR[@]}"; do
-  echo "registering $event for update_sketchybar"
-
-  # patch $PATH so zx/node can be located by yabai
-  # add echo 'event:' §event && -> start of command for debugging
-  yabai -m signal --add \
-    event="$event" \
-    label="update_sketchybar__${event}" \
-    action="export PATH=$PATH:/usr/local/bin:/opt/homebrew/bin/:$HOME/Library/pnpm && flock -nE 0 $HOME/.config/sketchybar/update_sketchybar.lock $HOME/.config/sketchybar/update_sketchybar.mjs --quiet"
-done
-export PATH=$PATH:/usr/local/bin:/opt/homebrew/bin/:$HOME/Library/pnpm && "$HOME/.config/sketchybar/update_sketchybar.mjs" --quiet
-
+#
+# for event in "${EVENTS_FOR_BAR[@]}"; do
+#   echo "registering $event for update_sketchybar"
+#
+#   # patch $PATH so zx/node can be located by yabai
+#   # add echo 'event:' §event && -> start of command for debugging
+#   yabai -m signal --add \
+#     event="$event" \
+#     label="update_sketchybar__${event}" \
+#     action="export PATH=$PATH:/usr/local/bin:/opt/homebrew/bin/:$HOME/Library/pnpm && flock -nE 0 $HOME/.config/sketchybar/update_sketchybar.lock $HOME/.config/sketchybar/update_sketchybar.mjs --quiet"
+# done
+# export PATH=$PATH:/usr/local/bin:/opt/homebrew/bin/:$HOME/Library/pnpm && "$HOME/.config/sketchybar/update_sketchybar.mjs" --quiet
+#
 
 
 # ignore apps (always float)
@@ -167,6 +124,40 @@ yabai -m rule --add app="^Transmission$" space=5
 
 
 yabaictl update_spaces
+
+
+# Yabai does not clear empty spaces by default when logging in and out
+
+# https://d12frosted.io/posts/2022-04-23-yabai-spaces.html
+# function setup_space {
+#   local idx="$1"
+#   local name="$2"
+#   local space=
+#   echo "setup space $idx : $name"
+#
+#   space=$(yabai -m query --spaces --space "$idx")
+#   if [ -z "$space" ]; then
+#     yabai -m space --create
+#   fi
+#
+#   yabai -m space "$idx" --label "$name"
+# }
+#
+# setup_space 1 "one"
+# setup_space 2 "two"
+# setup_space 3 "three"
+# setup_space 4 "four"
+# setup_space 5 "five"
+# setup_space 6 "six"
+
+# yabai -m space --create 1 --display 1 --label "one"
+# yabai -m space --create 2 --display 2 --label "two"
+# yabai -m space --create 3 --display 1 --label "three"
+# yabai -m space --create 4 --display 2 --label "four"
+# yabai -m space --create 5 --display 1 --label "five"
+# yabai -m space --create 6 --display 2 --label "six"
+# yabai -m space --create 7 --display 1 --label "seven"
+# yabai -m space --create 8 --display 2 --label "eight"
 
 
 

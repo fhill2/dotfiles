@@ -105,18 +105,21 @@ function install_sketchybar() {
   brew tap FelixKratz/formulae
   brew install sketchybar
   brew services start sketchybar
+  symlink_dotfile config/sketchybar ~/.config/sketchybar
+
+  brew_cask_install sf-symbols
 
 
   # install sketchybar-config
-  npm install -g zx # required as a dependancy
+  # npm install -g zx # required as a dependancy
   # https://github.com/FallenMax/sketchybar-config
   # the configuration/logic of the bar needs to be built from scratch, as its made in typescript
-  git clone https://github.com/FallenMax/sketchybar-config ~/.apps/sketchybar-config
-  cd ~/.apps/sketchybar-config && npm install && make build
+  # git clone https://github.com/FallenMax/sketchybar-config ~/.apps/sketchybar-config
+  # cd ~/.apps/sketchybar-config && npm install && make build
   # now there is ~/.apps/sketchybar-config/update_sketchybar.mjs
-  symlink_absolute_dotfile ~/.apps/sketchybar-config/update_sketchybar.mjs ~/.config/sketchybar/update_sketchybar.mjs
-  mkdir -p ~/.config/sketchybar
-  symlink_dotfile config/sketchybar/sketchybarrc ~/.config/sketchybar/sketchybarrc
+  # symlink_absolute_dotfile ~/.apps/sketchybar-config/update_sketchybar.mjs ~/.config/sketchybar/update_sketchybar.mjs
+  # mkdir -p ~/.config/sketchybar
+  # symlink_dotfile config/sketchybar/sketchybarrc ~/.config/sketchybar/sketchybarrc
 
 
 
@@ -148,6 +151,13 @@ function configure_scripting_addition() {
     sudo sh -c "mkdir -p /private/etc/sudoers.d" # not created on ventura
     sudo sh -c "echo '$USER ALL=(root) NOPASSWD: sha256:$sha256_hash $yabai_path --load-sa' > '$sudoers_file'"
   fi
+}
+
+
+function install_spacebar() {
+  brew install cmacrae/formulae/spacebar
+  brew services start spacebar
+  symlink_dotfile config/spacebar ~/.config/spacebar
 }
 
 # TODO: self signed certificate needs to be created
