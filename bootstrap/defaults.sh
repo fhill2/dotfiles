@@ -1827,5 +1827,6 @@ done
 # this should be in Finder section, run this last as it takes a while
 # After configuring preferred view style, clear all `.DS_Store` files
 # to ensure settings are applied for every directory
-sudo command find / -name ".DS_Store" -print -delete || true
+# DISABLED: if network drives are connected, this will delete all .DS_Store files across network drives
+# sudo command find / -name ".DS_Store" -print -delete || true
 

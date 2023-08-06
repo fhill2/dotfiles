@@ -441,6 +441,11 @@ clear_password_policies() {
 	sudo dscl . -merge /Users/f1 UserShellInfo:. .
 }
 
+clone_dotfiles() {
+  echo "Cloning dotfiles"
+  git clone git@github.com:fhill2/dotfiles.git ~/dot
+}
+
 main() {
 	# install_xcode_command_line_tools
 	clear_password_policies

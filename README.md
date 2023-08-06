@@ -2,9 +2,7 @@ To install:
 
 ```
 bash <(curl -s https://raw.githubusercontent.com/fhill2/dotfiles/master/bootstrap/bootstrap.sh)
-cd ~/.dotfiles
-./bootstrap/bootstrap.sh
-./setup is code 
+./bootstrap.sh
 ```
 
 # Why ./bootstrap and ./setup?
