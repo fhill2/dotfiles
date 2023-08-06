@@ -106,3 +106,6 @@ export AICHAT_API_KEY="$OPENAI_KEY" # aichat rust TUI
 export OPENAI_API_KEY="$OPENAI_KEY" # chatGPT.nvim
 
 
+
+# https://stackoverflow.com/a/61870689
+# export PATH="/usr/local/opt/tcl-tk/bin:$PATH"

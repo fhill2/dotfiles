@@ -29,7 +29,7 @@ local wrap = {}
 -- grouped=true
 -- both are false by default so plenary.scandir is not used by default
 
-local ignore_patterns = { "/.git/", "/Z/" } -- ignore Z eg pytower
+-- local ignore_patterns = { "/.git/", "/Z/" } -- ignore Z eg pytower
 
 local fb = function(opts)
   require("telescope").extensions.file_browser.file_browser(opts)
@@ -56,7 +56,7 @@ function wrap.fb_dot()
   fb({
     path = path,
     initial_sort = true,
-    file_ignore_patterns = ignore_patterns,
+    -- file_ignore_patterns = ignore_patterns,
   })
 end
 
@@ -67,10 +67,17 @@ function wrap.fb_cwd(opts)
 
   local default_opts = {
     path = path,
-    file_ignore_patterns = ignore_patterns,
+    -- file_ignore_patterns = ignore_patterns,
   }
 
   fb(vim.tbl_deep_extend("force", default_opts, opts or {}))
+end
+
+function wrap.ff_no_ignore()
+  require("telescope.builtin").find_files({
+    no_ignore = true,
+    no_ignore_parent = true,
+  })
 end
 
 function wrap.fb_dev()
@@ -150,6 +157,10 @@ function wrap.buku()
       return true
     end,
   })
+end
+
+function wrap.grep_no_gitignore()
+  require("telescope.builtin").live_grep({ additional_args = { "--no-ignore" } })
 end
 
 -- function wrap.python()

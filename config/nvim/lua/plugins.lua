@@ -303,6 +303,7 @@ use("jbyuki/nabla.nvim")
 --     "vhyrro/neorg-telescope",
 --   },
 -- })
+
 use({
   "SmiteshP/nvim-navic",
   requires = "neovim/nvim-lspconfig",
@@ -390,6 +391,13 @@ use({ "nvim-treesitter/playground", cmd = "TSHighlightCapturesUnderCursor" })
 -- use("nvim-treesitter/nvim-treesitter-textobjects")
 -- use("nvim-treesitter/nvim-treesitter-context") -- deprecated in favor of nvim-navic
 -- use("RRethy/nvim-treesitter-textsubjects")
+
+use({
+  "nvim-tree/nvim-tree.lua",
+  config = function()
+    require("plugin.nvim-tree")
+  end,
+})
 
 -- telescope extensions
 use("nvim-telescope/telescope-cheat.nvim")
@@ -587,6 +595,14 @@ use({
     require("plugin.git-worktree")
   end,
 })
+
+-- for parsing python error tracebacks into qf
+-- use({ "tpope/vim-dispatch", opt = true, cmd = { "Dispatch", "Make", "Focus", "Start" } })
+-- use({"mattboehm/vim-unstack"})
+
+-- gF in normal mode on a python traceback in terminal, does not jump to line number
+-- this adds this features
+use{'sychen52/gF-python-traceback'}
 
 -- https://github.com/tjdevries/sg.nvim/issues/4
 -- use({

@@ -11,6 +11,7 @@ local my_actions = require("plugin.telescope.actions")
 local conf = require("telescope.config").values
 
 -- this affects live_grep, and live_grep_args.nvim extension
+-- table.insert(conf.vimgrep_arguments, {"-L", "--max-filsize", "10M"})
 table.insert(conf.vimgrep_arguments, "-L")
 -- ripgrep globs are matched against the start of the path, not a part of the path, therefore nested directories still shoe files
 -- excludes files from the search if they are inside a directory named Z (for pytower). The Z folder can be at any folder depth.
@@ -143,6 +144,9 @@ local extensions = {
     mappings = file_browser_mappings,
     layout_strategy = "horizontal",
     prompt_path = true, -- shows relative path from CWD as the prompt prefix
+    -- file_ignore_patterns = {
+    --   "/.git/",
+    -- },
     -- browser_opts = {
     --   list = {
     --     add_dirs = true,

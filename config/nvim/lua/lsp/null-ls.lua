@@ -14,6 +14,7 @@ null_ls.setup({
     formatting.black,
     formatting.prettierd,
     formatting.stylua,
+    formatting.shfmt, -- shell formating
     actions.shellcheck,
     diagnostics.shellcheck,
   },

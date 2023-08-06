@@ -11,8 +11,8 @@ require("legendary").setup({
   },
   -- Initial commands to bind
   commands = {
-  { ":LspAutoFormatToggle", description = "Toggle Lsp Auto Formatting" },
-  { ":NullLsInfo", description = "View Null-Ls LSP Info - currently used formatter" },
+    { ":LspAutoFormatToggle", description = "Toggle Lsp Auto Formatting" },
+    { ":NullLsInfo",          description = "View Null-Ls LSP Info - currently used formatter" },
     {
       ":FOldTest",
       require("util.old").test,
@@ -38,6 +38,16 @@ require("legendary").setup({
       ":FReload",
       ":source $MYVIMRC",
       description = "resource reload nvim config",
+    },
+    {
+      ":LspLogLevelTrace",
+      ":lua vim.lsp.set_log_level('TRACE')",
+      description = "lsp - set  ~/.local/state/nvim/lsp.log level - TRACE",
+    },
+    {
+      ":LspLogLevelWarn",
+      ":lua vim.lsp.set_log_level('WARN')",
+      description = "lsp - set  ~/.local/state/nvim/lsp.log level - WARN",
     },
     { ":FLspLinesToggle",    require("lsp_lines").toggle,           description = "lsp_lines - toggle" },
     {

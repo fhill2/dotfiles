@@ -246,4 +246,11 @@ install_package gnupug
 
 
 brew_cask_install 'tailscale'
-brew_instal 'tailscale' # for tailscale debugging
+brew_install 'tailscale' # for tailscale debugging
+
+brew_install 'act'
+
+
+
+# pytower - reading parquet files
+brew_install parquet-cli

@@ -2,6 +2,6 @@
 require("mason").setup()
 
 require("mason-null-ls").setup({
-	ensure_installed = {"stylua"},
-	automatic_installation = true,
+  ensure_installed = { "stylua", "shfmt" },
+  automatic_installation = true,
 })

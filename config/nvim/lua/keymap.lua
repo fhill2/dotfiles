@@ -66,10 +66,17 @@ local space_keymaps = {
     -- ["g"] = { '<cmd>lua require("plugin.telescope.wrap").ff_files_home()<cr>', "Telescope - files - home" },
     -- ["f"] = { '<cmd>lua require("plugin.telescope.wrap").ff_files()<cr>', "Telescope - files - cwd" },
     ["d"] = { '<cmd>lua require("plugin.telescope.wrap").fb_dot()<cr>', "Telescope fb - dotfiles" },
-    ["f"] = { '<cmd>lua require("plugin.telescope.wrap").fb_cwd()<cr>', "Telescope fb  - cwd" },
+    ["f"] = {
+      '<cmd>lua require("plugin.telescope.wrap").fb_cwd()<cr>',
+      "Telescope fb cwd",
+    },
     ["g"] = {
+      '<cmd>lua require("plugin.telescope.wrap").ff_no_ignore()<cr>',
+      "Telescope ff cwd --no-ignore",
+    },
+    ["h"] = {
       '<cmd>lua require("plugin.telescope.wrap").fb_cwd({respect_gitignore=false})<cr>',
-      "Telescope fb  - cwd with gitignore files",
+      "Telescope fb  - cwd respect_gitignore=false",
     },
     ["v"] = { '<cmd>lua require("plugin.telescope.wrap").fb_dev()<cr>', "Telescope fb - dev" },
     ["h"] = { '<cmd>lua require("plugin.telescope.wrap").fb_home()<cr>', "Telescope fb - home" },
@@ -125,7 +132,9 @@ local space_keymaps = {
       "show snippets [Snippy]",
     },
   },
-  n = { "<cmd>Telescope notify<cr>", "telescope - notifications" },
+  -- n = { "<cmd>Telescope notify<cr>", "telescope - notifications" },
+  n = {
+    "<cmd>NvimTreeToggle<cr>", "NvimTreeToggle" },
   q = {
     name = "+qf",
     ["q"] = { [[<cmd>:copen<cr>]], "open qf" },
@@ -151,11 +160,15 @@ local space_keymaps = {
   },
   s = {
     name = "+search",
-    ["d"] = {
+    ["e"] = {
       "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",
       "Telescope live_grep_args",
     },
-    ["s"] = { "<cmd>Telescope live_grep<cr>", "telescope Live_Grep cwd interactive" },
+    ["s"] = { "<cmd>Telescope live_grep<cr>", "telescope live_grep" },
+    ["d"] = {
+      "<cmd>lua require('plugin.telescope.wrap').grep_no_gitignore()<cr>",
+      "telescope live_grep --no-ignore-vcs",
+    },
     ["b"] = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Buffer" },
     ["h"] = { "<cmd>Telescope command_history<cr>", "Command History" },
     ["m"] = { "<cmd>Telescope marks<cr>", "Jump to Mark" },

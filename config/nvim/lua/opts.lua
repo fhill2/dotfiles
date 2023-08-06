@@ -1,11 +1,11 @@
 local cmd = vim.cmd
 local indent = 2
 
-
 vim.o.swapfile = false -- Living on the edge
-vim.opt.mouse = "a" -- enable mouse mode
+vim.opt.mouse = "a"    -- enable mouse mode
 vim.cmd([[set winbar=%=%m\ %F]])
 vim.cmd("set title")
+vim.cmd("set shell=/bin/zsh")
 --set titlestring+=%f\ filename
 -- vim.cmd [[set titlestring=nv ]]
 -- vim.opt.titlestring = [[nv \ %{substitute(getcwd(),\ $HOME,\ '~',\ '')} - %f\]]
@@ -16,41 +16,41 @@ vim.opt.titlestring = [[%{getcwd()} - %{expand("%f")}]]
 
 vim.g.mapleader = [[\]]
 vim.g.maplocalleader = ","
-vim.opt.autowrite = true -- enable auto write # auto save after certain vim commands have been executed
+vim.opt.autowrite = true          -- enable auto write # auto save after certain vim commands have been executed
 vim.opt.clipboard = "unnamedplus" -- sync with system clipboard
-vim.opt.conceallevel = 2 -- Hide * markup for bold and italic
-vim.opt.concealcursor = "n" -- Hide * markup for bold and italic
-vim.opt.confirm = false -- confirm to save changes before exiting modified buffer
-vim.opt.cursorline = true -- Enable highlighting of the current line
-vim.opt.expandtab = true -- Use spaces instead of tabs
+vim.opt.conceallevel = 2          -- Hide * markup for bold and italic
+vim.opt.concealcursor = "n"       -- Hide * markup for bold and italic
+vim.opt.confirm = false           -- confirm to save changes before exiting modified buffer
+vim.opt.cursorline = true         -- Enable highlighting of the current line
+vim.opt.expandtab = true          -- Use spaces instead of tabs
 
 vim.opt.grepprg = "rg --vimgrep"
 vim.opt.grepformat = "%f:%l:%c:%m"
-vim.opt.hidden = true -- Enable modified buffers in background
-vim.opt.ignorecase = true -- Ignore case
-vim.opt.inccommand = "split" -- preview incremental substitute
-vim.opt.joinspaces = false -- No double spaces with join after a dot
-vim.opt.number = true -- Print line number
-vim.opt.pumblend = 10 -- Popup blend
-vim.opt.pumheight = 10 -- Maximum number of entries in a popup
+vim.opt.hidden = true         -- Enable modified buffers in background
+vim.opt.ignorecase = true     -- Ignore case
+vim.opt.inccommand = "split"  -- preview incremental substitute
+vim.opt.joinspaces = false    -- No double spaces with join after a dot
+vim.opt.number = true         -- Print line number
+vim.opt.pumblend = 10         -- Popup blend
+vim.opt.pumheight = 10        -- Maximum number of entries in a popup
 vim.opt.relativenumber = true -- Relative line numbers
-vim.opt.scrolloff = 4 -- Lines of context
-vim.opt.shiftround = true -- Round indent
-vim.opt.shiftwidth = indent -- Size of an indent
-vim.opt.showmode = false -- dont show mode since we have a statusline
-vim.opt.sidescrolloff = 8 -- Columns of context
-vim.opt.signcolumn = "yes" -- Always show the signcolumn, otherwise it would shift the text each time
-vim.opt.smartcase = true -- Don't ignore case with capitals
-vim.opt.smartindent = true -- Insert indents automatically
-vim.opt.splitbelow = true -- Put new windows below current
-vim.opt.splitright = true -- Put new windows right of current
-vim.opt.tabstop = indent -- Number of spaces tabs count for
-vim.opt.termguicolors = true -- True color support
+vim.opt.scrolloff = 4         -- Lines of context
+vim.opt.shiftround = true     -- Round indent
+vim.opt.shiftwidth = indent   -- Size of an indent
+vim.opt.showmode = false      -- dont show mode since we have a statusline
+vim.opt.sidescrolloff = 8     -- Columns of context
+vim.opt.signcolumn = "yes"    -- Always show the signcolumn, otherwise it would shift the text each time
+vim.opt.smartcase = true      -- Don't ignore case with capitals
+vim.opt.smartindent = true    -- Insert indents automatically
+vim.opt.splitbelow = true     -- Put new windows below current
+vim.opt.splitright = true     -- Put new windows right of current
+vim.opt.tabstop = indent      -- Number of spaces tabs count for
+vim.opt.termguicolors = true  -- True color support
 vim.opt.undofile = true
 vim.opt.undolevels = 10000
-vim.opt.updatetime = 200 -- save swap file and trigger CursorHold
+vim.opt.updatetime = 200               -- save swap file and trigger CursorHold
 vim.opt.wildmode = "longest:full,full" -- Command-line completion mode
-vim.opt.wrap = true -- Disable line wrap
+vim.opt.wrap = true                    -- Disable line wrap
 vim.opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize" }
 vim.opt.laststatus = 3
 
@@ -77,7 +77,7 @@ vim.o.ttimeout = true
 
 -- https://github.com/neovim/neovim/issues/2051
 vim.o.timeoutlen = 250 -- keep normal mode mappings slow, but keep it as low as possible so G is fast in normal mode etc
-vim.o.ttimeoutlen = 0 -- quick escape from insert mode
+vim.o.ttimeoutlen = 0  -- quick escape from insert mode
 
 vim.cmd([[com -nargs=1 -complete=command Redir :execute "tabnew | pu=execute(\'" . <q-args> . "\') | setl nomodified"]])
 
