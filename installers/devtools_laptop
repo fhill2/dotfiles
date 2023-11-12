@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+source _installer.sh
+# ========== OSX - Install on Laptop  ==========
+
+
+install_rust() {
+	if ! command_exists "cargo"; then
+		brew_install rustup
+		rustup-init -y
+		source $HOME/.cargo/env
+	fi
+}
+install_rust
+cargo_install proximity-sort
+
+
+install_package flavours
+symlink_dotfile config/flavours ~/.config/flavours
+
+install_package xplr
+symlink_dotfile config/xplr ~/.config/xplr
+
+install_package broot
+symlink_dotfile config/broot ~/.config/broot
+
+# pytower deps
+brew_tap_install "esolitos/ipa"
+brew_tap_install "yulrizka/tap"
+brew_install 'pre-commit'
+brew_install 'ta-lib'
+# pytower - reading parquet files
+brew_install parquet-cli
+
+brew_install node
+brew_install yarn
+brew_install npm
+brew_install exa
+brew_install neofetch

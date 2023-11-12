@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+source _installer.sh
+
+brew install --cask vscodium
+brew install google-chrome

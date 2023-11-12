@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 
-
 # ========== aptitude ==========
 function apt_update() {
   ! is_linux && return 1
@@ -180,9 +179,9 @@ function brew_install_all() {
 
 # ========== os-detection ==========
 
-_current_os=$(uname) # Linux or Darwin
+# _current_os=$(uname) # Linux or Darwin
 
-detect_os() {
+function detect_os() {
   if [ "$(uname -s)" == "Darwin" ]; then
     echo "Darwin"
   elif command -v "pacman" >/dev/null 2>&1; then

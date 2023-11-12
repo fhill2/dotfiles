@@ -22,7 +22,6 @@
 # - Change keyboard layout to international PC
 # =======================
 
-source "${BASH_SOURCE%/*}/installers/shared.sh"
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ask() {
 	print_question "$1"
@@ -223,6 +222,8 @@ print_result() {
 	return "$1"
 }
 
+# DO NOT install xcode command line tools on a fresh system
+# it installs python which I'd rather install using pyenv
 # are_xcode_command_line_tools_installed() {
 #   xcode-select --print-path &> /dev/null
 # }
@@ -366,8 +367,8 @@ install_package_manager() {
 
 			echo "Installing Homebrew..."
 			/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+			(echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> /Users/s1/.zprofile
 			eval "$(/opt/homebrew/bin/brew shellenv)"
-
 			brew update
 			brew install git
 		fi
@@ -431,29 +432,57 @@ setup_user_gitconfig() {
 
 replace_local_bin_with_dotfiles_bin() {
 	echo "Replacing local bin with dotfiles bin..."
-	symlink_dotfile bin ~/.local/bin
+	ln -s ~/dot/bin ~/.local/bin
 }
 
-clear_password_policies() {
-	echo "clearing osx default password policies (minimum password length req)..."
-	sudo pwpolicy -clearaccountpolicies
-	# change user pass temporarily
-	sudo dscl . -merge /Users/f1 UserShellInfo:. .
-}
+# this isnt working
+# clear_password_policies() {
+# 	echo "clearing osx default password policies (minimum password length req)..."
+# 	sudo pwpolicy -clearaccountpolicies
+# 	# change user pass temporarily
+# 	sudo dscl . -merge /Users/f1 UserShellInfo:. .
+# }
 
 clone_dotfiles() {
   echo "Cloning dotfiles"
   git clone git@github.com:fhill2/dotfiles.git ~/dot
 }
 
+function setup_zsh_symlinks() {
+  ln -s  ~/dot/config/zsh/zshrc ~/.zshrc
+  ln -s ~/dot/config/zsh ~/.zsh
+  ln -s ~/dot/config/zsh/zshenv ~/.zshenv
+  ln -s ~/dot/config/zsh/zprofile ~/.zprofile
+  if [[ "$_current_os" == "Darwin" ]]; then
+    ln -s ~/dot/config/profile_osx ~/.profile
+  else
+    ln -s ~/dot/config/profile_linux ~/.profile
+  fi
+  source ~/.zshrc
+}
+
+function install_python() {
+	brew install pyenv
+	pyenv install -s 3.10.4
+    pyenv global 3.10.4
+	pip install poetry
+}
+
 main() {
 	# install_xcode_command_line_tools
-	clear_password_policies
-	setup_ssh_keys
-	setup_hostname
-	install_package_manager
-	setup_user_gitconfig
+	# clear_password_policies
+	# STEPS
+	# setup_ssh_keys
+	# setup_hostname
+	# install_package_manager
+	# setup_user_gitconfig
 	# install requirements for defaults script here
+	# otherwise _installer.sh and bin folder is not on PATH to use installer scripts
+    # replace_local_bin_with_dotfiles_bin
+	# setup_zsh_symlinks
+	# python needed for symlink_dotfile
+	# source ./python_osx
+	install_python
 
 	# Bootstrap
 	mkdir -p $HOME/.config

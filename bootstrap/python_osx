@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-source "${BASH_SOURCE%/*}/shared.sh"
+# source "${BASH_SOURCE%/*}/shared.sh"
 
 
 # tools used:
@@ -39,8 +39,8 @@ function install_python() {
 
   # symlink custom python library into pyenv global virtual environment
   # might not need this, as im doing all personal / custom scripts and code inside my own virtual environment
-  local pyenv_global_site_packages=($(pyenv which python) -c "import site; print(site.getsitepackages()[0])")
-  symlink_dotfile config/python_lib "$pyenv_global_site_packages/f"
+  # local pyenv_global_site_packages=($(pyenv which python) -c "import site; print(site.getsitepackages()[0])")
+  # symlink_dotfile config/python_lib "$pyenv_global_site_packages/f"
   pip install poetry
   # this was needed to remove the config warning message on each invocation
   # mv ~/Library/Preferences/pypoetry/config.toml ~/Library/Application\ Support/pypoetry/config.toml
