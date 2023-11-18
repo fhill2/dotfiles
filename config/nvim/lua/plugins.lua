@@ -312,13 +312,13 @@ use({
   end,
 })
 
-use({
-  "nvim-neorg/neorg",
-  config = function()
-    require("plugin.neorg.init")
-  end,
-  requires = "nvim-lua/plenary.nvim",
-})
+-- use({
+--   "nvim-neorg/neorg",
+--   config = function()
+--     require("plugin.neorg.init")
+--   end,
+--   requires = "nvim-lua/plenary.nvim",
+-- })
 
 use({
   "sudormrfbin/cheatsheet.nvim",

@@ -134,7 +134,9 @@ local space_keymaps = {
   },
   -- n = { "<cmd>Telescope notify<cr>", "telescope - notifications" },
   n = {
-    "<cmd>NvimTreeToggle<cr>", "NvimTreeToggle" },
+    "<cmd>NvimTreeToggle<cr>",
+    "NvimTreeToggle",
+  },
   q = {
     name = "+qf",
     ["q"] = { [[<cmd>:copen<cr>]], "open qf" },
@@ -312,8 +314,8 @@ a.cnoremap("<C-l>", "<Right>")
 -- a.allremap("<C-]>", "<cmd>:BufferLineCycleNext<CR>")
 
 -- Buffer management
-a.nnoremap("<C-]>", ":bnext<CR>")
-a.nnoremap("<C-[>", ":bprevious<CR>")
+-- a.nnoremap("<C-]>", ":bnext<CR>")
+-- a.nnoremap("<C-[>", ":bprevious<CR>")
 a.nnoremap("<Leader>qw", ":bdelete<CR>")
 
 -- exit terminal with C-Space
