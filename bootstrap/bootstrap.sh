@@ -453,7 +453,7 @@ function setup_zsh_symlinks() {
   ln -s ~/dot/config/zsh ~/.zsh
   ln -s ~/dot/config/zsh/zshenv ~/.zshenv
   ln -s ~/dot/config/zsh/zprofile ~/.zprofile
-  if [[ "$_current_os" == "Darwin" ]]; then
+  if [[ "$(uname -s)" == "Darwin" ]]; then
     ln -s ~/dot/config/profile_osx ~/.profile
   else
     ln -s ~/dot/config/profile_linux ~/.profile
@@ -466,6 +466,9 @@ function install_python() {
 	pyenv install -s 3.10.4
     pyenv global 3.10.4
 	pip install poetry
+	# need to restart terminal here, maybe source both zsh files again?
+	source ~/.zshrc
+	source ~/.zshenv
 }
 
 main() {

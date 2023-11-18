@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import sys, os, errno
+from pathlib import Path
 
 
 def do_symlink(source, destination):
@@ -14,27 +15,29 @@ def do_symlink(source, destination):
       OSError: If the symlink could not be created.
 
     """
+    source = Path(source)
+    destination = Path(destination)
 
     # Check if the source file exists.
-    if not os.path.exists(source):
-        raise FileNotFoundError(f"Source file '{source}' does not exist.")
-
-    # Check if the destination file exists.
-    if os.path.exists(destination):
-        # Get the path to the original file.
-        original_file = os.readlink(destination)
-
+    if not source.exists():
+        print(f"Source file '{source}' does not exist.")
+        return
+    if destination.is_file():
+        print(f"Destination file '{destination}' exists and is a file.")
+        return
+    if destination.is_symlink():
         # Check if the original file exists.
-        if not os.path.exists(original_file):
+        if not destination.resolve().exists():
             # If the original file does not exist, prompt the user if they want to delete the symlink.
             print(
-                f"Destination file '{destination}' original file: '{original_file}' - does not exist. Do you want to delete '{destination}'?"
+                f"Destination file '{destination}' symlink is broken - original file does not exist: '{original_file}' - does not exist. Do you want to delete '{destination}'?"
             )
             response = input("(y/N) ")
 
             # Delete the symlink if the user said yes.
             if response.lower() == "y":
                 os.remove(destination)
+        return
 
     # Create the symlink.
     try:

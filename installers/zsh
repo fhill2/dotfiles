@@ -1,21 +1,10 @@
 #!/usr/bin/env bash
 
-# source "${BASH_SOURCE%/*}/shared.sh"
-source ~/dot/bin/_installer.sh
+source _installer.sh
 
 # require_installer package-manager
 
-function setup_zsh_symlinks() {
-  ln -s  ~/dot/config/zsh/zshrc ~/.zshrc
-  ln -s ~/dot/config/zsh ~/.zsh
-  ln -s ~/dot/config/zsh/zshenv ~/.zshenv
-  ln -s ~/dot/config/zsh/zprofile ~/.zprofile
-  if [[ "$_current_os" == "Darwin" ]]; then
-  ln -s ~/dot/config/profile_osx ~/.profile
-  else
-  ln -s ~/dot/config/profile_linux ~/.profile
-  fi
-}
+
 
 function zsh_binary() {
   if is_linux; then
