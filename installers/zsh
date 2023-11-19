@@ -60,7 +60,7 @@ function install_base16_shell() {
 
 dotheader "Setting up ZSH..."
 
-symlink_dotfile profile ~/.profile
+
 # symlink_dotfile inputrc ~/.inputrc
 
 # brew_tap romkatv/gitstatus

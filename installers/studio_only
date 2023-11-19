@@ -14,4 +14,14 @@ brew install --cask obsidian
 syncthing
 kitty
 
-symlink_dotfile 
+symlink_dotfile config/qobuz-dl/config.ini ~/.config/qobuz-dl/config.ini
+# could install qobuz-dl globally and demucs
+
+
+
+# demucs deps
+brew install ffmpeg
+brew install sound-touch
+
+# temporary, otherwise mason nvim errors as it installs packages with npm
+brew install npm
