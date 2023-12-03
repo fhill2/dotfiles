@@ -25,3 +25,10 @@ brew install sound-touch
 
 # temporary, otherwise mason nvim errors as it installs packages with npm
 brew install npm
+brew install splice
+brew install jdownloader
+
+# make symbolic link in osx services menu
+# to create symlinks to libraries manually
+brew install symboliclinker
+

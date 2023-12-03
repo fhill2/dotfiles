@@ -2,6 +2,11 @@
 # my osx defaults
 
 
+# ____
+# requirements 2023:
+brew install duti
+# ____
+
 # JUN 2023 Still to automate:
 # Sound > Alert Volume to 0. This is because of key repeat + karabiner. key repeat triggers beep on tab_as_hyper.
 
