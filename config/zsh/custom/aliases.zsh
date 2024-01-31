@@ -11,6 +11,10 @@ alias l='ls -al'
 alias t2='sshpass -p '.' ssh -t g1@100.100.132.113 powershell'
 alias t2c='code -n --folder-uri=vscode-remote://ssh-remote+f1@100.100.132.113/Users/f1/git'
 
+# nautilus_trader requirement
+# force pytest to always use the current active .venv
+alias pytest="python -m pytest"
+
 
 get_identifier() {
 codesign -dv --verbose=4 "$1" | grep Identifier
