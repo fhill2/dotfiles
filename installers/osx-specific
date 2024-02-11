@@ -28,7 +28,12 @@ install_ext4fuse
 # quicklook plugins
 # https://github.com/haokaiyang/Mac-QuickLook
 brew install --cask quicklook-csv
+# code syntax highlighting
+# https://github.com/sbarex/SourceCodeSyntaxHighlight
+brew install --cask --no-quarantine syntax-highlight
 
 
 brew install --cask alfred
 symlink_dotfile "$HOME/data/Alfred" "$HOME/Library/Application Support/Alfred"
+
+

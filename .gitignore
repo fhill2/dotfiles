@@ -3,3 +3,4 @@ dotbot-*
 qtile/__pycache__/**
 nvim/plugin/packer_compiled.lua
 .DS_Store
+**/.DS_Store

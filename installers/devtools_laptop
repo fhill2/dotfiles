@@ -39,3 +39,7 @@ brew_install neofetch
 
 # pytower
 brew install --cask teamviewer
+
+# checkout PR and more
+brew install gh
+brew install ipython

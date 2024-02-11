@@ -3,6 +3,9 @@ local mapper = require("core.utils").mapper_factory
 local autocmd = vim.api.nvim_create_autocmd
 local command = vim.api.nvim_create_user_command
 
+-- Useful formatting configs:
+-- lua: tjdevries, elaniva, nui repo
+
 -- Use formatters from null-ls only
 local lsp_formatting = function(bufnr)
   vim.lsp.buf.format({
@@ -19,7 +22,8 @@ M.attach = function(client, bufnr)
   end
 
   -- Expose buffer-scoped variable to control autoformatting
-  vim.b.format_on_save = true
+  -- start with format on save disabled
+  vim.b.format_on_save = false
 
   command("LspAutoFormatToggle", function()
     if not vim.b.format_on_save then

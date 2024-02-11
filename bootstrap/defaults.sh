@@ -7,14 +7,25 @@
 brew install duti
 # ____
 
-# JUN 2023 Still to automate:
+########################################3
+# TO AUTOMATE
 # Sound > Alert Volume to 0. This is because of key repeat + karabiner. key repeat triggers beep on tab_as_hyper.
 
 # Keyboard Shortcuts to disable:
 # Input Sources ----- IMPORTANT - otherwise C-Space does not get to terminal
 
+# Setup / Configuration that still needs to be automated:
+# - Setup f1 account
+# - Change keyboard layout to international PC
+
+# disable all Hot Corners:
+# Settings > Hot COrner Shortcuts
+
+########################################3
+
 # this defaults files is based on:
 # https://github.com/mathiasbynens/dotfiles/blob/main/.macos
+
 
 
 

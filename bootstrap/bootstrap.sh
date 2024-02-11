@@ -17,9 +17,6 @@
 # installers/shared/homebrew.sh -> to
 
 # ========================
-# Setup / Configuration that still needs to be automated:
-# - Setup f1 account
-# - Change keyboard layout to international PC
 # =======================
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

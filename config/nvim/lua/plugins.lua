@@ -381,10 +381,10 @@ use({
 
 use("MunifTanjim/nui.nvim")
 
-use({
-  "simrat39/symbols-outline.nvim",
-  cmd = { "SymbolsOutline" },
-})
+-- use({
+--   "simrat39/symbols-outline.nvim",
+--   cmd = { "SymbolsOutline" },
+-- })
 
 use({ "nvim-treesitter/playground", cmd = "TSHighlightCapturesUnderCursor" })
 --use("nvim-treesitter/nvim-treesitter-refactor")
