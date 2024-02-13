@@ -13,6 +13,7 @@ install_git() {
   brew_install diff-so-fancy
   brew_tap_install jesseduffield/lazygit
   brew_install lazygit
+  symlink_dotfile config/lazygit/config.yml ~/.config/lazygit/config.yml
   symlink_dotfile config/git/gitattributes ~/.gitattributes
   symlink_dotfile config/git/gitconfig ~/.gitconfig
   symlink_dotfile config/git/gitignore ~/.gitignore

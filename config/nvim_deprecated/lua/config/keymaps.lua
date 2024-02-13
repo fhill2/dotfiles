@@ -1,0 +1,15 @@
+
+
+vim.keymap.set("n", "<space>ad", "<cmd>vsp<cr>")
+vim.keymap.set("n", "<space>as", "<cmd>sp<cr>")
+vim.keymap.set("i", "<S-Tab>", "<Tab>")
+vim.keymap.set("n", "<C-h>", "<C-w>h")
+vim.keymap.set("n", "<C-j>", "<C-w>j")
+vim.keymap.set("n", "<C-k>", "<C-w>k")
+vim.keymap.set("n", "<C-l>", "<C-w>l")
+vim.keymap.set("n", ";", "<cmd>write<cr>")
+vim.keymap.set("i", "<C-h>", "<Left>")
+vim.keymap.set("i", "<C-j>", "<Down>")
+vim.keymap.set("i", "<C-k>", "<Up>")
+vim.keymap.set("i", "<C-l>", "<Right>")
+-- vim.keymap.set("n", "<space>af", "<cmd>bo 40split<cr>")

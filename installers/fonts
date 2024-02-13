@@ -4,109 +4,109 @@
 source _installer.sh
 
 function setup_linux_font_dir() {
-  if is_linux; then
-    mkdir -p ~/.local/share/fonts
-  fi
+	if is_linux; then
+		mkdir -p ~/.local/share/fonts
+	fi
 }
 
 function install_nerd_font_src() {
-  local nerd_fonts_dir="$(dotfiles_location)/dependencies/patched-nerd-fonts"
-  local font="$nerd_fonts_dir/src/unpatched-fonts/$1"
+	local nerd_fonts_dir="$(dotfiles_location)/dependencies/patched-nerd-fonts"
+	local font="$nerd_fonts_dir/src/unpatched-fonts/$1"
 
-  install_nerd_font "$font" "$2"
+	install_nerd_font "$font" "$2"
 }
 
 function install_nerd_font() {
-  # From iTerm2's plist
-  local vertical_spacing=1.1233880835843373
-  local font=$1
-  local final_name=$2
-  local nerd_fonts_dir="$(dotfiles_location)/dependencies/patched-nerd-fonts"
+	# From iTerm2's plist
+	local vertical_spacing=1.1233880835843373
+	local font=$1
+	local final_name=$2
+	local nerd_fonts_dir="$(dotfiles_location)/dependencies/patched-nerd-fonts"
 
-  local destination=$HOME/Library/Fonts
+	local destination=$HOME/Library/Fonts
 
-  if is_linux; then
-    destination=$HOME/.local/share/fonts
-  fi
+	if is_linux; then
+		destination=$HOME/.local/share/fonts
+	fi
 
-  if [ ! -f "$destination/$final_name" ]; then
-    echo
-    dotsay "@b@blue[[+ Installing $final_name]]"
-    echo
+	if [ ! -f "$destination/$final_name" ]; then
+		echo
+		dotsay "@b@blue[[+ Installing $final_name]]"
+		echo
 
-    cd $nerd_fonts_dir && fontforge -script font-patcher \
-      --complete \
-      --adjust-line-height \
-      --progressbars \
-      --outputdir "$destination" \
-      "$font"
+		cd $nerd_fonts_dir && fontforge -script font-patcher \
+			--complete \
+			--adjust-line-height \
+			--progressbars \
+			--outputdir "$destination" \
+			"$font"
 
-    # Reset font cache on Linux
-    if [[ -n $(which fc-cache) ]]; then
-      fc-cache -f "$destination"
-    fi
-  else
-    dotsay "@b@green[[+ Already installed $final_name]]"
-  fi
+		# Reset font cache on Linux
+		if [[ -n $(which fc-cache) ]]; then
+			fc-cache -f "$destination"
+		fi
+	else
+		dotsay "@b@green[[+ Already installed $final_name]]"
+	fi
 }
 
 function install_nerd_fonts_repo() {
-  local nerd_fonts_dir="$(dotfiles_location)/dependencies/patched-nerd-fonts"
+	local nerd_fonts_dir="$(dotfiles_location)/dependencies/patched-nerd-fonts"
 
-  if [ ! -d $nerd_fonts_dir ]; then
-    pip install configparser
+	if [ ! -d $nerd_fonts_dir ]; then
+		pip install configparser
 
-    echo "Pulling in patched nerd-fonts..."
+		echo "Pulling in patched nerd-fonts..."
 
-    mkdir -p $nerd_fonts_dir
+		mkdir -p $nerd_fonts_dir
 
-    cd $nerd_fonts_dir && \
-      git clone --depth 1 https://github.com/ryanoasis/nerd-fonts.git .
-  fi
+		cd $nerd_fonts_dir &&
+			git clone --depth 1 https://github.com/ryanoasis/nerd-fonts.git .
+	fi
 }
 
 function setup_and_patch_fontforge() {
-  brew_install fontforge
+	brew_install fontforge
 
-  # Fix "FontForge module is probably not installed"
-  # https://github.com/ryanoasis/nerd-fonts/issues/225
-  mkdir -p ~/Library/Python/2.7/lib/python/site-packages
+	# Fix "FontForge module is probably not installed"
+	# https://github.com/ryanoasis/nerd-fonts/issues/225
+	mkdir -p ~/Library/Python/2.7/lib/python/site-packages
 
-  local homebrew_file=$HOME/Library/Python/2.7/lib/python/site-packages/homebrew.pth
+	local homebrew_file=$HOME/Library/Python/2.7/lib/python/site-packages/homebrew.pth
 
-  if [ ! -f $homebrew_file ]; then
-    echo "+ Patching FontForge"
-    echo 'import site; site.addsitedir("/usr/local/lib/python2.7/site-packages")' >> $homebrew_file
-  fi
+	if [ ! -f $homebrew_file ]; then
+		echo "+ Patching FontForge"
+		echo 'import site; site.addsitedir("/usr/local/lib/python2.7/site-packages")' >>$homebrew_file
+	fi
 }
 
 dotheader "Setting up fonts..."
 
 if is_linux; then
-  require_installer python
+	require_installer python
 
-  setup_linux_font_dir
-  setup_and_patch_fontforge
-  install_nerd_fonts_repo
+	setup_linux_font_dir
+	setup_and_patch_fontforge
+	install_nerd_fonts_repo
 
-  # install_nerd_font_src "InconsolataGo/Regular/InconsolataGo-Regular.ttf" \
-  #   "InconsolataGo Nerd Font Complete.ttf"
-  symlink_absolute_dotfile ~/data/fonts ~/.local/share/fonts
+	# install_nerd_font_src "InconsolataGo/Regular/InconsolataGo-Regular.ttf" \
+	#   "InconsolataGo Nerd Font Complete.ttf"
+	symlink_absolute_dotfile ~/data/fonts ~/.local/share/fonts
 else
-  # if osx
-  # dbalatero
-  # disabling for now
-  # brew_cask_install homebrew/cask-fonts/font-inconsolatago-nerd-font
-  # brew_install font-jetbrains-mono-nerd-font
+	# if osx
+	# dbalatero
+	# disabling for now
+	# brew_cask_install homebrew/cask-fonts/font-inconsolatago-nerd-font
+	# brew_install font-jetbrains-mono-nerd-font
 
-  # if [ ! -d ~/.nerd-fonts ]; then
-  #   git clone --depth 1 https://github.com/ryanoasis/nerd-fonts.git ~/.nerd-fonts
+	# if [ ! -d ~/.nerd-fonts ]; then
+	#   git clone --depth 1 https://github.com/ryanoasis/nerd-fonts.git ~/.nerd-fonts
 
-  #   cp -v ~/.nerd-fonts/patched-fonts/JetBrainsMono/NoLigatures/**/*.ttf ~/Library/Fonts
-  #   cp -v ~/.nerd-fonts/patched-fonts/InconsolataGo/**/*.ttf ~/Library/Fonts
-  # fi
+	#   cp -v ~/.nerd-fonts/patched-fonts/JetBrainsMono/NoLigatures/**/*.ttf ~/Library/Fonts
+	#   cp -v ~/.nerd-fonts/patched-fonts/InconsolataGo/**/*.ttf ~/Library/Fonts
+	# fi
 
-  # https://gist.github.com/davidteren/898f2dcccd42d9f8680ec69a3a5d350e
-  brew tap homebrew/cask-fonts
-  brew search '/font-.*-nerd-font/' | awk '{ print $1 }' | xargs -I{} brew install --cask {} || true
+	# https://gist.github.com/davidteren/898f2dcccd42d9f8680ec69a3a5d350e
+	brew tap homebrew/cask-fonts
+	brew search '/font-.*-nerd-font/' | awk '{ print $1 }' | xargs -I{} brew install --cask {} || true
 fi

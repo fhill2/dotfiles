@@ -10,26 +10,28 @@
 # https://github.com/koekeishiya/skhd/issues/1
 
 
-alt - a : yabai -m window --insert west
-alt - f : yabai -m window --insert north
-alt - d : yabai -m window --insert east
-alt - s : yabai -m window --insert south
-alt - t : yabai -m window --insert stack
+# INSERT WINDOW (RED SQUARE)
+alt - left : yabai -m window --insert west
+alt - up : yabai -m window --insert north
+alt - right : yabai -m window --insert east
+alt - down : yabai -m window --insert south
+# alt - o : yabai -m window --insert stack
 
-alt - left : yabai -m window --swap west
-alt - up : yabai -m window --swap north
-alt - right : yabai -m window --swap east
-alt - down : yabai -m window --swap south
+# alt - left : yabai -m window --swap west
+# alt - up : yabai -m window --swap north
+# alt - right : yabai -m window --swap east
+# alt - down : yabai -m window --swap south
 
 
 alt - l : yabai -m window --toggle split
 
+# MOVE WINDOW
 hyper - left : yabai -m window --warp west
 hyper - up : yabai -m window --warp north
 hyper - right : yabai -m window --warp east
 hyper - down : yabai -m window --warp south
 
-hyper - t : yabai -m window --insert stack
+hyper - h : yabai -m window --insert stack
 hyper - space : yabai -m window --toggle float
 
 
@@ -37,10 +39,10 @@ hyper - space : yabai -m window --toggle float
 hyper - 0x21 : yabai -m window --focus stack.prev || yabai -m window --focus stack.last # [
 hyper - 0x1E : yabai -m window --focus stack.next || yabai -m window --focus stack.first # ]
 
-hyper - h : yabai -m window --focus west
-hyper - j : yabai -m window --focus south
-hyper - k : yabai -m window --focus north
-hyper - l : yabai -m window --focus east
+hyper - h : yabai -m window --focus west || yabai -m display --focus west
+hyper - j : yabai -m window --focus south || yabai -m display --focus south
+hyper - k : yabai -m window --focus north || yabai -m display --focus north
+hyper - l : yabai -m window --focus east || yabai -m display --focus east
 
 hyper - q : yabai -m space --focus 1
 hyper - w : yabai -m space --focus 2

@@ -1,4 +1,3 @@
-require("globals")
-require("opts")
-require("plugins")
-require("plugins-shared")
+-- bootstrap lazy.nvim, LazyVim and your plugins
+require("config.lazy")
+-- require("config.globals")
