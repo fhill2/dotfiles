@@ -5,7 +5,7 @@ export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 
 # enable git scripts
-export DEVELOPMENT_DIRECTORY="$HOME/code"
+# export DEVELOPMENT_DIRECTORY="$HOME/code"
 
 export PASSWORD_STORE_DIR="$HOME/data/.password-store"
 

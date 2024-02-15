@@ -1,0 +1,6 @@
+source ~/.zsh/custom/exports.zsh
+
+if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
+  source "${VIRTUAL_ENV}/bin/activate"
+fi
+# . "$HOME/.cargo/env"
