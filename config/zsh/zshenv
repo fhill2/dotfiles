@@ -5,3 +5,4 @@ source ~/.zsh/custom/exports.zsh
 #   echo "STARTING VENV"
 #   source "${VIRTUAL_ENV}/bin/activate"
 # fi
+. "$HOME/.cargo/env"

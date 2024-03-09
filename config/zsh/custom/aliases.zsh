@@ -16,16 +16,19 @@ alias t2c='code -n --folder-uri=vscode-remote://ssh-remote+f1@100.100.132.113/Us
 alias pytest="python -m pytest"
 
 
+# https://wiki.archlinux.org/title/Kitty#Terminal_issues_with_SSH
+# solves backspace=space when sshing to computers that do not have a kitty terminfo file (or kitty installed)
+[ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"
+
+
 get_identifier() {
 codesign -dv --verbose=4 "$1" | grep Identifier
 }
 
 # deep fuzzy cd
-function dcd {
+dcd() {
     br --only-folders --cmd "$1;:cd"
 }
-
-
 autoscript() {
   touch $1 && chmod +x $1 && nvim $1
 }

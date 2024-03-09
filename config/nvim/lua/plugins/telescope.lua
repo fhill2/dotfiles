@@ -11,6 +11,12 @@
 -- # Telescope find_files
 -- both hotkeys can be configured by editing the find_command with --no-ignore-vcs, or --no-ignore
 
+-- rg params
+-- --no-ignore-vcs -> do not respect gitignore
+-- --no-ignore -> do not respect any ignore files, .gitignore or .ignore
+
+local Util = require("lazyvim.util")
+
 return {
 
   {
@@ -23,12 +29,33 @@ return {
     },
     keys = {
       {
+        "<leader>sg",
+        Util.telescope("live_grep", { additional_args = { "--no-ignore-vcs" }, cwd = vim.loop.cwd() }),
+        -- function()
+        -- require("telescope.builtin").live_grep({ additional_args = { "--no-ignore-vcs" }, cwd = vim.loop.cwd() })
+        -- end,
+        desc = "Grep ()",
+      },
+      -- to search witihin nautilus_trader that has been .ignored
+      -- why vim.loop.cwd() -> sometimes I want to cd into a folder that is either .gitignored or .ignored and view results from this folder only
+      {
+
+        "<leader>/",
+        Util.telescope("live_grep", { additional_args = { "--no-ignore" }, cwd = vim.loop.cwd() }),
+        desc = "Grep ()",
+      },
+      {
+        "<leader>sG",
+        Util.telescope("live_grep", { additional_args = { "--no-ignore" }, cwd = vim.loop.cwd() }),
+        desc = "Grep ()",
+      },
+      {
         "<leader>fb",
         function()
           require("telescope").extensions.file_browser.file_browser({
             path = vim.fn.expand("%:p:h"),
             select_buffer = true,
-            respect_gitignore = true,
+            respect_gitignore = false,
           })
         end,
         desc = "File Browser - Buffer (.gitignore .ignore)",
@@ -43,13 +70,14 @@ return {
         desc = "File Browser (.ignore)",
       },
       {
-        "<leader>fd",
+        "<leader>fF",
         function()
           require("telescope").extensions.file_browser.file_browser({
-            respect_gitignore = true,
+            no_ignore = true,
+            cwd = vim.loop.cwd(),
           })
         end,
-        desc = "File Browser (.gitignore .ignore)",
+        desc = "File Browser ()",
       },
 
       {

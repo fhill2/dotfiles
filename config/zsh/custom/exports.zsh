@@ -51,7 +51,7 @@ export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 
 # distant.nvim plugin auto installs distant binary to ~/.local/share/nvim/distant.nvim/bin
 # + there is no homebrew package
-export PATH="$HOME/.local/share/nvim/distant.nvim/bin:$PATH"
+# export PATH="$HOME/.local/share/nvim/distant.nvim/bin:$PATH"
 
 
 

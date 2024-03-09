@@ -122,6 +122,8 @@ yabai -m rule --add app="Slack"             space=5
 yabai -m rule --add app='^Bitwarden$' space=5
 yabai -m rule --add app="^Transmission$" space=5
 
+# yabai -m rule --add app="^ibcGateway" space=10
+
 
 yabaictl update_spaces
 

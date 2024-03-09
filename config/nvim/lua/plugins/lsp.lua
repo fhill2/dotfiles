@@ -40,21 +40,77 @@ local pyright = {
   },
 }
 
+local ruff_lsp = {
+  settings = {
+    -- not necessary, pytower now does not use black
+    -- and config files are contained within the repo
+    -- ["format.args"] = {
+    --   -- these are nautilus_trader black args
+    --   "--line-length=150",
+    --   -- add 3.9, 3.11 when ruff supports multiple --target-version arguments on the CLI
+    --   -- https://github.com/astral-sh/ruff/issues/2857
+    --   "--target-version py310",
+    -- },
+    -- ["lint.args"] = {
+    --   "--config=" .. vim.fn.stdpath("config") .. "/pyproject.toml",
+    -- },
+    -- logLevel = "debug",
+  },
+}
+
 return {
+  {
+    "williamboman/mason.nvim",
+    opts = function(_, opts)
+      table.insert(opts.ensure_installed, "mypy")
+    end,
+  },
+
+  -- https://stackoverflow.com/questions/76487150/how-to-avoid-cannot-find-implementation-or-library-stub-when-mypy-is-installed
+  {
+    "nvimtools/none-ls.nvim",
+    opts = function(_, opts)
+      local nls = require("null-ls")
+      opts.debug = true
+      opts.sources = vim.list_extend(opts.sources or {}, {
+        nls.builtins.diagnostics.mypy.with({
+          extra_args = function()
+            local config_file = vim.fn.stdpath("config") .. "/pyproject.toml"
+            return { "--config-file", config_file, "--python-executable", get_venv_bin() }
+          end,
+        }),
+      })
+    end,
+  },
 
   {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
         -- if these keys do not exist, nvim-lspconfig will not start the lsp server upon entering the buffer
-        pyright = pyright,
         jsonls = {},
         yamlls = {},
+        -- how to disable pyright to try pylyzer
+        -- https://github.com/LazyVim/LazyVim/discussions/1506
+        -- pylyzer = {},
+        pyright = pyright,
+        ruff_lsp = ruff_lsp,
       },
     },
   },
   -- pyright autoimport missing imports
-  { "stevanmilic/nvim-lspimport" },
+  {
+    "stevanmilic/nvim-lspimport",
+    keys = {
+      {
+        "<leader>ci",
+        function()
+          require("lspimport").import()
+        end,
+        "Lsp Import (plugin)",
+      },
+    },
+  },
 
   -- all lsps defined above (keys()) will be installed when opening neovim
   { "williamboman/mason-lspconfig.nvim", opts = { automatic_installation = true } },

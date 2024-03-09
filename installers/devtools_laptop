@@ -2,7 +2,6 @@
 source _installer.sh
 # ========== OSX - Install on Laptop  ==========
 
-
 install_rust() {
 	if ! command_exists "cargo"; then
 		brew_install rustup
@@ -12,7 +11,6 @@ install_rust() {
 }
 install_rust
 cargo_install proximity-sort
-
 
 install_package flavours
 symlink_dotfile config/flavours ~/.config/flavours
@@ -39,6 +37,11 @@ brew_install neofetch
 
 # pytower
 brew install --cask teamviewer
+
+# pytower - for IB Gateway connection testing
+# brew install docker provides terminal only, and I have not configured it to start the daemon
+# brew install --cask docker <- the GUI runs the docker daemon on start
+brew install --cask docker-desktop
 
 # checkout PR and more
 brew install gh

@@ -3,3 +3,4 @@
 -- Add any additional options here
 --
 vim.o.shell = "/bin/zsh"
+vim.o.swapfile = false

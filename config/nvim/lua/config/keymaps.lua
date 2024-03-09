@@ -22,4 +22,4 @@ vim.keymap.set("n", "]t", "<cmd>tabnext<cr>")
 vim.keymap.set("n", "<C-w>d", "<C-w>q")
 
 -- lazyvim default option is <esc><esc>
-vim.keymap.set("t", "<C-Space>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
+vim.keymap.set("t", "<leader>y", "<c-\\><c-n>", { desc = "Enter Normal Mode" })

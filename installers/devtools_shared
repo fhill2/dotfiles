@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# for use on
+#
+brew install neovim
+
+# do not install rust using homebrew
+install_rust() {
+	if ! command_exists "cargo"; then
+		brew_install rustup
+		rustup-init -y
+		source $HOME/.cargo/env
+	fi
+}
+install_rust
