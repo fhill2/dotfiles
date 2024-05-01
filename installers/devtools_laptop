@@ -2,14 +2,6 @@
 source _installer.sh
 # ========== OSX - Install on Laptop  ==========
 
-install_rust() {
-	if ! command_exists "cargo"; then
-		brew_install rustup
-		rustup-init -y
-		source $HOME/.cargo/env
-	fi
-}
-install_rust
 cargo_install proximity-sort
 
 install_package flavours
@@ -46,3 +38,7 @@ brew install --cask docker-desktop
 # checkout PR and more
 brew install gh
 brew install ipython
+
+# javascript typescript react formatters
+brew install prettierd
+brew install printd

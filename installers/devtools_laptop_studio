@@ -6,17 +6,21 @@ source _installer.sh
 
 dotheader "Setting up devtools for Studio and Laptop..."
 
-
-
 install_git() {
-  install_package "git"
-  brew_install diff-so-fancy
-  brew_tap_install jesseduffield/lazygit
-  brew_install lazygit
-  symlink_dotfile config/lazygit/config.yml ~/.config/lazygit/config.yml
-  symlink_dotfile config/git/gitattributes ~/.gitattributes
-  symlink_dotfile config/git/gitconfig ~/.gitconfig
-  symlink_dotfile config/git/gitignore ~/.gitignore
+	install_package "git"
+	brew_install diff-so-fancy
+	brew_install delta # lazygit diff
+	brew_tap_install jesseduffield/lazygit
+	brew_install lazygit
+
+	# IF LINUX
+	# symlink_dotfile config/lazygit/config.yml ~/.config/lazygit/config.yml
+	# IF MAC
+	symlink_dotfile config/lazygit/config.yml ~/Library/Application\ Support/lazygit/config.yml
+
+	symlink_dotfile config/git/gitattributes ~/.gitattributes
+	symlink_dotfile config/git/gitconfig ~/.gitconfig
+	symlink_dotfile config/git/gitignore ~/.gitignore
 }
 install_git
 
@@ -27,15 +31,11 @@ install_bat() {
 }
 install_bat
 
-
 install_package kitty
 symlink_dotfile config/kitty ~/.config/kitty
 
 install_package starship
 symlink_dotfile config/starship ~/.config/starship
-
-
-
 
 # a secrets workflow:
 # gnupg -> installed via package manager
@@ -53,9 +53,8 @@ install_package pet
 install_package sl
 install_package wget
 
-
 # ack is a grep-like source code search tool.
-brew_install ack 
+brew_install ack
 brew_install gnu-tar
 brew_install ripgrep
 
@@ -73,18 +72,15 @@ brew_install "rsync"
 brew_install "terminal-notifier"
 brew_install "rar" # <-- unrar moved due to licensing issues
 
-
-
-
 # pytower deps
 brew_tap_install "homebrew/cask"
 brew_install 'poetry'
 
 brew_install showkey
 
-
 brew_cask_install 'tailscale'
 brew_install 'tailscale' # for tailscale debugging
 
 brew_install 'act'
 
+brew_install "lazygit"

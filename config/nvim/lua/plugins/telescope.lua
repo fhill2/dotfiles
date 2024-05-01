@@ -41,12 +41,12 @@ return {
       {
 
         "<leader>/",
-        Util.telescope("live_grep", { additional_args = { "--no-ignore" }, cwd = vim.loop.cwd() }),
+        Util.telescope("live_grep", { additional_args = { "--no-ignore", "--follow" }, cwd = vim.loop.cwd() }),
         desc = "Grep ()",
       },
       {
         "<leader>sG",
-        Util.telescope("live_grep", { additional_args = { "--no-ignore" }, cwd = vim.loop.cwd() }),
+        Util.telescope("live_grep", { additional_args = { "--no-ignore", "--follow" }, cwd = vim.loop.cwd() }),
         desc = "Grep ()",
       },
       {

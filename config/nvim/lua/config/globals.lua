@@ -1,5 +1,3 @@
-vim.lsp.set_log_level("DEBUG")
-
 _G._PRINT_LSP = function()
   -- get lsp
   local clients = vim.lsp.get_active_clients()

@@ -58,6 +58,16 @@ local ruff_lsp = {
   },
 }
 
+local rust_analyzer = {
+  settings = {
+    ["rust-analyzer"] = {
+      diagnostics = {
+        enable = false,
+      },
+    },
+  },
+}
+
 return {
   {
     "williamboman/mason.nvim",
@@ -71,7 +81,7 @@ return {
     "nvimtools/none-ls.nvim",
     opts = function(_, opts)
       local nls = require("null-ls")
-      opts.debug = true
+      -- opts.debug = true
       opts.sources = vim.list_extend(opts.sources or {}, {
         nls.builtins.diagnostics.mypy.with({
           extra_args = function()
@@ -87,6 +97,7 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
+        rust_analyzer = rust_analyzer,
         -- if these keys do not exist, nvim-lspconfig will not start the lsp server upon entering the buffer
         jsonls = {},
         yamlls = {},
