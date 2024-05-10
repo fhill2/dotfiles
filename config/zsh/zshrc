@@ -4,8 +4,8 @@
 # zplug "zsh-users/zsh-syntax-highlighting", defer:2 # using fast-syntax-highlighting now
 # zplug 'agkozak/zhooks'
 # zplug 'NullSense/fuzzy-sys' # Utility for using systemctl interactively via fzf
-
-
+# antigen theme romkatv/powerlevel10k
+# antigen bundle robbyrussell/oh-my-zsh plugins/pyenv
 
 
 ## ======= Antigen ======
@@ -20,29 +20,12 @@ antigen bundle dbalatero/fast-syntax-highlighting
 antigen bundle hlissner/zsh-autopair
 antigen bundle jeffreytse/zsh-vi-mode
 antigen bundle 'zsh-users/zsh-autosuggestions'
-# antigen theme romkatv/powerlevel10k
-
-
-# =========== Plugins ============
-#source $HOME/.zsh/vendor/antigen.zsh
-
 antigen bundle robbyrussell/oh-my-zsh plugins/git
-
-# if [ ! -f ~/.config/dotfiles/no-nvm ]; then
 antigen bundle robbyrussell/oh-my-zsh plugins/nvm
-# fi
-
-# antigen bundle robbyrussell/oh-my-zsh plugins/pyenv
+antigen apply
 
 [ -f ~/.base16_theme ] && source ~/.base16_theme
 
-
-
-
-antigen apply
-
-
-# ======== Cache directory (for oh-my-zsh plugins) =========
 [ ! -d $HOME/.zcustom/cache ] && mkdir -p $HOME/.zcustom/cache
 
 export ZSH="$HOME/.zcustom"
@@ -64,9 +47,10 @@ eval "$(direnv hook zsh)"
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 
-# eval "$(pyenv init --path)"
+if command -v broot >/dev/null 2>&1; then
+  source /Users/f1/.config/broot/launcher/bash/br
+fi
 
-# source /home/f1/.config/broot/launcher/bash/br
 
 # ========= History settings =========
 if [ -z "$HISTFILE" ]; then
@@ -85,23 +69,26 @@ setopt inc_append_history
 setopt share_history # share command history data
 setopt extended_glob
 
-
-
-
 # https://github.com/pyenv/pyenv?tab=readme-ov-file#set-up-your-shell-environment-for-pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
+source $HOME/.zsh/custom/aliases.zsh
 
-# =========== Custom settings ================
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+
+
+
+
+### OLD
 
 # for file in $HOME/.zsh/custom/**/*.zsh
 # do
   # source $file
 # done
-
-source $HOME/.zsh/custom/aliases.zsh
 
 # source $HOME/.zsh/themes/original.zsh
 
@@ -111,13 +98,7 @@ source $HOME/.zsh/custom/aliases.zsh
 # done
 
 # [ -f ~/.zshrc.local ] && source ~/.zshrc.local
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-
-
-
-
-### OLD
 ## ======= AUTOCOMPLETE SETTINGS ======
 ## zstyle ':autocomplete:*' min-delay 0.1
 # LISTMAX=-1
@@ -193,7 +174,7 @@ source $HOME/.zsh/custom/aliases.zsh
 
 # zle -N f_tw
 #bindkey '^m' tw
-source /Users/f1/.config/broot/launcher/bash/br
+
 
 
 

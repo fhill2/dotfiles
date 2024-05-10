@@ -35,7 +35,7 @@ install_package kitty
 symlink_dotfile config/kitty ~/.config/kitty
 
 install_package starship
-symlink_dotfile config/starship ~/.config/starship
+symlink_dotfile config/starship.toml ~/.config/starship.toml
 
 # a secrets workflow:
 # gnupg -> installed via package manager
@@ -63,6 +63,7 @@ brew_install zoxide
 brew_install "colordiff"
 brew_install "fzf"
 brew_install "go"
+brew_install eza # exa
 
 brew_install "mas"
 brew_install "nmap"

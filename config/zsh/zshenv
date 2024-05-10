@@ -1,8 +1,4 @@
 source ~/.zsh/custom/exports.zsh
 
 [ "$VIMRUNTIME" ] && [ "$VIRTUAL_ENV" ] && source "$VIRTUAL_ENV/bin/activate"
-# if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
-#   echo "STARTING VENV"
-#   source "${VIRTUAL_ENV}/bin/activate"
-# fi
 . "$HOME/.cargo/env"

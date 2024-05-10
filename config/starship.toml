@@ -1,5 +1,9 @@
 #https://starship.rs/config/
 #https://starship.rs/presets/nerd-font.html
+
+[battery]
+disabled = true
+
 [aws]
 symbol = "  "
 

@@ -24,7 +24,6 @@ brew_install parquet-cli
 brew_install node
 brew_install yarn
 brew_install npm
-brew_install exa
 brew_install neofetch
 
 # pytower

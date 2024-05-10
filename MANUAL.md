@@ -5,3 +5,5 @@ boot options:
 - reduced security policy (IPMI view)
 
 IPMIView needs reduced security policy, if permissive security policy is enabled the app wont open.
+
+
