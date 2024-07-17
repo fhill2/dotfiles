@@ -64,7 +64,7 @@ return {
         "<leader>ff",
         function()
           require("telescope").extensions.file_browser.file_browser({
-            respect_gitignore = false,
+            respect_gitignore = true,
           })
         end,
         desc = "File Browser (.ignore)",
@@ -139,6 +139,13 @@ return {
         },
       })
       require("telescope").load_extension("file_browser")
+      require("telescope").load_extension("ultisnips")
+      -- vim.keymap.set({ "n", "i" }, "<C-l>", function()
+      --   local snippet = "foo" .. (vim.api.nvim_get_mode().mode == "n" and " " or "")
+      --   local after = vim.api.nvim_get_mode().mode == "n"
+      --   vim.api.nvim_put({ snippet }, "", after, true)
+      --   vim.fn["UltiSnips#ExpandSnippet"]()
+      -- end)
     end,
   },
 }

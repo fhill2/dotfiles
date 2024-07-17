@@ -20,6 +20,8 @@ brew install duti
 
 # disable all Hot Corners:
 # Settings > Hot COrner Shortcuts
+#
+# Settings > Accessibilty > Zoom > Use scroll gesture with modifier keys to zoom DISABLE
 
 ########################################3
 

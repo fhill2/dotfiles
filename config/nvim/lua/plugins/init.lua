@@ -12,6 +12,9 @@ return {
       require("kitty-scrollback").setup()
     end,
   },
+  -- { "fhill2/telescope-ultisnips.nvim" },
+  -- { "SirVer/ultisnips" },
+  -- { "honza/vim-snippets" },
   -- { "nvim-treesitter/nvim-treesitter", lazy = false },
   {
     "nvim-neotest/neotest",

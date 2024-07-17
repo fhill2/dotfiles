@@ -89,6 +89,9 @@ export _ZO_FZF_OPTS="$FZF_DEFAULT_OPTS"
 # export OPENAI_API_KEY="$OPENAI_KEY" # chatGPT.nvim
 
 
+# pytower
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH
+
 
 # https://stackoverflow.com/a/61870689
 # export PATH="/usr/local/opt/tcl-tk/bin:$PATH"

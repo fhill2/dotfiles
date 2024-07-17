@@ -77,6 +77,9 @@ brew_install "rar" # <-- unrar moved due to licensing issues
 brew_tap_install "homebrew/cask"
 brew_install 'poetry'
 
+# pytower - creating installers for thomas
+brew install --cask powershell
+
 brew_install showkey
 
 brew_cask_install 'tailscale'
