@@ -17,7 +17,6 @@ defaults write NSGlobalDomain NSTextShowsControlCharacters -bool true
 # this is enabled by default on fresh ventura install
 #defaults write NSGlobalDomain _HIHideMenuBar -bool true
 
-
 ###############################################################################
 # Stats                                                                       #
 ###############################################################################
@@ -64,7 +63,6 @@ defaults write NSGlobalDomain NSTextShowsControlCharacters -bool true
 # defaults write eu.exelban.Stats Battery_battery_additional -string "percentageAndTime"
 # defaults write eu.exelban.Stats Battery_lowLevelNotification -string "0.1"
 # defaults write eu.exelban.Stats Battery_battery_color -bool true
-
 
 ###############################################################################
 # AdGuard                                                                     #
@@ -157,7 +155,6 @@ defaults write NSGlobalDomain NSTextShowsControlCharacters -bool true
 # # Do not filter websites with EV certificates
 # defaults write com.adguard.mac.adguard IgnoreEvSslCertificates -bool false
 
-
 ###############################################################################
 # iiNA                                                                        #
 ###############################################################################
@@ -205,7 +202,6 @@ defaults write NSGlobalDomain NSTextShowsControlCharacters -bool true
 # # https://github.com/iina/iina/issues/3502
 # sudo rm /Applications/IINA.app/Contents/MacOS/youtube-dl
 # sudo ln -fs $(which yt-dlp) /Applications/IINA.app/Contents/MacOS/youtube-dl
-
 
 ###############################################################################
 # Transmission.app                                                            #
@@ -290,7 +286,6 @@ defaults write org.m0k.transmission FilterBar -bool true
 # Availability
 defaults write org.m0k.transmission DisplayProgressBarAvailable -bool false
 
-
 ###############################################################################
 # MusicBrainz.app                                                             #
 ###############################################################################
@@ -320,7 +315,6 @@ defaults write com.musicbrainz.Picard setting.ca_provider_use_caa_release_group_
 # Allow connections to AcoustID.
 defaults write com.musicbrainz.Picard setting.fingerprinting_system -string "acoustid"
 defaults write com.musicbrainz.Picard setting.acoustid_apikey -string "lP2ph5Sm"
-
 
 ###############################################################################
 # Fork
