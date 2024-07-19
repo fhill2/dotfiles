@@ -34,6 +34,9 @@ install_bat
 install_package kitty
 symlink_dotfile config/kitty ~/.config/kitty
 
+install_package tmux
+symlink_dotfile config/tmux ~/.config/tmux
+
 install_package starship
 symlink_dotfile config/starship.toml ~/.config/starship.toml
 
@@ -75,10 +78,6 @@ brew_install "rar" # <-- unrar moved due to licensing issues
 
 # pytower deps
 brew_tap_install "homebrew/cask"
-brew_install 'poetry'
-
-# pytower - creating installers for thomas
-brew install --cask powershell
 
 brew_install showkey
 

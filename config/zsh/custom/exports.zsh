@@ -90,7 +90,7 @@ export _ZO_FZF_OPTS="$FZF_DEFAULT_OPTS"
 
 
 # pytower
-export PATH="/opt/homebrew/opt/libpq/bin:$PATH
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 
 
 # https://stackoverflow.com/a/61870689

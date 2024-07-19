@@ -75,8 +75,6 @@ install_package zsh-completions
 
 
 
-setup_zsh_symlinks
-
 install_package antigen
 
 update_shell_whitelist
