@@ -8,7 +8,9 @@
 		) >>/Users/s1/.zprofile
 		eval "$(/opt/homebrew/bin/brew shellenv)"
 		brew update
+    # to upload ssh key
 		brew install git
+    brew install google-chrome
 	fi
 }
 
