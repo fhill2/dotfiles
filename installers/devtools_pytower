@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-brew_cask_install datagrip # postgresql GUI viewer
-brew install postgresql
-brew services start postgresql@14
-
-# pytower - creating installers for thomas
-brew install --cask powershell

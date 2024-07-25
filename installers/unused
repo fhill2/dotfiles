@@ -1,0 +1,103 @@
+#!/usr/bin/env bash
+
+# a secrets workflow:
+# gnupg -> installed via package manager
+# gpg private key -> stored in bw, unsynced
+# password store -> synced privately using syncthing
+install_package gnupug
+
+install_package pet
+install_package sl
+
+# ack is a grep-like source code search tool.
+brew_install ack
+brew_install gnu-tar
+brew_install gnu-sed # some nvim app needs this on osx
+brew_install "colordiff"
+brew_install eza # exa
+
+brew_install "rename"
+
+brew_install 'act'
+
+# install_ext4fuse() {
+# # to read/write ext4 drives, homebrew macfuse, and ext4fuse is needed.
+# # https://github.com/gerard/ext4fuse/issues/66#issuecomment-1435992847
+# # homebrew cannot install ext4fuse on osx anymore.
+# # this installs ext4fuse from source...
+#
+# # after installing and mounting a drive, enable system extensions in boot options
+#
+# pushd .
+# git clone https://github.com/gerard/ext4fuse.git ~/.apps/ext4fuse
+# cd ~/.apps/ext4fuse
+# make
+# # sudo ln -s ext4fuse /usr/local/bin/ext4fuse
+# symlink_relative_dotfile ext4fuse /usr/local/bin/ext4fuse
+# # sudo -u root sh -c 'symlink_dotfile ext4fuse /usr/local/bin/ext4fuse'
+# popd
+# # sudo ./ext4fuse /dev/disk4 ~/ext4_mount -o allow_other
+# }
+# install_ext4fuse
+#
+
+# cargo_install proximity-sort
+# install_package flavours
+# symlink_dotfile config/flavours ~/.config/flavours
+
+# install_syncthing() {
+#   install_package syncthing
+#   # syncthing needs to be started after install
+#   brew services start syncthing
+# }
+#
+#
+# ~/.config/syncthing/config.xml
+# change <address></address> to 0.0.0.0
+# this allows connecting to show syncthing web gui over LAN
+# cant sync this file as it contains device IDs
+# and cba to script with aug or sed
+# ```xml
+# <gui enabled="true" tls="false" debugging="false">
+# <address>0.0.0.0:8384</address>
+# <apikey>Po7cHpbLHs7sjRuNRJkJXQG2gxstbuxC</apikey>
+# <theme>default</theme>
+# </gui>
+# ```
+#
+#
+#
+#
+#
+# dbalateros unmodified backup installer
+#source "${BASH_SOURCE%/*}/shared.sh"
+# source _installer.sh
+#
+# require_installer package-manager
+#
+# function setup_backblaze_keys() {
+#   local key_file="$(dotfiles_location)/zsh/secrets/backblaze.zsh"
+#
+#   if [ ! -f "$key_file" ]; then
+#     dotsay "@b@blue[[Setting up Backblaze keys...]]"
+#     dotsay "You can find it here: https://secure.backblaze.com/b2_buckets.htm"
+#
+#     printf "What is your Backblaze account ID? > "
+#     read account_id
+#
+#     printf "What is your Backblaze account key? > "
+#     read account_key
+#
+#     echo "export B2_ACCOUNT_ID=\"$account_id\"" > "$key_file"
+#     echo "export B2_ACCOUNT_KEY=\"$account_key\"" >> "$key_file"
+#
+#     chmod 600 "$key_file"
+#   fi
+#
+#   source "$key_file"
+# }
+#
+# dotheader "Setting up backups..."
+# brew_install restic
+# setup_backblaze_keys
+#

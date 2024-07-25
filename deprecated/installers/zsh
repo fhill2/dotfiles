@@ -23,14 +23,7 @@ function update_shell_whitelist() {
   fi
 }
 
-function chsh_zsh() {
-  if [[ "$SHELL" != "$(zsh_binary)" ]]; then
-    dotsay "@b@blue[[Changing shell for $current_user...]]"
 
-    local current_user=$USER
-    sudo chsh -s $(zsh_binary) $current_user
-  fi
-}
 
 function setup_zsh_completions_repo() {
   ! is_linux && return 1
@@ -70,12 +63,9 @@ dotheader "Setting up ZSH..."
 install_base16_shell
 setup_zsh_completions_repo
 
-install_package zsh
-install_package zsh-completions
 
 
 
-install_package antigen
 
 update_shell_whitelist
 chsh_zsh

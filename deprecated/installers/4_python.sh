@@ -53,16 +53,3 @@
 # 	$HOME/dev/python_lib/setup.sh
 #
 # }
-
-############# 2024 Python #############
-function install_python() {
-
-	brew install pyenv
-	pyenv install -s 3.11.0
-	pyenv global 3.11.0
-	pip install poetry
-	# need to restart terminal here, maybe source both zsh files again?
-	source ~/.zshrc
-	source ~/.zshenv
-}
-install_python

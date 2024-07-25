@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
- # x specific
+# x specific
 linux_install "xorg-xinit"
 linux_install "xorg-server"
 linux_install "xorg-xwininfo"

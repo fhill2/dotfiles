@@ -1,8 +1,3 @@
-replace_local_bin_with_dotfiles_bin() {
-	echo "Replacing local bin with dotfiles bin..."
-	ln -s ~/dot/bin ~/.local/bin
-}
-
 function setup_zsh_symlinks() {
 	ln -s ~/dot/config/zsh/zshrc ~/.zshrc
 	ln -s ~/dot/config/zsh ~/.zsh

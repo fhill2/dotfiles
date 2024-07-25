@@ -36,4 +36,5 @@ return {
       },
     },
   },
+  { "bfontaine/Brewfile.vim" },
 }
