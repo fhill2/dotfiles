@@ -1,6 +1,5 @@
 #!/bin/sh
 
-
 # OLD SH VERSION
 
 # always opens a new os window for the specific app
@@ -13,15 +12,13 @@
 
 # terminal-notifier -message "OPEN ALWAYS"
 
-
-
 # open_always() {
-  # when adding new entries, make sure the conditional values align with the output of open_cwin osascript
+# when adding new entries, make sure the conditional values align with the output of open_cwin osascript
 # /opt/homebrew/bin/terminal-notifier -message "OPEN_ALWAYS: $1"
 if [ "$1" = "Google Chrome" ]; then
-  /usr/bin/osascript -e 'tell application "Google Chrome" to make new window'
+	/usr/bin/osascript -e 'tell application "Google Chrome" to make new window'
 elif [ "$1" = "kitty" ]; then
-  /usr/bin/nohup /opt/homebrew/bin/kitty --single-instance --working-directory ~ &
+	/usr/bin/nohup "$(brew --prefix)/bin/kitty" --single-instance --working-directory ~ &
 fi
 # }
 

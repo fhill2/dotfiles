@@ -73,6 +73,7 @@ return {
     "williamboman/mason.nvim",
     opts = function(_, opts)
       table.insert(opts.ensure_installed, "mypy")
+      opts.log_level = vim.log.levels.DEBUG
     end,
   },
 

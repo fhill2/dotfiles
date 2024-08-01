@@ -1,5 +1,6 @@
 return {
   { "sindrets/diffview.nvim" },
+  {"nvim-telescope/telescope.nvim"},
   {
     "mikesmithgh/kitty-scrollback.nvim",
     enabled = true,

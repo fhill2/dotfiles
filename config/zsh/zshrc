@@ -47,10 +47,6 @@ eval "$(direnv hook zsh)"
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 
-if command -v broot >/dev/null 2>&1; then
-  source /Users/f1/.config/broot/launcher/bash/br
-fi
-
 
 # ========= History settings =========
 if [ -z "$HISTFILE" ]; then

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+#
+
 # source "${BASH_SOURCE%/*}/shared.sh"
 source _installer.sh
 
@@ -21,7 +23,7 @@ function install_yabai() {
 		# https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(from-HEAD)
 		# TODO: MANUAL: self signed certificate needs to be created
 		#brew install koekeishiya/formulae/yabai --HEAD
-		brew install koekeishiya/formulae/yabai@5.0.3
+		# brew install koekeishiya/formulae/yabai@5.0.3
 		# FIX: this wont work due to path containing commit
 		codesign -fs 'yabai-cert' /opt/homebrew/Cellar/yabai/HEAD-4d81baf/bin/yabai
 		# TODO: MANUAL: needs security privacy > accessibility > add homebrew yabai binary to this
@@ -42,7 +44,7 @@ function install_yabai() {
 			echo "Installed yabai, but you still need to reboot into boot options, open terminal, and disable SIP."
 		fi
 	fi
-	symlink_dotfile config/yabai ~/.config/yabai
+	
 	# https://github.com/koekeishiya/yabai/issues/787
 	# after the first installation of yabai, we need to run:
 	sudo yabai --install-sa

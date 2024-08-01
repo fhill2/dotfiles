@@ -5,15 +5,13 @@
   <!--  
   https://github.com/koekeishiya/skhd/blob/master/src/service.h
   -->
-
-
     <!-- skhd loads in $USER default shell by default (zsh) -->
 <dict>
 	<key>Label</key>
-	<string>com.koekeishiya.skhd</string>
+	<string>skhd</string>
   <key>ProgramArguments</key>
   <array>
-  <string>/opt/homebrew/bin/skhd</string>
+      <string>/usr/local/bin/skhd</string>
   <string>-V</string> <!-- Verbose outpput to ~/tmp/skhd.log-->
   </array>
   <key>EnvironmentVariables</key>
@@ -40,4 +38,5 @@
   <key>Nice</key>
   <integer>-20</integer>
 </dict>
+SXc
 </plist>

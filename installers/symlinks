@@ -1,4 +1,9 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
+
+# if a brewfile has just been installed:
+# After running this, start karabiner, skhd, yabai
+# This will auto add all the locations as entries to the Security & Privacy to enable
+
 symlink_dotfile config/broot ~/.config/broot
 symlink_dotfile config/xplr ~/.config/xplr
 symlink_dotfile "$HOME/data/Alfred" "$HOME/Library/Application Support/Alfred"
@@ -7,7 +12,7 @@ symlink_dotfile config/kitty ~/.config/kitty
 symlink_dotfile config/tmux ~/.config/tmux
 symlink_dotfile config/starship.toml ~/.config/starship.toml
 mkdir -p ~/.config/bat
-symlink_dotfile bat/config ~/.config/bat/config
+symlink_dotfile config/bat/config ~/.config/bat/config # this is a file
 symlink_dotfile config/lazygit/config.yml ~/Library/Application\ Support/lazygit/config.yml
 symlink_dotfile config/git/gitattributes ~/.gitattributes
 symlink_dotfile config/git/gitconfig ~/.gitconfig
@@ -15,17 +20,21 @@ symlink_dotfile config/git/gitignore ~/.gitignore
 
 # NOTE: only karabiner full config folder can be symlinked
 # individual karabiner.json cannot be symlinked, as karabiner overwrites the karabiner.json whern adding new complex modifications, destroying the symlink
-
 # NOTE: everytime a complex modification is edited inside assets/complex_modifications, the rule needs to be deleted and re-enabled in the GUI (does not need a restart)
-# this rewriters the karabiner.json file
-symlink_dotfile config/karabiner/karabiner ~/.config
+symlink_dotfile config/karabiner ~/.config/karabiner
 
 symlink_all_within "$HOME/dot/config/launchd" "$HOME/Library/LaunchAgents"
 
 symlink_dotfile config/vlc ~/.config/vlc
 
-VSCODE_CONFIG_DIR="$HOME/Library/Application Support/Code/User"
+# VSCODE_CONFIG_DIR="$HOME/Library/Application Support/Code/User"
+# mkdir -p "$VSCODE_CONFIG_DIR"
+# symlink_dotfile config/vscode/keybindings.json "$VSCODE_CONFIG_DIR/keybindings.json"
+# symlink_dotfile config/vscode/settings.json "$VSCODE_CONFIG_DIR/settings.json"
 
-mkdir -p "$VSCODE_CONFIG_DIR"
-symlink_dotfile vscode/keybindings.json "$VSCODE_CONFIG_DIR/keybindings.json"
-symlink_dotfile vscode/settings.json "$VSCODE_CONFIG_DIR/settings.json"
+symlink_dotfile config/yabai ~/.config/yabai
+
+symlink_dotfile config/nvim ~/.config/nvim
+symlink_dotfile config/skhd ~/.config/skhd
+
+

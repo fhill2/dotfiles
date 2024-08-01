@@ -14,9 +14,6 @@
 -- rg params
 -- --no-ignore-vcs -> do not respect gitignore
 -- --no-ignore -> do not respect any ignore files, .gitignore or .ignore
-
-local Util = require("lazyvim.util")
-
 return {
 
   {
@@ -30,10 +27,12 @@ return {
     keys = {
       {
         "<leader>sg",
-        Util.telescope("live_grep", { additional_args = { "--no-ignore-vcs" }, cwd = vim.loop.cwd() }),
-        -- function()
-        -- require("telescope.builtin").live_grep({ additional_args = { "--no-ignore-vcs" }, cwd = vim.loop.cwd() })
-        -- end,
+        function()
+          require("telescope.builtin").live_grep({
+            additional_args = { "--no-ignore-vcs" },
+            cwd = vim.loop.cwd(),
+          })
+        end,
         desc = "Grep ()",
       },
       -- to search witihin nautilus_trader that has been .ignored
@@ -41,12 +40,22 @@ return {
       {
 
         "<leader>/",
-        Util.telescope("live_grep", { additional_args = { "--no-ignore", "--follow" }, cwd = vim.loop.cwd() }),
+        function()
+          require("telescope.builtin").live_grep({
+            additional_args = { "--no-ignore", "--follow" },
+            cwd = vim.loop.cwd(),
+          })
+        end,
         desc = "Grep ()",
       },
       {
         "<leader>sG",
-        Util.telescope("live_grep", { additional_args = { "--no-ignore", "--follow" }, cwd = vim.loop.cwd() }),
+        function()
+          require("telescope.builtin").live_grep({
+            additional_args = { "--no-ignore", "--follow" },
+            cwd = vim.loop.cwd(),
+          })
+        end,
         desc = "Grep ()",
       },
       {
@@ -139,7 +148,7 @@ return {
         },
       })
       require("telescope").load_extension("file_browser")
-      require("telescope").load_extension("ultisnips")
+      -- require("telescope").load_extension("ultisnips")
       -- vim.keymap.set({ "n", "i" }, "<C-l>", function()
       --   local snippet = "foo" .. (vim.api.nvim_get_mode().mode == "n" and " " or "")
       --   local after = vim.api.nvim_get_mode().mode == "n"
