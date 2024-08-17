@@ -1,3 +1,4 @@
+config/nvim/lazy-lock.json
 aconfmgr/files/**
 dotbot-*
 qtile/__pycache__/**
