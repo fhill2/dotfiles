@@ -7,7 +7,6 @@ local get_root_dir = function(buf_path, bufnr)
   -- if a python virtual environment is activated before opening nvim
   -- vim.env.VIRTUAL_ENV is set to the venv path, eg git_root/.venv
   if vim.env.VIRTUAL_ENV then
-    print(vim.fn.fnamemodify(vim.env.VIRTUAL_ENV, ":h"))
     return vim.fn.fnamemodify(vim.env.VIRTUAL_ENV, ":h")
   end
   -- fallback to finding the root based on the CWD of the parent shell
@@ -37,25 +36,69 @@ local pyright = {
   settings = {
     useLibraryCodeForTypes = true,
     verboseOutput = true,
+    pyright = {
+      -- Using Ruff's import organizer
+      disableOrganizeImports = true,
+    },
+    python = {
+      analysis = {
+        -- Ignore all files for analysis to exclusively use Ruff for linting
+        ignore = { "*" },
+      },
+    },
   },
 }
 
-local ruff_lsp = {
-  settings = {
-    -- not necessary, pytower now does not use black
-    -- and config files are contained within the repo
-    -- ["format.args"] = {
-    --   -- these are nautilus_trader black args
-    --   "--line-length=150",
-    --   -- add 3.9, 3.11 when ruff supports multiple --target-version arguments on the CLI
-    --   -- https://github.com/astral-sh/ruff/issues/2857
-    --   "--target-version py310",
-    -- },
-    -- ["lint.args"] = {
-    --   "--config=" .. vim.fn.stdpath("config") .. "/pyproject.toml",
-    -- },
-    -- logLevel = "debug",
-  },
+vim.lsp.set_log_level("DEBUG")
+
+local ruff = {
+  on_init = function(client)
+    home = vim.loop.os_homedir()
+    local path = home .. "/projects/pytower/nautilus_trader/pyproject.toml"
+
+    -- local root = get_root_dir()
+    -- if string.match(root, "pytower") then
+    -- there is no feedback if path does not exist
+
+    vim.loop.fs_stat(path, function(err, stat)
+      if err then
+        print("ruff: " .. path .. " does not exist...")
+      else
+        client.config.init_options.settings.configuration = path
+        client.config.init_options.settings.linelength = 100
+      end
+    end)
+    -- end
+    --
+  end,
+  -- init_options = {
+  --   settings = {
+  --     configuration = vim.fn.stdpath("config") .. "/pyproject.toml",
+  --   },
+  -- },
+  -- not necessary, pytower now does not use black
+  -- and config files are contained within the repo
+  -- ["format.args"] = {
+  --   -- these are nautilus_trader black args
+  --   "--line-length=150",
+  --   -- add 3.9, 3.11 when ruff supports multiple --target-version arguments on the CLI
+  --   -- https://github.com/astral-sh/ruff/issues/2857
+  --   "--target-version py310",
+  -- },
+  -- ["format.args"] = function()
+  --   print("a function was invoked")
+  --   vim.notify(get_root_dir())
+  --   return "--config=" .. vim.fn.stdpath("config") .. "/pyproject.toml"
+  -- end,
+  --
+  -- ["lint.args"] = function()
+  --   print("a function was invoked")
+  --   vim.notify(get_root_dir())
+  --   return "--config=" .. vim.fn.stdpath("config") .. "/pyproject.toml"
+  -- end,
+  -- logLevel = "debug",
+  -- -- },
+  -- },
 }
 
 local rust_analyzer = {
@@ -83,14 +126,14 @@ return {
     opts = function(_, opts)
       local nls = require("null-ls")
       -- opts.debug = true
-      opts.sources = vim.list_extend(opts.sources or {}, {
-        nls.builtins.diagnostics.mypy.with({
-          extra_args = function()
-            local config_file = vim.fn.stdpath("config") .. "/pyproject.toml"
-            return { "--config-file", config_file, "--python-executable", get_venv_bin() }
-          end,
-        }),
-      })
+      -- opts.sources = vim.list_extend(opts.sources or {}, {
+      --   nls.builtins.diagnostics.mypy.with({
+      --     extra_args = function()
+      --       local config_file = vim.fn.stdpath("config") .. "/pyproject.toml"
+      --       return { "--config-file", config_file, "--python-executable", get_venv_bin() }
+      --     end,
+      --   }),
+      -- })
     end,
   },
 
@@ -103,10 +146,11 @@ return {
         jsonls = {},
         yamlls = {},
         -- how to disable pyright to try pylyzer
+        -- if using lazyVim, pyright cannot be disabled
         -- https://github.com/LazyVim/LazyVim/discussions/1506
-        -- pylyzer = {},
-        pyright = pyright,
-        ruff_lsp = ruff_lsp,
+        pyright = { autostart = false, mason = false },
+        pylyzer = {},
+        ruff = ruff,
       },
     },
   },

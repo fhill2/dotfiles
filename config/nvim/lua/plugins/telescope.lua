@@ -1,19 +1,16 @@
 ----------------------------
--- # Requirements - Finding Files / Grep searching in a monorepo
--- Hotkey 1: I want some files / results to be gitignored, and shown in telescope (pyfutures) - currently using --no-ignore-vcs and a .ignore file in cwd for this.
--- Hotkey 2: I want all files / results shown in telescope, even if they exist in .ignore or .gitignore (nautilus_trader) - currently using --no-ignore
 ---------------------------
--- # Telescope file_browser
+-- # how Telescope file_browser handles ignore
 -- respect_gitignore=false -> appends --no-ignore-vcs to find_command
 -- no_ignore=true -> appends --no-ignore to the find_command
 -- note, .ignore is still applied with the default configuration (passing no opts to file_browser)
 ---------------------------
 -- # Telescope find_files
 -- both hotkeys can be configured by editing the find_command with --no-ignore-vcs, or --no-ignore
-
 -- rg params
--- --no-ignore-vcs -> do not respect gitignore
+-- --no-ignore-vcs -> do not respect gitignore in current git repo
 -- --no-ignore -> do not respect any ignore files, .gitignore or .ignore
+
 return {
 
   {
@@ -28,11 +25,11 @@ return {
       {
         "<leader>sg",
         function()
-          require("telescope.builtin").live_grep({
-            additional_args = { "--no-ignore-vcs" },
-            cwd = vim.loop.cwd(),
-          })
+          require("telescope.builtin").live_grep({ additional_args = { "--no-ignore-parent" }, cwd = vim.loop.cwd() })
         end,
+        -- function()
+        -- require("telescope.builtin").live_grep({ additional_args = { "--no-ignore-vcs" }, cwd = vim.loop.cwd() })
+        -- end,
         desc = "Grep ()",
       },
       -- to search witihin nautilus_trader that has been .ignored

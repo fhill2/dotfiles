@@ -32,6 +32,10 @@ export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 export PATH="./node_modules/.bin:$PATH"
 export PATH="$PATH:$HOME/.config/base16-shell"
 
+# output of go env - GOBIN
+# binaries / programs installed in the go system environment are not available on PATH by default
+export PATH="$PATH:$HOME/go/bin"
+
 [ -f $HOME/.cargo/env ] && source $HOME/.cargo/env
 
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1

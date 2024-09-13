@@ -1,9 +1,13 @@
 #SKHD STUFF
+#
+# Aug 2024 Reserved for Tmux:
+# Alt - l|j
 
 # https://sourcegraph.com/github.com/koekeishiya/yabai/-/blob/examples/skhdrc
 # To find key names: skhd -observe
 # hyper == shift + command + option + shift
 # HYPER == SHIFT + CMD + ALT + OPTION
+
 
 
 # KEYCODES
@@ -34,7 +38,7 @@ hyper - k : yabai -m window --focus north || yabai -m display --focus north
 hyper - l : yabai -m window --focus east || yabai -m display --focus east
 
 hyper - space : yabai -m window --toggle float
-alt - l : yabai -m window --toggle split
+# alt - l : yabai -m window --toggle split
 
 
 hyper - 0x21 : yabai -m window --focus stack.prev || yabai -m window --focus stack.last # [
