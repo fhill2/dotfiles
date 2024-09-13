@@ -111,6 +111,13 @@ local rust_analyzer = {
   },
 }
 
+local pylyzer = {
+  -- root_dir = get_root_dir,
+  root_dir = function()
+    return "/Users/f1/projects/pytower/pytower"
+  end,
+}
+
 return {
   {
     "williamboman/mason.nvim",
@@ -148,8 +155,8 @@ return {
         -- how to disable pyright to try pylyzer
         -- if using lazyVim, pyright cannot be disabled
         -- https://github.com/LazyVim/LazyVim/discussions/1506
-        pyright = { autostart = false, mason = false },
-        pylyzer = {},
+        -- pyright = { autostart = false, mason = false },
+        pylyzer = pylyzer,
         ruff = ruff,
       },
     },
