@@ -28,11 +28,13 @@ end
 
 local pyright = {
   on_init = function(client)
+    -- otherwise no venv packages can be found
     client.config.settings.python.pythonPath = get_venv_bin()
+
     client.config.settings.python.venvPath = vim.env.VIRTUAL_ENV or util.path.join(vim.env.PWD, ".venv")
     client.config.settings.python.venv = get_venv_bin()
   end,
-  root_dir = get_root_dir,
+  -- root_dir = get_root_dir,
   settings = {
     useLibraryCodeForTypes = true,
     verboseOutput = true,
@@ -43,7 +45,7 @@ local pyright = {
     python = {
       analysis = {
         -- Ignore all files for analysis to exclusively use Ruff for linting
-        ignore = { "*" },
+        -- ignore = { "*" },
       },
     },
   },
@@ -52,6 +54,7 @@ local pyright = {
 vim.lsp.set_log_level("DEBUG")
 
 local ruff = {
+  autostart = false,
   on_init = function(client)
     home = vim.loop.os_homedir()
     local path = home .. "/projects/pytower/nautilus_trader/pyproject.toml"
@@ -64,8 +67,8 @@ local ruff = {
       if err then
         print("ruff: " .. path .. " does not exist...")
       else
-        client.config.init_options.settings.configuration = path
-        client.config.init_options.settings.linelength = 100
+        client.config.settings.configuration = path
+        client.config.settings.linelength = 100
       end
     end)
     -- end
@@ -111,11 +114,14 @@ local rust_analyzer = {
   },
 }
 
+-- note: pylyzer is unusable until it can resolve local .venv imports
+-- https://github.com/mtshiba/pylyzer/issues/22
 local pylyzer = {
   -- root_dir = get_root_dir,
   root_dir = function()
     return "/Users/f1/projects/pytower/pytower"
   end,
+  cmd_env = { RUST_BACKTRACE = "FULL" },
 }
 
 return {
@@ -155,8 +161,8 @@ return {
         -- how to disable pyright to try pylyzer
         -- if using lazyVim, pyright cannot be disabled
         -- https://github.com/LazyVim/LazyVim/discussions/1506
-        -- pyright = { autostart = false, mason = false },
-        pylyzer = pylyzer,
+        pyright = pyright,
+        -- pylyzer = pylyzer,
         ruff = ruff,
       },
     },

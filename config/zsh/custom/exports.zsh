@@ -22,14 +22,17 @@ export EDITOR=nvim
 
 # Path
 # homebrew binary after ~/.local/bin on path, so I can override fd with a shim that always invokes fd with -L (to use fd with a global config that is useful for telescope and invocation via CLI)
-export PATH=/opt/homebrew/bin:$PATH
+# BREW_PREFIX="$(brew --prefix)"
+# export PATH="$BREW_PREFIX/bin:$PATH"
 # Apparently `brew doctor` says i need it.
-export PATH="/opt/homebrew/sbin:$PATH"
+# export PATH="$BREW_PREFIX/sbin:$PATH"
+
+# export PATH="$(brew --prefix node)/bin" # adds system npm/npx to PATH
 
 export PATH="$HOME/.local/bin:/usr/local/bin:$PATH"
-export PATH="$HOME/.yarn/bin:$PATH"
+# export PATH="$HOME/.yarn/bin:$PATH"
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
-export PATH="./node_modules/.bin:$PATH"
+# export PATH="./node_modules/.bin:$PATH"
 export PATH="$PATH:$HOME/.config/base16-shell"
 
 # output of go env - GOBIN
@@ -38,9 +41,9 @@ export PATH="$PATH:$HOME/go/bin"
 
 [ -f $HOME/.cargo/env ] && source $HOME/.cargo/env
 
-export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
+# export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+# export PYENV_ROOT="$HOME/.pyenv"
+# export PATH="$PYENV_ROOT/bin:$PATH"
 
 if command -v yarn >/dev/null 2>&1; then
   export PATH="$PATH:`yarn global bin`"

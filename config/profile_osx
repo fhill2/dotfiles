@@ -3,3 +3,17 @@ export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init --path)"
 . "$HOME/.cargo/env"
+
+
+# Necessary to ensure programs launched in sh shell (skhd)
+# Can find homebrew on the PATH (so they can use brew --prefix)
+# Check if we're on an ARM-based system
+arch=$(uname -m)
+if [[ "$arch" == "aarch64" ]]; then
+    BREW_PATH="/opt/homebrew"
+else
+    BREW_PATH="/usr/local"
+fi
+
+# Add the Homebrew path to PATH
+export PATH="$BREW_PATH/sbin:$BREW_PATH/bin:$PATH"

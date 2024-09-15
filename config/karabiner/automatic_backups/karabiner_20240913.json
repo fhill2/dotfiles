@@ -75,6 +75,25 @@
                                 "type": "basic"
                             }
                         ]
+                    },
+                    {
+                        "description": "Caps=Control: v2 --> No Escape",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "caps_lock"
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_control",
+                                        "modifiers": [
+                                            "left_control"
+                                        ]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
                     }
                 ]
             },
@@ -258,16 +277,6 @@
                             "to": [
                                 {
                                     "key_code": "grave_accent_and_tilde"
-                                }
-                            ]
-                        },
-                        {
-                            "from": {
-                                "key_code": "caps_lock"
-                            },
-                            "to": [
-                                {
-                                    "key_code": "left_control"
                                 }
                             ]
                         }
