@@ -2,7 +2,14 @@ Bootstrapping from a fresh debian install with no packages selected on the ISO i
 Uncheck Standard System Utilities
 Uncheck Debian Desktop Environment
 
-
+gnupg # required for apt custom repos
+wget
+man
+zsh
 git
+# elogind or seatd (seat management daemon) is needed for sway to launch
+seatd
 sway
+neovim
 xdg-desktop-portal-
+kitty
