@@ -27,7 +27,7 @@ function setup_zsh_symlinks() {
 	ln -s ~/dot/config/zsh/zshrc ~/.zshrc
 	ln -s ~/dot/config/zsh ~/.zsh
 	ln -s ~/dot/config/zsh/zshenv ~/.zshenv
-	ln -s ~/dot/config/profile_linux ~/.profile
+	ln -s ~/dot/debian/config/profile_debian ~/.profile
 	# unnecessary to source ~/.zshrc at this point
 	# as zsh is not installed
 }

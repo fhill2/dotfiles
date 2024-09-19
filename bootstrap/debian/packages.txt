@@ -11,5 +11,6 @@ git
 seatd
 sway
 neovim
-xdg-desktop-portal-
 kitty
+zsh-antigen
+trash-cli

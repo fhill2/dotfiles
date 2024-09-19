@@ -35,6 +35,3 @@ symlink_dotfile config/vlc ~/.config/vlc
 symlink_dotfile config/yabai ~/.config/yabai
 
 symlink_dotfile config/nvim ~/.config/nvim
-symlink_dotfile config/skhd ~/.config/skhd
-
-

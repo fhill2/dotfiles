@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+# if a brewfile has just been installed:
+# After running this, start karabiner, skhd, yabai
+# This will auto add all the locations as entries to the Security & Privacy to enable
+
+symlink_dotfile config/zsh/zshrc ~/.zshrc
+symlink_dotfile config/zsh ~/.zsh
+symlink_dotfile config/zsh/zshenv ~/.zshenv
+
+symlink_dotfile debian/config/profile_debian ~/.profile
+symlink_dotfile config/nvim ~/.config/nvim
+symlink_dotfile config/git/gitconfig ~/.gitconfig
+symlink_dotfile config/git/gitignore ~/.gitignore
+symlink_dotfile config/broot ~/.config/broot
+symlink_dotfile config/xplr ~/.config/xplr
+symlink_dotfile "$HOME/data/Alfred" "$HOME/Library/Application Support/Alfred"
+symlink_dotfile config/tmux ~/.config/tmux
+symlink_dotfile config/starship.toml ~/.config/starship.toml
+mkdir -p ~/.config/bat
+symlink_dotfile config/bat/config ~/.config/bat/config # this is a file
+symlink_dotfile config/lazygit/config.yml ~/Library/Application\ Support/lazygit/config.yml
+symlink_dotfile config/git/gitattributes ~/.gitattributes
