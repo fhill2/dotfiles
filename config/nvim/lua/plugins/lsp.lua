@@ -51,8 +51,6 @@ local pyright = {
   },
 }
 
-vim.lsp.set_log_level("DEBUG")
-
 local ruff = {
   autostart = false,
   on_init = function(client)
@@ -107,9 +105,7 @@ local ruff = {
 local rust_analyzer = {
   settings = {
     ["rust-analyzer"] = {
-      diagnostics = {
-        enable = false,
-      },
+      -- checkOnSave = false,
     },
   },
 }
@@ -164,6 +160,12 @@ return {
         pyright = pyright,
         -- pylyzer = pylyzer,
         ruff = ruff,
+      },
+      diagnostics = {
+        -- prevents diagnostics hiding in insert mode
+        -- prevents diagnostics flashing on save
+        -- LazyVim sets this to false by default
+        update_in_insert = true,
       },
     },
   },

@@ -23,3 +23,19 @@ vim.keymap.set("n", "<C-w>d", "<C-w>q")
 
 -- lazyvim default option is <esc><esc>
 vim.keymap.set("t", "<leader>y", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
+
+-- https://www.reddit.com/r/neovim/comments/17a4m8q/comment/k5elu28/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+vim.keymap.set("n", "<leader>uys", function()
+  vim.cmd([[
+		:profile start /tmp/nvim-profile.log
+		:profile func *
+		:profile file *
+	]])
+end, { desc = "Profile Start" })
+
+vim.keymap.set("n", "<leader>uye", function()
+  vim.cmd([[
+		:profile stop
+		:e /tmp/nvim-profile.log
+	]])
+end, { desc = "Profile End" })

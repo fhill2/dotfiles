@@ -1,0 +1,8 @@
+Bootstrapping from a fresh debian install with no packages selected on the ISO installer
+Uncheck Standard System Utilities
+Uncheck Debian Desktop Environment
+
+
+git
+sway
+xdg-desktop-portal-

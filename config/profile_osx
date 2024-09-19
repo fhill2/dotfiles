@@ -9,7 +9,7 @@ eval "$(pyenv init --path)"
 # Can find homebrew on the PATH (so they can use brew --prefix)
 # Check if we're on an ARM-based system
 arch=$(uname -m)
-if [[ "$arch" == "aarch64" ]]; then
+if [[ "$arch" == "arm64" ]]; then
     BREW_PATH="/opt/homebrew"
 else
     BREW_PATH="/usr/local"
