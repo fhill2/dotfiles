@@ -1,5 +1,4 @@
 # this has worked successfuly on OSX and Debian...
-#
 function chsh_zsh() {
 	if [[ "$SHELL" != "$(zsh_binary)" ]]; then
 		echo "Changing shell for $current_user..."
@@ -9,6 +8,7 @@ function chsh_zsh() {
 	fi
 }
 
+mkdir -p $HOME/.local # dir does not exist on a fresh debian install
 echo "Replacing local bin with dotfiles bin..."
 ln -s ~/dot/bin ~/.local/bin
 
@@ -32,3 +32,4 @@ function setup_zsh_symlinks() {
 
 mkdir -p $HOME/.config
 setup_zsh_symlinks
+chsh_zsh
