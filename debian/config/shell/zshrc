@@ -1,0 +1,22 @@
+[[ -r ~/Repos/znap/znap.zsh ]] ||
+    git clone --depth 1 -- https://github.com/marlonrichert/zsh-snap.git ~/Repos/znap
+source ~/Repos/znap/znap.zsh
+
+znap source zsh-users/zsh-autosuggestions
+znap source dbalatero/fast-syntax-highlighting
+
+
+# https://github.com/marlonrichert/zsh-snap/issues/163
+# init starship
+# znap eval _starship 'starship init zsh --print-full-init'
+# znap prompt starship
+
+znap prompt sindresorhus/pure
+
+znap eval _pyenv-init "$(pyenv virtualenv-init -)"
+znap eval _direnv-hook "$(direnv hook zsh)"
+
+# https://www.reddit.com/r/debian/comments/n8urvx/hello_i_wrote_this_one_line_script_that_grants/
+# Fuzzy search over Debian packages...
+alias apt_search='apt-cache pkgnames | fzf --multi --cycle --reverse --preview "apt-cache show {1}" --preview-window=:57%:wrap:hidden --bind=space:toggle-preview | xargs -ro sudo apt install'
+

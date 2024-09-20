@@ -10,6 +10,7 @@ sudo systemctl enable seatd.service
 
 # Currently not working on debian...
 # PAM Authentication Failure
+# Set Login Shell to ZSH
 sudo chsh -s $(which zsh) $USER
 
 mkdir -p $HOME/.local # dir does not exist on a fresh debian install
@@ -52,3 +53,10 @@ sudo apt install ./google-chrome-stable_current_amd64.deb
 # https://forums.debian.net/viewtopic.php?t=146922
 echo 'LANG=en_GB.UTF-8' | sudo tee /etc/default/locale
 sudo /usr/sbin/locale-gen # have to run locale-gen as root
+
+
+# Manual Steps
+# google-chrome tries to start in X11 when installed
+# open google chrome with google-chrome --ozone-platform=wayland
+# google chrome -> chrome://flags -> search for wayland - auto set always to wayland
+# now "google-chrome" will start in wayland

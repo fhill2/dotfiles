@@ -190,3 +190,7 @@
 [user]
 	name = Freddie Hill
 	email = freddiehill000@gmail.com
+[maintenance]
+	repo = /home/f1/Repos/znap
+	repo = /home/f1/Repos/dbalatero/fast-syntax-highlighting
+	repo = /home/f1/Repos/zsh-users/zsh-autosuggestions

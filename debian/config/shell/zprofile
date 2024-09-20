@@ -1,0 +1,5 @@
+# debian config needs .zprofile
+# as /.profile is not read by a ZSH login shell
+# and Login Shell is set to ZSH
+source ~/.profile
+

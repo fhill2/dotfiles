@@ -3,6 +3,7 @@ Uncheck Standard System Utilities
 Uncheck Debian Desktop Environment
 
 gnupg # required for apt custom repos
+curl
 wget
 man
 zsh
@@ -14,3 +15,45 @@ neovim
 kitty
 zsh-antigen
 trash-cli
+
+
+wl-clipboard # neovim clipboard copy and paste for wayland
+rustc
+
+
+wmctrl # get window information in wayland
+
+cmake
+fd-find # fd-find
+wofi
+fzf
+
+
+# building wayland apps from source
+# wshowkeys
+meson 
+libcairo2-dev
+ninja-build
+libinput-dev # libinput C dep
+libpango1.0-dev # pango C dep
+librust-wayland-client-dev # wayland-client C dep
+wayland-protocols
+libxkbcommon-dev
+
+# cargo install starship
+cargo install kanata
+
+# install haskell stack to install kmonad
+curl -sSL https://get.haskellstack.org/ | sh
+
+
+# install system python as some python packages aren't available on apt
+python3
+python3-pip
+direnv
+
+# useful debian utilities
+# rmadison - find debian packages to install
+devscripts
+
+

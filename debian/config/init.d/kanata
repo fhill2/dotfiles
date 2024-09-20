@@ -1,0 +1,9 @@
+#!/sbin/openrc-run
+
+command="/home/<username>/.cargo/bin/kanata"
+#command_args="--config=/home/<username>/.config/kanata/kanata.kbd"
+
+command_background=true
+pidfile="/run/${RC_SVCNAME}.pid"
+
+command_user="<username>"
