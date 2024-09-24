@@ -1,4 +1,5 @@
 return {
+  {"aliou/bats.vim"},
   { "sindrets/diffview.nvim" },
   {"nvim-telescope/telescope.nvim"},
   {

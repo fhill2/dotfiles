@@ -148,7 +148,7 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
     bindsym $mod+v splitv
   
     # split the window and enter tabbed mode
-    bindsym $mod+t splitv tabbed
+    bindsym $mod+t splitv; layout tabbed
 
 
     # Switch the current container between different layout styles

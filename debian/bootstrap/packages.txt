@@ -28,6 +28,12 @@ fd-find # fd-find
 wofi
 fzf
 
+# shell script test framework
+bats
+bats-file
+bats-support
+bats-assert
+
 
 # building wayland apps from source
 # wshowkeys
@@ -39,6 +45,7 @@ libpango1.0-dev # pango C dep
 librust-wayland-client-dev # wayland-client C dep
 wayland-protocols
 libxkbcommon-dev
+
 
 # cargo install starship
 cargo install kanata

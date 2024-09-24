@@ -24,17 +24,9 @@ ssh-keygen -t rsa -b 4096 -C "freddiehill000@gmail.com" -f "$HOME/.ssh/f_github"
 eval "$(ssh-agent)"
 ssh-add ~/.ssh/f_github
 
-function setup_zsh_symlinks() {
-	ln -s ~/dot/config/zsh/zshrc ~/.zshrc
-	ln -s ~/dot/config/zsh ~/.zsh
-	ln -s ~/dot/config/zsh/zshenv ~/.zshenv
-	ln -s ~/dot/debian/config/profile_debian ~/.profile
-	# unnecessary to source ~/.zshrc at this point
-	# as zsh is not installed
-}
+
 
 mkdir -p $HOME/.config
-setup_zsh_symlinks
 
 # https://gitlab.freedesktop.org/mesa/drm/-/issues/52#note_619180
 # amd_gpu_initialized_failed error

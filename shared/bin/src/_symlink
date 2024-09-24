@@ -41,7 +41,7 @@ if [ -f $destination ] && [ ! -L $destination ]; then
   if [ -L "$destination" ]; then
     if [ "$(readlink $destination)" = "$source" ]; then
       # if destination symlink exists and the symlink source links back to given source
-      exit 0
+      return 0
     else
       unlink "$destination"
     fi
