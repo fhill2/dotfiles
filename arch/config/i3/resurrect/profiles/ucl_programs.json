@@ -1,0 +1,20 @@
+[
+  {
+    "command": [
+      "/usr/bin/kitty"
+    ],
+    "working_directory": "/home/f1"
+  },
+  {
+    "command": [
+      "/usr/bin/vlc"
+    ],
+    "working_directory": "/home/f1"
+  },
+  {
+    "command": [
+      "/usr/bin/nemo"
+    ],
+    "working_directory": "/home/f1"
+  }
+]

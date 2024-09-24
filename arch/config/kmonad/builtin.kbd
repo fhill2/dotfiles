@@ -1,0 +1,112 @@
+;; https://github.com/kmonad/kmonad/issues/339
+(defcfg
+input (device-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd")
+output (uinput-sink "Corsair Kmonad Output")
+fallthrough true
+)
+;; tab (tap-hold-next-release 100 tab lmet)
+;; tab (tap-next-release tab lmet)
+;; tab (tap-hold 130 tab lmet)
+;; tab (tap-hold 100 tab lmet)
+;; meta (layer-toggle meta)
+;; meta (layer-toggle meta (tap-next lmet lmet))
+;;meta (tap-next lmet lmet (layer-toggle meta))
+
+(defalias 
+;;
+;; ;; tab (tap-next tab (around-next o))
+;; ;;tab (around-next S-lctl)
+tab (tap-next tab C-A-lsft)   ;; Tab as Tab/Meh
+;; tab (tap-hold-next 500 tab C-A-lsft :timeout-button tab)
+
+meta (around met (layer-toggle meta))
+altt (around alt (layer-toggle altt))
+shift (around sft (layer-toggle shift))
+cntrl (around ctl (layer-toggle cntrl))
+)   ;; Tab as Tab/Meh ;; dell xps keyboard layout
+;;
+;;
+(defsrc
+  `     1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab   q    w    e    r    t    y    u    i    o    p    [    ]
+  caps  a    s    d    f    g    h    j    k    l    ;    '    \    ret
+  lsft  \    z    x    c    v    b    n    m    ,    .    /    rsft up
+  lctl  lmet lalt           spc            ralt rctl left down right
+)
+
+;; (defalias
+;; lfs (layer-toggle lshift)
+;; )
+;;
+;;
+;; (deflayer qwerty
+;;   `    1    2    3    4    5    6    7    8     9    0    -    =    bspc
+;;   tab  q    w    e    r    t    y    u    i    o    p    [    ]
+;;   lctl a    s    d    f    g    h    j    k    l    ;    '    \  ret
+;;   lsft \    z    x    c    v    b    n    m    ,    .    /    lsft up
+;;   lalt f13 met spc            ralt rctl left down right
+;; )
+
+
+(deflayer qwerty
+  `    1    2    3    4    5    6    7    8     9    0    -    =    bspc
+  @tab  q    w    e    r    t    y    u    i    o    p    [    ]
+  @cntrl a    s    d    f    g    h    j    k    l    ;    '    \  ret
+  @shift \    z    x    c    v    b    n    m    ,    .    /    @shift up
+  @altt f13 @meta spc            @altt @cntrl left down right
+)
+
+
+
+
+
+;; config when alt was meta
+;; new meta layer because:
+;; when alt is held down, tab should fire tab upon being pressed
+;; when alt is not held, tab works as hybrid modifier key - tap-hold-next etc
+(deflayer meta
+  _      _      _    _      _      _      _      _      _      _      _      _      _   _
+  tab    _      _    _      _      _      _      _      _      _      _      _      _
+  _      _      _    _      _      _      _      _      _      _      _      _      _  _
+  _      _      _    _      _      _      _      _      _      _      _      _      _ _
+  _      _      _                    _                              _    _  _   _   _
+)
+
+
+(deflayer cntrl 
+  _      _      _    _      _      _      _      _      _      _      _      _      _   _
+  tab    _      _    _      _      _      _      _      _      _      _      _      _
+  _      _      _    _      _      _      _      _      _      _      _      _      _  _
+  _      _      _    _      _      _      _      _      _      _      _      _      _ _
+  _      _      _                    _                               _    _  _   _   _
+)
+
+(deflayer shift
+  _      _      _    _      _      _      _      _      _      _      _      _      _   _
+  tab    _      _    _      _      _      _      _      _      _      _      _      _
+  _      _      _    _      _      _      _      _      _      _      _      _      _  _
+  _      _      _    _      _      _      _      _      _      _      _      _      _ _
+  _      _      _                    _                               _    _  _   _   _
+)
+
+(deflayer altt
+  _      _      _    _      _      _      _      _      _      _      _      _      _   _
+  tab    _      _    _      _      _      _      _      _      _      _      _      _
+  _      _      _    _      _      _      _      _      _      _      _      _      _  _
+  _      _      _    _      _      _      _      _      _      _      _      _      _ _
+  _      _      _                    _                               _    _  _   _   _
+)
+
+
+
+
+
+
+;; (deflayer meta
+;;   A-`    A-1    A-2    A-3    A-4    A-5    A-6    A-7    A-8    A-9    A-0    A--    A-=    A-bspc
+;;   tab    _      _      A-e    A-r    A-t    A-y    A-u    A-i    A-o    A-p    A-[    A-]
+;;   lctl   _    A-s    A-d    A-f    A-g    A-h    A-j    A-k    A-l    A-;    A-'    A-\  A-ret
+;;   lsft   A-\    A-z    A-x    A-c    A-v    A-b    A-n    A-m    A-,    A-.    A-/    rsft A-up
+;;   lalt lmet @meta                 A-spc            ralt rctl A-left A-down A-right
+;; )
+

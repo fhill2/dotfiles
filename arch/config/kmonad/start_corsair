@@ -1,0 +1,4 @@
+#!/usr/bin/sh
+# This is not being used anymore - new install 2022
+su f1 -c 'notify-send "corsair plugged in - starting kmonad"'
+kmonad /home/f1/dot/kmonad/corsair.kbd

@@ -1,0 +1,16 @@
+{
+  "layout": "stacked",
+  "percent": 0.6,
+  "type": "con",
+  "nodes": [
+    {
+      "name": "chrome",
+      "type": "con",
+      "swallows": [
+        {
+          "class": "^Google-chrome$"
+        }
+      ]
+    }
+  ]
+}

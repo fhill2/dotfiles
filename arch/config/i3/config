@@ -1,0 +1,149 @@
+font pango:DejaVuSansMono Nerd Font Mono 9
+
+# when i3_window_startup.py is started at the start of config,
+# only WORKSPACE_INIT for workspace 3 is received ??
+# so I cant wait until workspaces are created
+# exec --no-startup-id /home/f1/dev/bin/i3_window_startup.py > ~/logs/python.log 2>&1 & disown
+
+# Start flavours colors
+## Base16 Material Darker
+# Author: Nate Peterson
+#
+# You can use these variables anywhere in the i3 configuration file.
+
+set $base00 #212121
+set $base01 #303030
+set $base02 #353535
+set $base03 #4A4A4A
+set $base04 #B2CCD6
+set $base05 #EEFFFF
+set $base06 #EEFFFF
+set $base07 #FFFFFF
+set $base08 #F07178
+set $base09 #F78C6C
+set $base0A #FFCB6B
+set $base0B #C3E88D
+set $base0C #89DDFF
+set $base0D #82AAFF
+set $base0E #C792EA
+set $base0F #FF5370
+# End flavours colors
+
+# https://www.reddit.com/r/i3wm/comments/b1w9mr/dont_want_to_hardcode_monitor_name_in_i3_config/
+
+# integrated
+# workspace 1 output DP-3
+# workspace 2 output eDP-1
+# nvidia optimus
+workspace 1 output DP-2
+# workspace 2 output eDP-1-1
+
+show_marks yes
+focus_follows_mouse no
+
+# changes root container
+default_orientation horizontal
+
+# whether new containers 1 level below the root will open as default|tabbed|stacking
+workspace_layout tabbed
+
+# when custom i3 scripts change focus, the previous focused container is marked urgent. this disables this
+focus_on_window_activation focus
+
+# border - background - text - indicator - child_border
+# indicator = used to indicate where a new window will be opened
+
+# Start flavours client-properties
+# Basic color configuration using the Base16 variables for windows and borders.
+# Property Name         Border  BG      Text    Indicator Child Border
+client.focused          $base05 $base0D $base00 $base0D $base0D
+client.focused_inactive $base01 $base03 $base05 $base03 $base01
+client.unfocused        $base01 $base00 $base05 $base01 $base01
+client.urgent           $base08 $base08 $base00 $base08 $base08
+client.placeholder      $base00 $base00 $base05 $base00 $base00
+client.background       $base07
+# End flavours client-properties
+
+for_window [title="Event Tester"] floating enable
+for_window [class="OtoDecks"] floating enable, move position center
+for_window [title="PreviewAnything"] floating enable, move scratchpad
+# for_window [title="PreviewAnything"] floating enable
+for_window [class="Blender" title="Blender Preferences"] floating enable, move position center
+
+
+# Preview stuff
+# move these window with the mark
+# for_window [con_mark=^preview_mpv$] workspace preview
+# for_window [con_mark=^A$] preview
+
+set $mod Mod4
+# bind the minimal keybinds so if sxhkd fails I can still open terminal, exit 
+# start a terminal
+bindsym $mod+Return exec i3-sensible-terminal
+# kill focused window
+bindsym $mod+BackSpace kill
+# reload the configuration file
+bindsym $mod+Control+r reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+
+for_window [class="terminal_dropdown_ff"] move scratchpad, border none, resize set width 100 ppt height 30 ppt, move position 0 70 ppt, move scratchpad
+# bindsym $mod+n exec sway_toggle_terminal_dropdown_ff toggle
+
+
+
+
+# mute built in microphone
+# exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ 0
+
+# start windows 
+# exec --no-startup-id /home/f1/dev/bin/i3_window_startup.py
+
+
+# startup previewer windows
+# exec --no-startup-id /home/f1/dot/bin/i3_preview_startup.py > ~/logs/i3preview.log 2>&1
+
+# this does not run well under systemd - subprocesses do not spawn correctly to create i3 windows
+# exec --no-startup-id /home/f1/dot/bin/i3_preview.py > ~/logs/i3preview.log 2>&1
+
+
+# exec --no-startup-id /home/f1/dev/bin/i3_subscribe_debug.py & disown
+# exec --no-startup-id i3_daemon 2>&1 | tee -a $HOME/logs/i3_daemon.log & disown
+
+
+# https://github.com/systemd/systemd/issues/6032
+# do not run sxhkd as a systemd service, as I want new processes spawned with it to inherit the login session env variables
+# for example: XDG_SESSION_ID is used to logout - this does not work if rofi_power_menu is called from a sxhkd hotkey
+
+exec --no-startup-id i3-msg "workspace 1"
+exec --no-startup-id sxhkd > ~/logs/sxhkd.log 2>&1
+
+exec --no-startup-id /home/f1/dev/app/previewer/release/build/previewer-4.6.0.AppImage
+
+
+# debugging
+exec sudo busctl monitor org.freedesktop.login1 > ~/logs/login/$(date).log
+
+exec_always --no-startup-id systemctl --user start --no-block i3-session.target
+
+# exec_always workspace 1; focus parent
+
+bar {
+    font pango:DejaVu Sans Mono, FontAwesome 12
+    position top
+    status_command /usr/bin/i3status-rs ~/.config/i3status-rust/config.toml
+    colors {
+        separator #666666
+        background #222222
+        statusline #dddddd
+        focused_workspace #0088CC #0088CC #ffffff
+        active_workspace #333333 #333333 #ffffff
+        inactive_workspace #333333 #333333 #888888
+        urgent_workspace #2f343a #900000 #ffffff
+    }
+}
+
+
