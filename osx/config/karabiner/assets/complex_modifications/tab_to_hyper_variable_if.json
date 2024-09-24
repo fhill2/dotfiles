@@ -1,0 +1,64 @@
+{
+  "title": "Tab to Hyper - Variable If Modifiers - (Not Working)",
+  "rules": [
+    {
+      "description": "Tab to Hyper - Variable If Modifiers - (Not Working)",
+      "manipulators": [
+        {
+          "from": {
+            "key_code": "tab"
+          },
+          "to": [
+            {
+              "set_variable": {
+                "name": "tab_modifier",
+                "value": 1
+              }
+            }
+          ],
+          "to_after_key_up": [
+            {
+              "set_variable": {
+                "name": "tab_modifier",
+                "value": 0
+              }
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "tab"
+            }
+          ],
+          "type": "basic"
+        },
+        {
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "tab_modifier",
+              "value": 1
+            }
+          ],
+          "from": {
+            "any": "key_code"
+          },
+          "simultaneous": [
+            {
+              "key_code": "f18"
+            },
+            {
+              "any": "key_code"
+            }
+          ],
+          "to": {
+            "key_code": "k"
+          },
+          "simultaneous_options": {
+            "key_up_when": "all"
+          },
+          "type": "basic"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "title": "Tab to Hyper - Simple f18",
+  "rules": [
+    {
+      "description": "Tab to Hyper - Simple f18",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "tab"
+          },
+          "to": [
+            {
+              "key_code": "f18"
+            }
+          ],
+          "to_if_alone": {
+            "key_code": "tab"
+          }
+        }
+      ]
+    }
+  ]
+}

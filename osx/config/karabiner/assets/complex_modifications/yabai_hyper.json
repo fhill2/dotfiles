@@ -1,0 +1,28 @@
+{
+  "title": "Hotkeys that skhd cannot trigger",
+  "rules": [
+    {
+      "description": "hyper backspace yabai m window close",
+      "manipulators": [
+        {
+          "from": {
+            "key_code": "delete_or_backspace",
+            "modifiers": {
+              "mandatory": [
+                "left_control",
+                "left_option",
+                "left_shift",
+                "left_command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "/bin/sh -c '/opt/homebrew/bin/terminal-notifier -message hello_from_karabiner'"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

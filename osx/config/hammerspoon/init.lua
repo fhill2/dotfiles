@@ -1,0 +1,200 @@
+-- find spoons under ~/.config/hammerspoon by adding to package.path
+-- https://github.com/Hammerspoon/hammerspoon/blob/master/SPOONS.md
+package.path = package.path .. ";" .. hs.configdir .. "/myspoons/?.spoon/init.lua"
+print("======== LOADING HAMMERSPOON INIT.lua ========")
+print(package.path)
+
+-- Include local libs
+-- require("utils")
+-- require("yabai")
+-- require("tab_to_hyper")
+
+stackline = require("stackline")
+stackline:init()
+
+-- hs.hotkey.bind({ "ctrl", "alt", "command", "shift" }, "delete", nil, function()
+--   print("THIS TRIG")
+-- end)
+--
+-- hs.hotkey.bind({ "ctrl", "shift" }, "delete", nil, function()
+--   print("THIS TRIG")
+-- end)
+
+-- local events = hs.eventtap.event.types
+-- keyboardTracker = hs.eventtap.new({ events.keyUp }, function(e)
+--   local keyCode = e:getKeyCode()
+--   hs.alert.show(keyCode) -- for debugging only
+-- end)
+-- keyboardTracker:start()
+
+-- debugging
+-- require("debugging")
+
+-- hs.loadSpoon("RecursiveBinder")
+
+-- hs.loadSpoon("SpoonInstall")
+
+-- define actions to be shared between hyper key and command list
+
+-- RecursiveBinder config
+-- local RecursiveBinder = hs.loadSpoon("RecursiveBinder")
+-- RecursiveBinder.escapeKey = { {}, "escape" } -- Press escape to abort
+
+-- YABAI
+-- https://github.com/Hammerspoon/hammerspoon/issues/2570#issuecomment-792351312
+-- Using hs.execute to execute yabai is slow, use below instead
+-- function yabai(args)
+--   -- Runs in background very fast
+--   hs.task
+--       .new("/usr/local/bin/yabai", nil, function(ud, ...)
+--         print("stream", hs.inspect(table.pack(...)))
+--         return true
+--       end, args)
+--       :start()
+--   print("------- YABAI NEW TASK -------")
+-- end
+--
+-- yabai = require("yabai")
+-- yabai.send(function(data)
+--   print("done")
+--   ans = data -- store it in a global so we can play with it in the console
+-- end, "-m", "query", "windows")
+--
+-- -- then after it returns, to verify:
+--
+-- print(ans)
+-- hs.inspect(hs.json.decode(ans))
+-- local commands = {
+--   ["Hammerspoon docs webpage"] = {
+--     url = "http://hammerspoon.org/docs/",
+--     icon = hs.image.imageFromName(hs.image.systemImageNames.ApplicationIcon),
+--     description = "Open Hammerspoon documentation",
+--   },
+--   ["Leave corpnet"] = {
+--     fn = function()
+--       spoon.WiFiTransitions:processTransition("foo", "corpnet01")
+--     end,
+--   },
+--   ["Arrive in corpnet"] = {
+--     fn = function()
+--       spoon.WiFiTransitions:processTransition("corpnet01", "foo")
+--     end,
+--   },
+--   ["Translate using Leo"] = {
+--     url = "http://dict.leo.org/ende/index_de.html#/search=${query}",
+--     icon = "favicon",
+--     keyword = "leo",
+--   },
+--   ["Tell me something"] = {
+--     keyword = "tellme",
+--     fn = function(str)
+--       hs.alert.show(str)
+--     end,
+--   },
+-- }
+--
+-- -- KEYCODES
+-- -- https://github.com/Hammerspoon/hammerspoon/blob/master/extensions/keycodes/keycodes.lua#L67
+-- local hyper = hs.hotkey.modal.new({}, nil)
+--
+-- hyper.pressed = function()
+--   hyper:enter()
+-- end
+-- hyper.released = function()
+--   hyper:exit()
+-- end
+--
+-- -- Set the key you want to be HYPER to F19 in karabiner or keyboard
+-- -- Bind the Hyper key to the hammerspoon modal
+-- hs.hotkey.bind({}, "f18", hyper.pressed, hyper.released)
+--
+-- -- forwarddelete -> the actual DEL key on the keyboard
+-- -- delete -> backspace
+--
+-- -- KEYCODES:
+-- --- https://www.hammerspoon.org/docs/hs.keycodes.html
+-- keymaps = {
+--   { { "alt" },          "a",      "yabai -m window --insert west" },
+--   { { "alt" },          "s",      "yabai -m window --insert south" },
+--   { { "alt" },          "w",      "yabai -m window --insert north" },
+--   { { "alt" },          "d",      "yabai -m window --insert east" },
+--   { { "alt" },          "t",      "yabai -m window --insert stack" },
+--
+--   -- yabai better i3 like movement between stacks
+--   { { "alt" },          "left",   "yabai_control move_window west --into" },
+--   { { "alt" },          "down",   "yabai_control move_window south --into" },
+--   { { "alt" },          "right",  "yabai_control move_window east --into" },
+--   { { "alt" },          "up",     "yabai_control move_window north --into" },
+--   { { "alt", "shift" }, "left",   "yabai_control move_window west" },
+--   { { "alt", "shift" }, "down",   "yabai_control move_window south" },
+--   { { "alt", "shift" }, "right",  "yabai_control move_window east" },
+--   { { "alt", "shift" }, "up",     "yabai_control move_window north" },
+--   -- bind the standard movement keys as yabai_control does not provide moving windows and splitting
+--   { { "hyper" },        "left",   "yabai -m window --warp west" },
+--   { { "hyper" },        "down",   "yabai -m window --warp south" },
+--   { { "hyper" },        "right",  "yabai -m window --warp east" },
+--   { { "hyper" },        "up",     "yabai -m window --warp north" },
+--   { { "hyper" },        "t",      "yabai -m window --insert stack" },
+--   { { "alt" },          "l",      "yabai -m window --toggle split" },
+--   { { "hyper" },        "space",  "yabai -m window --toggle float" },
+--   { { "hyper" },        "delete", "yabai -m window --close" },
+--   { { "hyper" },        "n",      "open_always current_window" },
+--   { { "hyper" },        "]",      "yabai -m window --focus stack.next || yabai -m window --focus stack.first" },
+--   { { "hyper" },        "[",      "yabai -m window --focus stack.prev || yabai -m window --focus stack.last" },
+--   { { "hyper" },        "h",      "yabai -m window --focus west" },
+--   { { "hyper" },        "j",      "yabai -m window --focus south" },
+--   { { "hyper" },        "k",      "yabai -m window --focus north" },
+--   { { "hyper" },        "l",      "yabai -m window --focus east" },
+--
+--   { { "hyper" },        "q",      "yabai -m space --focus 1" },
+--   { { "hyper" },        "w",      "yabai -m space --focus 2" },
+--   { { "hyper" },        "e",      "yabai -m space --focus 3" },
+--   { { "hyper" },        "r",      "yabai -m space --focus 4" },
+--   { { "hyper" },        "d",      "yabai -m space --focus 5" },
+--   -- built in laptop monitor space focus
+--   { { "hyper" },        "1",      "yabai -m space --focus 6" },
+--   { { "hyper" },        "2",      "yabai -m space --focus 7" },
+--   { { "hyper" },        "3",      "yabai -m space --focus 8" },
+--   { { "hyper" },        "4",      "yabai -m space --focus 9" },
+--   { { "hyper" },        "5",      "yabai -m space --focus 10" },
+--
+--   { { "hyper" },        "return", "open_always app 'kitty'" },
+--
+--   -- { { "hyper" },        "d",      "yabai -m window --focus east" },
+-- }
+--
+-- for i, keymapT in ipairs(keymaps) do
+--   is_hyper = #keymapT[1] == 1 and keymapT[1][1] == "hyper"
+--   bindFn = function()
+--     execTaskInShellAsync(keymapT[3])
+--   end
+--   map = is_hyper and hyper:bind(keymapT[1], keymapT[2], bindFn) or hs.hotkey.bind(keymapT[1], keymapT[2], bindFn)
+-- end
+--
+-- hyper:bind({}, "p", function()
+--   hs.urlevent.openURL("alfred://runtrigger/com.fhill2.open_files/external_trigger")
+-- end)
+--
+-- local quake = require("quake")
+-- hyper:bind({}, "o", quake.toggle)
+--
+-- -- stack window on top of next
+-- -- window=$(yabai -m query --windows --window | jq -r '.id') && yabai -m window east --stack $window || (yabai -m window $window --toggle float && yabai -m window $window --toggle float)
+-- -- create a stack
+-- -- alt - t : yabai -m query --windows --window | jq -re "." | xargs -I{} yabai -m window 1 --stack {}
+-- -- stack next window onto current window
+--
+-- -- useful seal configs
+-- -- https://sourcegraph.com/github.com/crodjer/configs/-/blob/.hammerspoon/init.lua
+--
+-- spoon.SpoonInstall:andUse("Seal", {
+--   fn = function(Seal)
+--     Seal:loadPlugins({ "useractions" })
+--     Seal.plugins.useractions.actions = commands
+--
+--     Seal:bindHotkeys({
+--       toggle = { { "alt" }, "i" },
+--     })
+--     Seal:start()
+--   end,
+-- })
