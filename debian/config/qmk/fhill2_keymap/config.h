@@ -1,7 +1,7 @@
 // https://docs.qmk.fm/config_options#behaviors-that-can-be-configured
 
 // Settings for MODTAP - HYPER TAB
-#define TAPPING_TERM 200 // 65535
+#define TAPPING_TERM 65535 // 65535
 
 // If Tab Pressed, WAIT >TAPPING_TERM, Tab Released
 // Tab will still be sent instead of a NOOP

@@ -60,3 +60,27 @@ sudo /usr/sbin/locale-gen # have to run locale-gen as root
 # open google chrome with google-chrome --ozone-platform=wayland
 # google chrome -> chrome://flags -> search for wayland - auto set always to wayland
 # now "google-chrome" will start in wayland
+
+
+# Install wezterm from .deb repo
+# https://wezfurlong.org/wezterm/install/linux.html#__tabbed_1_3
+# curl -fsSL https://apt.fury.io/wez/gpg.key | sudo gpg --yes --dearmor -o /usr/share/keyrings/wezterm-fury.gpg
+# echo 'deb [signed-by=/usr/share/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *' | sudo tee /etc/apt/sources.list.d/wezterm.list
+# sudo apt update
+# sudo apt install wezterm-nightly
+
+# Install broot for Azlux .deb repo
+# https://packages.azlux.fr/
+echo "deb [signed-by=/usr/share/keyrings/azlux-archive-keyring.gpg] http://packages.azlux.fr/debian/ stable main" | sudo tee /etc/apt/sources.list.d/azlux.list
+sudo wget -O /usr/share/keyrings/azlux-archive-keyring.gpg  https://azlux.fr/repo.gpg
+sudo apt update
+sudo apt install broot
+
+# Install fonts
+# https://github.com/officialrajdeepsingh/nerd-fonts-installer
+bash -c  "$(curl -fsSL https://raw.githubusercontent.com/officialrajdeepsingh/nerd-fonts-installer/main/install.sh)" 
+
+# Install lazygit from binary package
+wget -O lazygit.tgz https://github.com/jesseduffield/lazygit/releases/download/v0.44.1/lazygit_0.44.1_Linux_x86_64.tar.gz
+tar xvf lazygit.tgz
+sudo mv lazygit /usr/local/bin/

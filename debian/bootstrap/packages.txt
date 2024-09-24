@@ -43,6 +43,9 @@ libxkbcommon-dev
 # cargo install starship
 cargo install kanata
 
+# https://github.com/sayanarijit/xplr/issues/667
+cargo install --locked xplr
+
 # install haskell stack to install kmonad
 curl -sSL https://get.haskellstack.org/ | sh
 

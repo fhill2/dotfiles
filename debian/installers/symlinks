@@ -6,26 +6,39 @@ PWD=$(dirname "$0") # set pwd to SCRIPT DIR
 root="$(git rev-parse --show-toplevel)" # use PWD to find the git root
 _symlink="$root/bin/_symlink"
 
+$_symlink $root/shared/config/nvim ~/.config/nvim
+$_symlink $root/shared/config/git/gitconfig ~/.gitconfig
+$_symlink $root/shared/config/git/gitignore ~/.gitignore
+$_symlink $root/shared/config/broot ~/.config/broot
+$_symlink $root/shared/config/xplr ~/.config/xplr
+$_symlink $root/shared/config/tmux ~/.config/tmux
+$_symlink $root/shared/config/starship.toml ~/.config/starship.toml
+mkdir -p ~/.config/bat
+$_symlink $root/shared/config/bat/config ~/.config/bat/config # this is a file
+# $_symlink config/lazygit/config.yml ~/Library/Application\ Support/lazygit/config.yml
+$_symlink $root/shared/config/git/gitattributes ~/.gitattributes
+
 $_symlink $root/debian/config/shell/zshrc ~/.zshrc
 $_symlink $root/debian/config/shell/zprofile ~/.zprofile
-# $_symlink $root/config/zsh/zshenv ~/.zshenv
-
 $_symlink $root/debian/config/shell/profile_debian ~/.profile
-$_symlink $root/config/nvim ~/.config/nvim
-$_symlink $root/config/git/gitconfig ~/.gitconfig
-$_symlink $root/config/git/gitignore ~/.gitignore
-$_symlink $root/config/broot ~/.config/broot
-$_symlink $root/config/xplr ~/.config/xplr
-$_symlink $root/config/tmux ~/.config/tmux
-$_symlink $root/config/starship.toml ~/.config/starship.toml
-mkdir -p ~/.config/bat
-$_symlink $root/config/bat/config ~/.config/bat/config # this is a file
-# $_symlink config/lazygit/config.yml ~/Library/Application\ Support/lazygit/config.yml
-$_symlink $root/config/git/gitattributes ~/.gitattributes
-
 $_symlink $root/debian/config/systemd/user ~/.config/systemd/user
+$_symlink $root/debian/config/sway ~/.config/sway
+$_symlink $root/debian/config/kitty ~/.config/kitty
 
 
+
+if [[ "$HOSTNAME" == "f-server-g" ]]; then
 # https://github.com/jtroo/kanata/blob/main/docs/setup-linux.md
-$_symlink "$root/debian/config/kanata" ~/.config/kanata
-$_symlink "$root/debian/config/init.d/kanata" /etc/init.d/kanata
+  $_symlink "$root/debian/config/kanata" ~/.config/kanata
+  $_symlink "$root/debian/config/init.d/kanata" /etc/init.d/kanata
+  $_symlink "$root/debian/config/kanata/99-input.rules" /etc/udev/rules.d/99-input.rules
+
+fi
+
+
+
+if [[ "$HOSTNAME" == "f-server-g" ]]; then
+  # qmk
+  $_symlink "$root/debian/config/qmk/udev/92-viia.rules" /etc/udev/rules.d/92-viia.rules
+fi
+
