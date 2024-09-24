@@ -1,6 +1,0 @@
-# - sudo:
-#   - shell:
-#     - 
-#       command: /home/f1/dot/dotbot/db_sync_symlink_contents.sh /home/f1/dot/systemd/system /etc/systemd/system
-#       stdout: true
-#       description: symlinking ~/dot/systemd/system contents to /etc/systemd/system

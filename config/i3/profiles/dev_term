@@ -1,6 +1,0 @@
-#!/usr/bin/bash
-source i3_wrapper
-current_workspace=$(i3_get_current_workspace)
-i3-msg "workspace $current_workspace; append_layout ~/dot/i3/layout/dev_term.json"
-#i3-sensible-terminal
-#i3-sensible-terminal
