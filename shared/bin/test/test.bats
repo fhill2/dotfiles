@@ -26,12 +26,8 @@ setup() {
     source_file="$(mktemp)"
     dest_directory="$(mktemp -d)"
     source_name="$(basename "$source_file")"
-    run _symlink "$source_file" "$tmp_dst/$source_name"
-
-    # all 1 should be printed here
-    # # $status -eq 1
-    echo "$output"
-    echo "$status"
+    run _symlink "$source_file" "$dest_directory/$source_name"
+    assert_success
 }
 
 
@@ -39,63 +35,73 @@ setup() {
     source_directory="$(mktemp -d)"
     dest_directory="$(mktemp -d)"
     source_name="$(basename "$source_directory")"
-    run _symlink "$source_directory" "$tmp_dst/$source_name"
+    echo "$source_name"
+    run _symlink "$source_directory" "$dest_directory/$source_name"
+    assert_success
 
 }
 
 @test "source executable exists, meets below requirements, succeed" {
-    source_exe="$(mktemp -d)"
+    source_exe="$(mktemp)"
     dest_directory="$(mktemp -d)"
     chmod +x "$source_exe"
-    source_name="$(basename "$dest_exe")"
-    run _symlink "$source_directory" "$tmp_dst/$source_name"
+    source_name="$(basename "$source_exe")"
+    run _symlink "$source_exe" "$dest_directory/$source_name"
+    assert_success
 }
 
 @test "source file/folder/executable does not exist, fail" {
     source_path="/tmp/non-existant-source-path"
+    dest_directory="$(mktemp -d)"
     source_name="$(basename "$source_path")"
-    run _symlink "$source_path" "$tmp_dst/$source_name"
+    run _symlink "$source_path" "$dest_directory/$source_name"
+    assert_failure
 }
 
 @test "destination dir exists, source exists, fail" {
     source_directory="$(mktemp -d)"
     dest_directory="$(mktemp -d)"
     run _symlink "$source_directory" "$dest_directory"
+    echo "$output"
+    assert_failure
 }
 @test "destination file exists, source exists, fail" {
     source_file="$(mktemp)"
     dest_file="$(mktemp)"
     run _symlink "$source_file" "$dest_file"
+    assert_failure
 }
 @test "destination exe exists, source exists, fail" {
     source_exe="$(mktemp)"
     dest_exe="$(mktemp)"
     chmod +x "$dest_exe"
     run _symlink "$source_exe" "$dest_exe"
+    assert_failure
 }
 
 @test "destination sym exists, source exists, dereferenced destination sym links to source, succeed (noop)" {
     source_file="$(mktemp)"
-    dest_file="$(mktemp)"
     rm -f "/tmp/test_symlink"
     ln -s "$source_file" "/tmp/test_symlink"
-    run _symlink "$source_path" "/tmp/test_symlink"
+    run _symlink "$source_file" "/tmp/test_symlink"
+    assert_success
 }
 #
 @test "destination sym exists, source exists, destination sym broken, succeed (unlink destination)" {
     source_file="$(mktemp)"
-    rm -f "/tmp/test_symlink"
+    rm "/tmp/test_symlink"
     ln -s "/tmp/broken_source" "/tmp/test_symlink"
-    _symlink "$source_file" "/tmp/test_symlink"
+    run _symlink "$source_file" "/tmp/test_symlink"
+    assert_success
 }
 #
 @test "destination sym exists, source exists, no write perm to destination, succeed (run as sudo)" {
     source_file="$(mktemp)"
-    rm -f "/tmp/test_directory"
-    dest_directory="/tmp/test_directory"
-    chmod 555 "/tmp/test_directory" # read and execute permissions only
+    dest_directory="$(mktemp -d)"
+    chmod 555 "$dest_directory" # read and execute permissions only
     source_name="$(basename "$source_file")"
-    _symlink "$source_file" "$dest_directory/$source_name"
+    run _symlink "$source_file" "$dest_directory/$source_name"
+    assert_success
 }
 
 

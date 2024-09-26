@@ -10,9 +10,10 @@
 _sudo_symlink() {
   source="$1"
   destination="$2"
-  sudo ln -s "$source" "$destination"
-  if [ $? -eq 0 ]; then
+  if sudo ln -s "$source" "$destination"; then
+  # if [ $? -eq 0 ]; then
     echo "Created Symlink (as sudo): $source -> $destination"
+    exit 0
   else
     echo "Error creating symlink with sudo."
     exit 1
@@ -27,24 +28,24 @@ do_symlink() {
   # if file/folder/executable does not exist at source, ignore it (manual intervention)
   if [ ! -e "$source" ] && [ ! -x "$source" ]; then
     echo "Source file '$source' does not exist."
-    return 1
+    exit 1
   fi
 
-# if destination is a file or directory, ignore it (manual intervention)
-if [ -f $destination ] && [ ! -L $destination ]; then
-    echo "Destination file '$destination' exists and is a file or directory - manually delete the file..."
-    return 1
-  fi
 
 
   # if destination is a symlink and links back to the file or folder that was given, ignore it (noop)
   if [ -L "$destination" ]; then
     if [ "$(readlink $destination)" = "$source" ]; then
       # if destination symlink exists and the symlink source links back to given source
-      return 0
+      exit 0
     else
       unlink "$destination"
+      echo "unlinked"
     fi
+# if destination is a file or directory, ignore it (manual intervention)
+  elif [ -f $destination ] || [ -d $destination ]; then
+    echo "Destination file '$destination' exists and is a file or directory - manually delete the file..."
+    exit 1
   fi
 
   mkdir -p "$(dirname "$destination")"
@@ -52,6 +53,7 @@ if [ -f $destination ] && [ ! -L $destination ]; then
 # Create the symlink
   if ln -s "$source" "$destination"; then
     echo "$source -> $destination"
+    exit 0
   else
     # handle symlinks in dirs with root permissions
     # If there is no write permission at the destination, try sudo...
@@ -61,7 +63,7 @@ if [ -f $destination ] && [ ! -L $destination ]; then
         echo "Failed to create symlink."
         exit 1
     fi
-    exit 0
+    exit 1
   fi
 }
 
