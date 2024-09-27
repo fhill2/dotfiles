@@ -4,6 +4,10 @@ export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
+
+PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
+PATH="$HOME/.cargo/bin:$PATH"
+
 # Necessary to ensure programs launched in sh shell (skhd)
 # Can find homebrew on the PATH (so they can use brew --prefix)
 # Check if we're on an ARM-based system
