@@ -22,6 +22,11 @@ $_symlink $root/shared/config/git/gitconfig ~/.gitconfig
 $_symlink $root/shared/config/git/gitignore ~/.gitignore
 $_symlink $root/shared/config/git/gitattributes ~/.gitattributes
 
+$_symlink $root/debian/config/shell/zshrc ~/.zshrc
+$_symlink $root/debian/config/shell/zprofile ~/.zprofile
+$_symlink $root/osx/config/profile_osx ~/.profile
+
+
 
 # NOTE: only karabiner full config folder can be symlinked
 # individual karabiner.json cannot be symlinked, as karabiner overwrites the karabiner.json whern adding new complex modifications, destroying the symlink

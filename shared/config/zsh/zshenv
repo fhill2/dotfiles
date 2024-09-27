@@ -1,4 +1,0 @@
-source ~/.zsh/custom/exports.zsh
-
-[ "$VIMRUNTIME" ] && [ "$VIRTUAL_ENV" ] && source "$VIRTUAL_ENV/bin/activate"
-. "$HOME/.cargo/env"
