@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 # if a brewfile has just been installed:
 # After running this, start karabiner, skhd, yabai
@@ -12,7 +12,7 @@ $_symlink $root/shared/config/broot ~/.config/broot
 $_symlink $root/shared/config/xplr ~/.config/xplr
 $_symlink "$HOME/data/Alfred" "$HOME/Library/Application Support/Alfred"
 $_symlink $root/shared/config/skhd ~/.config/skhd
-$_symlink $root/shared/config/kitty ~/.config/kitty
+$_symlink $root/debian/config/kitty ~/.config/kitty
 $_symlink $root/shared/config/tmux ~/.config/tmux
 $_symlink $root/shared/config/starship.toml ~/.config/starship.toml
 mkdir -p ~/.config/bat
@@ -45,4 +45,4 @@ $_symlink $root/shared/config/vlc ~/.config/vlc
 
 $_symlink $root/osx/config/yabai ~/.config/yabai
 
-$_symlink $root/osx/config/nvim ~/.config/nvim
+$_symlink $root/shared/config/nvim ~/.config/nvim
