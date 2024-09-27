@@ -6,7 +6,7 @@ HOST="$(hostname)"
 
 PSDIR=$(dirname "$0") # --> script dir's parent
 root="$(git -C "$PSDIR" rev-parse --show-toplevel)" # find git root from PSDIR
-_symlink="$root/bin/_symlink"
+_symlink="$root/shared/bin/src/_symlink"
 
 
 $_symlink $root/shared/config/nvim ~/.config/nvim
@@ -28,9 +28,14 @@ $_symlink $root/debian/config/systemd/user ~/.config/systemd/user
 $_symlink $root/debian/config/sway ~/.config/sway
 $_symlink $root/debian/config/kitty ~/.config/kitty
 
+# modified desktop files
+$_symlink $root/debian/config/desktop/obsidian-wayland.desktop ~/.local/share/applications/obsidian-wayland.desktop
+$_symlink $root/debian/config/desktop/discord-wayland.desktop /usr/share/applications/discord-wayland.desktop
+# $_symlink $root/debian/config/desktop/obsidian-wayland.desktop ~/.local/share/applications/obsidian-wayland.desktop
 
 
-if [[ "$HOST" == "f-server-g" ]]; then
+
+if [ "$HOST" = "f-server-g" ]; then
 # https://github.com/jtroo/kanata/blob/main/docs/setup-linux.md
   $_symlink "$root/debian/config/kanata" ~/.config/kanata
   $_symlink "$root/debian/config/init.d/kanata" /etc/init.d/kanata
@@ -42,7 +47,7 @@ $_symlink "$root/debian/config/interfaces_$HOST" /etc/network/interfaces
 # sudo systemctl restart networking 
 
 # QMK Keyboard - Prevent Permission Denied on qmk console
-if [[ "$HOST" == "f-server" ]]; then
+if [ "$HOST" = "f-server" ]; then
   # qmk
   $_symlink "$root/debian/config/qmk/udev/92-viia.rules" /etc/udev/rules.d/92-viia.rules
 fi

@@ -68,11 +68,33 @@ sudo wget -O /usr/share/keyrings/azlux-archive-keyring.gpg  https://azlux.fr/rep
 sudo apt update
 sudo apt install broot
 
+# https://github.com/obsidianmd/obsidian-releases/releases/download/v1.6.7/obsidian_1.6.7_amd64.deb
+# Install obsidian from .deb repo
+# AppImage version of Obsidian is most likely to be the most reliable
+# as issues / PRs have to be repro'd with the AppImage to be submitted
+# the version downloaded probably doesn't matter, as Obsidian updates once installed
+wget -O /tmp/obsidian_1.6.7_amd64.deb https://github.com/obsidianmd/obsidian-releases/releases/download/v1.6.7/obsidian_1.6.7_amd64.deb
+sudo apt-get install /tmp/obsidian_1.6.7_amd64.deb
+
 # Install fonts
 # https://github.com/officialrajdeepsingh/nerd-fonts-installer
 bash -c  "$(curl -fsSL https://raw.githubusercontent.com/officialrajdeepsingh/nerd-fonts-installer/main/install.sh)" 
 
 # Install lazygit from binary package
-wget -O lazygit.tgz https://github.com/jesseduffield/lazygit/releases/download/v0.44.1/lazygit_0.44.1_Linux_x86_64.tar.gz
-tar xvf lazygit.tgz
-sudo mv lazygit /usr/local/bin/
+wget -O /tmp/lazygit.tgz https://github.com/jesseduffield/lazygit/releases/download/v0.44.1/lazygit_0.44.1_Linux_x86_64.tar.gz
+tar xvf /tmp/lazygit.tgz
+sudo mv /tmp/lazygit /usr/local/bin/
+
+mkdir -p ~/apps
+
+# https://github.com/korreman/sway-overfocus
+# Install sway-overfocus from source
+git clone https://github.com/korreman/sway-overfocus ~/apps/sway-overfocus
+cd ~/apps/sway-overfocus
+cargo build --release
+cp ./target/release/sway-overfocus ~/.local/bin/sway-overfocus
+
+
+# start syncthing
+sudo systemctl enable --now syncthing@f1.service
+

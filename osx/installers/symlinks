@@ -4,34 +4,40 @@
 # After running this, start karabiner, skhd, yabai
 # This will auto add all the locations as entries to the Security & Privacy to enable
 
-symlink_dotfile config/broot ~/.config/broot
-symlink_dotfile config/xplr ~/.config/xplr
-symlink_dotfile "$HOME/data/Alfred" "$HOME/Library/Application Support/Alfred"
-symlink_dotfile config/skhd ~/.config/skhd
-symlink_dotfile config/kitty ~/.config/kitty
-symlink_dotfile config/tmux ~/.config/tmux
-symlink_dotfile config/starship.toml ~/.config/starship.toml
+PSDIR=$(dirname "$0") # --> script dir's parent
+root="$(git -C "$PSDIR" rev-parse --show-toplevel)" # find git root from PSDIR
+_symlink="$root/shared/bin/src/_symlink"
+
+$_symlink $root/shared/config/broot ~/.config/broot
+$_symlink $root/shared/config/xplr ~/.config/xplr
+$_symlink "$HOME/data/Alfred" "$HOME/Library/Application Support/Alfred"
+$_symlink $root/shared/config/skhd ~/.config/skhd
+$_symlink $root/shared/config/kitty ~/.config/kitty
+$_symlink $root/shared/config/tmux ~/.config/tmux
+$_symlink $root/shared/config/starship.toml ~/.config/starship.toml
 mkdir -p ~/.config/bat
-symlink_dotfile config/bat/config ~/.config/bat/config # this is a file
-symlink_dotfile config/lazygit/config.yml ~/Library/Application\ Support/lazygit/config.yml
-symlink_dotfile config/git/gitattributes ~/.gitattributes
-symlink_dotfile config/git/gitconfig ~/.gitconfig
-symlink_dotfile config/git/gitignore ~/.gitignore
+$_symlink $root/shared/config/bat/config ~/.config/bat/config # this is a file
+$_symlink $root/shared/config/lazygit/config.yml ~/Library/Application\ Support/lazygit/config.yml
+$_symlink $root/shared/config/git/gitconfig ~/.gitconfig
+$_symlink $root/shared/config/git/gitignore ~/.gitignore
+$_symlink $root/shared/config/git/gitattributes ~/.gitattributes
+
 
 # NOTE: only karabiner full config folder can be symlinked
 # individual karabiner.json cannot be symlinked, as karabiner overwrites the karabiner.json whern adding new complex modifications, destroying the symlink
 # NOTE: everytime a complex modification is edited inside assets/complex_modifications, the rule needs to be deleted and re-enabled in the GUI (does not need a restart)
-symlink_dotfile config/karabiner ~/.config/karabiner
+$_symlink $root/osx/config/karabiner ~/.config/karabiner
 
-symlink_all_within "$HOME/dot/config/launchd" "$HOME/Library/LaunchAgents"
+# TODO: symlink all within launchd
+# $_symlink "$HOME/dot/config/launchd" "$HOME/Library/LaunchAgents"
 
-symlink_dotfile config/vlc ~/.config/vlc
+$_symlink $root/shared/config/vlc ~/.config/vlc
 
 # VSCODE_CONFIG_DIR="$HOME/Library/Application Support/Code/User"
 # mkdir -p "$VSCODE_CONFIG_DIR"
 # symlink_dotfile config/vscode/keybindings.json "$VSCODE_CONFIG_DIR/keybindings.json"
 # symlink_dotfile config/vscode/settings.json "$VSCODE_CONFIG_DIR/settings.json"
 
-symlink_dotfile config/yabai ~/.config/yabai
+$_symlink $root/osx/config/yabai ~/.config/yabai
 
-symlink_dotfile config/nvim ~/.config/nvim
+$_symlink $root/osx/config/nvim ~/.config/nvim

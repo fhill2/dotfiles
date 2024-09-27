@@ -65,6 +65,8 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 #
 # Basics:
 #
+
+
     # Start a terminal
     bindsym $mod+Return exec $term
 
@@ -73,7 +75,7 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
     bindsym $mod+Backspace kill
 
     # Start your launcher
-    bindsym $mod+p exec dmenu_path | wmenu | xargs swaymsg exec --
+    bindsym $mod+p exec wofi --show drun --width 400 --height 400
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -90,11 +92,23 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 #
 # Moving around:
 #
+    # https://github.com/korreman/sway-overfocus
+    # https://www.reddit.com/r/i3wm/comments/t4zglz/swayoverfocus_nicer_basic_navigation_between_tabs/
+    # To navigate between a tabbed container and an adjacent container
+    # focus parent -> next
+    # This is less intuitive than using sway-overfocus
+    bindsym $mod+h exec sway-overfocus split-lt float-lt output-ls
+    bindsym $mod+j exec sway-overfocus split-dt float-dt output-ds
+    bindsym $mod+k exec sway-overfocus split-ut float-ut output-us
+    bindsym $mod+l exec sway-overfocus split-rt float-rt output-rs
+    bindsym $mod+bracketleft exec sway-overfocus group-lw group-uw
+    bindsym $mod+bracketright exec sway-overfocus group-rw group-dw
+
     # Move your focus around
-    bindsym $mod+$left focus left
-    bindsym $mod+$down focus down
-    bindsym $mod+$up focus up
-    bindsym $mod+$right focus right
+    # bindsym $mod+$left focus left
+    # bindsym $mod+$down focus down
+    # bindsym $mod+$up focus up
+    # bindsym $mod+$right focus right
     # Or use $mod+[up|down|left|right]
     bindsym $mod+Left focus left
     bindsym $mod+Down focus down
@@ -111,6 +125,7 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
     bindsym $mod+Shift+Down move down
     bindsym $mod+Shift+Up move up
     bindsym $mod+Shift+Right move right
+
 #
 # Workspaces:
 #
@@ -138,6 +153,7 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
     bindsym $mod+Shift+5 move container to workspace number 10
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
+
 #
 # Layout stuff:
 #
@@ -168,6 +184,7 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
     # Move focus to the parent container
     bindsym $mod+a focus parent
+
 #
 # Scratchpad:
 #
@@ -180,6 +197,8 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
+
+
 #
 # Resizing containers:
 #

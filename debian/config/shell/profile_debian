@@ -9,8 +9,14 @@ export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
-# Do not symlink ~/dot/bin -> ~/.local/bin
 PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
 PATH="$HOME/.cargo/bin:$PATH"
+
+
+# Do not symlink ~/dot/bin -> ~/.local/bin
+# ~/.local/bin is used as a copy destination for manually compiled apps
+# haskell apps are also built here
+# ~/.local/bin does not exist on PATH by default on debian
+PATH="$HOME/.local/bin:$PATH"
 
 

@@ -46,6 +46,8 @@ librust-wayland-client-dev # wayland-client C dep
 wayland-protocols
 libxkbcommon-dev
 
+syncthing
+
 
 # cargo install starship
 cargo install kanata
@@ -53,6 +55,7 @@ cargo install kanata
 # https://github.com/sayanarijit/xplr/issues/667
 cargo install --locked xplr
 
+# if host is f-server-g
 # install haskell stack to install kmonad
 curl -sSL https://get.haskellstack.org/ | sh
 
@@ -66,4 +69,25 @@ direnv
 # rmadison - find debian packages to install
 devscripts
 
+# debian does not install audio configuration support by default
+pipewire-pulse wireplumber qpwgraph
 
+# system node for installing neovim LSPs
+nodejs
+npm
+
+# pytower deps
+python3-poetry
+clang
+
+# query smb shares
+smbclient
+# mount smb share
+cifs-utils
+
+
+rsync
+
+# pytower
+libunwind-devel # py-spy dep
+cargo install py-spy
