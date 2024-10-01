@@ -30,7 +30,8 @@ $_symlink $root/debian/config/kitty ~/.config/kitty
 
 # modified desktop files
 $_symlink $root/debian/config/desktop/obsidian-wayland.desktop ~/.local/share/applications/obsidian-wayland.desktop
-$_symlink $root/debian/config/desktop/discord-wayland.desktop /usr/share/applications/discord-wayland.desktop
+$_symlink $root/debian/config/desktop/discord-wayland.desktop ~/.local/share/applications/discord-wayland.desktop
+$_symlink $root/debian/config/desktop/datagrip-wayland.desktop ~/.local/share/applications/datagrip-wayland.desktop
 # $_symlink $root/debian/config/desktop/obsidian-wayland.desktop ~/.local/share/applications/obsidian-wayland.desktop
 
 

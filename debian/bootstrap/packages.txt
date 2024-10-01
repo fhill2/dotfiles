@@ -91,3 +91,11 @@ rsync
 # pytower
 libunwind-devel # py-spy dep
 cargo install py-spy
+
+
+
+# install fuse - dependency to open AppImages
+sudo apt install fuse
+
+# install snap
+# datagrip is released as snap package only, no appimage

@@ -98,3 +98,19 @@ cp ./target/release/sway-overfocus ~/.local/bin/sway-overfocus
 # start syncthing
 sudo systemctl enable --now syncthing@f1.service
 
+
+
+# https://www.jetbrains.com/help/datagrip/installation-guide.html#i4vtepn_145
+# Oct 2024 - Can't get Wayland version of DataGrip to run
+# Tried installing from source, snap, and Toolbox (appimage)
+# Manually install Datagrip
+# Download the .tar.gz from this link
+# https://www.jetbrains.com/datagrip/download/#section=linux
+sudo tar xzf ~/Downloads/datagrip-*.tar.gz -C /opt/
+# Rename the directory to DataGrip (Important)
+
+sudo apt install xwayland # now sway will start Xwayland with no additional configuration
+# Now pkill sway and log back in
+# Open with /opt/DataGrip/bin/datagrip.sh
+# Now Tools > Generate Desktop Shortcut
+
