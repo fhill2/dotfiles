@@ -1,7 +1,7 @@
 return {
-  {"aliou/bats.vim"},
+  { "aliou/bats.vim" },
   { "sindrets/diffview.nvim" },
-  {"nvim-telescope/telescope.nvim"},
+  { "nvim-telescope/telescope.nvim" },
   {
     "mikesmithgh/kitty-scrollback.nvim",
     enabled = true,
@@ -37,6 +37,24 @@ return {
         desc = "Neotest - Watch toggle",
       },
     },
+  },
+  {
+    "michaelb/sniprun",
+    branch = "master",
+
+    build = "sh install.sh",
+    -- do 'sh install.sh 1' if you want to force compile locally
+    -- (instead of fetching a binary from the github release). Requires Rust >= 1.65
+
+    config = function()
+      require("sniprun").setup({
+        interpreter_options = {
+          Rust_original = {
+            compiler = "rustc",
+          },
+        },
+      })
+    end,
   },
   { "bfontaine/Brewfile.vim" },
 }

@@ -4,6 +4,7 @@ source ~/Repos/znap/znap.zsh
 
 znap source zsh-users/zsh-autosuggestions
 znap source dbalatero/fast-syntax-highlighting
+znap source ohmyzsh/ohmyzsh plugins/direnv
 
 
 # necessary - otherwise ssh-agent has to be loaded manually
@@ -19,7 +20,7 @@ znap source ohmyzsh/ohmyzsh plugins/ssh-agent
 znap prompt sindresorhus/pure
 
 znap eval _pyenv-init "$(pyenv virtualenv-init -)"
-znap eval _direnv-hook "$(direnv hook zsh)"
+# znap eval _direnv-hook "$(direnv hook zsh)"
 
 # https://www.reddit.com/r/debian/comments/n8urvx/hello_i_wrote_this_one_line_script_that_grants/
 # Fuzzy search over Debian packages...

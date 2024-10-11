@@ -16,6 +16,8 @@ kitty
 zsh-antigen
 trash-cli
 
+openssh-server
+
 
 wl-clipboard # neovim clipboard copy and paste for wayland
 rustc
@@ -91,6 +93,11 @@ rsync
 # pytower
 libunwind-devel # py-spy dep
 cargo install py-spy
+
+# Install diesel_cli deps and then diesel-cli
+sudo apt install librust-mysqlclient-sys-dev 
+sudo apt install libpq-dev
+cargo install diesel_cli --features sqlite
 
 
 

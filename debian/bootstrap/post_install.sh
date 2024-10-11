@@ -24,8 +24,6 @@ ssh-keygen -t rsa -b 4096 -C "freddiehill000@gmail.com" -f "$HOME/.ssh/f_github"
 eval "$(ssh-agent)"
 ssh-add ~/.ssh/f_github
 
-
-
 mkdir -p $HOME/.config
 
 # https://gitlab.freedesktop.org/mesa/drm/-/issues/52#note_619180
@@ -46,13 +44,11 @@ sudo apt install ./google-chrome-stable_current_amd64.deb
 echo 'LANG=en_GB.UTF-8' | sudo tee /etc/default/locale
 sudo /usr/sbin/locale-gen # have to run locale-gen as root
 
-
 # Manual Steps
 # google-chrome tries to start in X11 when installed
 # open google chrome with google-chrome --ozone-platform=wayland
 # google chrome -> chrome://flags -> search for wayland - auto set always to wayland
 # now "google-chrome" will start in wayland
-
 
 # Install wezterm from .deb repo
 # https://wezfurlong.org/wezterm/install/linux.html#__tabbed_1_3
@@ -64,7 +60,7 @@ sudo /usr/sbin/locale-gen # have to run locale-gen as root
 # Install broot for Azlux .deb repo
 # https://packages.azlux.fr/
 echo "deb [signed-by=/usr/share/keyrings/azlux-archive-keyring.gpg] http://packages.azlux.fr/debian/ stable main" | sudo tee /etc/apt/sources.list.d/azlux.list
-sudo wget -O /usr/share/keyrings/azlux-archive-keyring.gpg  https://azlux.fr/repo.gpg
+sudo wget -O /usr/share/keyrings/azlux-archive-keyring.gpg https://azlux.fr/repo.gpg
 sudo apt update
 sudo apt install broot
 
@@ -78,7 +74,7 @@ sudo apt-get install /tmp/obsidian_1.6.7_amd64.deb
 
 # Install fonts
 # https://github.com/officialrajdeepsingh/nerd-fonts-installer
-bash -c  "$(curl -fsSL https://raw.githubusercontent.com/officialrajdeepsingh/nerd-fonts-installer/main/install.sh)" 
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/officialrajdeepsingh/nerd-fonts-installer/main/install.sh)"
 
 # Install lazygit from binary package
 wget -O /tmp/lazygit.tgz https://github.com/jesseduffield/lazygit/releases/download/v0.44.1/lazygit_0.44.1_Linux_x86_64.tar.gz
@@ -94,11 +90,8 @@ cd ~/apps/sway-overfocus
 cargo build --release
 cp ./target/release/sway-overfocus ~/.local/bin/sway-overfocus
 
-
 # start syncthing
 sudo systemctl enable --now syncthing@f1.service
-
-
 
 # https://www.jetbrains.com/help/datagrip/installation-guide.html#i4vtepn_145
 # Oct 2024 - Can't get Wayland version of DataGrip to run
@@ -109,8 +102,25 @@ sudo systemctl enable --now syncthing@f1.service
 sudo tar xzf ~/Downloads/datagrip-*.tar.gz -C /opt/
 # Rename the directory to DataGrip (Important)
 
+# obsidian requires xwayland
 sudo apt install xwayland # now sway will start Xwayland with no additional configuration
+
+sudo apt-get install sqlite3
 # Now pkill sway and log back in
 # Open with /opt/DataGrip/bin/datagrip.sh
 # Now Tools > Generate Desktop Shortcut
 
+# Install neovim from source
+# https://github.com/neovim/neovim
+mkdir -p ~/apps
+git clone https://github.com/neovim/neovim ~/apps/neovim
+ln -s ~/apps/neovim/build/bin/nvim ~/.local/bin/nvim
+
+# Install heaptrack from source
+# https://github.com/KDE/heaptrack?tab=readme-ov-file
+git clone https://github.com/KDE/heaptrack ~/apps/heaptrack
+sudo apt-get install elfutils libdw-dev libboost-all-dev
+cd ~/apps/heaptrack && mkdir build && cd build
+cmake -DCMAKE_BUILD_TYPE=Release
+make -j$(nproc)
+ln -s /home/f1/apps/heaptrack/bin/heaptrack ~/.local/bin/heaptrack

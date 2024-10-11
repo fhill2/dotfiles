@@ -19,7 +19,9 @@ libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-d
 
 
 # 3) Install the python versions I need using pyenv
-pyenv install 3.11.0
+# https://github.com/pyenv/pyenv/issues/65#issuecomment-30998608
+# Important that pyenv installs python with --enable-shared to build the libpython3.11.so file for pytower to build
+PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv install 3.11.0
 pyenv global 3.11.0
 # which python -> ~/.pyenv/shims
 # which python3 -> /usr/bin/python
