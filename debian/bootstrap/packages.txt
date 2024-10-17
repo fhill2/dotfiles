@@ -106,3 +106,10 @@ sudo apt install fuse
 
 # install snap
 # datagrip is released as snap package only, no appimage
+
+
+fdfind
+# fd debian package is called fdfind
+# neovim-telescope-file-browser.nvim requires fd binary on path with exact name as fd
+# other the plugin falls back to find
+sudo ln -s /usr/bin/fdfind /usr/bin/fd
