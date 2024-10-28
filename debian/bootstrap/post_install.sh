@@ -124,3 +124,17 @@ cd ~/apps/heaptrack && mkdir build && cd build
 cmake -DCMAKE_BUILD_TYPE=Release
 make -j$(nproc)
 ln -s /home/f1/apps/heaptrack/bin/heaptrack ~/.local/bin/heaptrack
+
+# Install moderncsv (manual)
+# Download manually from https://www.moderncsv.com/
+tar -xzvf ~/Downloads/filename.tar.gz
+mv moderncsv2.x ~/apps/moderncsv2.x
+cd moderncsv2.x
+sudo install.sh
+
+# Answer y to prompt saying that rust already exists on /usr/bin
+# curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+sudo apt install rustup
+rustup install nightly
+rustup default nightly             # link to /usr
+rustup component add rust-analyzer # install the version of rust_analyzer for rust

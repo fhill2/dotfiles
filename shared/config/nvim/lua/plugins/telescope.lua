@@ -120,6 +120,7 @@ return {
       require("telescope").setup({
         extensions = {
           file_browser = {
+            hidden = { file_browser = true, folder_browser = true },
             depth = 1, -- start at depth 1
             auto_depth = true, -- when starting to type, show all depths
             mappings = {

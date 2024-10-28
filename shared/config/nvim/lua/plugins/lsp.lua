@@ -107,6 +107,8 @@ local rust_analyzer = {
   settings = {
     ["rust-analyzer"] = {
       diagnostics = {
+        -- rust_analyzer will comment out code that is not "owned" by the project (included in lib.rs)
+        -- this disables the diagnostic and the commenting
         disabled = { "unlinked-file" },
       },
       -- checkOnSave = false,
@@ -221,7 +223,12 @@ return {
   },
 
   -- all lsps defined above (keys()) will be installed when opening neovim
-  { "williamboman/mason-lspconfig.nvim", opts = { automatic_installation = true } },
+  {
+    "williamboman/mason-lspconfig.nvim",
+    -- the goal is to use rust_analyzer from rustup so they are updated at the same time with rustup update
+    -- TODO: rust_analyzer is still being installed by mason-lspconfig.nvim ?
+    opts = { ensure_installed = { "rust_analyzer@nightly" } },
+  },
   -- nvim-lspconfig provides a default nvim lsp server setup with handling for setting the lsp root, and the .venv
   -- -- lspconfig/server_configurations/pyright.lua
   -- { "HallerPatrick/py_lsp.nvim", opts = {} },

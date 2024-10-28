@@ -6,6 +6,8 @@ znap source zsh-users/zsh-autosuggestions
 znap source dbalatero/fast-syntax-highlighting
 znap source ohmyzsh/ohmyzsh plugins/direnv
 
+# znap eval rustup completions zsh > ~/.zfunc/_rustup
+
 
 # necessary - otherwise ssh-agent has to be loaded manually
 zstyle :omz:plugins:ssh-agent identities ~/.ssh/f_github

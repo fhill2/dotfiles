@@ -20,7 +20,7 @@ openssh-server
 
 
 wl-clipboard # neovim clipboard copy and paste for wayland
-rustc
+rustup <-- install rustc
 
 
 wmctrl # get window information in wayland
