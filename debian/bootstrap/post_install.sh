@@ -138,3 +138,38 @@ sudo apt install rustup
 rustup install nightly
 rustup default nightly             # link to /usr
 rustup component add rust-analyzer # install the version of rust_analyzer for rust
+
+# Install tailscale
+curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/noble.noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
+curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/noble.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list
+sudo apt-get update
+sudo apt-get install tailscale
+sudo tailscale up
+
+# Install pgadmin - postgresql GUI client
+# Does not work
+# https://www.pgadmin.org/download/pgadmin-4-apt/
+# sudo curl https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo apt-key add
+# sudo sh -c 'echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/focal pgadmin4 main" \
+#   > /etc/apt/sources.list.d/pgadmin4.list && apt update'
+# sudo apt update
+# sudo apt install pgadmin4
+# sudo /usr/pgadmin4/bin/setup-web.sh
+#
+# Set password on postgres localhost database to avoid
+# systemctl
+sudo systemctl enable --now postgresql
+sudo -u postgres psql postgres
+# type into sql prompt: ALTER USER postgres WITH PASSWORD 'postgres'
+
+# Install DBeaver
+sudo wget -O /usr/share/keyrings/dbeaver.gpg.key https://dbeaver.io/debs/dbeaver.gpg.key
+echo "deb [signed-by=/usr/share/keyrings/dbeaver.gpg.key] https://dbeaver.io/debs/dbeaver-ce /" | sudo tee /etc/apt/sources.list.d/dbeaver.list
+sudo apt-get update && sudo apt-get install dbeaver-ce
+
+systemctl --user enable --now gammastep.service
+
+# Install IB Gateway
+wget -O /tmp/ibgateway-stable-standalone-linux-x64.sh https://download2.interactivebrokers.com/installers/ibgateway/stable-standalone/ibgateway-stable-standalone-linux-x64.sh
+chmod +x /tmp/ibgateway-stable-standalone-linux-x64.sh
+/tmp/ibgateway-stable-standalone-linux-x64.sh

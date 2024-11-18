@@ -49,6 +49,9 @@ wayland-protocols
 libxkbcommon-dev
 
 syncthing
+nmap
+wdisplays # configuring multimonitors on wayland
+gammastep # wayland blue light filter (X11 redshift alternative)
 
 
 # cargo install starship
@@ -113,3 +116,8 @@ fdfind
 # neovim-telescope-file-browser.nvim requires fd binary on path with exact name as fd
 # other the plugin falls back to find
 sudo ln -s /usr/bin/fdfind /usr/bin/fd
+
+
+spacefm
+
+postgresql

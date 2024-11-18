@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=Obsidian
+Name=Obsidian Wayland
 Exec=/opt/Obsidian/obsidian --ozone-platform=wayland %U
 Terminal=false
 Type=Application

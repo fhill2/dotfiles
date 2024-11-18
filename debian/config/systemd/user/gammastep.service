@@ -1,0 +1,11 @@
+[Unit]
+Description=A simple service to start gammastep at boot 
+After=syslog.target network.target multi-user.target
+
+[Service]
+Type=simple
+ExecStart=gammastep -O 4500
+ExecStop =gammastep -x
+Restart=on-abort
+[Install]
+WantedBy=default.target
