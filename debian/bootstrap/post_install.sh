@@ -7,6 +7,9 @@
 # Set Login Shell to ZSH
 sudo chsh -s $(which zsh) $USER
 
+# Essential - Otherwise $USER cannot sudo
+sudo usermod -aG sudo $USER
+
 # Generate SSH key as osx package list is in a shared private repo
 # -C -> comment
 ssh-keygen -t rsa -b 4096 -C "freddiehill000@gmail.com" -f "$HOME/.ssh/f_github"
