@@ -11,7 +11,7 @@ _symlink="$root/shared/bin/src/_symlink"
 # bin files
 
 mkdir -p $HOME/.local # dir does not exist on a fresh debian install
-$symlink $root/bin ~/.local/bin
+$symlink $root/debian/bin ~/.local/bin
 
 if [ "$HOST" = "f-desktop" ]; then
 	$_symlink $root/debian/bin/src/start_screenshare ~/.local/bin/start_screenshare
