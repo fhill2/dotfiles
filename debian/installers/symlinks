@@ -43,12 +43,12 @@ $_symlink $root/debian/config/desktop/discord-wayland.desktop ~/.local/share/app
 $_symlink $root/debian/config/desktop/ib-gateway-wayland.desktop ~/.local/share/applications/ib-gateway-wayland.desktop
 $_symlink $root/debian/config/desktop/spacefm-wayland.desktop ~/.local/share/applications/spacefm-wayland.desktop
 
-# if [ "$HOST" = "f-desktop" ]; then
-# https://github.com/jtroo/kanata/blob/main/docs/setup-linux.md
-# $_symlink "$root/debian/config/kanata" ~/.config/kanata
-# $_symlink "$root/debian/config/init.d/kanata" /etc/init.d/kanata
-# $_symlink "$root/debian/config/kanata/99-input.rules" /etc/udev/rules.d/99-input.rules
-# fi
+if [ "$HOST" = "f-server" ]; then
+	# https://github.com/jtroo/kanata/blob/main/docs/setup-linux.md
+	$_symlink "$root/debian/config/kanata" ~/.config/kanata
+	$_symlink "$root/debian/config/init.d/kanata" /etc/init.d/kanata
+	$_symlink "$root/debian/config/kanata/99-input.rules" /etc/udev/rules.d/99-input.rules
+fi
 
 if [ -f "$root/debian/config/interfaces_$HOST" ]; then
 	$_symlink "$root/debian/config/interfaces_$HOST" /etc/network/interfaces

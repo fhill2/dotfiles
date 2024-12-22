@@ -2,13 +2,6 @@
 # post_install
 # post installation script after the package list has been installed...
 
-# post install for sway otherwise sway shows Permission Denied errors on launch...
-# This may not be necessary, try only installing seatd to see if it fixes the perm errors
-# sudo apt install seatd
-sudo useradd seat
-sudo usermod -a -G seat $USER
-sudo systemctl enable seatd.service
-
 # Currently not working on debian...
 # PAM Authentication Failure
 # Set Login Shell to ZSH
@@ -167,10 +160,6 @@ chmod +x /tmp/ibgateway-stable-standalone-linux-x64.sh
 # Configure Samba
 # Type in password at prompt, a user will be setup
 sudo smbpasswd -a f1
-
-# Install cargo packages
-# cargo install starship
-cargo install kanata
 
 # https://github.com/sayanarijit/xplr/issues/667
 cargo install --locked xplr

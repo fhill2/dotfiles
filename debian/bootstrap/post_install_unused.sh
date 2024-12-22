@@ -13,3 +13,9 @@
 https://www.danieltufvesson.com/makeresolvedeb
 https://archive.debian.org/debian/pool/main/libj/libjpeg8/libjpeg8-dev_8b-1_amd64.deb
 sudo apt install mesa-opencl-icd
+
+# This is not necessary if seatd is installed before launching sway...
+# post install for sway otherwise sway shows Permission Denied errors on launch...
+# sudo useradd seat
+# sudo usermod -a -G seat $USER
+# sudo systemctl enable seatd.service
