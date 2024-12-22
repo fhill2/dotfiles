@@ -1,0 +1,26 @@
+# Packages I need only on Desktop
+
+# screen recording setup
+# TODO: install the VAAPI hardware encoder
+# xdg-desktop-portal
+xdg-desktop-portal-wlr
+obs-studio
+# for the debian/bin/start_screenshare script
+wl-mirror
+
+# building wayland apps from source
+meson 
+libcairo2-dev
+ninja-build
+# libinput C dep
+libinput-dev
+# pango C dep
+libpango1.0-dev 
+# wayland-client C dep
+librust-wayland-client-dev
+wayland-protocols
+libxkbcommon-dev
+
+# debian does not install audio configuration support by default
+pipewire-pulse wireplumber qpwgraph
+

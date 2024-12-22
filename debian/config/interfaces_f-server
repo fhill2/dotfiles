@@ -14,6 +14,6 @@ iface enp68s0 inet dhcp
 
 allow-hotplug enp73s0
 iface enp73s0 inet static
-  address 169.254.1.3
+  address 169.254.0.3
   netmask 255.255.255.0
 

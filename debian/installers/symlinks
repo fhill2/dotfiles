@@ -6,6 +6,12 @@ PSDIR=$(dirname "$0")                               # --> script dir's parent
 root="$(git -C "$PSDIR" rev-parse --show-toplevel)" # find git root from PSDIR
 _symlink="$root/shared/bin/src/_symlink"
 
+# TODO:
+# setup a better way to symlink scripts into a directory on PATH
+# bin files
+$_symlink $root/debian/bin/src/start_screenshare ~/.local/bin/start_screenshare
+$_symlink $root/debian/bin/src/stop_screenshare ~/.local/bin/stop_screenshare
+
 $_symlink $root/shared/config/nvim ~/.config/nvim
 $_symlink $root/shared/config/git/gitconfig ~/.gitconfig
 $_symlink $root/shared/config/git/gitignore ~/.gitignore
@@ -30,6 +36,7 @@ $_symlink $root/debian/config/desktop/obsidian-wayland.desktop ~/.local/share/ap
 $_symlink $root/debian/config/desktop/discord-wayland.desktop ~/.local/share/applications/discord-wayland.desktop
 $_symlink $root/debian/config/desktop/datagrip-wayland.desktop ~/.local/share/applications/datagrip-wayland.desktop
 $_symlink $root/debian/config/desktop/ib-gateway-wayland.desktop ~/.local/share/applications/ib-gateway-wayland.desktop
+$_symlink $root/debian/config/desktop/spacefm-wayland.desktop ~/.local/share/applications/spacefm-wayland.desktop
 # $_symlink $root/debian/config/desktop/obsidian-wayland.desktop ~/.local/share/applications/obsidian-wayland.desktop
 
 if [ "$HOST" = "f-server-g" ]; then

@@ -173,3 +173,39 @@ systemctl --user enable --now gammastep.service
 wget -O /tmp/ibgateway-stable-standalone-linux-x64.sh https://download2.interactivebrokers.com/installers/ibgateway/stable-standalone/ibgateway-stable-standalone-linux-x64.sh
 chmod +x /tmp/ibgateway-stable-standalone-linux-x64.sh
 /tmp/ibgateway-stable-standalone-linux-x64.sh
+
+# Configure Samba
+# Type in password at prompt, a user will be setup
+sudo smbpasswd -a f1
+
+# Install Davince Resolve with 6800 XT GPU
+# Download and install
+# I had to create the deb from the linux official download
+# SKIP_PACKAGE_CHECK=1 ./DaVinci_Resolve_19.1.2_Linux.run
+https://www.danieltufvesson.com/makeresolvedeb
+https://archive.debian.org/debian/pool/main/libj/libjpeg8/libjpeg8-dev_8b-1_amd64.deb
+sudo apt install mesa-opencl-icd
+
+# Install cargo packages
+# cargo install starship
+cargo install kanata
+
+# https://github.com/sayanarijit/xplr/issues/667
+cargo install --locked xplr
+
+# if host is f-server-g
+# install haskell stack to install kmonad
+curl -sSL https://get.haskellstack.org/ | sh
+
+# Not using diesel-cli anymore...
+# Install diesel_cli deps and then diesel-cli
+# sudo apt install librust-mysqlclient-sys-dev
+# sudo apt install libpq-dev
+# cargo install diesel_cli --features sqlite
+
+cargo install py-spy
+
+# fd debian package is called fdfind
+# neovim-telescope-file-browser.nvim requires fd binary on path with exact name as fd
+# other the plugin falls back to find
+sudo ln -s /usr/bin/fdfind /usr/bin/fd

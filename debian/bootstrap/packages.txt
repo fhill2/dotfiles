@@ -1,11 +1,15 @@
-Bootstrapping from a fresh debian install with no packages selected on the ISO installer
-Uncheck Standard System Utilities
-Uncheck Debian Desktop Environment
+# Bootstrapping from a fresh debian install with no packages selected on the ISO installer
+# Uncheck Standard System Utilities
+# Uncheck Debian Desktop Environment
 
-gnupg # required for apt custom repos
+
+
+
+##### ESSENTIAL TOOLS
+# gnupg required for apt custom repos
+gnupg 
 curl
 wget
-man
 zsh
 git
 # elogind or seatd (seat management daemon) is needed for sway to launch
@@ -15,54 +19,52 @@ neovim
 kitty
 zsh-antigen
 trash-cli
-
+jq 
+man
 openssh-server
-
-
-wl-clipboard # neovim clipboard copy and paste for wayland
-rustup <-- install rustc
-
-
-wmctrl # get window information in wayland
-
+fdfind
+# installs rustc
+rustup
+# spacefm dep
+spacefm
+udevil
+# to validate .desktop files
+desktop-file-utils
+##
+vlc
+syncthing
+nmap
+rsync
 cmake
-fd-find # fd-find
-wofi
+fd-find
 fzf
+postgresql
+
+
+
+#### WAYLAND ESSENTIALS
+# get window information in wayland
+wmctrl 
+# neovim clipboard copy and paste for wayland
+wl-clipboard 
+# display visual input for configuring keymapping software
+wshowkeys
+# configuring multimonitors on wayland
+wdisplays
+# wayland blue light filter (X11 redshift alternative)
+gammastep
+# take screenshots on wayland
+grim
+# App Launcher
+wofi
+#############
+
 
 # shell script test framework
 bats
 bats-file
 bats-support
 bats-assert
-
-
-# building wayland apps from source
-# wshowkeys
-meson 
-libcairo2-dev
-ninja-build
-libinput-dev # libinput C dep
-libpango1.0-dev # pango C dep
-librust-wayland-client-dev # wayland-client C dep
-wayland-protocols
-libxkbcommon-dev
-
-syncthing
-nmap
-wdisplays # configuring multimonitors on wayland
-gammastep # wayland blue light filter (X11 redshift alternative)
-
-
-# cargo install starship
-cargo install kanata
-
-# https://github.com/sayanarijit/xplr/issues/667
-cargo install --locked xplr
-
-# if host is f-server-g
-# install haskell stack to install kmonad
-curl -sSL https://get.haskellstack.org/ | sh
 
 
 # install system python as some python packages aren't available on apt
@@ -74,8 +76,6 @@ direnv
 # rmadison - find debian packages to install
 devscripts
 
-# debian does not install audio configuration support by default
-pipewire-pulse wireplumber qpwgraph
 
 # system node for installing neovim LSPs
 nodejs
@@ -90,34 +90,9 @@ smbclient
 # mount smb share
 cifs-utils
 
-
-rsync
-
 # pytower
-libunwind-devel # py-spy dep
-cargo install py-spy
-
-# Install diesel_cli deps and then diesel-cli
-sudo apt install librust-mysqlclient-sys-dev 
-sudo apt install libpq-dev
-cargo install diesel_cli --features sqlite
-
-
+# py-spy dep (installed using cargo)
+libunwind-devel
 
 # install fuse - dependency to open AppImages
-sudo apt install fuse
-
-# install snap
-# datagrip is released as snap package only, no appimage
-
-
-fdfind
-# fd debian package is called fdfind
-# neovim-telescope-file-browser.nvim requires fd binary on path with exact name as fd
-# other the plugin falls back to find
-sudo ln -s /usr/bin/fdfind /usr/bin/fd
-
-
-spacefm
-
-postgresql
+fuse
