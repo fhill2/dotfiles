@@ -4,7 +4,7 @@
 # After running this, start karabiner, skhd, yabai
 # This will auto add all the locations as entries to the Security & Privacy to enable
 
-PSDIR=$(dirname "$0") # --> script dir's parent
+PSDIR=$(dirname "$0")                               # --> script dir's parent
 root="$(git -C "$PSDIR" rev-parse --show-toplevel)" # find git root from PSDIR
 _symlink="$root/shared/bin/src/_symlink"
 
@@ -25,8 +25,6 @@ $_symlink $root/shared/config/git/gitattributes ~/.gitattributes
 $_symlink $root/debian/config/shell/zshrc ~/.zshrc
 $_symlink $root/debian/config/shell/zprofile ~/.zprofile
 $_symlink $root/osx/config/profile_osx ~/.profile
-
-
 
 # NOTE: only karabiner full config folder can be symlinked
 # individual karabiner.json cannot be symlinked, as karabiner overwrites the karabiner.json whern adding new complex modifications, destroying the symlink

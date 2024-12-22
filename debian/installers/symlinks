@@ -9,8 +9,14 @@ _symlink="$root/shared/bin/src/_symlink"
 # TODO:
 # setup a better way to symlink scripts into a directory on PATH
 # bin files
-$_symlink $root/debian/bin/src/start_screenshare ~/.local/bin/start_screenshare
-$_symlink $root/debian/bin/src/stop_screenshare ~/.local/bin/stop_screenshare
+
+mkdir -p $HOME/.local # dir does not exist on a fresh debian install
+ln -s $root/bin ~/.local/bin
+
+if [ "$HOST" = "f-desktop" ]; then
+	$_symlink $root/debian/bin/src/start_screenshare ~/.local/bin/start_screenshare
+	$_symlink $root/debian/bin/src/stop_screenshare ~/.local/bin/stop_screenshare
+fi
 
 $_symlink $root/shared/config/nvim ~/.config/nvim
 $_symlink $root/shared/config/git/gitconfig ~/.gitconfig
@@ -26,7 +32,7 @@ $_symlink $root/shared/config/git/gitattributes ~/.gitattributes
 
 $_symlink $root/debian/config/shell/zshrc ~/.zshrc
 $_symlink $root/debian/config/shell/zprofile ~/.zprofile
-$_symlink $root/debian/config/shell/profile_debian ~/.profile
+$_symlink $root/debian/config/profile_debian ~/.profile
 $_symlink $root/debian/config/systemd/user ~/.config/systemd/user
 $_symlink $root/debian/config/sway ~/.config/sway
 $_symlink $root/debian/config/kitty ~/.config/kitty
@@ -34,24 +40,23 @@ $_symlink $root/debian/config/kitty ~/.config/kitty
 # modified desktop files
 $_symlink $root/debian/config/desktop/obsidian-wayland.desktop ~/.local/share/applications/obsidian-wayland.desktop
 $_symlink $root/debian/config/desktop/discord-wayland.desktop ~/.local/share/applications/discord-wayland.desktop
-$_symlink $root/debian/config/desktop/datagrip-wayland.desktop ~/.local/share/applications/datagrip-wayland.desktop
 $_symlink $root/debian/config/desktop/ib-gateway-wayland.desktop ~/.local/share/applications/ib-gateway-wayland.desktop
 $_symlink $root/debian/config/desktop/spacefm-wayland.desktop ~/.local/share/applications/spacefm-wayland.desktop
-# $_symlink $root/debian/config/desktop/obsidian-wayland.desktop ~/.local/share/applications/obsidian-wayland.desktop
 
-if [ "$HOST" = "f-server-g" ]; then
-	# https://github.com/jtroo/kanata/blob/main/docs/setup-linux.md
-	$_symlink "$root/debian/config/kanata" ~/.config/kanata
-	$_symlink "$root/debian/config/init.d/kanata" /etc/init.d/kanata
-	$_symlink "$root/debian/config/kanata/99-input.rules" /etc/udev/rules.d/99-input.rules
+# if [ "$HOST" = "f-desktop" ]; then
+# https://github.com/jtroo/kanata/blob/main/docs/setup-linux.md
+# $_symlink "$root/debian/config/kanata" ~/.config/kanata
+# $_symlink "$root/debian/config/init.d/kanata" /etc/init.d/kanata
+# $_symlink "$root/debian/config/kanata/99-input.rules" /etc/udev/rules.d/99-input.rules
+# fi
 
+if [ -f "$root/debian/config/interfaces_$HOST" ]; then
+	$_symlink "$root/debian/config/interfaces_$HOST" /etc/network/interfaces
 fi
-
-$_symlink "$root/debian/config/interfaces_$HOST" /etc/network/interfaces
 # sudo systemctl restart networking
 
 # QMK Keyboard - Prevent Permission Denied on qmk console
-if [ "$HOST" = "f-server" ]; then
+if [ "$HOST" = "f-desktop" ]; then
 	# qmk
 	$_symlink "$root/debian/config/qmk/udev/92-viia.rules" /etc/udev/rules.d/92-viia.rules
 fi

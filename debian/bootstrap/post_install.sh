@@ -1,3 +1,4 @@
+# This config is needed on Debian Server & Desktop...
 # post_install
 # post installation script after the package list has been installed...
 
@@ -12,10 +13,6 @@ sudo systemctl enable seatd.service
 # PAM Authentication Failure
 # Set Login Shell to ZSH
 sudo chsh -s $(which zsh) $USER
-
-mkdir -p $HOME/.local # dir does not exist on a fresh debian install
-echo "Replacing local bin with dotfiles bin..."
-ln -s ~/dot/bin ~/.local/bin
 
 # Generate SSH key as osx package list is in a shared private repo
 # -C -> comment
@@ -49,13 +46,6 @@ sudo /usr/sbin/locale-gen # have to run locale-gen as root
 # open google chrome with google-chrome --ozone-platform=wayland
 # google chrome -> chrome://flags -> search for wayland - auto set always to wayland
 # now "google-chrome" will start in wayland
-
-# Install wezterm from .deb repo
-# https://wezfurlong.org/wezterm/install/linux.html#__tabbed_1_3
-# curl -fsSL https://apt.fury.io/wez/gpg.key | sudo gpg --yes --dearmor -o /usr/share/keyrings/wezterm-fury.gpg
-# echo 'deb [signed-by=/usr/share/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *' | sudo tee /etc/apt/sources.list.d/wezterm.list
-# sudo apt update
-# sudo apt install wezterm-nightly
 
 # Install broot for Azlux .deb repo
 # https://packages.azlux.fr/
@@ -177,14 +167,6 @@ chmod +x /tmp/ibgateway-stable-standalone-linux-x64.sh
 # Configure Samba
 # Type in password at prompt, a user will be setup
 sudo smbpasswd -a f1
-
-# Install Davince Resolve with 6800 XT GPU
-# Download and install
-# I had to create the deb from the linux official download
-# SKIP_PACKAGE_CHECK=1 ./DaVinci_Resolve_19.1.2_Linux.run
-https://www.danieltufvesson.com/makeresolvedeb
-https://archive.debian.org/debian/pool/main/libj/libjpeg8/libjpeg8-dev_8b-1_amd64.deb
-sudo apt install mesa-opencl-icd
 
 # Install cargo packages
 # cargo install starship
