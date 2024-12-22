@@ -17,5 +17,5 @@ done <"packages.txt"
 
 # Print the array (optional)
 for line in "${output[@]}"; do
-	sudo apt-get install "$line"
+	sudo apt-get install -y "$line"
 done
