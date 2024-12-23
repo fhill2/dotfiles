@@ -9,42 +9,13 @@
 (deflayer base
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   @tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
-  caps a    s    d    f    g    h    j    k    l    ;    '    ret
-  @sft z    x    c    v    b    n    m    ,    .    /    @sft
-  @ctrl @met @alt           spc            @alt @met @ctl
-)
-
-;; these deflayers are to instruct kanata
-;; to disable the tab mapping when other modifier keys are pressed before it
-(deflayer sft
-  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
-  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lctrl a    s    d    f    g    h    j    k    l    ;    '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft
-  lctl lmet lalt           spc            ralt rmet rctl
-)
-(deflayer met
-  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
-  caps a    s    d    f    g    h    j    k    l    ;    '    ret
-  lsft z    x    c    v    b    n    m    ,    .    /    rsft
-  lctl lmet lalt           spc            ralt rmet rctl
-)
-(deflayer alt
-  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
-  caps a    s    d    f    g    h    j    k    l    ;    '    ret
-  lsft z    x    c    v    b    n    m    ,    .    /    rsft
-  lctl lmet lalt           spc            ralt rmet rctl
+  lalt lmet lmet           spc            ralt rmet rctrl
 )
 
 (defalias 
-
-  ctl (layer-while-held ctl)
-  sft (layer-while-held sft)
-  met (layer-while-held met)
-  alt (layer-while-held alt)
-  tab (tap-hold-press 0 65535 tab (multi lctl lalt lmeta lshift))
+  tab (tap-hold-press 0 65535 tab (multi lctl lalt lmeta))
 )
 
 

@@ -2,6 +2,11 @@
 # post_install
 # post installation script after the package list has been installed...
 
+# Add backports to apt repos
+# to install openzfs
+echo "deb http://deb.debian.org/debian bookworm-backports main contrib" >/etc/apt/sources.list.d/debian-12-backports.list
+sudo apt update
+
 # Currently not working on debian...
 # PAM Authentication Failure
 # Set Login Shell to ZSH
@@ -13,7 +18,6 @@ sudo usermod -aG sudo $USER
 # Generate SSH key as osx package list is in a shared private repo
 # -C -> comment
 ssh-keygen -t rsa -b 4096 -C "freddiehill000@gmail.com" -f "$HOME/.ssh/f_github"
-
 eval "$(ssh-agent)"
 ssh-add ~/.ssh/f_github
 
@@ -42,12 +46,6 @@ sudo apt install google-chrome-stable
 echo 'LANG=en_GB.UTF-8' | sudo tee /etc/default/locale
 sudo /usr/sbin/locale-gen # have to run locale-gen as root
 
-# Manual Steps
-# google-chrome tries to start in X11 when installed
-# open google chrome with google-chrome --ozone-platform=wayland
-# google chrome -> chrome://flags -> search for wayland - auto set always to wayland
-# now "google-chrome" will start in wayland
-
 # Install broot for Azlux .deb repo
 # https://packages.azlux.fr/
 echo "deb [signed-by=/usr/share/keyrings/azlux-archive-keyring.gpg] http://packages.azlux.fr/debian/ stable main" | sudo tee /etc/apt/sources.list.d/azlux.list
@@ -69,7 +67,7 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/officialrajdeepsingh/ner
 
 # Install lazygit from binary package
 wget -O /tmp/lazygit.tgz https://github.com/jesseduffield/lazygit/releases/download/v0.44.1/lazygit_0.44.1_Linux_x86_64.tar.gz
-tar xvf /tmp/lazygit.tgz
+tar xvf /tmp/lazygit.tgz -C /tmp
 sudo mv /tmp/lazygit /usr/local/bin/
 
 mkdir -p ~/apps
