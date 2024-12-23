@@ -15,7 +15,6 @@ git
 # elogind or seatd (seat management daemon) is needed for sway to launch
 seatd
 sway
-neovim
 kitty
 zsh-antigen
 trash-cli
@@ -23,8 +22,6 @@ jq
 man
 openssh-server
 fdfind
-# installs rustc
-rustup
 # spacefm dep
 spacefm
 udevil

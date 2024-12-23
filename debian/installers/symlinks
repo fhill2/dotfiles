@@ -10,6 +10,10 @@ _symlink="$root/shared/bin/src/_symlink"
 # setup a better way to symlink scripts into a directory on PATH
 # bin files
 
+mkdir -p $HOME/apps
+mkdir -p $HOME/git
+mkdir -p $HOME/projects
+
 mkdir -p $HOME/.local # dir does not exist on a fresh debian install
 $symlink $root/debian/bin ~/.local/bin
 

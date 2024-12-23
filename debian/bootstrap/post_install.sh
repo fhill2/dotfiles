@@ -27,8 +27,13 @@ echo "A Reboot is needed in order for sway to start"
 mkdir -p $HOME/Desktop
 
 # install google chrome
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo apt install ./google-chrome-stable_current_amd64.deb
+# wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+# sudo apt install ./google-chrome-stable_current_amd64.deb
+# https://itslinuxguide.com/install-google-chrome-debian-12/
+curl -fSsL https://dl.google.com/linux/linux_signing_key.pub | sudo gpg --dearmor | sudo tee /usr/share/keyrings/google-chrome.gpg >>/dev/null
+echo deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main | sudo tee /etc/apt/sources.list.d/google-chrome.list
+sudo apt update
+sudo apt install google-chrome-stable
 
 # Debian did not correctly set the locale on installation
 # Shown when installing packages with apt
@@ -120,7 +125,9 @@ sudo install.sh
 
 # Answer y to prompt saying that rust already exists on /usr/bin
 # curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-sudo apt install rustup
+# installing via apt did not work on f-server
+# sudo apt install rustup
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 rustup install nightly
 rustup default nightly             # link to /usr
 rustup component add rust-analyzer # install the version of rust_analyzer for rust
