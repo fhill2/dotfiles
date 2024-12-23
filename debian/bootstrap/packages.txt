@@ -34,6 +34,7 @@ nmap
 rsync
 cmake
 fd-find
+ripgrep
 fzf
 postgresql
 
@@ -54,6 +55,8 @@ gammastep
 grim
 # App Launcher
 wofi
+# Open X11 Apps in wayland
+xwayland
 #############
 
 

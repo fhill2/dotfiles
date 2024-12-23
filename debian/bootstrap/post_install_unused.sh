@@ -19,3 +19,23 @@ sudo apt install mesa-opencl-icd
 # sudo useradd seat
 # sudo usermod -a -G seat $USER
 # sudo systemctl enable seatd.service
+#
+#
+# Note: on f-server dec 2024 install
+# locale gets set correctly if the correct region is given in the installation
+# Debian did not correctly set the locale on installation
+# Shown when installing packages with apt
+# https://serverfault.com/a/362910
+# https://forums.debian.net/viewtopic.php?t=146922
+# echo 'LANG=en_GB.UTF-8' | sudo tee /etc/default/locale
+# sudo /usr/sbin/locale-gen # have to run locale-gen as root
+#
+#
+# https://www.jetbrains.com/help/datagrip/installation-guide.html#i4vtepn_145
+# Oct 2024 - Can't get Wayland version of DataGrip to run
+# Tried installing from source, snap, and Toolbox (appimage)
+# Manually install Datagrip
+# Download the .tar.gz from this link
+# https://www.jetbrains.com/datagrip/download/#section=linux
+sudo tar xzf ~/Downloads/datagrip-*.tar.gz -C /opt/
+# Rename the directory to DataGrip (Important)

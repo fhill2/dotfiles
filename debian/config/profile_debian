@@ -11,6 +11,7 @@ eval "$(pyenv init -)"
 
 PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
 PATH="$HOME/.cargo/bin:$PATH"
+PATH="/usr/sbin:$PATH"
 
 
 # Do not symlink ~/dot/bin -> ~/.local/bin

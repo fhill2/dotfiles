@@ -2,11 +2,6 @@
 # post_install
 # post installation script after the package list has been installed...
 
-# Add backports to apt repos
-# to install openzfs
-echo "deb http://deb.debian.org/debian bookworm-backports main contrib" >/etc/apt/sources.list.d/debian-12-backports.list
-sudo apt update
-
 # Currently not working on debian...
 # PAM Authentication Failure
 # Set Login Shell to ZSH
@@ -21,14 +16,10 @@ ssh-keygen -t rsa -b 4096 -C "freddiehill000@gmail.com" -f "$HOME/.ssh/f_github"
 eval "$(ssh-agent)"
 ssh-add ~/.ssh/f_github
 
-mkdir -p $HOME/.config
-
 # https://gitlab.freedesktop.org/mesa/drm/-/issues/52#note_619180
 # amd_gpu_initialized_failed error
 # solution is to restart after the seat management daemon has been installed
-echo "A Reboot is needed in order for sway to start"
-
-mkdir -p $HOME/Desktop
+# echo "A Reboot is needed in order for sway to start"
 
 # install google chrome
 # wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
@@ -38,13 +29,8 @@ curl -fSsL https://dl.google.com/linux/linux_signing_key.pub | sudo gpg --dearmo
 echo deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main | sudo tee /etc/apt/sources.list.d/google-chrome.list
 sudo apt update
 sudo apt install google-chrome-stable
-
-# Debian did not correctly set the locale on installation
-# Shown when installing packages with apt
-# https://serverfault.com/a/362910
-# https://forums.debian.net/viewtopic.php?t=146922
-echo 'LANG=en_GB.UTF-8' | sudo tee /etc/default/locale
-sudo /usr/sbin/locale-gen # have to run locale-gen as root
+# now launched with google-chrome-stable --ozone-platform=wayland
+# chrome://flags -> search wayland -> set to Wayland
 
 # Install broot for Azlux .deb repo
 # https://packages.azlux.fr/
@@ -64,13 +50,12 @@ sudo apt-get install /tmp/obsidian_1.6.7_amd64.deb
 # Install fonts
 # https://github.com/officialrajdeepsingh/nerd-fonts-installer
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/officialrajdeepsingh/nerd-fonts-installer/main/install.sh)"
+# 12 -> DejaVuSansMono -> The font to rule them all
 
 # Install lazygit from binary package
 wget -O /tmp/lazygit.tgz https://github.com/jesseduffield/lazygit/releases/download/v0.44.1/lazygit_0.44.1_Linux_x86_64.tar.gz
 tar xvf /tmp/lazygit.tgz -C /tmp
 sudo mv /tmp/lazygit /usr/local/bin/
-
-mkdir -p ~/apps
 
 # https://github.com/korreman/sway-overfocus
 # Install sway-overfocus from source
@@ -81,18 +66,6 @@ cp ./target/release/sway-overfocus ~/.local/bin/sway-overfocus
 
 # start syncthing
 sudo systemctl enable --now syncthing@f1.service
-
-# https://www.jetbrains.com/help/datagrip/installation-guide.html#i4vtepn_145
-# Oct 2024 - Can't get Wayland version of DataGrip to run
-# Tried installing from source, snap, and Toolbox (appimage)
-# Manually install Datagrip
-# Download the .tar.gz from this link
-# https://www.jetbrains.com/datagrip/download/#section=linux
-sudo tar xzf ~/Downloads/datagrip-*.tar.gz -C /opt/
-# Rename the directory to DataGrip (Important)
-
-# obsidian requires xwayland
-sudo apt install xwayland # now sway will start Xwayland with no additional configuration
 
 sudo apt-get install sqlite3
 # Now pkill sway and log back in

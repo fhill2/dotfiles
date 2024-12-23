@@ -13,9 +13,11 @@ _symlink="$root/shared/bin/src/_symlink"
 mkdir -p $HOME/apps
 mkdir -p $HOME/git
 mkdir -p $HOME/projects
+mkdir -p $HOME/Desktop
+mkdir -p $HOME/.config
 
-mkdir -p $HOME/.local # dir does not exist on a fresh debian install
-$symlink $root/debian/bin ~/.local/bin
+mkdir -p $HOME/.local                   # dir does not exist on a fresh debian install
+ln -s $root/debian/bin/src ~/.local/bin # dont know why this is perm denied with _symlink
 
 if [ "$HOST" = "f-desktop" ]; then
 	$_symlink $root/debian/bin/src/start_screenshare ~/.local/bin/start_screenshare
