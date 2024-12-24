@@ -54,6 +54,11 @@ if [ "$HOST" = "f-server" ]; then
 	$_symlink "$root/debian/config/kanata" ~/.config/kanata
 	$_symlink "$root/debian/config/init.d/kanata" /etc/init.d/kanata
 	$_symlink "$root/debian/config/kanata/99-input.rules" /etc/udev/rules.d/99-input.rules
+
+	# Add postgres config
+	# Requires the same version as barman - 15
+	$_symlink "$root/debian/config/postgresql_f-server/pg_hba.conf" /etc/postgresql/15/main/pg_hba.conf
+	$_symlink "$root/debian/config/postgresql_f-server/postgresql.conf" /etc/postgresql/15/main/postgresql.conf
 fi
 
 if [ -f "$root/debian/config/interfaces_$HOST" ]; then
@@ -66,3 +71,9 @@ if [ "$HOST" = "f-desktop" ]; then
 	# qmk
 	$_symlink "$root/debian/config/qmk/udev/92-viia.rules" /etc/udev/rules.d/92-viia.rules
 fi
+
+# f-server postgres needs to override the system installed systemd service file
+# to modify the PG_DATA path to the zfs dataset
+# if [ "$HOST" = "f-server" ]; then
+# $_symlink "$root/debian/config/systemd/postgresql_f-server.service" /usr/lib/systemd/system/postgresql.service
+# fi

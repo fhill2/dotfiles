@@ -127,9 +127,12 @@ sudo -u postgres psql postgres
 # type into sql prompt: ALTER USER postgres WITH PASSWORD 'postgres'
 
 # Install DBeaver
-sudo wget -O /usr/share/keyrings/dbeaver.gpg.key https://dbeaver.io/debs/dbeaver.gpg.key
-echo "deb [signed-by=/usr/share/keyrings/dbeaver.gpg.key] https://dbeaver.io/debs/dbeaver-ce /" | sudo tee /etc/apt/sources.list.d/dbeaver.list
+# sudo wget -O /usr/share/keyrings/dbeaver.gpg.key https://dbeaver.io/debs/dbeaver.gpg.key
+# echo "deb [signed-by=/usr/share/keyrings/dbeaver.gpg.key] https://dbeaver.io/debs/dbeaver-ce /" | sudo tee /etc/apt/sources.list.d/dbeaver.list
 sudo apt-get update && sudo apt-get install dbeaver-ce
+
+wget https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb -P /tmp
+sudo apt install dbeaver-ce_latest_amd64.deb
 
 systemctl --user enable --now gammastep.service
 
