@@ -59,6 +59,8 @@ wofi
 xwayland
 #############
 
+rustc
+firefox-esr
 
 # shell script test framework
 bats

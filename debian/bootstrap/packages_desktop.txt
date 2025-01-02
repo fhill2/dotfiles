@@ -24,3 +24,18 @@ libxkbcommon-dev
 # debian does not install audio configuration support by default
 pipewire-pulse wireplumber qpwgraph
 
+
+# Push docker images to private repo for truenas
+# docker.io
+# docker-cli
+# sudo /usr/sbin/usermod -aG docker $USER
+
+
+
+# barman
+barman
+
+
+
+
+
