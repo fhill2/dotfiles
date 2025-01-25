@@ -1,4 +1,4 @@
 # This file has to be owned by ROOT otherwise cron will error with "WRONG FILE OWNER"
 # Check logs for more info: journalctl -xeu cron.service
-* * * * * barman /usr/local/bin/barman receive-wal --create-slot f-server; /usr/local/bin/barman cron
-0 4 * * * barman /usr/local/bin/barman backup all
+* * * * * barman /usr/bin/barman receive-wal --create-slot f-server; /usr/local/bin/barman cron
+0 4 * * * barman /usr/bin/barman backup all >> /var/log/barman/barman.log 2>&1
