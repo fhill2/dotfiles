@@ -46,3 +46,5 @@ setopt inc_append_history
 setopt share_history # share command history data
 setopt extended_glob
 
+
+# PATH="~/apps/spark-3.4.4:$PATH"

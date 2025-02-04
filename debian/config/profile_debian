@@ -20,5 +20,4 @@ PATH="/usr/sbin:$PATH"
 # ~/.local/bin does not exist on PATH by default on debian
 PATH="$HOME/.local/bin:$PATH"
 
-
 . "$HOME/.cargo/env"
