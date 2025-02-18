@@ -138,7 +138,7 @@
   autocrlf = false
   editor = nvim
   excludesfile = ~/.gitignore
-  pager = diff-so-fancy | less --tabs=4 -RFX
+  ; pager = diff-so-fancy | less --tabs=4 -RFX
 	commitGraph = true
 	precomposeUnicode = true
 	fsmonitor = true

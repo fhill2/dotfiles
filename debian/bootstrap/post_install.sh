@@ -168,3 +168,7 @@ cargo install py-spy
 # neovim-telescope-file-browser.nvim requires fd binary on path with exact name as fd
 # other the plugin falls back to find
 sudo ln -s /usr/bin/fdfind /usr/bin/fd
+
+# Download Vesktop - Discord Alternative
+wget -O /tmp/vesktop https://vencord.dev/download/vesktop/amd64/deb
+sudo dpkg -i /tmp/vesktop
