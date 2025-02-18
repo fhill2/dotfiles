@@ -25,6 +25,9 @@ zfs create tank/postgres
 zfs set recordsize=8K tank/postgres
 zfs set atime=off tank/postgres
 
+# After this command is run and the data_directory is moved to /tank/postgres
+# debian postgres still uses the pg_hba.conf config in /etc/postgresql/15/main/pg_hba.conf
+# same for postgresql.conf
 sudo -u postgres /usr/lib/postgresql/15/bin/initdb -D /tank/postgres
 # zfs shares are owned by root when created
 # post data directory cannot be owned by root

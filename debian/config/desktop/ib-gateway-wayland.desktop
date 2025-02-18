@@ -1,8 +1,8 @@
 [Desktop Entry]
-Name=IB Gateway 10.30 Wayland
-Exec=env GDK_BACKEND=x11 /home/f1/Jts/ibgateway/1030/ibgateway %U
+Name=IB Gateway 10.34 Wayland
+Exec=env GDK_BACKEND=x11 /home/f1/Jts/ibgateway/1034/ibgateway %U
 Type=Application
-Icon=/home/f1/Jts/ibgateway/1030/.install4j/ibgateway.png
+Icon=/home/f1/Jts/ibgateway/1034/.install4j/ibgateway.png
 StartupWMClass=install4j-ibgateway-GWClient
 Categories=Application;
 

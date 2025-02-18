@@ -19,8 +19,8 @@ mkdir -p $HOME/projects
 mkdir -p $HOME/Desktop
 mkdir -p $HOME/.config
 
-mkdir -p $HOME/.local                   # dir does not exist on a fresh debian install
-ln -s $root/debian/bin/src ~/.local/bin # dont know why this is perm denied with _symlink
+mkdir -p $HOME/.local                       # dir does not exist on a fresh debian install
+$_symlink $root/debian/bin/src ~/.local/bin # dont know why this is perm denied with _symlink
 
 if [ "$HOST" = "f-desktop" ]; then
 	$_symlink $root/debian/bin/src/start_screenshare ~/.local/bin/start_screenshare
@@ -57,11 +57,6 @@ if [ "$HOST" = "f-server" ]; then
 	$_symlink "$root/debian/config/kanata" ~/.config/kanata
 	$_symlink "$root/debian/config/init.d/kanata" /etc/init.d/kanata
 	$_symlink "$root/debian/config/kanata/99-input.rules" /etc/udev/rules.d/99-input.rules
-
-	# Add postgres config
-	# Requires the same version as barman - 15
-	$_symlink "$root/debian/config/postgresql_f-server/pg_hba.conf" /etc/postgresql/15/main/pg_hba.conf
-	$_symlink "$root/debian/config/postgresql_f-server/postgresql.conf" /etc/postgresql/15/main/postgresql.conf
 fi
 
 if [ -f "$root/debian/config/interfaces_$HOST" ]; then

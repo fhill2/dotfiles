@@ -8,15 +8,12 @@
 # Install pyenv initially using pyenv-installer
 curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
 
-
 # 2) Install debian packages so pyenv can build new python versions
 # https://github.com/pyenv/pyenv/wiki#suggested-build-environment
-sudo apt update; 
+sudo apt update
 sudo apt install build-essential libssl-dev zlib1g-dev \
-libbz2-dev libreadline-dev libsqlite3-dev curl git \
-libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
-
-
+	libbz2-dev libreadline-dev libsqlite3-dev curl git \
+	libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
 
 # 3) Install the python versions I need using pyenv
 # https://github.com/pyenv/pyenv/issues/65#issuecomment-30998608
@@ -29,4 +26,3 @@ pyenv global 3.11.0
 
 # Fixes: python -m venv .venv errors as it cant find ensurepip in the pyenv installed global python
 pip install upgrade-ensurepip
-
