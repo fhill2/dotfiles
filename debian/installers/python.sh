@@ -18,8 +18,8 @@ sudo apt install build-essential libssl-dev zlib1g-dev \
 # 3) Install the python versions I need using pyenv
 # https://github.com/pyenv/pyenv/issues/65#issuecomment-30998608
 # Important that pyenv installs python with --enable-shared to build the libpython3.11.so file for pytower to build
-PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv install 3.11.0
-pyenv global 3.11.0
+PYTHON_CONFIGURE_OPTS="--enable-shared" $HOME/.pyenv/bin/pyenv install 3.11.0
+$HOME/.pyenv/bin/pyenv global 3.11.0
 # which python -> ~/.pyenv/shims
 # which python3 -> /usr/bin/python
 # which pip ~/.pyenv/shims

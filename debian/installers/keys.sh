@@ -4,7 +4,7 @@
 # Install cargo packages
 cargo install kanata
 
-# This is not necessary on f-server install
+# This is not necessary on f-desktop install
 sudo groupadd uinput
 sudo usermod -aG input $USER
 sudo usermod -aG uinput $USER
@@ -15,6 +15,10 @@ systemctl --user daemon-reload
 systemctl --user enable kanata.service
 systemctl --user start kanata.service
 systemctl --user status kanata.service
+# Kanata install
+# https://github.com/jtroo/kanata/blob/main/docs/setup-linux.md
+# might require a restart after all these commands
+sudo chmod +x /etc/init.d/kanata # script must be executable
 # sudo chmod +x /etc/init.d/kanata # script must be executable
 # sudo rc-service kanata start
 # rc-status                         # check that kanata isn't listed as [ crashed ]

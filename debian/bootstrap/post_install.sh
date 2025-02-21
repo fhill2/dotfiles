@@ -16,6 +16,8 @@ sudo usermod -aG sudo $USER
 # https://github.com/neovim/neovim
 mkdir -p ~/apps
 git clone https://github.com/neovim/neovim ~/apps/neovim
+make CMAKE_BUILD_TYPE=RelWithDebInfo CMAKE_INSTALL_PREFIX=/full/path/
+make install
 ln -s ~/apps/neovim/build/bin/nvim ~/.local/bin/nvim
 
 # Answer y to prompt saying that rust already exists on /usr/bin
@@ -24,8 +26,8 @@ ln -s ~/apps/neovim/build/bin/nvim ~/.local/bin/nvim
 # sudo apt install rustup
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 # f-server does not need nightly - TODO: conditional here
-rustup install nightly
-rustup default nightly             # link to /usr
+rustup install stable
+rustup default stable              # link to /usr
 rustup component add rust-analyzer # install the version of rust_analyzer for rust
 
 # Generate SSH key as osx package list is in a shared private repo
@@ -172,3 +174,32 @@ sudo ln -s /usr/bin/fdfind /usr/bin/fd
 # Download Vesktop - Discord Alternative
 wget -O /tmp/vesktop https://vencord.dev/download/vesktop/amd64/deb
 sudo dpkg -i /tmp/vesktop
+
+# Kanata install
+# https://github.com/jtroo/kanata/blob/main/docs/setup-linux.md
+# might require a restart after all these commands
+cargo install kanata
+sudo groupadd uinput
+sudo usermod -aG input $USER
+sudo usermod -aG uinput $USER
+sudo udevadm control --reload-rules && sudo udevadm trigger #
+sudo modprobe uinput
+systemctl --user daemon-reload
+systemctl --user enable kanata.service
+systemctl --user start kanata.service
+systemctl --user status kanata.service # check whether the service is running
+sudo chmod +x /etc/init.d/kanata       # script must be executable
+
+# Install Aeron
+# install java first
+sudo apt install openjdk-17-jdk
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64 # Replace with the actual path if different
+export PATH=$JAVA_HOME/bin:$PATH
+git clone https://github.com/aeron-io/aeron ~/apps/aeron
+cd aeron
+
+mkdir -p cppbuild/Debug
+cd cppbuild/Debug
+cmake -DCMAKE_BUILD_TYPE=Debug ../..
+cmake --build . --clean-first
+ctest
