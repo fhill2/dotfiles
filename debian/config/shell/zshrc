@@ -48,3 +48,5 @@ setopt extended_glob
 
 
 # PATH="~/apps/spark-3.4.4:$PATH"
+
+. "$HOME/.local/share/../bin/env"

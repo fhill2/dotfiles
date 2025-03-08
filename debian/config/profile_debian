@@ -21,3 +21,5 @@ PATH="/usr/sbin:$PATH"
 PATH="$HOME/.local/bin:$PATH"
 
 . "$HOME/.cargo/env"
+
+. "$HOME/.local/share/../bin/env"
