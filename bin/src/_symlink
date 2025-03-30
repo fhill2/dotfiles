@@ -1,0 +1,90 @@
+#!/usr/bin/env sh
+# https://stackoverflow.com/questions/5767062/how-to-check-if-a-symlink-exists
+#
+# https://linux.die.net/man/1/test
+# Note, all file related tests (-e) dereference symbolic links
+# e.g - calling -e FILE on a broken symbolic link will return false
+#
+
+_sudo_symlink() {
+	source="$1"
+	destination="$2"
+	if sudo ln -s "$source" "$destination"; then
+		# if [ $? -eq 0 ]; then
+		echo "Created Symlink (as sudo): $source -> $destination"
+		exit 0
+	else
+		echo "Error creating symlink with sudo."
+		exit 1
+	fi
+
+}
+
+do_symlink() {
+	source="$1"
+	destination="$2"
+
+	# if file/folder/executable does not exist at source, ignore it (manual intervention)
+	if [ ! -e "$source" ] && [ ! -x "$source" ]; then
+		echo "Source file '$source' does not exist."
+		exit 1
+	fi
+
+	# if destination is a symlink and links back to the file or folder that was given, ignore it (noop)
+	if [ -L "$destination" ]; then
+		if [ "$(readlink "$destination")" = "$source" ]; then
+			# if destination symlink exists and the symlink source links back to given source
+			exit 0
+		else
+			unlink "$destination"
+			echo "Destination file $destination is a symlink that does not link to $source - removing this symlink..."
+		fi
+		# if destination is a file or directory, ignore it (manual intervention)
+	elif [ -f "$destination" ] || [ -d "$destination" ]; then
+		echo "Destination file '$destination' exists and is a file or directory - manually delete the file..."
+		exit 1
+	fi
+
+	mkdir -p "$(dirname "$destination")"
+
+	# Create the symlink
+	if ln -s "$source" "$destination"; then
+		echo "$source -> $destination"
+		exit 0
+	else
+		# handle symlinks in dirs with root permissions
+		# If there is no write permission at the destination, try sudo...
+		if [ ! -w "$destination" ]; then # handle EACCESS perm
+			_sudo_symlink "$source" "$destination"
+		else
+			echo "Failed to create symlink."
+			exit 1
+		fi
+		exit 1
+	fi
+}
+
+# Example usage
+if [ $# -ne 2 ]; then
+	echo "Usage: $0 <source_file> <destination_file>"
+	exit 1
+fi
+
+do_symlink "$@"
+
+# Handle existing symlink with broken target
+# if [ -L "$destination" ]; then
+#   original_file=$(readlink "$destination")
+#   if ! [ -f "$original_file" ]; then
+#     echo "'$destination' symlink has non existant source file '$original_file'"
+#     read -p "Do you want to delete '$destination' (y/N)? " response
+#     response="${response:-Y}"  # Set "Y" as the default response
+#
+#     if [[ "$response" =~ ^[Yy]$ ]]; then
+#       rm -f "$destination"
+#       return 0
+#     else
+#       return 1
+#     fi
+#   fi
+# fi

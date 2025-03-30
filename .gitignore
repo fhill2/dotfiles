@@ -1,8 +1,5 @@
 lazy-lock.json
-aconfmgr/files/**
-dotbot-*
-qtile/__pycache__/**
-nvim/plugin/packer_compiled.lua
+config/nvim/plugin/packer_compiled.lua
 .DS_Store
 **/.DS_Store
 **/__pycache__

@@ -1,8 +1,0 @@
-[Nemo Action]
-Active=true
-Name=trash-cli %N
-Comment=trash-cli %N.
-Exec=<scripts/trash.sh %F>
-Selection=notnone
-Extensions=any
-Quote=double

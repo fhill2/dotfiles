@@ -1,4 +1,0 @@
-message_keys = ["short_message", "msg", "message"]
-time_keys = ["timestamp", "time", "@timestamp"]
-level_keys = ["level", "levelname", "severity", "log.level", "loglevel"]
-main_line_format = "{{fblog_timestamp}} {{fblog.levelname}} {{bold(cyan fblog.module)}} {{fblog_message}}"

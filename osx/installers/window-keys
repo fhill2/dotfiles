@@ -44,7 +44,7 @@ function install_yabai() {
 			echo "Installed yabai, but you still need to reboot into boot options, open terminal, and disable SIP."
 		fi
 	fi
-	
+
 	# https://github.com/koekeishiya/yabai/issues/787
 	# after the first installation of yabai, we need to run:
 	sudo yabai --install-sa

@@ -1,7 +1,0 @@
-[Unit]
-Description=i3_daemon
-PartOf=graphical-session.target
-
-[Service]
-ExecStart=%h/dot/bin/dbus_monitor_date --session
-Restart=always

@@ -1,0 +1,5 @@
+# On Linux systems, ZSH is the login terminal
+# ZSH Login terminal will not read ~/.profile
+# It reads ~/.zprofile instead
+source ~/.profile
+

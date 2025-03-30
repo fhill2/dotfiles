@@ -1,0 +1,2 @@
+2025 packages brew:
+--cask font-dejavu-sans-mono-nerd-font
