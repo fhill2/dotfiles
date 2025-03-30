@@ -4,22 +4,6 @@
 # Fuzzy search over Debian packages...
 alias apt_search='apt-cache pkgnames | fzf --multi --cycle --reverse --preview "apt-cache show {1}" --preview-window=:57%:wrap:hidden --bind=space:toggle-preview | xargs -ro sudo apt install'
 
-source $HOME/.config/broot/launcher/bash/br
-
-if [ -z "$HISTFILE" ]; then
-	HISTFILE=$HOME/.zsh_history
-fi
-HISTSIZE=10000
-SAVEHIST=10000
-
-setopt append_history
-setopt extended_history
-setopt hist_expire_dups_first
-setopt hist_ignore_dups # ignore duplication command history list
-setopt hist_ignore_space
-setopt inc_append_history
-setopt share_history # share command history data
-
 # PATH="~/apps/spark-3.4.4:$PATH"
 
 # . "$HOME/.local/share/../bin/env"
@@ -28,5 +12,5 @@ setopt share_history # share command history data
 #
 if ! pgrep -x ssh-agent >/dev/null; then
 	eval "$(ssh-agent -s)" >/dev/null
+	ssh-add ~/.ssh/f_github 2>/dev/null
 fi
-ssh-add ~/.ssh/f_github 2>/dev/null
