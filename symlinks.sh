@@ -65,6 +65,7 @@ else
 
 fi
 
+$_symlink $root/config/shell/bashrc ~/.bashrc
 $_symlink $root/config/shell/zshrc ~/.zshrc
 $_symlink $root/config/shell/zprofile ~/.zprofile
 $_symlink $root/config/profile ~/.profile
