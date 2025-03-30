@@ -44,7 +44,7 @@ if [ "$HOST" = "f-desktop" ]; then
 fi
 
 $_symlink $root/config/nvim ~/.config/nvim
-# $_symlink $root/config/git/gitconfig ~/.gitconfig
+$_symlink $root/config/git/gitconfig ~/.gitconfig
 # $_symlink $root/config/git/gitignore ~/.gitignore
 $_symlink $root/config/broot ~/.config/broot
 $_symlink $root/config/xplr ~/.config/xplr
