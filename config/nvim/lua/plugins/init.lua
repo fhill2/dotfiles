@@ -2,18 +2,18 @@ return {
   { "aliou/bats.vim" },
   { "sindrets/diffview.nvim" },
   { "nvim-telescope/telescope.nvim" },
-  {
-    "mikesmithgh/kitty-scrollback.nvim",
-    enabled = true,
-    lazy = true,
-    cmd = { "KittyScrollbackGenerateKittens", "KittyScrollbackCheckHealth" },
-    event = { "User KittyScrollbackLaunch" },
-    -- version = '*', -- latest stable version, may have breaking changes if major version changed
-    -- version = '^4.0.0', -- pin major version, include fixes and features that do not have breaking changes
-    config = function()
-      require("kitty-scrollback").setup()
-    end,
-  },
+  -- {
+  --   "mikesmithgh/kitty-scrollback.nvim",
+  --   enabled = true,
+  --   lazy = true,
+  --   cmd = { "KittyScrollbackGenerateKittens", "KittyScrollbackCheckHealth" },
+  --   event = { "User KittyScrollbackLaunch" },
+  --   -- version = '*', -- latest stable version, may have breaking changes if major version changed
+  --   -- version = '^4.0.0', -- pin major version, include fixes and features that do not have breaking changes
+  --   config = function()
+  --     require("kitty-scrollback").setup()
+  --   end,
+  -- },
   -- { "fhill2/telescope-ultisnips.nvim" },
   -- { "SirVer/ultisnips" },
   -- { "honza/vim-snippets" },
@@ -76,5 +76,20 @@ return {
       statuscolumn = { enabled = true },
       words = { enabled = true },
     },
-  }
+  },
+  {
+    "m00qek/baleia.nvim",
+    version = "*",
+    config = function()
+      vim.g.baleia = require("baleia").setup({})
+
+      -- Command to colorize the current buffer
+      vim.api.nvim_create_user_command("BaleiaColorize", function()
+        vim.g.baleia.once(vim.api.nvim_get_current_buf())
+      end, { bang = true })
+
+      -- Command to show logs
+      vim.api.nvim_create_user_command("BaleiaLogs", vim.g.baleia.logger.show, { bang = true })
+    end,
+  },
 }

@@ -119,6 +119,7 @@ local rust_analyzer = {
         -- rust_analyzer will comment out code that is not "owned" by the project (included in lib.rs)
         -- this disables the diagnostic and the commenting
         disabled = { "unlinked-file" },
+        cargo = { targetDir = true },
       },
     },
     -- ENABLE this to debug rust_analyzer tracing logs

@@ -203,3 +203,5 @@ cd cppbuild/Debug
 cmake -DCMAKE_BUILD_TYPE=Debug ../..
 cmake --build . --clean-first
 ctest
+
+cargo install cargo-watch
