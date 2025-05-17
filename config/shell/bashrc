@@ -1,18 +1,8 @@
-# Using bash on the servers
-# Keep the minimal
+# Any bash compatible configuration is kept in bashrc and zshrc sources bashrc
+# This is so I can choose to use bash only on certain systems and the configuration still remains intact
 
 # Fuzzy search over Debian packages...
 alias apt_search='apt-cache pkgnames | fzf --multi --cycle --reverse --preview "apt-cache show {1}" --preview-window=:57%:wrap:hidden --bind=space:toggle-preview | xargs -ro sudo apt install'
-
 alias print_parquet="find . -name '*.parquet' | fzf --preview='parquet-tools show {}' --bind 'ctrl-u:preview-page-up,ctrl-d:preview-page-down'"
-
-# PATH="~/apps/spark-3.4.4:$PATH"
-
-# . "$HOME/.local/share/../bin/env"
-
-# Keeping ssh startup config in .bashrc means I do not have to use ZSH on the servers
-#
-if ! pgrep -x ssh-agent >/dev/null; then
-	eval "$(ssh-agent -s)" >/dev/null
-	ssh-add ~/.ssh/f_github 2>/dev/null
-fi
+alias ssh="kitty +kitten ssh"
+alias pip="uv pip"

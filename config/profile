@@ -24,4 +24,10 @@ if [ -d "$HOME/.cargo" ]; then
 
 fi
 
-# . "$HOME/.local/share/../bin/env"
+# https://unix.stackexchange.com/a/132117
+# Note: DO NOT add this to zshrc / bashrc
+# If the ssh-agent is started in an rc file, ssh-agent has to be started manually when remoting over SSH
+if ! pgrep -x ssh-agent >/dev/null; then
+	eval "$(ssh-agent -s)" >/dev/null
+	ssh-add ~/.ssh/f_github 2>/dev/null
+fi
