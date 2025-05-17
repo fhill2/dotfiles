@@ -2,6 +2,8 @@
 # sudo apt install bats
 # --> bats test.bats
 
+# 17th May 2025 TODO:
+# Test the symlink script can auto delete broken symlinks that exist in locations that require root permissions
 
 setup_file() {
     # executes once per test run 
