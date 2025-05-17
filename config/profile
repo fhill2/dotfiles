@@ -27,7 +27,10 @@ fi
 # https://unix.stackexchange.com/a/132117
 # Note: DO NOT add this to zshrc / bashrc
 # If the ssh-agent is started in an rc file, ssh-agent has to be started manually when remoting over SSH
-if ! pgrep -x ssh-agent >/dev/null; then
-	eval "$(ssh-agent -s)" >/dev/null
-	ssh-add ~/.ssh/f_github 2>/dev/null
+# SSH_AUTH_SOCK env var is required so all ssh-agents use the same instance across all terminals running on the system
+# This makes the ssh private keys available when remoting over SSH
+export SSH_AUTH_SOCK=~/.ssh/ssh-agent.$HOSTNAME.sock
+ssh-add -l 2>/dev/null >/dev/null
+if [ $? -ge 2 ]; then
+  ssh-agent -a "$SSH_AUTH_SOCK" >/dev/null
 fi
