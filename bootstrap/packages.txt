@@ -2,9 +2,6 @@
 # Uncheck Standard System Utilities
 # Uncheck Debian Desktop Environment
 
-
-
-
 ##### ESSENTIAL TOOLS
 # gnupg required for apt custom repos
 gnupg 
@@ -28,7 +25,6 @@ udevil
 # to validate .desktop files
 desktop-file-utils
 ##
-vlc
 syncthing
 nmap
 rsync
@@ -36,12 +32,12 @@ cmake
 fd-find
 ripgrep
 fzf
-postgresql
+
 # check file folder sizes to clear space
 ncdu
-firefox-esr
 isc-dhcp-client
 
+firefox-esr
 
 
 #### WAYLAND ESSENTIALS
@@ -79,7 +75,6 @@ python3-pip
 direnv
 
 # useful debian utilities
-# rmadison - find debian packages to install
 devscripts
 
 
@@ -100,8 +95,6 @@ cifs-utils
 # py-spy dep (installed using cargo)
 libunwind-devel
 
-# install fuse - dependency to open AppImages
-fuse
 
 
 # Enables ntp

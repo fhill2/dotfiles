@@ -1,4 +1,4 @@
-# Packages I need only on Desktop
+# packages I need only on f-desktop
 
 # screen recording setup
 # TODO: install the VAAPI hardware encoder
@@ -32,8 +32,10 @@ pipewire-pulse wireplumber qpwgraph
 
 
 
-# barman
-barman
-
 
 just
+vlc
+
+# install fuse - dependency to open AppImages
+fuse
+
