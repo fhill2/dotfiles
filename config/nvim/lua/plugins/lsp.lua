@@ -114,21 +114,26 @@ local ruff = {
 local rust_analyzer = {
   settings = {
     ["rust-analyzer"] = {
-      cmd = { "rust-analyzer", "--log-file", "/tmp/rustls.log" },
+      -- cmd = { "rust-analyzer", "--log-file", "/tmp/rustls.log" },
       diagnostics = {
         -- rust_analyzer will comment out code that is not "owned" by the project (included in lib.rs)
         -- this disables the diagnostic and the commenting
         disabled = { "unlinked-file" },
-        cargo = { targetDir = true },
       },
+      -- https://sourcegraph.com/github.com/zchee/.nvim/-/blob/lua/plugins/lsp/rust_analyzer.lua
+      rust = {
+        analyzerTargetDir = "target/rust-analyzer",
+      },
+      -- cargo = { targetDir = true },
     },
+
     -- ENABLE this to debug rust_analyzer tracing logs
-    cmd = { "rust-analyzer", "--log-file", "/tmp/rustls.log" },
-    env = {
-      RUST_LOG = "debug",
-      RA_LOG_FILE = "/tmp/rustls.log",
-      RA_LOG = "lsp_server=debug",
-    },
+    -- cmd = { "rust-analyzer", "--log-file", "/tmp/rustls.log" },
+    -- env = {
+    --   RUST_LOG = "debug",
+    --   RA_LOG_FILE = "/tmp/rustls.log",
+    --   RA_LOG = "lsp_server=debug",
+    -- },
   },
 }
 -- checkOnSave = false,
@@ -240,12 +245,17 @@ return {
   },
 
   -- all lsps defined above (keys()) will be installed when opening neovim
-  {
-    "williamboman/mason-lspconfig.nvim",
-    -- the goal is to use rust_analyzer from rustup so they are updated at the same time with rustup update
-    -- TODO: rust_analyzer is still being installed by mason-lspconfig.nvim ?
-    opts = { ensure_installed = { "rust_analyzer@nightly" } },
-  },
+  -- {
+  --   "williamboman/mason-lspconfig.nvim",
+  --   -- the goal is to use rust_analyzer from rustup so they are updated at the same time with rustup update
+  --   -- TODO: rust_analyzer is still being installed by mason-lspconfig.nvim ?
+  --   opts = {
+  --     -- automatic_installation=false
+  --     -- better to install rust_analyzer using rustup to match with the rust version
+  --     automatic_installation = false,
+  --     ensure_installed = {},
+  --   },
+  -- },
   -- nvim-lspconfig provides a default nvim lsp server setup with handling for setting the lsp root, and the .venv
   -- -- lspconfig/server_configurations/pyright.lua
   -- { "HallerPatrick/py_lsp.nvim", opts = {} },

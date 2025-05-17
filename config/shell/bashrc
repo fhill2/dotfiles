@@ -4,6 +4,8 @@
 # Fuzzy search over Debian packages...
 alias apt_search='apt-cache pkgnames | fzf --multi --cycle --reverse --preview "apt-cache show {1}" --preview-window=:57%:wrap:hidden --bind=space:toggle-preview | xargs -ro sudo apt install'
 
+alias print_parquet="find . -name '*.parquet' | fzf --preview='parquet-tools show {}' --bind 'ctrl-u:preview-page-up,ctrl-d:preview-page-down'"
+
 # PATH="~/apps/spark-3.4.4:$PATH"
 
 # . "$HOME/.local/share/../bin/env"

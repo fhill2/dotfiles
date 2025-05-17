@@ -102,3 +102,10 @@ libunwind-devel
 
 # install fuse - dependency to open AppImages
 fuse
+
+
+# Enables ntp
+# Otherwise system clock goes out of sync
+# And web browsers start producing errors
+systemd-timesyncd
+

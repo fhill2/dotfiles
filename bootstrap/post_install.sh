@@ -205,3 +205,5 @@ cmake --build . --clean-first
 ctest
 
 cargo install cargo-watch
+
+sudo systemctl enable --now systemd-timesyncd
