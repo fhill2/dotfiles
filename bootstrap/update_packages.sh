@@ -17,7 +17,7 @@ while IFS= read -r line; do
 	fi
 done <"$SCRIPT_DIR/packages.txt"
 
-# Print the array (optional)
+# If the package is already installed but a newer version is available in the repositories: apt-get will update the package to the newer version.
 for line in "${output[@]}"; do
 	sudo apt-get install -y "$line"
 done

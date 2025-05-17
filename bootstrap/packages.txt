@@ -74,6 +74,10 @@ python3
 python3-pip
 direnv
 
+uv
+tmux
+
+
 # useful debian utilities
 devscripts
 
