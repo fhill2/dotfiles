@@ -1,5 +1,7 @@
 #!/bin/bash
 
+SCRIPT_DIR=$(dirname "$0")
+
 output=()
 
 # Read the file line by line
@@ -13,7 +15,7 @@ while IFS= read -r line; do
 		# If not a comment, append the line to the array
 		output+=("$line")
 	fi
-done <"packages.txt"
+done <"$SCRIPT_DIR/packages.txt"
 
 # Print the array (optional)
 for line in "${output[@]}"; do
