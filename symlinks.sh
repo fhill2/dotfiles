@@ -72,6 +72,7 @@ $_symlink $root/config/profile ~/.profile
 
 $_symlink $root/config/sway ~/.config/sway
 $_symlink $root/config/kitty ~/.config/kitty
+$_symlink $root/config/alacritty ~/.config/alacritty
 
 # kanata should only install on f-server for now
 if [ "$HOST" = "f-server" ]; then

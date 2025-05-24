@@ -1,0 +1,9 @@
+[font]
+size = 8.0
+
+[font.normal]
+# family = "DejaVuSansMono Nerd Font Mono"
+family = "DejaVu Sans Mono"
+
+[terminal]
+osc52 = "CopyPaste"
