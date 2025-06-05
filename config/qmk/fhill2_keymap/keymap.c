@@ -13,7 +13,13 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
+// How to Install QMK on a fresh install (bootstrap):
+// This symlink has to exist otherwise qmk compile / flash cannot find the keymap:
+// ~/dot/config/qmk/fhill2_keymap -> ~/qmk_firmware/keyboards/gmmk/pro/rev1/ansi/keymaps
+// Now run this to compile / flash:
+// qmk compile -kb gmmk/pro/rev1/ansi -km fhill2 
+// qmk flash -kb gmmk/pro/rev1/ansi -km fhill2 
+//
 // HOW TO FLASH GMMK AFTER qmk compile
 // https://www.gloriousgaming.com/en-uk/blogs/guides-resources/gmmk-2-qmk-installation-guide
 // Note Linux does not support QMK Toolbox so flashing has to be done on the CLI
@@ -29,6 +35,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // MOD-TAP HYPER|TAB Configuration:
 // https://docs.qmk.fm/tap_hold
+//
+// https://docs.qmk.fm/keycodes_magic
+// Swap keycodes -> permanently enabled across restarts
+// DF(1) key -> enables default mapping
+// Ended up using this instead of the magic keycodes
+//
 
 
 
@@ -67,17 +79,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LCAG_T(KC_TAB),  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,          KC_END,
         KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,           KC_PGUP,
         KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT, KC_UP,   KC_PGDN,
-        KC_LALT, KC_LGUI, KC_LGUI,                            KC_SPC,                             KC_RALT, MO(1),   KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
+        KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_RALT, MO(2),   KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
+    ),
+    // Default Layer containing no modifications
+    // RAlt + backspace switches to this layer
+    [1] = LAYOUT(
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,           _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,           _______,
+        KC_TAB, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,           _______,
+        KC_CAPS, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,           _______,
+        _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______,  _______,
+        KC_LCTL, _______, _______,                            _______,                            _______, _______, _______, _______, _______, _______
     ),
 
-    [1] = LAYOUT(
-        _______, KC_MYCM, KC_WHOM, KC_CALC, KC_MSEL, KC_MPRV, KC_MNXT, KC_MPLY, KC_MSTP, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______,          _______,
-        _______, RGB_TOG, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
-        _______, _______, RGB_VAI, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, QK_BOOT,          _______,
-        _______, _______, RGB_VAD, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,          _______,
-        _______,          _______, RGB_HUI, _______, _______, _______, NK_TOGG, _______, _______, _______, _______,          _______, RGB_MOD, _______,
+
+    // Fn Keyboard Layer
+    // https://docs.qmk.fm/keycodes_magic
+    // Modifications -> CL_SWAP -> disables Ctrl and reverts to CapsLock
+    // RAlt 1 -> Disable all RGB
+    [2] = LAYOUT(
+        QK_CLEAR_EEPROM, KC_MYCM, KC_WHOM, KC_CALC, KC_MSEL, KC_MPRV, KC_MNXT, KC_MPLY, KC_MSTP, KC_MUTE, KC_VOLD, KC_VOLU, _______, CL_NORM,   _______,
+        _______, RGB_TOG, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,           DF(0),
+        _______, _______, RGB_VAI, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, QK_BOOT,           DF(1),
+        _______, _______, RGB_VAD, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,           _______,
+        _______,          _______, RGB_HUI, _______, _______, _______, NK_TOGG, _______, _______, _______, _______,          _______, RGB_MOD,  _______,
         _______, _______, _______,                            _______,                            _______, _______, _______, RGB_SPD, RGB_RMOD, RGB_SPI
     ),
+
+
 
 
 };
@@ -86,7 +115,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [1] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) }
+    [1] = { ENCODER_CCW_CW(_______, _______) },
+    [2] = { ENCODER_CCW_CW(_______, _______) },
 };
 #endif
 
@@ -100,12 +130,6 @@ bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
   dprintf("pre_process_record_user %d", keycode);
   return true;
   // if Tab is pressed
-
-  /* if (keycode == KC_F10) { */
-  /*   process_tapping(HYPR_T(KC_L)); */
-  /*   return false; */
-  /* } */
-
   if (keycode == HYPR_T(KC_TAB) && record->event.pressed) {
     // if any modifier keys are held down while Tab is pressed
     if (get_mods() > 00000000) {

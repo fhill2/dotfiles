@@ -30,6 +30,11 @@ pipewire-pulse wireplumber qpwgraph
 # docker-cli
 # sudo /usr/sbin/usermod -aG docker $USER
 
+# install qmk
+qmk
+# required to use qmk compile on debian
+python3-appdirs
+
 
 
 

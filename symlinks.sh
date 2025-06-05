@@ -39,8 +39,8 @@ mkdir -p ~/.config/bat
 $_symlink $root/bin/src ~/.local/bin
 
 if [ "$HOST" = "f-desktop" ]; then
-	$_symlink $root/debian/bin/src/start_screenshare ~/.local/bin/start_screenshare
-	$_symlink $root/debian/bin/src/stop_screenshare ~/.local/bin/stop_screenshare
+	$_symlink $root/bin/src/start_screenshare ~/.local/bin/start_screenshare
+	$_symlink $root/bin/src/stop_screenshare ~/.local/bin/stop_screenshare
 fi
 
 $_symlink $root/config/nvim ~/.config/nvim
@@ -87,6 +87,8 @@ if [ -f "$root/config/interfaces_$HOST" ]; then
 fi
 
 if [ "$HOST" = "f-desktop" ]; then
+	# Note: qmk setup command should be run before this
+	$_symlink "$root/config/qmk/fhill2_keymap" ~/qmk_firmware/keyboards/gmmk/pro/rev1/ansi/keymaps/fhill2
 	# QMK Keyboard - Prevent Permission Denied on qmk console
 	$_symlink "$root/config/qmk/udev/92-viia.rules" /etc/udev/rules.d/92-viia.rules
 fi
