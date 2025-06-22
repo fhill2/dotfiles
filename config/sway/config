@@ -34,6 +34,24 @@ include /etc/sway/config-vars.d/*
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
+
+
+# Left Monitor
+output 'Dell Inc. DELL U2722D 5L60Q83' {
+  mode 2560x1440@59.951Hz
+  pos 0 0
+  scale 1
+  background #000000 solid_color
+}
+#
+# # Right Monitor
+output 'Dell Inc. DELL U2719D JX0CY13' {
+  mode 2560x1440@59.951Hz
+  pos 2560 0
+  scale 1
+  background #000000 solid_color
+}
+
 workspace 1 output DP-2
 workspace 2 output DP-2
 workspace 3 output DP-2
