@@ -92,4 +92,18 @@ return {
       vim.api.nvim_create_user_command("BaleiaLogs", vim.g.baleia.logger.show, { bang = true })
     end,
   },
+  {
+    "mozanunal/sllm.nvim",
+    dependencies = {
+      "echasnovski/mini.notify",
+      "echasnovski/mini.pick",
+    },
+    config = function()
+      require("sllm").setup({
+        keymaps = {
+          ask_llm = "<localleader>s",
+        },
+      })
+    end,
+  },
 }
