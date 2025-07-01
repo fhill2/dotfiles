@@ -78,7 +78,7 @@ sudo apt install broot
 # AppImage version of Obsidian is most likely to be the most reliable
 # as issues / PRs have to be repro'd with the AppImage to be submitted
 # the version downloaded probably doesn't matter, as Obsidian updates once installed
-wget -O /tmp/obsidian_1.6.7_amd64.deb https://github.com/obsidianmd/obsidian-releases/releases/download/v1.6.7/obsidian_1.6.7_amd64.deb
+wget -O /tmp/obsidian_1.6.7_amd64.deb https://github.com/obsidianmd/obsidian-releases/releases/latest/download/obsidian_1.6.7_amd64.deb
 sudo apt-get install /tmp/obsidian_1.6.7_amd64.deb
 
 # Install fonts
@@ -207,3 +207,6 @@ ctest
 cargo install cargo-watch
 
 sudo systemctl enable --now systemd-timesyncd
+
+# Install tabiew
+wget -O /tmp/tabiew.dpkg https://github.com/shshemi/tabiew/releases/latest/download/tabiew-x86_64-unknown-linux-gnu.deb
