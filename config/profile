@@ -14,6 +14,7 @@ fi
 
 PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
 PATH="/usr/sbin:$PATH"
+PATH="$HOME/.duckdb/cli/latest:$PATH"
 
 
 PATH="$HOME/.local/bin:$PATH"
