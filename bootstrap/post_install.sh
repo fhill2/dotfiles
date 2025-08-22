@@ -2,6 +2,10 @@
 # post_install
 # post installation script after the package list has been installed...
 
+# for ubuntu only - if installing ubuntu server version
+# programs like man-db will not work
+sudo unminimize
+
 ##############################
 ### ESSENTIALS
 # Currently not working on debian...
@@ -12,6 +16,9 @@ sudo chsh -s $(which zsh) $USER
 # Essential - Otherwise $USER cannot sudo
 sudo usermod -aG sudo $USER
 
+# Install flatpak - for vesktop, firefox (on ubuntu)
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
 # Install neovim from source
 # https://github.com/neovim/neovim
 mkdir -p ~/apps
@@ -20,11 +27,7 @@ make CMAKE_BUILD_TYPE=RelWithDebInfo CMAKE_INSTALL_PREFIX=/full/path/
 make install
 ln -s ~/apps/neovim/build/bin/nvim ~/.local/bin/nvim
 
-# Answer y to prompt saying that rust already exists on /usr/bin
 # curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-# installing via apt did not work on f-server
-# sudo apt install rustup
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 # f-server does not need nightly - TODO: conditional here
 rustup install stable
 rustup default stable              # link to /usr
@@ -81,6 +84,9 @@ sudo apt install broot
 wget -O /tmp/obsidian_1.6.7_amd64.deb https://github.com/obsidianmd/obsidian-releases/releases/latest/download/obsidian_1.6.7_amd64.deb
 sudo apt-get install /tmp/obsidian_1.6.7_amd64.deb
 
+# install obsidian on ubuntu
+sudo snap install obsidian --classic
+
 # Install fonts
 # https://github.com/officialrajdeepsingh/nerd-fonts-installer
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/officialrajdeepsingh/nerd-fonts-installer/main/install.sh)"
@@ -105,16 +111,21 @@ ln -s /home/f1/apps/heaptrack/bin/heaptrack ~/.local/bin/heaptrack
 
 # Install moderncsv (manual)
 # Download manually from https://www.moderncsv.com/
+curl 'https://www.moderncsv.com/release/ModernCSV-Linux-v2.2.3.tar.gz' --output moderncsv_linux.tar.gz
 tar -xzvf ~/Downloads/filename.tar.gz
 mv moderncsv2.x ~/apps/moderncsv2.x
 cd moderncsv2.x
 sudo install.sh
 
-# Install tailscale
+# Install tailscale on Debian
 curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/noble.noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
 curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/noble.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list
 sudo apt-get update
 sudo apt-get install tailscale
+sudo tailscale up
+
+# Install tailscale on Ubuntu (try this for debian)
+curl -fsSL https://tailscale.com/install.sh | sh
 sudo tailscale up
 
 # Install pgadmin - postgresql GUI client
@@ -133,12 +144,18 @@ sudo systemctl enable --now postgresql
 sudo -u postgres psql postgres
 # type into sql prompt: ALTER USER postgres WITH PASSWORD 'postgres'
 
-# Install DBeaver
+# Install DBeaver (Debian)
 # sudo wget -O /usr/share/keyrings/dbeaver.gpg.key https://dbeaver.io/debs/dbeaver.gpg.key
 # echo "deb [signed-by=/usr/share/keyrings/dbeaver.gpg.key] https://dbeaver.io/debs/dbeaver-ce /" | sudo tee /etc/apt/sources.list.d/dbeaver.list
 # sudo apt-get update && sudo apt-get install dbeaver-ce
 wget https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb -P /tmp
 sudo apt install /tmp/dbeaver-ce_latest_amd64.deb
+
+# Install DBeaver (Ubuntu - Try for Debian)
+wget -O - https://dbeaver.io/debs/dbeaver.gpg.key | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/dbeaver.gpg
+echo "deb https://dbeaver.io/debs/dbeaver-ce /" | sudo tee /etc/apt/sources.list.d/dbeaver.list
+sudo apt update
+sudo apt install dbeaver-ce
 
 systemctl --user enable --now gammastep.service
 
@@ -163,7 +180,6 @@ curl -sSL https://get.haskellstack.org/ | sh
 # sudo apt install librust-mysqlclient-sys-dev
 # sudo apt install libpq-dev
 # cargo install diesel_cli --features sqlite
-
 cargo install py-spy
 
 # fd debian package is called fdfind
@@ -171,9 +187,13 @@ cargo install py-spy
 # other the plugin falls back to find
 sudo ln -s /usr/bin/fdfind /usr/bin/fd
 
-# Download Vesktop - Discord Alternative
+# Download Vesktop - Discord Alternative (Debian Install Only, Ubuntu uses snap)
 wget -O /tmp/vesktop https://vencord.dev/download/vesktop/amd64/deb
 sudo dpkg -i /tmp/vesktop
+flatpak install flathub dev.vencord.Vesktop
+
+# Download Vesktop
+sudo snap install vestkop
 
 # Kanata install
 # https://github.com/jtroo/kanata/blob/main/docs/setup-linux.md
@@ -210,3 +230,9 @@ sudo systemctl enable --now systemd-timesyncd
 
 # Install tabiew
 wget -O /tmp/tabiew.dpkg https://github.com/shshemi/tabiew/releases/latest/download/tabiew-x86_64-unknown-linux-gnu.deb
+
+# Install firefox using snap (ubuntu only supportgs firefox snap installation)
+sudo snap install firefox
+
+# Install uv
+curl -LsSf https://astral.sh/uv/install.sh | sh

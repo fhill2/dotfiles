@@ -31,9 +31,14 @@ declare -a CMD=()
 # Build the command arguments array
 # Note: Comments are on their own lines, preceding the argument they describe.
 # This syntax is robust and ensures comments are ignored by Bash during execution.
+#
+# These packages do not exist on Ubuntu, but do exist on debian:
+# firefox-esr
+# wshowkeys
 CMD+=(
 	# essential packages:
 	# required for apt custom repos
+	rustup
 	gnupg
 	curl
 	wget
@@ -56,12 +61,10 @@ CMD+=(
 	# check file folder sizes to clear space
 	ncdu
 	isc-dhcp-client
-	firefox-esr
 	wmctrl
 	# neovim clipboard copy and paste for wayland
 	wl-clipboard
 	# display visual input for configuring keymapping software
-	wshowkeys
 	rustc
 	tmux
 
@@ -90,6 +93,9 @@ CMD+=(
 
 	# system time (enables ntp, otherwise system clock goes out of sync and web browsers start producing errors):
 	systemd-timesyncd
+
+	# ubuntu install - pstree
+	psmisc
 )
 
 # Now execute the command

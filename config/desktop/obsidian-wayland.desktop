@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Obsidian Wayland
-Exec=/opt/Obsidian/obsidian --ozone-platform=wayland %U
+Exec=/snap/bin/obsidian --ozone-platform=wayland %U
 Terminal=false
 Type=Application
 Icon=obsidian

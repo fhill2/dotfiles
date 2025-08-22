@@ -36,3 +36,5 @@ if [ $? -ge 2 ]; then
   ssh-agent -a "$SSH_AUTH_SOCK" >/dev/null
   ssh-add ~/.ssh/f_github
 fi
+
+. "$HOME/.local/share/../bin/env"

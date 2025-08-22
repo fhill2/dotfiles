@@ -6,8 +6,14 @@ declare -a CMD=()
 # Build the command arguments array
 # Note: Comments are on their own lines, preceding the argument they describe.
 # This syntax is robust and ensures comments are ignored by Bash during execution.
+# These packages exist on debian, but do not exist on ubuntu:
+# qmk
+# fuse # dependency of AppImages
 CMD+=(
 	# packages I need only on f-desktop
+
+	# to install vesktop
+	flatpak
 
 	# core_desktop
 	syncthing
@@ -37,8 +43,11 @@ CMD+=(
 	pipewire-pulse
 	wireplumber
 	qpwgraph
-	# install qmk
-	qmk
+	pavucontrol
+	# possibly ubuntu only package
+	# installs pactl to configure pipewire pulse
+	pipewire-utils
+
 	# required to use qmk compile on debian
 	python3-appdirs
 
@@ -74,8 +83,8 @@ CMD+=(
 	just
 	vlc
 
-	# install fuse - dependency to open AppImages
-	fuse
+	# pytower
+	supervisor
 
 	####### DEPRECATED #######
 	# The packages below are marked as DEPRECATED in the source

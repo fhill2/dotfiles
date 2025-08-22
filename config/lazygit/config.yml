@@ -1,6 +1,6 @@
-git:
-  paging:
-    colorArg: always
-    useConfig: false
-    pager: delta --dark --paging=never --side-by-side --line-numbers
+# git:
+  # paging:
+    # colorArg: always
+    # useConfig: false
+    # pager: delta --dark --paging=never --side-by-side --line-numbers
  
