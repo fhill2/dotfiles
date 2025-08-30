@@ -94,7 +94,7 @@ if [ "$HOST" = "f-desktop" ]; then
 fi
 
 # Install on servers only (servers use X11)
-if [ "$HOST" = "f-server" ] || [ "$USER" = "gprot" ]; then
+if [ "$HOST" = "f-server" ] || [ "$HOST" = "gprot" ]; then
 	$_symlink "$root/config/xinitrc" ~/.xinitrc
 	$_symlink "$root/config/i3/config" ~/.config/i3/config
 fi
