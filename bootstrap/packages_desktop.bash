@@ -60,7 +60,11 @@ CMD+=(
 
 	rsync
 
-	# wayland - desktop utility apps
+	###### WAYLAND ONLY APPS #####
+	#
+	# neovim clipboard copy and paste for wayland
+	wl-clipboard
+	sway
 	# configuring multimonitors on wayland
 	wdisplays
 	# take screenshots on wayland
@@ -71,6 +75,8 @@ CMD+=(
 	wofi
 	# Open X11 Apps in wayland
 	xwayland
+	##### END WAYLAND ONLY #####
+
 	# useful debian utilities
 	devscripts
 
@@ -82,6 +88,10 @@ CMD+=(
 
 	just
 	vlc
+
+	# system node for installing neovim LSPs:
+	nodejs
+	npm
 
 	# pytower
 	supervisor
