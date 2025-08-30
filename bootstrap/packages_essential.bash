@@ -9,10 +9,10 @@ declare -a CMD=()
 # firefox-esr
 # wshowkeys
 
+# These packages install on Debian and Ubuntu (without any custom apt repos)
 CMD+=(
-	# essential packages:
-	# required for apt custom repos
-	rustup
+	passwd # usermod on debian
+	sudo
 	rustc
 
 	gnupg
@@ -26,7 +26,6 @@ CMD+=(
 	zsh-antigen
 	trash-cli
 	jq
-	man
 	openssh-server
 	nmap
 	cmake
