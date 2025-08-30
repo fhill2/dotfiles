@@ -93,6 +93,12 @@ if [ "$HOST" = "f-desktop" ]; then
 	$_symlink "$root/config/qmk/udev/92-viia.rules" /etc/udev/rules.d/92-viia.rules
 fi
 
+# Install on servers only (servers use X11)
+if [ "$HOST" = "f-server" ] || [ "$USER" = "gprot" ]; then
+	$_symlink "$root/config/xinitrc" ~/.xinitrc
+	$_symlink "$root/config/i3/config" ~/.config/i3/config
+fi
+
 # OSX only below here
 
 if [ "$HOST" = "Darwin" ]; then

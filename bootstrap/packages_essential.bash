@@ -32,6 +32,7 @@ CMD+=(
 	fd-find
 	ripgrep
 	fzf
+	neovim
 	# check file folder sizes to clear space
 	ncdu
 	isc-dhcp-client
