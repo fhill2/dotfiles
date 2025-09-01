@@ -85,7 +85,8 @@ wget -O /tmp/obsidian_1.6.7_amd64.deb https://github.com/obsidianmd/obsidian-rel
 sudo apt-get install /tmp/obsidian_1.6.7_amd64.deb
 
 # install obsidian on ubuntu
-sudo snap install obsidian --classic
+# sudo snap install obsidian --classic
+flatpak install flathub md.obsidian.Obsidian
 
 # Install fonts
 # https://github.com/officialrajdeepsingh/nerd-fonts-installer

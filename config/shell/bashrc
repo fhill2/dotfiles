@@ -7,4 +7,4 @@ alias print_parquet="find . -name '*.parquet' | fzf --preview='parquet-tools sho
 alias ssh="kitty +kitten ssh"
 alias pip="uv pip"
 
-. "$HOME/.local/share/../bin/env"
+# . "$HOME/.local/share/../bin/env"

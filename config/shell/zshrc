@@ -45,7 +45,7 @@ setopt extended_glob
 
 eval "$(uv generate-shell-completion zsh)" # this part can be made bash compatible.
 
-. "$HOME/.local/share/../bin/env"
+# . "$HOME/.local/share/../bin/env"
 
 
 

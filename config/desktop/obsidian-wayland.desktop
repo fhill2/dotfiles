@@ -1,6 +1,7 @@
 [Desktop Entry]
 Name=Obsidian Wayland
-Exec=/snap/bin/obsidian --ozone-platform=wayland %U
+# Exec=/snap/bin/obsidian --ozone-platform=wayland %U
+Exec=flatpak run md.obsidian.Obsidian
 Terminal=false
 Type=Application
 Icon=obsidian

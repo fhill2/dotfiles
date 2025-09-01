@@ -19,11 +19,13 @@ PATH="$HOME/.duckdb/cli/latest:$PATH"
 
 PATH="$HOME/.local/bin:$PATH"
 
-if [ -d "$HOME/.cargo" ]; then
-  PATH="$HOME/.cargo/bin:$PATH"
-  . "$HOME/.cargo/env"
-
-fi
+#
+# PATH="$HOME/.cargo/bin:$PATH"
+#
+# # if exists and is a file
+# if [ -f "$HOME/.cargo/env" ]; then
+#   . "$HOME/.cargo/env"
+# fi
 
 # https://unix.stackexchange.com/a/132117
 # Note: DO NOT add this to zshrc / bashrc
@@ -33,7 +35,7 @@ fi
 export SSH_AUTH_SOCK=~/.ssh/ssh-agent.$HOSTNAME.sock
 ssh-add -l 2>/dev/null >/dev/null
 if [ $? -ge 2 ]; then
-  ssh-agent -a "$SSH_AUTH_SOCK" >/dev/null
+  eval "$(ssh-agent -a "$SSH_AUTH_SOCK")"
   ssh-add ~/.ssh/f_github
 fi
 
