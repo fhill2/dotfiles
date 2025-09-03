@@ -73,7 +73,23 @@ return {
       notifier = { enabled = true },
       quickfile = { enabled = true },
       scroll = { enabled = true },
-      statuscolumn = { enabled = true },
+      statuscolumn = { enabled = false },
+      -- https://github.com/folke/snacks.nvim/blob/main/docs/statuscolumn.md
+      -- default statuscolumn config
+      -- something is erroring in the statuscolumn default lazynvim config
+      -- statuscolumn = {
+      --   left = { "mark", "sign" }, -- priority of signs on the left (high to low)
+      --   right = { "fold", "git" }, -- priority of signs on the right (high to low)
+      --   folds = {
+      --     open = false, -- show open fold icons
+      --     git_hl = false, -- use Git Signs hl for fold icons
+      --   },
+      --   git = {
+      --     -- patterns to match Git signs
+      --     patterns = { "GitSign", "MiniDiffSign" },
+      --   },
+      --   refresh = 50, -- refresh at most every 50ms
+      -- },
       words = { enabled = true },
     },
   },

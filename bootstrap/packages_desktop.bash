@@ -18,10 +18,6 @@ CMD+=(
 	# core_desktop
 	syncthing
 
-	# screen recording setup
-	# TODO: install the VAAPI hardware encoder
-	# xdg-desktop-portal (commented out as it's not a package to install here, or is part of desktop-portal-wlr)
-	xdg-desktop-portal-wlr
 	obs-studio
 	# for the debian/bin/start_screenshare script
 	wl-mirror
@@ -95,6 +91,9 @@ CMD+=(
 
 	# pytower
 	supervisor
+
+	# wayland only portal used for screencast/shots
+	xdg-desktop-portal-wlr
 
 	####### DEPRECATED #######
 	# The packages below are marked as DEPRECATED in the source

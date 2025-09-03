@@ -5,10 +5,6 @@ sudo apt update
 # Initialize an empty array for the command arguments
 declare -a CMD=()
 
-# These packages do not exist on Ubuntu, but do exist on debian:
-# firefox-esr
-# wshowkeys
-
 # These packages install on Debian and Ubuntu (without any custom apt repos)
 CMD+=(
 	passwd # usermod on debian
@@ -62,6 +58,9 @@ CMD+=(
 
 	# ubuntu install - pstree
 	psmisc
+
+	# this portal is required to show an open file dialog in firefox
+	xdg-desktop-portal-gtk
 )
 
 # "${CMD[@]}" expands all elements of the CMD array as separate arguments.

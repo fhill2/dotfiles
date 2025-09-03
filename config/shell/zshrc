@@ -45,6 +45,10 @@ setopt extended_glob
 
 eval "$(uv generate-shell-completion zsh)" # this part can be made bash compatible.
 
+# for pytower pyo3
+export LD_LIBRARY_PATH="$HOME/.local/share/uv/python/cpython-3.12.11-linux-x86_64-gnu/lib:$LD_LIBRARY_PATH"
+
+
 # . "$HOME/.local/share/../bin/env"
 
 
