@@ -19,8 +19,9 @@ PATH="$HOME/.duckdb/cli/latest:$PATH"
 
 PATH="$HOME/.local/bin:$PATH"
 
-#
-# PATH="$HOME/.cargo/bin:$PATH"
+# required
+# otherwise cargo installed commands are not available on PATH
+PATH="$HOME/.cargo/bin:$PATH"
 #
 # # if exists and is a file
 # if [ -f "$HOME/.cargo/env" ]; then
