@@ -61,6 +61,9 @@ CMD+=(
 
 	# this portal is required to show an open file dialog in firefox
 	xdg-desktop-portal-gtk
+
+	lsof
+	telnet
 )
 
 # "${CMD[@]}" expands all elements of the CMD array as separate arguments.

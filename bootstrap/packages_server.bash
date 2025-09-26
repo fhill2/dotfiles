@@ -7,5 +7,6 @@ CMD+=(
 	i3
 	##### X11 ONLY APPS #####
 	wmctrl # X11 app
+	rofi
 )
 sudo apt install -y "${CMD[@]}"
