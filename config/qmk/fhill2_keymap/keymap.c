@@ -160,12 +160,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 // When the key is pressed, register the keys sequentially.
                 // Step 1: Press and release F11.
-                register_code(KC_F11);
-                unregister_code(KC_F11);
+                /* register_code(KC_F11); */
+                /* unregister_code(KC_F11); */
+                /**/
+                /* // Step 2: Press and release 'e'. */
+                /* register_code(KC_E); */
+                /* unregister_code(KC_E); */
 
-                // Step 2: Press and release 'e'.
-                register_code(KC_E);
-                unregister_code(KC_E);
+                // Step 1: Tap the F11 key
+                /* tap_code16(KC_E); */
+                /* SEND_STRING(SS_TAP(KC_E) SS_DELAY(300) SS_TAP(KC_F11)); */
+                tap_code(KC_E);
+                /* wait_ms(500); */
+                tap_code_delay(KC_F11, 300);
+                // Add a non-blocking delay of 100 milliseconds
+                /* tap_macro_wait(300); */
+
+                // Step 2: Tap the 'e' key
+                /* tap_code16(KC_F11); */
 
             }
             return false; // Return false to indicate that the key has been handled.
