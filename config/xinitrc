@@ -1,1 +1,4 @@
+setxkbmap us
+xset s off
+xset -dpms
 exec i3
