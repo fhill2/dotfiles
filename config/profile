@@ -33,11 +33,23 @@ PATH="$HOME/.cargo/bin:$PATH"
 # If the ssh-agent is started in an rc file, ssh-agent has to be started manually when remoting over SSH
 # SSH_AUTH_SOCK env var is required so all ssh-agents use the same instance across all terminals running on the system
 # This makes the ssh private keys available when remoting over SSH
-export SSH_AUTH_SOCK=~/.ssh/ssh-agent.$HOSTNAME.sock
-ssh-add -l 2>/dev/null >/dev/null
-if [ $? -ge 2 ]; then
-  eval "$(ssh-agent -a "$SSH_AUTH_SOCK")"
-  ssh-add ~/.ssh/f_github
+# export SSH_AUTH_SOCK=~/.ssh/ssh-agent.$HOST.sock
+# ssh-add -l 2>/dev/null >/dev/null
+# if [ $? -ge 2 ]; then
+#   eval "$(ssh-agent -a "$SSH_AUTH_SOCK")"
+#   ssh-add ~/.ssh/f_github
+# fi
+
+export SSH_AUTH_SOCK=~/.ssh/ssh-agent.$HOST.sock
+
+# Use a less strict check: if the exit code is NOT 0 (meaning something failed)
+# In many shells, checking for -ne 0 is sufficient to catch both 1 and 2.
+# Alternatively, you can check if a new socket needs to be created.
+
+if ! ssh-add -l >/dev/null 2>&1; then
+    # Start agent only if the previous ssh-add failed.
+    eval "$(ssh-agent -a "$SSH_AUTH_SOCK")"
+    ssh-add ~/.ssh/f_github
 fi
 
 . "$HOME/.local/share/../bin/env"
