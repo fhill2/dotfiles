@@ -1,0 +1,21 @@
+[Unit]
+Description=X11VNC Server for i3 Session
+# This service should start when the user's graphical session is active
+# The XDG_SESSION_TYPE=x11 environment is assumed to be set in your session.
+
+[Service]
+Type=simple
+# Ensure this runs as the user. 'User=' is not needed in a user service.
+Environment=DISPLAY=:0
+# Set the path to your X authority file, typically in your home directory
+Environment=XAUTHORITY=%h/.Xauthority
+Restart=on-failure
+RestartSec=5
+
+# ExecStart line:
+# -display $DISPLAY is resolved by the Environment line
+# -auth $XAUTHORITY is implicitly used or passed by Meson
+ExecStart=/usr/bin/x11vnc -display :0 -auth %h/.Xauthority -xkb -noshm -forever -rfbauth /etc/x11vnc.pass -rfbport 5900 -shared -o /tmp/x11vnc.log
+
+[Install]
+WantedBy=default.target

@@ -8,5 +8,6 @@ CMD+=(
 	##### X11 ONLY APPS #####
 	wmctrl # X11 app
 	rofi
+	x11vnc
 )
 sudo apt install -y "${CMD[@]}"
