@@ -15,7 +15,7 @@ RestartSec=5
 # ExecStart line:
 # -display $DISPLAY is resolved by the Environment line
 # -auth $XAUTHORITY is implicitly used or passed by Meson
-ExecStart=/usr/bin/x11vnc -display :0 -auth %h/.Xauthority -xkb -noshm -forever -rfbauth /etc/x11vnc.pass -rfbport 5900 -shared -o /tmp/x11vnc.log
+ExecStart=/usr/bin/x11vnc -display :0 -auth %h/.Xauthority -xkb -noshm -forever -nopw -rfbport 5900 -shared -o /tmp/x11vnc.log
 
 [Install]
 WantedBy=default.target

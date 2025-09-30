@@ -62,7 +62,8 @@ tiling_drag modifier titlebar
 bindsym $mod+Return exec kitty
 
 # kill focused window
-bindsym $mod+backspace kill
+# TabHyper + Backspace does not work
+bindsym Mod1+0 kill
 
 # start dmenu (a program launcher)
 bindsym $mod+p exec rofi -show run --width 400 --height 400
