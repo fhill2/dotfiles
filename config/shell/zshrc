@@ -51,5 +51,6 @@ export LD_LIBRARY_PATH="$HOME/.local/share/uv/python/cpython-3.12.11-linux-x86_6
 
 # . "$HOME/.local/share/../bin/env"
 
-
+# alias music_dl="/Users/s1//projects/music/.venv/bin/python $HOME/projects/music/music/download/cli.py" # requires quotes
+alias music_process="/Users/s1/projects/music/.venv/bin/python /Users/s1/projects/music/music/process/cli.py" # requires quotes
 

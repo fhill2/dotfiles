@@ -96,34 +96,62 @@ fi
 # Install on servers only (servers use X11)
 if [ "$HOST" = "f-server" ] || [ "$HOST" = "gprot" ]; then
 	$_symlink "$root/config/xinitrc" ~/.xinitrc
+	$_symlink "$root/config/xprofile" ~/.xprofile
 	$_symlink "$root/config/i3/config" ~/.config/i3/config
 fi
 
 # OSX only below here
 
-if [ "$HOST" = "Darwin" ]; then
-	$_symlink "$HOME/data/Alfred" "$HOME/Library/Application Support/Alfred"
-	$_symlink $root/config/skhd ~/.config/skhd
+# if [ "$HOST" = "Darwin" ]; then
+# 	$_symlink "$HOME/data/Alfred" "$HOME/Library/Application Support/Alfred"
+# 	$_symlink $root/config/skhd ~/.config/skhd
 
-	# NOTE: only karabiner full config folder can be symlinked
-	# individual karabiner.json cannot be symlinked, as karabiner overwrites the karabiner.json whern adding new complex modifications, destroying the symlink
-	# NOTE: everytime a complex modification is edited inside assets/complex_modifications, the rule needs to be deleted and re-enabled in the GUI (does not need a restart)
-	$_symlink $root/osx/config/karabiner ~/.config/karabiner
+# 	# NOTE: only karabiner full config folder can be symlinked
+# 	# individual karabiner.json cannot be symlinked, as karabiner overwrites the karabiner.json whern adding new complex modifications, destroying the symlink
+# 	# NOTE: everytime a complex modification is edited inside assets/complex_modifications, the rule needs to be deleted and re-enabled in the GUI (does not need a restart)
+# 	$_symlink $root/osx/config/karabiner ~/.config/karabiner
 
-	# TODO: symlink all within launchd
-	# $_symlink "$HOME/dot/config/launchd" "$HOME/Library/LaunchAgents"
+# 	# TODO: symlink all within launchd
+# 	# $_symlink "$HOME/dot/config/launchd" "$HOME/Library/LaunchAgents"
 
-	$_symlink $root/config/vlc ~/.config/vlc
+# 	$_symlink $root/config/vlc ~/.config/vlc
 
-	# VSCODE_CONFIG_DIR="$HOME/Library/Application Support/Code/User"
-	# mkdir -p "$VSCODE_CONFIG_DIR"
-	# symlink_dotfile config/vscode/keybindings.json "$VSCODE_CONFIG_DIR/keybindings.json"
-	# symlink_dotfile config/vscode/settings.json "$VSCODE_CONFIG_DIR/settings.json"
+# 	# VSCODE_CONFIG_DIR="$HOME/Library/Application Support/Code/User"
+# 	# mkdir -p "$VSCODE_CONFIG_DIR"
+# 	# symlink_dotfile config/vscode/keybindings.json "$VSCODE_CONFIG_DIR/keybindings.json"
+# 	# symlink_dotfile config/vscode/settings.json "$VSCODE_CONFIG_DIR/settings.json"
 
-	$_symlink $root/osx/config/yabai ~/.config/yabai
+# 	$_symlink $root/osx/config/yabai ~/.config/yabai
 
-	echo "Open karabiner, skhd, yabai manually and accept Security & Privacy"
+# 	echo "Open karabiner, skhd, yabai manually and accept Security & Privacy"
+# fi
+
+if [ "$HOST" = "fprod" ]; then
+  ##### PHASE PLANT #####
+  # PhasePlant Factory presets are managed at /Library/Application Support/Kilohearts/presets - They do not need to be symlinked
+  # Symlink PhasePlant Splice presets to PhasePlant User Preset location
+  $_symlink "/Users/s1/Splice/presets/Phase Plant" "/Users/s1/Library/Audio/Presets/Kilohearts/Phase Plant/User Presets/Splice"
+  # Symlink my Phaseplant Presets to PhasePlant User Preset location
+  $_symlink "/Users/Shared/prod_shared/sample_libraries/phase_plant" "/Users/s1/Library/Audio/Presets/Kilohearts/Phase Plant/User Presets/User"
+
+  ##### VITAL #####
+  # Vital Factory Content is not installed with the installer. It's provided as a separate download on the website.
+  # So Factory + User Presets can be symlinked from sample_libraries into the Vital Preset Location
+ 
+
+  # Vital Preset Location: /Users/s1/Documents/Vital
+  # Vital Preset Structure:
+  # /Users/s1/Documents/Vital:
+  # /Splice
+  # /Factory_User
+
+  # Vital Factory & User Presets are inside sample_libraries - symlink these to Vital preset directory
+  $_symlink "/Users/Shared/prod_shared/sample_libraries/vital/Vital" "/Users/s1/Documents/Vital/Factory_User"
+  # Symlink Vital Splice Presets to Vital Preset directory
+  $_symlink "/Users/s1/Splice/presets/Vital" "/Users/s1/Documents/Vital/Splice"
 fi
+
+
 # deprecated
 # f-server postgres needs to override the system installed systemd service file
 # to modify the PG_DATA path to the zfs dataset

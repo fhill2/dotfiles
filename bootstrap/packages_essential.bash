@@ -40,18 +40,15 @@ CMD+=(
 	python3-pip
 
 	# pytower deps:
-	python3-poetry
 	clang
+	libsqlite3-dev
+	libssl-dev
 
 	# SMB tools:
 	# query smb shares
 	# mount smb share
 	smbclient
 	cifs-utils
-
-	# pytower runtime:
-	# py-spy dep (installed using cargo)
-	# libunwind-devel
 
 	# system time (enables ntp, otherwise system clock goes out of sync and web browsers start producing errors):
 	systemd-timesyncd
