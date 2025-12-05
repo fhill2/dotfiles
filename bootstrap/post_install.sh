@@ -235,5 +235,5 @@ wget -O /tmp/tabiew.dpkg https://github.com/shshemi/tabiew/releases/latest/downl
 # Install firefox using snap (ubuntu only supportgs firefox snap installation)
 sudo snap install firefox
 
-# Install uv
-curl -LsSf https://astral.sh/uv/install.sh | sh
+# Install uv - no longer using
+# curl -LsSf https://astral.sh/uv/install.sh | sh

@@ -62,6 +62,7 @@ else
 	$_symlink $root/config/desktop/discord-wayland.desktop ~/.local/share/applications/discord-wayland.desktop
 	$_symlink $root/config/desktop/ib-gateway-wayland.desktop ~/.local/share/applications/ib-gateway-wayland.desktop
 	$_symlink $root/config/desktop/spacefm-wayland.desktop ~/.local/share/applications/spacefm-wayland.desktop
+	$_symlink $root/config/desktop/arduino-wayland.desktop ~/.local/share/applications/arduino-wayland.desktop
 
 fi
 
@@ -73,6 +74,8 @@ $_symlink $root/config/profile ~/.profile
 $_symlink $root/config/sway ~/.config/sway
 $_symlink $root/config/kitty ~/.config/kitty
 $_symlink $root/config/alacritty ~/.config/alacritty
+
+$_symlink $root/config/lnav/pytower ~/.config/lnav/configs/pytower
 
 # kanata should only install on f-server for now
 if [ "$HOST" = "f-server" ]; then
