@@ -5,6 +5,10 @@
 alias apt_search='apt-cache pkgnames | fzf --multi --cycle --reverse --preview "apt-cache show {1}" --preview-window=:57%:wrap:hidden --bind=space:toggle-preview | xargs -ro sudo apt install'
 alias print_parquet="find . -name '*.parquet' | fzf --preview='parquet-tools show {}' --bind 'ctrl-u:preview-page-up,ctrl-d:preview-page-down'"
 alias ssh="kitty +kitten ssh"
-alias pip="uv pip"
 
 # . "$HOME/.local/share/../bin/env"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/s1/.lmstudio/bin"
+# End of LM Studio CLI section
+

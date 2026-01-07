@@ -43,14 +43,28 @@ znap prompt sindresorhus/pure
 setopt extended_glob
 
 
-eval "$(uv generate-shell-completion zsh)" # this part can be made bash compatible.
-
-# for pytower pyo3
-export LD_LIBRARY_PATH="$HOME/.local/share/uv/python/cpython-3.12.11-linux-x86_64-gnu/lib:$LD_LIBRARY_PATH"
-
-
-# . "$HOME/.local/share/../bin/env"
-
 # alias music_dl="/Users/s1//projects/music/.venv/bin/python $HOME/projects/music/music/download/cli.py" # requires quotes
 alias music_process="/Users/s1/projects/music/.venv/bin/python /Users/s1/projects/music/music/process/cli.py" # requires quotes
 
+# Must be present for pyenv to work
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
+# eval "$(pyenv virtualenv-init -)" # Optional, but good practice if using Venvs
+
+
+function mkenv() {
+    rm -rf ./.venv && \
+    python -m venv ./.venv && \
+    . ./.venv/bin/activate && \
+    python -m ensurepip --upgrade && \
+    pip install --upgrade setuptools
+}
+
+
+# ~/.local/bin is not on $PATH on OSX or Linux (OpenSUSE, Debian, Ubuntu)
+# in rare cases, ~/.local/bin is used as a copy destination for manually compiled apps
+# some rust and haskell apps I've used compile and copy the binary to this location
+# Therefore, add custom script directory from the repo onto Path
+# Instead of symlinking REPO/bin -> $HOME/.local/bin
+export PATH="$PATH:$HOME/dot/bin"

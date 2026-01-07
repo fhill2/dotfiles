@@ -31,9 +31,6 @@ mkdir -p $HOME/.local
 
 mkdir -p ~/.config/bat
 
-# ~/.local/bin is the location for my personal scripts
-# shell config files then add this location to the PATH
-# ~/.local/bin is not on $PATH on OSX or Linux (OpenSUSE, Debian, Ubuntu)
 # in rare cases, ~/.local/bin is used as a copy destination for manually compiled apps
 # Example, some haskell apps I've used compile and copy the binary to this location
 $_symlink $root/bin/src ~/.local/bin
@@ -130,30 +127,32 @@ fi
 # fi
 
 if [ "$HOST" = "fprod" ]; then
-  ##### PHASE PLANT #####
-  # PhasePlant Factory presets are managed at /Library/Application Support/Kilohearts/presets - They do not need to be symlinked
-  # Symlink PhasePlant Splice presets to PhasePlant User Preset location
-  $_symlink "/Users/s1/Splice/presets/Phase Plant" "/Users/s1/Library/Audio/Presets/Kilohearts/Phase Plant/User Presets/Splice"
-  # Symlink my Phaseplant Presets to PhasePlant User Preset location
-  $_symlink "/Users/Shared/prod_shared/sample_libraries/phase_plant" "/Users/s1/Library/Audio/Presets/Kilohearts/Phase Plant/User Presets/User"
 
-  ##### VITAL #####
-  # Vital Factory Content is not installed with the installer. It's provided as a separate download on the website.
-  # So Factory + User Presets can be symlinked from sample_libraries into the Vital Preset Location
- 
+	$_symlink "$root/config/qmk/sonnet_keymap/" ~/qmk_firmware/keyboards/mode/m75h/keymaps/sonnet_keymap
+	$_symlink "$root/config/qmk/sonnet_keymap/rules.mk" ~/qmk_firmware/keyboards/mode/m75h/rules.mk
 
-  # Vital Preset Location: /Users/s1/Documents/Vital
-  # Vital Preset Structure:
-  # /Users/s1/Documents/Vital:
-  # /Splice
-  # /Factory_User
+	##### PHASE PLANT #####
+	# PhasePlant Factory presets are managed at /Library/Application Support/Kilohearts/presets - They do not need to be symlinked
+	# Symlink PhasePlant Splice presets to PhasePlant User Preset location
+	$_symlink "/Users/s1/Splice/presets/Phase Plant" "/Users/s1/Library/Audio/Presets/Kilohearts/Phase Plant/User Presets/Splice"
+	# Symlink my Phaseplant Presets to PhasePlant User Preset location
+	$_symlink "/Users/Shared/prod_shared/sample_libraries/phase_plant" "/Users/s1/Library/Audio/Presets/Kilohearts/Phase Plant/User Presets/User"
 
-  # Vital Factory & User Presets are inside sample_libraries - symlink these to Vital preset directory
-  $_symlink "/Users/Shared/prod_shared/sample_libraries/vital/Vital" "/Users/s1/Documents/Vital/Factory_User"
-  # Symlink Vital Splice Presets to Vital Preset directory
-  $_symlink "/Users/s1/Splice/presets/Vital" "/Users/s1/Documents/Vital/Splice"
+	##### VITAL #####
+	# Vital Factory Content is not installed with the installer. It's provided as a separate download on the website.
+	# So Factory + User Presets can be symlinked from sample_libraries into the Vital Preset Location
+
+	# Vital Preset Location: /Users/s1/Documents/Vital
+	# Vital Preset Structure:
+	# /Users/s1/Documents/Vital:
+	# /Splice
+	# /Factory_User
+
+	# Vital Factory & User Presets are inside sample_libraries - symlink these to Vital preset directory
+	$_symlink "/Users/Shared/prod_shared/sample_libraries/vital/Vital User Presets" "/Users/s1/Music/Vital/Presets/User"
+	# Symlink Vital Splice Presets to Vital Preset directory
+	$_symlink "/Users/s1/Splice/presets/Vital" "/Users/s1/Music/Vital/Presets/Splice"
 fi
-
 
 # deprecated
 # f-server postgres needs to override the system installed systemd service file
