@@ -39,3 +39,27 @@ vim.keymap.set("n", "<leader>uye", function()
 		:e /tmp/nvim-profile.log
 	]])
 end, { desc = "Profile End" })
+
+-- Copy ALL LSP diagnostics at the current line to the system clipboard
+vim.keymap.set("n", "<leader>cy", function()
+  -- Get the current line number (0-indexed)
+  local line = vim.api.nvim_win_get_cursor(0)[1] - 1
+  -- Get all diagnostics for the current buffer on this specific line
+  local diagnostics = vim.diagnostic.get(0, { lnum = line })
+
+  if #diagnostics > 0 then
+    local messages = {}
+    for _, diag in ipairs(diagnostics) do
+      -- Clean the message: remove newlines within a single error to keep it tidy
+      local clean_msg = diag.message:gsub("\n", " ")
+      table.insert(messages, string.format("[%s] %s", diag.source or "LSP", clean_msg))
+    end
+
+    -- Join all messages with a newline
+    local final_proxy = table.concat(messages, "\n")
+    vim.fn.setreg("+", final_proxy)
+    vim.notify("Copied " .. #diagnostics .. " diagnostics to clipboard")
+  else
+    vim.notify("No diagnostics found at cursor", vim.log.levels.WARN)
+  end
+end, { desc = "Copy ALL diagnostics on line to clipboard" })

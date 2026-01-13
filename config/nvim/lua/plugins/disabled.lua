@@ -11,5 +11,5 @@ return {
   -- The desired behaviour is to not install rust_analyzer
   -- but install all other LSPs
   -- and I cannot get this configuration working
-  { "williamboman/mason-lspconfig.nvim", enabled = false },
+  { "mason-org/mason-lspconfig.nvim", enabled = false },
 }

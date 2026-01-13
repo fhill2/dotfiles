@@ -5,6 +5,10 @@ declare -a CMD=()
 
 # These packages install on Debian and Ubuntu (without any custom apt repos)
 CMD+=(
+
+	# DO NOT install rustup using apt
+	# rustup self update is disabled
+	# Instead install manually using their shell method
 	rustup
 )
 

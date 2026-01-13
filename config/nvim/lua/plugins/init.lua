@@ -63,17 +63,14 @@ return {
     lazy = false,
     ---@type snacks.Config
     opts = {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
-      bigfile = { enabled = true },
-      dashboard = { enabled = true },
-      indent = { enabled = true },
-      input = { enabled = true },
-      notifier = { enabled = true },
-      quickfile = { enabled = true },
-      scroll = { enabled = true },
-      statuscolumn = { enabled = false },
+      -- bigfile = { enabled = true },
+      -- dashboard = { enabled = true },
+      -- indent = { enabled = true },
+      -- input = { enabled = true },
+      -- notifier = { enabled = true },
+      -- quickfile = { enabled = true },
+      -- scroll = { enabled = true },
+      -- statuscolumn = { enabled = false },
       -- https://github.com/folke/snacks.nvim/blob/main/docs/statuscolumn.md
       -- default statuscolumn config
       -- something is erroring in the statuscolumn default lazynvim config
@@ -90,7 +87,7 @@ return {
       --   },
       --   refresh = 50, -- refresh at most every 50ms
       -- },
-      words = { enabled = true },
+      -- words = { enabled = true },
     },
   },
   {
@@ -111,8 +108,8 @@ return {
   {
     "mozanunal/sllm.nvim",
     dependencies = {
-      "echasnovski/mini.notify",
-      "echasnovski/mini.pick",
+      "nvim-mini/mini.notify",
+      "nvim-mini/mini.pick",
     },
     config = function()
       require("sllm").setup({
@@ -120,6 +117,14 @@ return {
           ask_llm = "<localleader>s",
         },
       })
+    end,
+  },
+  {
+    "oribarilan/lensline.nvim",
+    tag = "2.0.0", -- or: branch = 'release/2.x' for latest non-breaking updates
+    event = "LspAttach",
+    config = function()
+      require("lensline").setup()
     end,
   },
 }

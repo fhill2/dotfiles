@@ -136,39 +136,6 @@ local rust_analyzer = {
     -- },
   },
 }
--- checkOnSave = false,
---  inlayHints = {
---     bindingModeHints = {
---       enable = false,
---     },
---     chainingHints = {
---       enable = true,
---     },
---     closingBraceHints = {
---       enable = true,
---       minLines = 25,
---     },
---     closureReturnTypeHints = {
---       enable = "never",
---     },
---     lifetimeElisionHints = {
---       enable = "never",
---       useParameterNames = false,
---     },
---     maxLength = 25,
---     parameterHints = {
---       enable = true,
---     },
---     reborrowHints = {
---       enable = "never",
---     },
---     renderColons = true,
---     typeHints = {
---       enable = true,
---       hideClosureInitialization = false,
---       hideNamedConstructor = false,
---     },
---   },
 
 -- note: pylyzer is unusable until it can resolve local .venv imports
 -- https://github.com/mtshiba/pylyzer/issues/22
@@ -182,7 +149,7 @@ local pylyzer = {
 
 return {
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     opts = function(_, opts)
       table.insert(opts.ensure_installed, "mypy")
       opts.log_level = vim.log.levels.DEBUG
@@ -229,6 +196,9 @@ return {
         update_in_insert = true,
       },
     },
+    codelens = {
+      enabled = true,
+    },
   },
   -- pyright autoimport missing imports
   {
@@ -243,20 +213,4 @@ return {
       },
     },
   },
-
-  -- all lsps defined above (keys()) will be installed when opening neovim
-  -- {
-  --   "williamboman/mason-lspconfig.nvim",
-  --   -- the goal is to use rust_analyzer from rustup so they are updated at the same time with rustup update
-  --   -- TODO: rust_analyzer is still being installed by mason-lspconfig.nvim ?
-  --   opts = {
-  --     -- automatic_installation=false
-  --     -- better to install rust_analyzer using rustup to match with the rust version
-  --     automatic_installation = false,
-  --     ensure_installed = {},
-  --   },
-  -- },
-  -- nvim-lspconfig provides a default nvim lsp server setup with handling for setting the lsp root, and the .venv
-  -- -- lspconfig/server_configurations/pyright.lua
-  -- { "HallerPatrick/py_lsp.nvim", opts = {} },
 }

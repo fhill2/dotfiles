@@ -7,8 +7,4 @@ alias print_parquet="find . -name '*.parquet' | fzf --preview='parquet-tools sho
 alias ssh="kitty +kitten ssh"
 
 # . "$HOME/.local/share/../bin/env"
-
-# Added by LM Studio CLI (lms)
-export PATH="$PATH:/Users/s1/.lmstudio/bin"
-# End of LM Studio CLI section
-
+. "$HOME/.cargo/env"
