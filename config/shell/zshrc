@@ -67,7 +67,7 @@ function mkenv() {
 # some rust and haskell apps I've used compile and copy the binary to this location
 # Therefore, add custom script directory from the repo onto Path
 # Instead of symlinking REPO/bin -> $HOME/.local/bin
-export PATH="$PATH:$HOME/dot/bin/src:$HOME/.local/bin"
+export PATH="$PATH:$HOME/dot/bin/src"
 
 
 # . "$HOME/.local/share/../bin/env"
