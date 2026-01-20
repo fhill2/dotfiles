@@ -62,6 +62,18 @@ function mkenv() {
 }
 
 
+# These 4 commands are required to map the behaviour on OSX (untested on linux)
+# Home, End to jump to beginning and end of line
+bindkey "\e[H" beginning-of-line
+bindkey "\e[F" end-of-line
+# Ctrl_Left, Ctrl-Right to go back and forward a word
+bindkey "\e[1;5D" backward-word
+bindkey "\e[1;5C" forward-word
+
+# I don't care for this feature, and it causes the terminal to change the background color
+unset zle_bracketed_paste
+
+
 # ~/.local/bin is not on $PATH on OSX or Linux (OpenSUSE, Debian, Ubuntu)
 # in rare cases, ~/.local/bin is used as a copy destination for manually compiled apps
 # some rust and haskell apps I've used compile and copy the binary to this location

@@ -53,3 +53,8 @@ if ! ssh-add -l >/dev/null 2>&1; then
 fi
 
 . "$HOME/.local/share/../bin/env"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/s1/.lmstudio/bin"
+# End of LM Studio CLI section
+
