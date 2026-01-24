@@ -105,20 +105,20 @@ return {
       vim.api.nvim_create_user_command("BaleiaLogs", vim.g.baleia.logger.show, { bang = true })
     end,
   },
-  {
-    "mozanunal/sllm.nvim",
-    dependencies = {
-      "nvim-mini/mini.notify",
-      "nvim-mini/mini.pick",
-    },
-    config = function()
-      require("sllm").setup({
-        keymaps = {
-          ask_llm = "<localleader>s",
-        },
-      })
-    end,
-  },
+  -- {
+  --   "mozanunal/sllm.nvim",
+  --   dependencies = {
+  --     "nvim-mini/mini.notify",
+  --     "nvim-mini/mini.pick",
+  --   },
+  --   config = function()
+  --     require("sllm").setup({
+  --       keymaps = {
+  --         ask_llm = "<localleader>s",
+  --       },
+  --     })
+  --   end,
+  -- },
   {
     "oribarilan/lensline.nvim",
     tag = "2.0.0", -- or: branch = 'release/2.x' for latest non-breaking updates

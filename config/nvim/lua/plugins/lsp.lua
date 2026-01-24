@@ -111,31 +111,31 @@ local ruff = {
 -- Option 2: analyse the tracing logs
 -- https://rust-analyzer.github.io/book/contributing/index.html?highlight=tracing#logging
 --
-local rust_analyzer = {
-  settings = {
-    ["rust-analyzer"] = {
-      -- cmd = { "rust-analyzer", "--log-file", "/tmp/rustls.log" },
-      diagnostics = {
-        -- rust_analyzer will comment out code that is not "owned" by the project (included in lib.rs)
-        -- this disables the diagnostic and the commenting
-        disabled = { "unlinked-file" },
-      },
-      -- https://sourcegraph.com/github.com/zchee/.nvim/-/blob/lua/plugins/lsp/rust_analyzer.lua
-      rust = {
-        analyzerTargetDir = "target/rust-analyzer",
-      },
-      -- cargo = { targetDir = true },
-    },
-
-    -- ENABLE this to debug rust_analyzer tracing logs
-    -- cmd = { "rust-analyzer", "--log-file", "/tmp/rustls.log" },
-    -- env = {
-    --   RUST_LOG = "debug",
-    --   RA_LOG_FILE = "/tmp/rustls.log",
-    --   RA_LOG = "lsp_server=debug",
-    -- },
-  },
-}
+-- local rust_analyzer = {
+--   settings = {
+--     ["rust-analyzer"] = {
+--       -- cmd = { "rust-analyzer", "--log-file", "/tmp/rustls.log" },
+--       diagnostics = {
+--         -- rust_analyzer will comment out code that is not "owned" by the project (included in lib.rs)
+--         -- this disables the diagnostic and the commenting
+--         disabled = { "unlinked-file" },
+--       },
+--       -- https://sourcegraph.com/github.com/zchee/.nvim/-/blob/lua/plugins/lsp/rust_analyzer.lua
+--       rust = {
+--         analyzerTargetDir = "target/rust-analyzer",
+--       },
+--       -- cargo = { targetDir = true },
+--     },
+--
+--     -- ENABLE this to debug rust_analyzer tracing logs
+--     -- cmd = { "rust-analyzer", "--log-file", "/tmp/rustls.log" },
+--     env = {
+--       RUST_LOG = "debug",
+--       RA_LOG_FILE = "/tmp/rustls.log",
+--       RA_LOG = "lsp_server=debug",
+--     },
+--   },
+-- }
 
 -- note: pylyzer is unusable until it can resolve local .venv imports
 -- https://github.com/mtshiba/pylyzer/issues/22
@@ -177,7 +177,7 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
-        rust_analyzer = rust_analyzer,
+        -- rust_analyzer = rust_analyzer,
         -- if these keys do not exist, nvim-lspconfig will not start the lsp server upon entering the buffer
         jsonls = {},
         yamlls = {},
@@ -210,6 +210,38 @@ return {
           require("lspimport").import()
         end,
         "Lsp Import (plugin)",
+      },
+    },
+  },
+  {
+    "mrcjkb/rustaceanvim",
+    version = "^6", -- Recommended config for latest rustaceanvim
+    lazy = false,
+    opts = {
+      server = {
+        -- 1. This is where your CMD goes for logging
+        cmd = function()
+          return { "rust-analyzer", "--log-file", "/tmp/rustls.log" }
+        end,
+        -- 2. This is where your SETTINGS go
+        default_settings = {
+          ["rust-analyzer"] = {
+            -- Some versions require the feature to be enabled explicitly
+            checkOnSave = true,
+            check = {
+              command = "clippy",
+              -- Ensure it checks all targets, including your Smart Fridge/Plant examples
+              allTargets = true,
+            },
+            -- Ensure diagnostics are actually enabled
+            diagnostics = {
+              enable = true,
+              experimental = {
+                enable = true,
+              },
+            },
+          },
+        },
       },
     },
   },
