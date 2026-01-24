@@ -220,9 +220,9 @@ return {
     opts = {
       server = {
         -- 1. This is where your CMD goes for logging
-        cmd = function()
-          return { "rust-analyzer", "--log-file", "/tmp/rustls.log" }
-        end,
+        -- cmd = function()
+        -- return { "rust-analyzer", "--log-file", "/tmp/rustls.log" }
+        -- end,
         -- 2. This is where your SETTINGS go
         default_settings = {
           ["rust-analyzer"] = {
@@ -231,11 +231,16 @@ return {
             check = {
               command = "clippy",
               -- Ensure it checks all targets, including your Smart Fridge/Plant examples
+
               allTargets = true,
             },
+            carg = {
+              allFeatures = true
+            }
             -- Ensure diagnostics are actually enabled
             diagnostics = {
               enable = true,
+              disabled = { "inactive-code", "unlinked-file" },
               experimental = {
                 enable = true,
               },
