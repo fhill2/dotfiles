@@ -8,3 +8,9 @@ alias ssh="kitty +kitten ssh"
 
 # . "$HOME/.local/share/../bin/env"
 . "$HOME/.cargo/env"
+
+export PATH=$PATH:$(go env GOPATH)/bin
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/s1/.lmstudio/bin"
+# End of LM Studio CLI section

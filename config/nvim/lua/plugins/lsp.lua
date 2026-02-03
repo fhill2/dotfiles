@@ -181,6 +181,19 @@ return {
         -- if these keys do not exist, nvim-lspconfig will not start the lsp server upon entering the buffer
         jsonls = {},
         yamlls = {},
+        arduino_language_server = {
+          cmd = {
+            "arduino-language-server",
+            "-cli",
+            "arduino-cli",
+            "-cli-config",
+            "/Users/s1/Library/Arduino15/arduino-cli.yaml",
+            "-fqbn",
+            "esp8266:esp8266:nodemcuv2",
+            "--clangd",
+            "clangd",
+          },
+        },
         -- how to disable pyright to try pylyzer
         -- if using lazyVim, pyright cannot be disabled
         -- https://github.com/LazyVim/LazyVim/discussions/1506
@@ -234,9 +247,10 @@ return {
 
               allTargets = true,
             },
-            carg = {
-              allFeatures = true
-            }
+            rust = {
+              analyzerTargetDir = "target/rust-analyzer",
+            },
+
             -- Ensure diagnostics are actually enabled
             diagnostics = {
               enable = true,
