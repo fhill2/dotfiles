@@ -1,0 +1,14 @@
+[Unit]
+Description=Mount Portara SMB Shares
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+# %h is a systemd specifier for the User Home Directory
+ExecStart=/bin/bash %h/.mount_portara.sh
+RemainAfterExit=yes
+KillMode=control-group
+
+[Install]
+WantedBy=default.target
