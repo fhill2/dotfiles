@@ -81,6 +81,11 @@ unset zle_bracketed_paste
 # Instead of symlinking REPO/bin -> $HOME/.local/bin
 export PATH="$PATH:$HOME/dot/bin/src"
 
+export ANTHROPIC_BASE_URL="http://localhost:8000"
+# otherwise claude keeps asking you to login
+export ANTHROPIC_API_KEY="sk-local-token"
+export ANTHROPIC_MODEL="Qwen3.5-122B-A10B-6bit"
+
 
 # . "$HOME/.local/share/../bin/env"
 
@@ -93,3 +98,6 @@ export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 # 3. Initialize pyenv's shims
 eval "$(pyenv init -)"
+
+# opencode
+export PATH=/Users/s1/.opencode/bin:$PATH

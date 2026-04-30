@@ -30,12 +30,13 @@ require("lazy").setup({
     -- { import = "lazyvim.plugins.extras.lang.json" },
     -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
     { import = "lazyvim.plugins.extras.lang.python" }, -- this adds pyright, ruff, ruff_lsp
+    { import = "lazyvim.plugins.extras.lang.markdown" },
     { import = "lazyvim.plugins.extras.test.core" },
     { import = "lazyvim.plugins.extras.lsp.none-ls" },
-    { import = "lazyvim.plugins.extras.coding.nvim-cmp"},
+    { import = "lazyvim.plugins.extras.coding.nvim-cmp" },
 
     -- comments became optional and gcc no longer worked unless this extra is set
-    { import = "lazyvim.plugins.extras.coding.mini-comment"},
+    { import = "lazyvim.plugins.extras.coding.mini-comment" },
 
     -- { import = "lazyvim.plugins.extras.formatting.black" },
     -- import/override with your plugins

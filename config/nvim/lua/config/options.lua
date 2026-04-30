@@ -4,6 +4,7 @@
 --
 vim.o.shell = "/bin/zsh"
 vim.o.swapfile = false
+vim.opt.conceallevel = 0
 
 -- https://neovim.io/doc/user/ft_sql.html#sql-completion-static
 -- This conflicts with Exit Insert Mode when Editing an SQL File
