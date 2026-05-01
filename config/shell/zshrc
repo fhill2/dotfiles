@@ -84,7 +84,13 @@ export PATH="$PATH:$HOME/dot/bin/src"
 export ANTHROPIC_BASE_URL="http://localhost:8000"
 # otherwise claude keeps asking you to login
 export ANTHROPIC_API_KEY="sk-local-token"
-export ANTHROPIC_MODEL="Qwen3.5-122B-A10B-6bit"
+export ANTHROPIC_MODEL="Qwen3.5-VL-122B-A10B-8bit-MLX-CRACK-X"
+# Set the Architect (The Smart One)
+export ANTHROPIC_DEFAULT_OPUS_MODEL="Qwen3.5-VL-122B-A10B-8bit-MLX-CRACK-X"
+# Set the Brain (The Fast One)
+export ANTHROPIC_DEFAULT_SONNET_MODEL="Qwen3-14B-8bit"
+# Set the Scout (Also the Fast One)
+export ANTHROPIC_DEFAULT_HAIKU_MODEL="Qwen3-14B-8bit"
 
 
 # . "$HOME/.local/share/../bin/env"

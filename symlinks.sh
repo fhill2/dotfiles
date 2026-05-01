@@ -25,6 +25,7 @@ mkdir -p $HOME/git
 mkdir -p $HOME/projects
 mkdir -p $HOME/Desktop
 mkdir -p $HOME/.config
+mkdir -p $HOME/.claude
 
 # this does not exist on a fresh debian install
 mkdir -p $HOME/.local
@@ -49,6 +50,7 @@ $_symlink $root/config/tmux ~/.config/tmux
 $_symlink $root/config/starship.toml ~/.config/starship.toml
 $_symlink $root/config/bat/config ~/.config/bat/config
 $_symlink $root/config/claude/settings.json ~/.claude/settings.json
+$_symlink $root/config/claude/CLAUDE.md ~/.claude/CLAUDE.md
 
 if [ "$os" = "Darwin" ]; then
   $_symlink $root/config/lazygit/config.yml "$HOME/Library/Application\ Support/lazygit/config.yml"
