@@ -51,6 +51,9 @@ $_symlink $root/config/starship.toml ~/.config/starship.toml
 $_symlink $root/config/bat/config ~/.config/bat/config
 $_symlink $root/config/claude/settings.json ~/.claude/settings.json
 $_symlink $root/config/claude/CLAUDE.md ~/.claude/CLAUDE.md
+$_symlink $root/config/opencode/opencode.json ~/.config/opencode/opencode.json
+$_symlink $root/config/opencode/tui.json ~/.config/opencode/tui.json
+$_symlink $root/config/worktrunk/config.toml ~/.config/worktrunk/config.toml
 
 if [ "$os" = "Darwin" ]; then
   $_symlink $root/config/lazygit/config.yml "$HOME/Library/Application\ Support/lazygit/config.yml"
@@ -155,6 +158,11 @@ if [ "$HOST" = "fprod" ]; then
   $_symlink "/Users/Shared/prod_shared/sample_libraries/vital/Vital User Presets" "/Users/s1/Music/Vital/Presets/User"
   # Symlink Vital Splice Presets to Vital Preset directory
   $_symlink "/Users/s1/Splice/presets/Vital" "/Users/s1/Music/Vital/Presets/Splice"
+
+  ##### NEXUS #####
+  # Nexus default library location:
+  # /Library/Audio/Presets/ReFX/Nexus Content
+  $_symlink "/Users/Shared/prod_f/SAMPLE_LIBRARIES/nexus/Nexus Library" "/Library/Audio/Presets/reFX/Nexus Library"
 fi
 
 # deprecated

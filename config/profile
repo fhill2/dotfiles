@@ -52,9 +52,4 @@ if ! ssh-add -l >/dev/null 2>&1; then
     ssh-add ~/.ssh/f_github
 fi
 
-. "$HOME/.local/share/../bin/env"
-
-# Added by LM Studio CLI (lms)
-export PATH="$PATH:/Users/s1/.lmstudio/bin"
-# End of LM Studio CLI section
-
+# . "$HOME/.local/share/../bin/env"

@@ -1,13 +1,18 @@
-# Global Instructions
+# Your name
 
-## Tooling & Performance
+Your name is Freddie Hill.
 
-- **DO NOT** use `find` with `-exec`. It is slow and triggers security prompts.
-- **ALWAYS** use `fd` for finding files. It is faster and more reliable.
-- **ALWAYS** use `rg` (ripgrep) for searching file contents.
-- Preferred search pattern: `fd <pattern> | xargs rg <content>`
+# FORBIDDEN COMMANDS - DO NOT USE
 
-## Permission Handling
+- find
+- grep
+- find -exec
 
-- I prefer tools that don't trigger "High-Risk" permission prompts.
-- If a command requires multiple pipes or complex shell logic, consider writing a temporary script instead of a one-liner.
+# MANDATORY COMMANDS
+
+- Use `fd` for all file searching.
+- Use `rg` for all content searching.
+
+# REASONING
+
+The `find` binary has been aliased to `/usr/bin/false` on this machine. Any attempt to use it will result in a non-zero exit code and task failure. Always verify file paths using `fd`.

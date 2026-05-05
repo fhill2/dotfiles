@@ -15,3 +15,5 @@ export PATH=$PATH:$(go env GOPATH)/bin
 export PATH="$PATH:/Users/s1/.lmstudio/bin"
 # End of LM Studio CLI section
 export PATH="/Users/s1/bin:$PATH"
+
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init bash)"; fi

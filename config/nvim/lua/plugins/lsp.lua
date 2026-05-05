@@ -102,41 +102,6 @@ local ruff = {
   -- },
 }
 
--- https://github.com/MysticalDevil/inlay-hints.nvim
--- 2 ways of debugging rust_analyzer in nvim
--- Option 1: analyse the LSP logs:
--- vim.lsp.log.set_level("DEBUG")
--- vim.lsp.log.show_filepath()
--- tail -f <filepath>
--- Option 2: analyse the tracing logs
--- https://rust-analyzer.github.io/book/contributing/index.html?highlight=tracing#logging
---
--- local rust_analyzer = {
---   settings = {
---     ["rust-analyzer"] = {
---       -- cmd = { "rust-analyzer", "--log-file", "/tmp/rustls.log" },
---       diagnostics = {
---         -- rust_analyzer will comment out code that is not "owned" by the project (included in lib.rs)
---         -- this disables the diagnostic and the commenting
---         disabled = { "unlinked-file" },
---       },
---       -- https://sourcegraph.com/github.com/zchee/.nvim/-/blob/lua/plugins/lsp/rust_analyzer.lua
---       rust = {
---         analyzerTargetDir = "target/rust-analyzer",
---       },
---       -- cargo = { targetDir = true },
---     },
---
---     -- ENABLE this to debug rust_analyzer tracing logs
---     -- cmd = { "rust-analyzer", "--log-file", "/tmp/rustls.log" },
---     env = {
---       RUST_LOG = "debug",
---       RA_LOG_FILE = "/tmp/rustls.log",
---       RA_LOG = "lsp_server=debug",
---     },
---   },
--- }
-
 -- note: pylyzer is unusable until it can resolve local .venv imports
 -- https://github.com/mtshiba/pylyzer/issues/22
 local pylyzer = {
@@ -175,25 +140,13 @@ return {
 
   {
     "neovim/nvim-lspconfig",
+    lazy = false,
     opts = {
       servers = {
         -- rust_analyzer = rust_analyzer,
         -- if these keys do not exist, nvim-lspconfig will not start the lsp server upon entering the buffer
-        jsonls = {},
+        -- jsonls is handled by lazyvim.plugins.extras.lang.json
         yamlls = {},
-        arduino_language_server = {
-          cmd = {
-            "arduino-language-server",
-            "-cli",
-            "arduino-cli",
-            "-cli-config",
-            "/Users/s1/Library/Arduino15/arduino-cli.yaml",
-            "-fqbn",
-            "esp8266:esp8266:nodemcuv2",
-            "--clangd",
-            "clangd",
-          },
-        },
         -- how to disable pyright to try pylyzer
         -- if using lazyVim, pyright cannot be disabled
         -- https://github.com/LazyVim/LazyVim/discussions/1506
@@ -265,3 +218,39 @@ return {
     },
   },
 }
+
+-- OLD
+-- https://github.com/MysticalDevil/inlay-hints.nvim
+-- 2 ways of debugging rust_analyzer in nvim
+-- Option 1: analyse the LSP logs:
+-- vim.lsp.log.set_level("DEBUG")
+-- vim.lsp.log.show_filepath()
+-- tail -f <filepath>
+-- Option 2: analyse the tracing logs
+-- https://rust-analyzer.github.io/book/contributing/index.html?highlight=tracing#logging
+--
+-- local rust_analyzer = {
+--   settings = {
+--     ["rust-analyzer"] = {
+--       -- cmd = { "rust-analyzer", "--log-file", "/tmp/rustls.log" },
+--       diagnostics = {
+--         -- rust_analyzer will comment out code that is not "owned" by the project (included in lib.rs)
+--         -- this disables the diagnostic and the commenting
+--         disabled = { "unlinked-file" },
+--       },
+--       -- https://sourcegraph.com/github.com/zchee/.nvim/-/blob/lua/plugins/lsp/rust_analyzer.lua
+--       rust = {
+--         analyzerTargetDir = "target/rust-analyzer",
+--       },
+--       -- cargo = { targetDir = true },
+--     },
+--
+--     -- ENABLE this to debug rust_analyzer tracing logs
+--     -- cmd = { "rust-analyzer", "--log-file", "/tmp/rustls.log" },
+--     env = {
+--       RUST_LOG = "debug",
+--       RA_LOG_FILE = "/tmp/rustls.log",
+--       RA_LOG = "lsp_server=debug",
+--     },
+--   },
+-- }
