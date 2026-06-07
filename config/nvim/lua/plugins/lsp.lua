@@ -194,12 +194,12 @@ return {
           ["rust-analyzer"] = {
             -- Some versions require the feature to be enabled explicitly
             checkOnSave = true,
-            check = {
-              command = "clippy",
-              -- Ensure it checks all targets, including your Smart Fridge/Plant examples
-
-              allTargets = true,
-            },
+            -- check = {
+            --   command = "clippy",
+            --   -- Ensure it checks all targets, including your Smart Fridge/Plant examples
+            --
+            --   allTargets = true,
+            -- },
             rust = {
               analyzerTargetDir = "target/rust-analyzer",
             },

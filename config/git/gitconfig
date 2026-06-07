@@ -3,3 +3,5 @@
 [user]
 	name = Freddie Hill
 	email = freddiehill000@gmail.com
+[credential]
+	helper = cache

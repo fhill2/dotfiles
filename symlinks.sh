@@ -80,6 +80,8 @@ $_symlink $root/config/alacritty ~/.config/alacritty
 
 $_symlink $root/config/lnav/pytower ~/.config/lnav/configs/pytower
 
+
+
 # kanata should only install on f-server for now
 if [ "$HOST" = "f-server" ]; then
   # https://github.com/jtroo/kanata/blob/main/docs/setup-linux.md
@@ -93,10 +95,12 @@ if [ -f "$root/config/interfaces_$HOST" ]; then
 fi
 
 if [ "$HOST" = "f-desktop" ]; then
-  # Note: qmk setup command should be run before this
-  $_symlink "$root/config/qmk/fhill2_keymap" ~/qmk_firmware/keyboards/gmmk/pro/rev1/ansi/keymaps/fhill2
-  # QMK Keyboard - Prevent Permission Denied on qmk console
-  $_symlink "$root/config/qmk/udev/92-viia.rules" /etc/udev/rules.d/92-viia.rules
+  # limits.conf only supported on linux / PAM
+  $_symlink $root/config/limits.conf /etc/security/limits.d/99-router-limits.conf
+	# Note: qmk setup command should be run before this
+	$_symlink "$root/config/qmk/fhill2_keymap" ~/qmk_firmware/keyboards/gmmk/pro/rev1/ansi/keymaps/fhill2
+	# QMK Keyboard - Prevent Permission Denied on qmk console
+	$_symlink "$root/config/qmk/udev/92-viia.rules" /etc/udev/rules.d/92-viia.rules
 fi
 
 # Install on servers only (servers use X11)
