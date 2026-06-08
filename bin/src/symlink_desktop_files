@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+# Define the target directory where GNOME looks for user applications
+TARGET_DIR="$HOME/.local/share/applications"
+
+# Ensure the target directory exists
+mkdir -p "$TARGET_DIR"
+
+# Define the source directories
+SYSTEM_FLATPAK_DIR="/var/lib/flatpak/exports/share/applications"
+USER_FLATPAK_DIR="$HOME/.local/share/flatpak/exports/share/applications"
+SNAP_DIR="/var/lib/snapd/desktop/applications"
+
+echo "Checking for Flatpak and Snap desktop entries..."
+echo "----------------------------------------"
+
+# Counter to keep track of linked files
+COUNT=0
+
+# Function to safely create symlinks
+link_desktop_files() {
+    local src_dir="$1"
+    
+    if [ -d "$src_dir" ]; then
+        # Loop through all .desktop files in the directory
+        for file in "$src_dir"/*.desktop; do
+            # Check if the glob found actual files
+            [ -e "$file" ] || continue
+            
+            filename=$(basename "$file")
+            target_file="$TARGET_DIR/$filename"
+            
+            # Check if a symlink or file already exists to avoid overwriting
+            if [ -e "$target_file" ] || [ -L "$target_file" ]; then
+                echo "[-] Skipping: $filename (Already exists in target)"
+            else
+                ln -s "$file" "$target_file"
+                echo "[+] Linked:  $filename"
+                ((COUNT++))
+            fi
+        done
+    else
+        echo "[!] Directory not found: $src_dir (Skipping)"
+    fi
+}
+
+# Run the function for all sources
+link_desktop_files "$SYSTEM_FLATPAK_DIR"
+link_desktop_files "$USER_FLATPAK_DIR"
+link_desktop_files "$SNAP_DIR"
+
+echo "----------------------------------------"
+echo "Done! Successfully linked $COUNT new applications."
+echo "If icons do not appear immediately, refresh GNOME by pressing Alt+F2, typing 'r', and hitting Enter (X11 only) or logging out/in."

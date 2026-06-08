@@ -52,4 +52,6 @@ if ! ssh-add -l >/dev/null 2>&1; then
     ssh-add ~/.ssh/f_github
 fi
 
+alias gnome="gnome-shell --wayland"
+
 # . "$HOME/.local/share/../bin/env"
