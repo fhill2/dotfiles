@@ -18,5 +18,18 @@ gsettings set org.gnome.nautilus.list-view default-zoom-level 'small'
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 
 
-# Disable all compositor animations
+# Disable ALL compositor animations
+# Disables animation when switching workspaces
+# and also animation showing the activites overview
 gsettings set org.gnome.desktop.interface enable-animations false
+
+
+
+# Set background to black
+# 1. Set the background picture to nothing (removes the default wallpaper)
+gsettings set org.gnome.desktop.background picture-uri ''
+gsettings set org.gnome.desktop.background picture-uri-dark ''
+# 2. Set the primary background color to pure black
+gsettings set org.gnome.desktop.background primary-color '#000000'
+# 3. Ensure the color shading type is set to 'solid'
+gsettings set org.gnome.desktop.background color-shading-type 'solid'
