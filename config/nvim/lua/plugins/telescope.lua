@@ -25,22 +25,22 @@ return {
       {
         "<leader>sg",
         function()
-          require("telescope.builtin").live_grep({ additional_args = { "--no-ignore-parent" }, cwd = vim.loop.cwd() })
+          require("telescope.builtin").live_grep({ additional_args = { "--no-ignore-parent" }, cwd = vim.uv.cwd() })
         end,
         -- function()
-        -- require("telescope.builtin").live_grep({ additional_args = { "--no-ignore-vcs" }, cwd = vim.loop.cwd() })
+        -- require("telescope.builtin").live_grep({ additional_args = { "--no-ignore-vcs" }, cwd = vim.uv.cwd() })
         -- end,
         desc = "Grep ()",
       },
       -- to search witihin nautilus_trader that has been .ignored
-      -- why vim.loop.cwd() -> sometimes I want to cd into a folder that is either .gitignored or .ignored and view results from this folder only
+      -- why vim.uv.cwd() -> sometimes I want to cd into a folder that is either .gitignored or .ignored and view results from this folder only
       {
 
         "<leader>/",
         function()
           require("telescope.builtin").live_grep({
             additional_args = { "--no-ignore", "--follow" },
-            cwd = vim.loop.cwd(),
+            cwd = vim.uv.cwd(),
           })
         end,
         desc = "Grep ()",
@@ -50,7 +50,7 @@ return {
         function()
           require("telescope.builtin").live_grep({
             additional_args = { "--no-ignore", "--follow" },
-            cwd = vim.loop.cwd(),
+            cwd = vim.uv.cwd(),
           })
         end,
         desc = "Grep ()",
@@ -80,7 +80,7 @@ return {
         function()
           require("telescope").extensions.file_browser.file_browser({
             no_ignore = true,
-            cwd = vim.loop.cwd(),
+            cwd = vim.uv.cwd(),
           })
         end,
         desc = "File Browser ()",
@@ -89,7 +89,7 @@ return {
       {
         "<leader>fv",
         function()
-          require("telescope").extensions.file_browser.file_browser({ cwd = vim.loop.os_homedir() .. "/dot" })
+          require("telescope").extensions.file_browser.file_browser({ cwd = vim.uv.os_homedir() .. "/dot" })
         end,
         desc = "File Browser - ~/dot (.ignore)",
       },
@@ -104,9 +104,9 @@ return {
         "<leader>fg",
         function()
           -- ended up not using search_dirs and using .ignore file instead
-          -- print("hostname", vim.loop.os_gethostname())
+          -- print("hostname", vim.uv.os_gethostname())
           -- local neoconf = require("neoconf.settings")
-          -- local settings = require("neoconf").get(vim.loop.os_gethostname() .. ".search_dirs")
+          -- local settings = require("neoconf").get(vim.uv.os_gethostname() .. ".search_dirs")
           -- print(vim.inspect(settings))
           -- why not use the LazyVim default that uses find_files / git_files in a single hotkey?
           -- because when working with monorepos, I need to search files that are not gitignored

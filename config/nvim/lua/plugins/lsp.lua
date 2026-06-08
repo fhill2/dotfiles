@@ -1,5 +1,3 @@
-local util = require("lspconfig.util")
-
 -- PYRIGHT MONOREPO SETUP
 -- modifying the example below:
 -- -- https://github.com/neovim/nvim-lspconfig/issues/500#issuecomment-851247107
@@ -21,9 +19,9 @@ end
 
 local get_venv_bin = function()
   if vim.env.VIRUAL_ENV then
-    return util.path.join(vim.env.VIRTUAL_ENV, "bin", "python")
+    return vim.uv.fs_joinpath(vim.env.VIRTUAL_ENV, "bin", "python")
   end
-  return util.path.join(vim.env.PWD, ".venv", "bin", "python")
+  return vim.uv.fs_joinpath(vim.env.PWD, ".venv", "bin", "python")
 end
 
 local pyright = {
@@ -31,7 +29,7 @@ local pyright = {
     -- otherwise no venv packages can be found
     client.config.settings.python.pythonPath = get_venv_bin()
 
-    client.config.settings.python.venvPath = vim.env.VIRTUAL_ENV or util.path.join(vim.env.PWD, ".venv")
+    client.config.settings.python.venvPath = vim.env.VIRTUAL_ENV or vim.uv.fs_joinpath(vim.env.PWD, ".venv")
     client.config.settings.python.venv = get_venv_bin()
   end,
   -- root_dir = get_root_dir,
@@ -54,14 +52,14 @@ local pyright = {
 local ruff = {
   autostart = false,
   on_init = function(client)
-    home = vim.loop.os_homedir()
+    home = vim.uv.os_homedir()
     local path = home .. "/projects/pytower/nautilus_trader/pyproject.toml"
 
     -- local root = get_root_dir()
     -- if string.match(root, "pytower") then
     -- there is no feedback if path does not exist
 
-    vim.loop.fs_stat(path, function(err, stat)
+    vim.uv.fs_stat(path, function(err, stat)
       if err then
         print("ruff: " .. path .. " does not exist...")
       else
@@ -121,49 +119,21 @@ return {
     end,
   },
 
-  -- https://stackoverflow.com/questions/76487150/how-to-avoid-cannot-find-implementation-or-library-stub-when-mypy-is-installed
-  {
-    "nvimtools/none-ls.nvim",
-    opts = function(_, opts)
-      local nls = require("null-ls")
-      -- opts.debug = true
-      -- opts.sources = vim.list_extend(opts.sources or {}, {
-      --   nls.builtins.diagnostics.mypy.with({
-      --     extra_args = function()
-      --       local config_file = vim.fn.stdpath("config") .. "/pyproject.toml"
-      --       return { "--config-file", config_file, "--python-executable", get_venv_bin() }
-      --     end,
-      --   }),
-      -- })
-    end,
-  },
-
   {
     "neovim/nvim-lspconfig",
-    lazy = false,
     opts = {
+      codelens = {
+        enabled = true,
+      },
       servers = {
-        -- rust_analyzer = rust_analyzer,
-        -- if these keys do not exist, nvim-lspconfig will not start the lsp server upon entering the buffer
-        -- jsonls is handled by lazyvim.plugins.extras.lang.json
+        marksman = false,
         yamlls = {},
-        -- how to disable pyright to try pylyzer
-        -- if using lazyVim, pyright cannot be disabled
-        -- https://github.com/LazyVim/LazyVim/discussions/1506
         pyright = pyright,
-        -- pylyzer = pylyzer,
         ruff = ruff,
       },
-      -- inlay_hints = {enabled = true},
       diagnostics = {
-        -- prevents diagnostics hiding in insert mode
-        -- prevents diagnostics flashing on save
-        -- LazyVim sets this to false by default
         update_in_insert = true,
       },
-    },
-    codelens = {
-      enabled = true,
     },
   },
   -- pyright autoimport missing imports
