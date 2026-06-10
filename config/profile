@@ -42,14 +42,10 @@ PATH="$HOME/.cargo/bin:$PATH"
 
 export SSH_AUTH_SOCK=~/.ssh/ssh-agent.$HOST.sock
 
-# Use a less strict check: if the exit code is NOT 0 (meaning something failed)
-# In many shells, checking for -ne 0 is sufficient to catch both 1 and 2.
-# Alternatively, you can check if a new socket needs to be created.
-
 if ! ssh-add -l >/dev/null 2>&1; then
-    # Start agent only if the previous ssh-add failed.
-    eval "$(ssh-agent -a "$SSH_AUTH_SOCK")"
-    ssh-add ~/.ssh/f_github
+    rm -f "$SSH_AUTH_SOCK"
+    ssh-agent -a "$SSH_AUTH_SOCK" >/dev/null
+    ssh-add ~/.ssh/f_github 2>/dev/null
 fi
 
 alias gnome="gnome-shell --wayland"
