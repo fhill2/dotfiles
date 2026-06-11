@@ -51,3 +51,5 @@ fi
 alias gnome="gnome-shell --wayland"
 
 # . "$HOME/.local/share/../bin/env"
+
+. "$HOME/.atuin/bin/env"

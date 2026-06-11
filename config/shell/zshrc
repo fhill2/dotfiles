@@ -2,29 +2,26 @@
   git clone --depth 1 -- https://github.com/marlonrichert/zsh-snap.git ~/Repos/znap
 source ~/Repos/znap/znap.zsh
 
+# Prevent zsh-autosuggestions widget recursion issues
+export FUNCNEST=1000
+export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+
+# Configure znap caching to prevent duplicate loading
+zstyle ':znap:*' auto-compile yes
+
 source ~/.bashrc
 
-znap source zsh-users/zsh-autosuggestions
-znap source dbalatero/fast-syntax-highlighting
+znap source zsh-users/zsh-syntax-highlighting
+
+# Guard against multiple autosuggestions initializations
+if [[ -z "$_ZSH_AUTOSUGGEST_VERSION" ]]; then
+  znap source zsh-users/zsh-autosuggestions
+fi
+
 znap source ohmyzsh/ohmyzsh plugins/direnv
 
 
-source $HOME/.config/broot/launcher/bash/br
-
-# znap eval rustup completions zsh > ~/.zfunc/_rustup
-if [ -z "$HISTFILE" ]; then
-	HISTFILE=$HOME/.zsh_history
-fi
-HISTSIZE=10000
-SAVEHIST=10000
-
-setopt append_history
-setopt extended_history
-setopt hist_expire_dups_first
-setopt hist_ignore_dups # ignore duplication command history list
-setopt hist_ignore_space
-setopt inc_append_history
-setopt share_history # share command history data
+# source $HOME/.config/broot/launcher/bash/br  # Broken symlink, broot not installed
 
 
 # necessary - otherwise ssh-agent has to be loaded manually
@@ -111,3 +108,8 @@ eval "$(pyenv init -)"
 export PATH=/Users/s1/.opencode/bin:$PATH
 
 if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
+eval "$(tv init zsh)"
+
+. "$HOME/.atuin/bin/env"
+
+eval "$(atuin init zsh)"

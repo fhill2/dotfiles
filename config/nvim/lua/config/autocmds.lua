@@ -1,3 +1,65 @@
 -- Autocmds are automatically loaded on the VeryLazy event
 -- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
 -- Add any additional autocmds here
+-- Initialize Baleia
+-- local log_hl_group = vim.api.nvim_create_augroup("LogAnsiHL", { clear = true })
+--
+-- vim.api.nvim_create_autocmd("BufWinEnter", {
+--   group = log_hl_group,
+--   pattern = "*.log",
+--   callback = function(args)
+--     local bufnr = args.buf
+--
+--     -- 1. Prevent overlapping executions
+--     if vim.b[bufnr].log_parsed or vim.bo[bufnr].buftype == "terminal" then
+--       return
+--     end
+--
+--     -- Grab all clean log lines before processing
+--     local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+--     local raw_text = table.concat(lines, "\n")
+--
+--     -- 2. Pass text directly into hl asynchronously
+--     vim.system(
+--       { "hl", "--color=always" },
+--       {
+--         stdin = raw_text,
+--         -- env = { FORCE_COLOR = "1" },
+--       },
+--       vim.schedule_wrap(function(obj)
+--         -- Validate buffer still exists and didn't close mid-flight
+--         if not vim.api.nvim_buf_is_valid(bufnr) then
+--           return
+--         end
+--
+--         if obj.code ~= 0 or #obj.stdout == 0 then
+--           vim.notify("hl error: " .. (obj.stderr ~= "" and obj.stderr or "Empty output"), vim.log.levels.WARN)
+--           return
+--         end
+--
+--         local hl_lines = vim.split(obj.stdout, "\n", { plain = true })
+--
+--         -- 3. UNLOCK the buffer explicitly right before swapping text
+--         vim.api.nvim_set_option_value("modifiable", true, { buf = bufnr })
+--
+--         -- 4. Overwrite original clean text with ANSI marked text
+--         vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, hl_lines)
+--
+--         -- 5. Fire the plugin highlighting mechanism
+--         local status, _ = pcall(vim.cmd, "AnsiEnable")
+--         if not status then
+--           pcall(function()
+--             require("ansi").enable()
+--           end)
+--         end
+--
+--         -- 6. Lock things back down securely
+--         vim.api.nvim_set_option_value("modifiable", false, { buf = bufnr })
+--         vim.api.nvim_set_option_value("modified", false, { buf = bufnr })
+--         vim.api.nvim_set_option_value("buftype", "nofile", { buf = bufnr })
+--
+--         vim.b[bufnr].log_parsed = true
+--       end)
+--     )
+--   end,
+-- })

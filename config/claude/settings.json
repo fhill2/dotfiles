@@ -1,5 +1,50 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "atuin hook claude-code",
+            "type": "command"
+          }
+        ],
+        "matcher": "Bash"
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "hooks": [
+          {
+            "command": "atuin hook claude-code",
+            "type": "command"
+          }
+        ],
+        "matcher": "Bash"
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "jq -r '.tool_input.command' | grep -qE '^find |\\| find |\\&\\& find |; find |^grep |\\| grep |\\&\\& grep |; grep ' && echo '{\"systemMessage\": \"Remember: use fd instead of find, and rg instead of grep\"}' || true",
+            "type": "command"
+          }
+        ],
+        "matcher": "Bash"
+      },
+      {
+        "hooks": [
+          {
+            "command": "atuin hook claude-code",
+            "type": "command"
+          }
+        ],
+        "matcher": "Bash"
+      }
+    ]
+  },
+  "model": "sonnet",
   "permissions": {
     "allow": [
       "Bash(fd *)",
@@ -7,23 +52,9 @@
     ],
     "defaultMode": "acceptEdits"
   },
-  "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "jq -r '.tool_input.command' | grep -qE '^find |\\| find |\\&\\& find |; find |^grep |\\| grep |\\&\\& grep |; grep ' && echo '{\"systemMessage\": \"Remember: use fd instead of find, and rg instead of grep\"}' || true"
-          }
-        ]
-      }
-    ]
-  },
-  "showTurnDuration": true,
   "preferredTools": [
     "fd",
     "rg"
   ],
-  "model": "sonnet"
+  "showTurnDuration": true
 }

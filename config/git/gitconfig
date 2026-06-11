@@ -5,3 +5,11 @@
 	email = freddiehill000@gmail.com
 [credential]
 	helper = cache
+
+[maintenance]
+	repo = /Users/s1/Repos/znap
+	repo = /Users/s1/Repos/dbalatero/fast-syntax-highlighting
+	repo = /Users/s1/Repos/ohmyzsh/ohmyzsh
+	repo = /Users/s1/Repos/sindresorhus/pure
+	repo = /Users/s1/Repos/zsh-users/zsh-autosuggestions
+	repo = /Users/s1/Repos/zsh-users/zsh-syntax-highlighting

@@ -249,5 +249,9 @@ Pin-Priority: 1000
 
 sudo apt update && sudo apt install firefox
 
+cargo install television
+
+curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
+
 # Install uv - no longer using
 # curl -LsSf https://astral.sh/uv/install.sh | sh
