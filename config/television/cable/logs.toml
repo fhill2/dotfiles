@@ -1,0 +1,19 @@
+[metadata]
+name = "logs"
+description = "Recursively find and preview log files"
+
+[source]
+# This command lists all files ending in .log recursively
+command = "find . -type f -name '*.log'"
+
+[preview]
+# This uses 'hl' (highlight) to preview the selected file
+# '{}' is the placeholder for the file path selected in the picker
+command = "hl --color=always '{}'"
+
+# https://alexpasmantier.github.io/television/user-guide/channels#ui
+[ui]
+layout = "portrait"
+
+[ui.preview_panel]
+size = 80

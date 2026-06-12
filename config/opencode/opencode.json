@@ -43,11 +43,17 @@
             "output": 32768
           }
         },
+        "glm-5.1": {
+          "name": "glm-5.1"
+        },
+        "glm-4.7": {
+          "name": "glm-4.7"
+        }
       }
     },
   },
-  "model": "omlx-local/Qwen3.5-122B-A10B-8bit",
-  "small_model": "Qwen3.6-35B-A3B-8bit",
+  "model": "zai-coding-plan/glm-5.1",
+  "small_model": "zai-coding-plan/glm-4.7",
   "permission": {
     "external_directory": {
       "~/projects/**": "allow",

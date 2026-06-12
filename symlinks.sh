@@ -55,6 +55,9 @@ $_symlink $root/config/opencode/opencode.json ~/.config/opencode/opencode.json
 $_symlink $root/config/opencode/tui.json ~/.config/opencode/tui.json
 $_symlink $root/config/worktrunk/config.toml ~/.config/worktrunk/config.toml
 
+$_symlink $root/config/television/config.toml ~/.config/television/config.toml
+$_symlink $root/config/television/cable ~/.config/television/cable
+
 if [ "$os" = "Darwin" ]; then
   $_symlink $root/config/lazygit/config.yml "$HOME/Library/Application\ Support/lazygit/config.yml"
 else
@@ -80,8 +83,6 @@ $_symlink $root/config/alacritty ~/.config/alacritty
 
 $_symlink $root/config/lnav/pytower ~/.config/lnav/configs/pytower
 
-
-
 # kanata should only install on f-server for now
 if [ "$HOST" = "f-server" ]; then
   # https://github.com/jtroo/kanata/blob/main/docs/setup-linux.md
@@ -97,10 +98,10 @@ fi
 if [ "$HOST" = "f-desktop" ]; then
   # limits.conf only supported on linux / PAM
   $_symlink $root/config/limits.conf /etc/security/limits.d/99-router-limits.conf
-	# Note: qmk setup command should be run before this
-	$_symlink "$root/config/qmk/fhill2_keymap" ~/qmk_firmware/keyboards/gmmk/pro/rev1/ansi/keymaps/fhill2
-	# QMK Keyboard - Prevent Permission Denied on qmk console
-	$_symlink "$root/config/qmk/udev/92-viia.rules" /etc/udev/rules.d/92-viia.rules
+  # Note: qmk setup command should be run before this
+  $_symlink "$root/config/qmk/fhill2_keymap" ~/qmk_firmware/keyboards/gmmk/pro/rev1/ansi/keymaps/fhill2
+  # QMK Keyboard - Prevent Permission Denied on qmk console
+  $_symlink "$root/config/qmk/udev/92-viia.rules" /etc/udev/rules.d/92-viia.rules
 fi
 
 # Install on servers only (servers use X11)
