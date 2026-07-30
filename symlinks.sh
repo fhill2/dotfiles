@@ -51,7 +51,11 @@ $_symlink $root/config/starship.toml ~/.config/starship.toml
 $_symlink $root/config/bat/config ~/.config/bat/config
 $_symlink $root/config/claude/settings.json ~/.claude/settings.json
 $_symlink $root/config/claude/CLAUDE.md ~/.claude/CLAUDE.md
-$_symlink $root/config/opencode/opencode.json ~/.config/opencode/opencode.json
+if [ "$os" = "Darwin" ]; then
+  $_symlink $root/config/opencode/opencode_osx.json ~/.config/opencode/opencode.json
+else
+  $_symlink $root/config/opencode/opencode_linux.json ~/.config/opencode/opencode.json
+fi
 $_symlink $root/config/opencode/tui.json ~/.config/opencode/tui.json
 $_symlink $root/config/worktrunk/config.toml ~/.config/worktrunk/config.toml
 
