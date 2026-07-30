@@ -33,3 +33,21 @@ gsettings set org.gnome.desktop.background picture-uri-dark ''
 gsettings set org.gnome.desktop.background primary-color '#000000'
 # 3. Ensure the color shading type is set to 'solid'
 gsettings set org.gnome.desktop.background color-shading-type 'solid'
+
+
+# Energy
+# tell GNOME's power management daemon to never initiate sleep due to inactivity, regardless of power source (AC or Battery).
+gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
+gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-type 'nothing'
+
+# I want the display to sleep - but the system to stayt awake.
+gsettings set org.gnome.settings-daemon.plugins.power idle-dim true
+gsettings set org.gnome.desktop.session idle-delay 600
+gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout 0
+
+# Disable the lock screen entirely
+gsettings set org.gnome.desktop.screensaver lock-enabled false
+# Disable locking when the system suspends (if you trigger it manually)
+gsettings set org.gnome.desktop.screensaver ubuntu-lock-on-suspend false
+# Ensure the lock screen cannot be triggered via the lockdown schema
+gsettings set org.gnome.desktop.lockdown disable-lock-screen true
