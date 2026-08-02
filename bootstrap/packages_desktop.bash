@@ -10,7 +10,7 @@ declare -a CMD=()
 CMD+=(
     # packages I need only on f-desktop
 
-    # to install vesktop
+    # flatpak runtime - used for obsidian (flathub)
     flatpak
 
     # core_desktop

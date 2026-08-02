@@ -16,7 +16,7 @@ sudo chsh -s $(which zsh) $USER
 # Essential - Otherwise $USER cannot sudo
 sudo usermod -aG sudo $USER
 
-# Install flatpak - for vesktop, firefox (on ubuntu)
+# Install flatpak - for obsidian (flathub)
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 # Install neovim from source
@@ -188,14 +188,6 @@ cargo install py-spy
 # other the plugin falls back to find
 sudo ln -s /usr/bin/fdfind /usr/bin/fd
 
-# Download Vesktop - Discord Alternative (Debian Install Only, Ubuntu uses snap)
-wget -O /tmp/vesktop https://vencord.dev/download/vesktop/amd64/deb
-sudo dpkg -i /tmp/vesktop
-flatpak install flathub dev.vencord.Vesktop
-
-# Download Vesktop
-sudo snap install vestkop
-
 # Kanata install
 # https://github.com/jtroo/kanata/blob/main/docs/setup-linux.md
 # might require a restart after all these commands
@@ -255,3 +247,27 @@ curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
 
 # Install uv - no longer using
 # curl -LsSf https://astral.sh/uv/install.sh | sh
+
+##############################
+### NATIVE APPS (no flatpak/snap)
+# These Electron apps must be installed as native .deb so screen share works
+# on GNOME/Wayland. Flatpak sandboxes the PipeWire socket path and snap forces
+# a confined runtime dir (XDG_RUNTIME_DIR=/run/user/<uid>/snap.<app>), both of
+# which break WebRTC screen capture:
+#   ERROR: shared_screencast_stream.cc Failed to create PipeWire context
+#   ERROR: base_capturer_pipewire.cc ScreenCastPortal failed: 1
+
+# Install Vesktop (native .deb) - resolves latest version via the GitHub API
+VDESKTOP_URL=$(curl -fsSL https://api.github.com/repos/Vencord/Vesktop/releases/latest \
+  | grep -o 'https://[^"]*amd64\.deb' | head -n1)
+wget -O /tmp/vesktop.deb "$VDESKTOP_URL"
+sudo apt install -y /tmp/vesktop.deb
+
+# Install Slack Desktop (native .deb)
+# Slack has no apt repo and no "latest" redirect (the /latest/ URL 404s, and the
+# downloads page is JS-rendered), so the version is pinned and must be bumped
+# manually when Slack ships a new linux build.
+SLACK_VER=4.51.180
+wget -O /tmp/slack-desktop.deb \
+  "https://downloads.slack-edge.com/desktop-releases/linux/x64/${SLACK_VER}/slack-desktop-${SLACK_VER}-amd64.deb"
+sudo apt install -y /tmp/slack-desktop.deb
