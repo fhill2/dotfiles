@@ -51,3 +51,16 @@ gsettings set org.gnome.desktop.screensaver lock-enabled false
 gsettings set org.gnome.desktop.screensaver ubuntu-lock-on-suspend false
 # Ensure the lock screen cannot be triggered via the lockdown schema
 gsettings set org.gnome.desktop.lockdown disable-lock-screen true
+
+
+# Time & Timezone
+# Keep the system clock accurate via NTP and let GNOME auto-set the timezone
+# from geoclue (WiFi/IP location). DST (e.g. BST <-> GMT) is handled
+# automatically by tzdata for whichever zone is set.
+# - set-ntp enables systemd-timesyncd (keeps the clock synced)
+# - set-timezone sets the fallback / immediate zone (Europe/London);
+#   geoclue refines/overrides it by detected location
+# - automatic-timezone enables GNOME's Automatic Time Zone toggle
+sudo timedatectl set-ntp true
+sudo timedatectl set-timezone Europe/London
+gsettings set org.gnome.desktop.datetime automatic-timezone true
