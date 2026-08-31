@@ -17,7 +17,7 @@ CMD+=(
   zsh
   git
   # elogind or seatd (seat management daemon) is needed for sway to launch
-  seatd
+  # seatd
   kitty
   zsh-antigen
   trash-cli

@@ -1,4 +1,0 @@
-barman
-postgresql
-rmadison - find debian packages to install
-direnv

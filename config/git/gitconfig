@@ -13,3 +13,8 @@
 	repo = /Users/s1/Repos/sindresorhus/pure
 	repo = /Users/s1/Repos/zsh-users/zsh-autosuggestions
 	repo = /Users/s1/Repos/zsh-users/zsh-syntax-highlighting
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

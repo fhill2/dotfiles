@@ -141,7 +141,7 @@ fi
 # 	echo "Open karabiner, skhd, yabai manually and accept Security & Privacy"
 # fi
 
-if [ "$HOST" = "fprod" ]; then
+if [ "$HOST" = "f-studio" ]; then
 
   $_symlink "$root/config/qmk/sonnet_keymap/" ~/qmk_firmware/keyboards/mode/m75h/keymaps/sonnet_keymap
   $_symlink "$root/config/qmk/sonnet_keymap/rules.mk" ~/qmk_firmware/keyboards/mode/m75h/rules.mk
@@ -152,6 +152,8 @@ if [ "$HOST" = "fprod" ]; then
   $_symlink "/Users/s1/Splice/presets/Phase Plant" "/Users/s1/Library/Audio/Presets/Kilohearts/Phase Plant/User Presets/Splice"
   # Symlink my Phaseplant Presets to PhasePlant User Preset location
   $_symlink "/Users/Shared/prod_shared/sample_libraries/phase_plant" "/Users/s1/Library/Audio/Presets/Kilohearts/Phase Plant/User Presets/User"
+
+  $_symlink "/Users/Shared/prod_shared/sample_libraries/addictive_drums_2" "/Library/Application Support/XLN Audio/Addictive Drums 2"
 
   ##### VITAL #####
   # Vital Factory Content is not installed with the installer. It's provided as a separate download on the website.

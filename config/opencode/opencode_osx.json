@@ -42,18 +42,37 @@
             "context": 256000,
             "output": 32768
           }
+        }
+      }
+    },
+    "zai": {
+      "models": {
+        "glm-5v-turbo": {
+          "name": "GLM-5V-Turbo",
+          "limit": {
+            "context": 200000,
+            "output": 131072
+          }
         },
-        "glm-5.1": {
-          "name": "glm-5.1"
+        "glm-5.2": {
+          "name": "GLM-5.2",
+          "limit": {
+            "context": 1048576,
+            "output": 131072
+          }
         },
-        "glm-4.7": {
-          "name": "glm-4.7"
+        "glm-4.6v": {
+          "name": "GLM-4.6V",
+          "limit": {
+            "context": 131072,
+            "output": 32768
+          }
         }
       }
     }
   },
-  "model": "zai-coding-plan/glm-5.1",
-  "small_model": "zai-coding-plan/glm-4.7",
+  "model": "zai-coding-plan/glm-5.2",
+  "small_model": "zai-coding-plan/glm-5.1",
   "permission": {
     "external_directory": {
       "~/projects/**": "allow",
@@ -70,6 +89,15 @@
         "--mcp"
       ],
       "enabled": true
+    },
+    "zai-vision": {
+      "type": "local",
+      "command": ["npx", "-y", "@z_ai/mcp-server@latest"],
+      "enabled": true,
+      "environment": {
+        "Z_AI_API_KEY": "{file:~/.config/opencode/.zai_key}",
+        "Z_AI_MODE": "ZAI"
+      }
     }
   }
 }
