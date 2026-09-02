@@ -9,7 +9,6 @@ declare -a CMD=()
 CMD+=(
   passwd # usermod on debian
   sudo
-  rustc
 
   gnupg
   curl
@@ -39,10 +38,7 @@ CMD+=(
   python3
   python3-pip
 
-  # pytower deps:
   clang
-  libsqlite3-dev
-  libssl-dev
 
   # SMB tools:
   # query smb shares
@@ -62,6 +58,12 @@ CMD+=(
   lsof
   telnet
 
+  # do not install rustc
+  # otherwise rustup cannot be installed
+  # rustc
+  rustup
+
+  lazygit
 )
 
 # "${CMD[@]}" expands all elements of the CMD array as separate arguments.
