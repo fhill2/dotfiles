@@ -49,8 +49,10 @@ $_symlink $root/config/xplr ~/.config/xplr
 $_symlink $root/config/tmux ~/.config/tmux
 $_symlink $root/config/starship.toml ~/.config/starship.toml
 $_symlink $root/config/bat/config ~/.config/bat/config
+
 $_symlink $root/config/claude/settings.json ~/.claude/settings.json
 $_symlink $root/config/claude/CLAUDE.md ~/.claude/CLAUDE.md
+
 if [ "$os" = "Darwin" ]; then
   $_symlink $root/config/opencode/opencode_osx.json ~/.config/opencode/opencode.json
 else
@@ -66,7 +68,6 @@ if [ "$os" = "Darwin" ]; then
   $_symlink $root/config/lazygit/config.yml "$HOME/Library/Application\ Support/lazygit/config.yml"
 else
   $_symlink $root/config/lazygit/config.yml ~/.config/lazygit/config.yml
-  $_symlink $root/config/systemd/user ~/.config/systemd/user
   # modified desktop files
   $_symlink $root/config/desktop/obsidian-wayland.desktop ~/.local/share/applications/obsidian-wayland.desktop
   $_symlink $root/config/desktop/discord-wayland.desktop ~/.local/share/applications/discord-wayland.desktop
