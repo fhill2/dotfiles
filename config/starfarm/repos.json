@@ -1,9 +1,0 @@
-{
-  "GITHUB": [
-    {
-      "url": "https://github.com",
-      "orgs": ["nvim-telescope"],
-      "repos": []
-    }
-  ]
-}
