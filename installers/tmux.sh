@@ -6,3 +6,8 @@ if [ "$HOST" = "Darwin" ]; then
 else
   echo "install tmuxpack/tpack"
 fi
+
+# minimal-tmux-status - loaded directly by tmux.conf via run-shell, not by a plugin manager
+if [ ! -d "$HOME/dot/config/tmux/plugins/minimal-tmux-status" ]; then
+  git clone https://github.com/niksingh710/minimal-tmux-status "$HOME/dot/config/tmux/plugins/minimal-tmux-status"
+fi

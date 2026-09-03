@@ -56,9 +56,6 @@ fi
 $_symlink $root/config/opencode/tui.json ~/.config/opencode/tui.json
 $_symlink $root/config/worktrunk/config.toml ~/.config/worktrunk/config.toml
 
-$_symlink $root/config/television/config.toml ~/.config/television/config.toml
-$_symlink $root/config/television/cable ~/.config/television/cable
-
 if [ "$os" = "Darwin" ]; then
   $_symlink $root/config/lazygit/config.yml "$HOME/Library/Application\ Support/lazygit/config.yml"
 else
