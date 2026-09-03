@@ -39,13 +39,6 @@ ssh-keygen -t rsa -b 4096 -C "freddiehill000@gmail.com" -f "$HOME/.ssh/f_github"
 eval "$(ssh-agent)"
 ssh-add ~/.ssh/f_github
 
-# https://github.com/korreman/sway-overfocus
-# Install sway-overfocus from source
-git clone https://github.com/korreman/sway-overfocus ~/apps/sway-overfocus
-cd ~/apps/sway-overfocus
-cargo build --release
-cp ./target/release/sway-overfocus ~/.local/bin/sway-overfocus
-
 # Install lazygit from binary package
 wget -O /tmp/lazygit.tgz https://github.com/jesseduffield/lazygit/releases/download/v0.44.1/lazygit_0.44.1_Linux_x86_64.tar.gz
 tar xvf /tmp/lazygit.tgz -C /tmp

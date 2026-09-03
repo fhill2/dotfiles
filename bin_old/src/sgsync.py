@@ -1,1 +1,0 @@
-/home/f1/dev/app/sgsync/sgsync.py

@@ -1,1 +1,0 @@
-/home/f1/dot/kitty/kitty-save-session.py

@@ -1,3 +1,0 @@
-#!/bin/bash
-CMD=date -d "@$(stat -c '%Y' {})" '+%a %b %d %T %Z %Y'
-find . -exec "$CMD"

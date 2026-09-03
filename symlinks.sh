@@ -28,18 +28,13 @@ mkdir -p $HOME/.config
 mkdir -p $HOME/.claude
 
 # this does not exist on a fresh debian install
-mkdir -p $HOME/.local
+# mkdir -p $HOME/.local
 
 mkdir -p ~/.config/bat
 
 # in rare cases, ~/.local/bin is used as a copy destination for manually compiled apps
 # Example, some haskell apps I've used compile and copy the binary to this location
 $_symlink $root/bin/src ~/.local/bin
-
-if [ "$HOST" = "f-desktop" ]; then
-  $_symlink $root/bin/src/start_screenshare ~/.local/bin/start_screenshare
-  $_symlink $root/bin/src/stop_screenshare ~/.local/bin/stop_screenshare
-fi
 
 $_symlink $root/config/nvim ~/.config/nvim
 $_symlink $root/config/git/gitconfig ~/.gitconfig
@@ -68,13 +63,6 @@ if [ "$os" = "Darwin" ]; then
   $_symlink $root/config/lazygit/config.yml "$HOME/Library/Application\ Support/lazygit/config.yml"
 else
   $_symlink $root/config/lazygit/config.yml ~/.config/lazygit/config.yml
-  # modified desktop files
-  $_symlink $root/config/desktop/obsidian-wayland.desktop ~/.local/share/applications/obsidian-wayland.desktop
-  $_symlink $root/config/desktop/discord-wayland.desktop ~/.local/share/applications/discord-wayland.desktop
-  $_symlink $root/config/desktop/ib-gateway-wayland.desktop ~/.local/share/applications/ib-gateway-wayland.desktop
-  $_symlink $root/config/desktop/spacefm-wayland.desktop ~/.local/share/applications/spacefm-wayland.desktop
-  $_symlink $root/config/desktop/arduino-wayland.desktop ~/.local/share/applications/arduino-wayland.desktop
-
 fi
 
 $_symlink $root/config/shell/bashrc ~/.bashrc
@@ -82,70 +70,10 @@ $_symlink $root/config/shell/zshrc ~/.zshrc
 $_symlink $root/config/shell/zprofile ~/.zprofile
 $_symlink $root/config/profile ~/.profile
 
-$_symlink $root/config/sway ~/.config/sway
 $_symlink $root/config/kitty ~/.config/kitty
 $_symlink $root/config/alacritty ~/.config/alacritty
 
-$_symlink $root/config/lnav/pytower ~/.config/lnav/configs/pytower
-
-# kanata should only install on f-server for now
-if [ "$HOST" = "f-server" ]; then
-  # https://github.com/jtroo/kanata/blob/main/docs/setup-linux.md
-  $_symlink "$root/config/kanata" ~/.config/kanata
-  $_symlink "$root/config/init.d/kanata" /etc/init.d/kanata
-  $_symlink "$root/config/kanata/99-input.rules" /etc/udev/rules.d/99-input.rules
-fi
-
-if [ -f "$root/config/interfaces_$HOST" ]; then
-  $_symlink "$root/config/interfaces_$HOST" /etc/network/interfaces
-fi
-
-if [ "$HOST" = "f-desktop" ]; then
-  # limits.conf only supported on linux / PAM
-  $_symlink $root/config/limits.conf /etc/security/limits.d/99-router-limits.conf
-  # Note: qmk setup command should be run before this
-  $_symlink "$root/config/qmk/fhill2_keymap" ~/qmk_firmware/keyboards/gmmk/pro/rev1/ansi/keymaps/fhill2
-  # QMK Keyboard - Prevent Permission Denied on qmk console
-  $_symlink "$root/config/qmk/udev/92-viia.rules" /etc/udev/rules.d/92-viia.rules
-fi
-
-# Install on servers only (servers use X11)
-if [ "$HOST" = "f-server" ] || [ "$HOST" = "gprot" ]; then
-  $_symlink "$root/config/xinitrc" ~/.xinitrc
-  $_symlink "$root/config/xprofile" ~/.xprofile
-  $_symlink "$root/config/i3/config" ~/.config/i3/config
-fi
-
-# OSX only below here
-
-# if [ "$HOST" = "Darwin" ]; then
-# 	$_symlink "$HOME/data/Alfred" "$HOME/Library/Application Support/Alfred"
-# 	$_symlink $root/config/skhd ~/.config/skhd
-
-# 	# NOTE: only karabiner full config folder can be symlinked
-# 	# individual karabiner.json cannot be symlinked, as karabiner overwrites the karabiner.json whern adding new complex modifications, destroying the symlink
-# 	# NOTE: everytime a complex modification is edited inside assets/complex_modifications, the rule needs to be deleted and re-enabled in the GUI (does not need a restart)
-# 	$_symlink $root/osx/config/karabiner ~/.config/karabiner
-
-# 	# TODO: symlink all within launchd
-# 	# $_symlink "$HOME/dot/config/launchd" "$HOME/Library/LaunchAgents"
-
-# 	$_symlink $root/config/vlc ~/.config/vlc
-
-# 	# VSCODE_CONFIG_DIR="$HOME/Library/Application Support/Code/User"
-# 	# mkdir -p "$VSCODE_CONFIG_DIR"
-# 	# symlink_dotfile config/vscode/keybindings.json "$VSCODE_CONFIG_DIR/keybindings.json"
-# 	# symlink_dotfile config/vscode/settings.json "$VSCODE_CONFIG_DIR/settings.json"
-
-# 	$_symlink $root/osx/config/yabai ~/.config/yabai
-
-# 	echo "Open karabiner, skhd, yabai manually and accept Security & Privacy"
-# fi
-
 if [ "$HOST" = "f-studio" ]; then
-
-  $_symlink "$root/config/qmk/sonnet_keymap/" ~/qmk_firmware/keyboards/mode/m75h/keymaps/sonnet_keymap
-  $_symlink "$root/config/qmk/sonnet_keymap/rules.mk" ~/qmk_firmware/keyboards/mode/m75h/rules.mk
 
   ##### PHASE PLANT #####
   # PhasePlant Factory presets are managed at /Library/Application Support/Kilohearts/presets - They do not need to be symlinked
@@ -176,14 +104,3 @@ if [ "$HOST" = "f-studio" ]; then
   # /Library/Audio/Presets/ReFX/Nexus Content
   $_symlink "/Users/Shared/prod_f/SAMPLE_LIBRARIES/nexus/Nexus Library" "/Library/Audio/Presets/reFX/Nexus Library"
 fi
-
-# deprecated
-# f-server postgres needs to override the system installed systemd service file
-# to modify the PG_DATA path to the zfs dataset
-# if [ "$HOST" = "f-server" ]; then
-# $_symlink "$root/debian/config/systemd/postgresql_f-server.service" /usr/lib/systemd/system/postgresql.service
-# fi
-# Note: barman does not work with symlinks
-# It does work with hard links (ln instead of ln -s)
-# sudo ln "$root/debian/config/barman/basebackups.cron" /etc/cron.d/basebackups
-# sudo ln "$root/debian/config/barman/f-server.conf" /etc/barman.d/f-server.conf

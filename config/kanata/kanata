@@ -1,4 +1,5 @@
 #!/sbin/openrc-run
+# init.d script
 
 command="/home/f1/.cargo/bin/kanata"
 #command_args="--config=/home/<username>/.config/kanata/kanata.kbd"
