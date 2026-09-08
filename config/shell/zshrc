@@ -66,13 +66,6 @@ bindkey "\e[1;5C" forward-word
 unset zle_bracketed_paste
 
 
-# ~/.local/bin is not on $PATH on OSX or Linux (OpenSUSE, Debian, Ubuntu)
-# in rare cases, ~/.local/bin is used as a copy destination for manually compiled apps
-# some rust and haskell apps I've used compile and copy the binary to this location
-# Therefore, add custom script directory from the repo onto Path
-# Instead of symlinking REPO/bin -> $HOME/.local/bin
-export PATH="$PATH:$HOME/dot/bin/src"
-
 export ANTHROPIC_BASE_URL="http://localhost:8000"
 # otherwise claude keeps asking you to login
 export ANTHROPIC_API_KEY="sk-local-token"

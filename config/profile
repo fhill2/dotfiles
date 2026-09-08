@@ -17,7 +17,11 @@ PATH="/usr/sbin:$PATH"
 PATH="$HOME/.duckdb/cli/latest:$PATH"
 
 
+# third-party installers (pip --user, manually compiled apps) copy here - never managed by dotfiles
 PATH="$HOME/.local/bin:$PATH"
+# personal scripts - repo dir goes straight onto PATH instead of symlinking into ~/.local/bin
+# prepended so personal scripts shadow third-party binaries with the same name
+PATH="$HOME/dot/bin/src:$PATH"
 
 # required
 # otherwise cargo installed commands are not available on PATH

@@ -1,9 +1,6 @@
 #!/usr/bin/env sh
 
 # TODO:
-# setup a better way to symlink scripts into a directory on PATH
-# bin files
-# TODO:
 # take out auto running as sudo in the _symlink script
 # and add sudo to each line that needs it
 #
@@ -28,13 +25,11 @@ mkdir -p $HOME/.config
 mkdir -p $HOME/.claude
 
 # this does not exist on a fresh debian install
-# mkdir -p $HOME/.local
+# ~/.local/bin is owned by third-party installers (pip --user, manually compiled apps)
+# personal scripts in bin/src go onto PATH directly via ~/.profile - never symlinked into ~/.local/bin
+mkdir -p "$HOME/.local/bin"
 
 mkdir -p ~/.config/bat
-
-# in rare cases, ~/.local/bin is used as a copy destination for manually compiled apps
-# Example, some haskell apps I've used compile and copy the binary to this location
-$_symlink $root/bin/src ~/.local/bin
 
 $_symlink $root/config/nvim ~/.config/nvim
 $_symlink $root/config/git/gitconfig ~/.gitconfig
