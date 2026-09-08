@@ -16,8 +16,7 @@ sudo chsh -s $(which zsh) $USER
 # Essential - Otherwise $USER cannot sudo
 sudo usermod -aG sudo $USER
 
-# Install flatpak - for obsidian (flathub)
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+# flatpak (flathub remote + session config) is installed with installers/flatpak.sh
 
 # Install neovim from source
 # https://github.com/neovim/neovim

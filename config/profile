@@ -44,6 +44,21 @@ else
   fi
 fi
 
+# flatpak - make app commands and .desktop launchers discoverable
+# exports/bin -> command stubs on PATH (system + --user installs)
+# exports/share -> XDG_DATA_DIRS so GNOME Shell lists the apps in the launch menu
+# GDM/systemd sessions are covered by the environment.d config installed
+# with installers/flatpak.sh - this block covers shells and startx sessions
+if [ "$(uname -s)" = "Linux" ]; then
+  [ -d /var/lib/flatpak/exports/bin ] && PATH="/var/lib/flatpak/exports/bin:$PATH"
+  [ -d "$HOME/.local/share/flatpak/exports/bin" ] && PATH="$HOME/.local/share/flatpak/exports/bin:$PATH"
+  if command -v flatpak >/dev/null 2>&1; then
+    XDG_DATA_DIRS="${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
+    XDG_DATA_DIRS="/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share:$XDG_DATA_DIRS"
+    export XDG_DATA_DIRS
+  fi
+fi
+
 alias gnome="gnome-shell --wayland"
 
 # . "$HOME/.local/share/../bin/env"
