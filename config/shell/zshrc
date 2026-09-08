@@ -1,3 +1,7 @@
+# zsh-specific interactive config
+# bash-compatible interactive config lives in bashrc (sourced below)
+# PATH and environment variables live in shell/profile (via zprofile)
+
 [[ -r ~/Repos/znap/znap.zsh ]] ||
   git clone --depth 1 -- https://github.com/marlonrichert/zsh-snap.git ~/Repos/znap
 source ~/Repos/znap/znap.zsh
@@ -20,82 +24,23 @@ fi
 
 znap source ohmyzsh/ohmyzsh plugins/direnv
 
-
-# source $HOME/.config/broot/launcher/bash/br  # Broken symlink, broot not installed
-
-
-# necessary - otherwise ssh-agent has to be loaded manually
-# zstyle :omz:plugins:ssh-agent identities ~/.ssh/f_github
-# znap source ohmyzsh/ohmyzsh plugins/ssh-agent
-
-# https://github.com/marlonrichert/zsh-snap/issues/163
-# init starship
-# znap eval _starship 'starship init zsh --print-full-init'
-# znap prompt starship
-
 znap prompt sindresorhus/pure
-
-# znap eval _pyenv-init "$(pyenv virtualenv-init -)"
-# znap eval _direnv-hook "$(direnv hook zsh)"
 
 setopt extended_glob
 
-
-# alias music_dl="/Users/s1//projects/music/.venv/bin/python $HOME/projects/music/music/download/cli.py" # requires quotes
 alias music_process="/Users/s1/projects/music/.venv/bin/python /Users/s1/projects/music/music/process/cli.py" # requires quotes
-
-
-function mkenv() {
-    rm -rf ./.venv && \
-    python -m venv ./.venv && \
-    . ./.venv/bin/activate && \
-    python -m ensurepip --upgrade && \
-    pip install --upgrade setuptools
-}
-
 
 # These 4 commands are required to map the behaviour on OSX (untested on linux)
 # Home, End to jump to beginning and end of line
 bindkey "\e[H" beginning-of-line
 bindkey "\e[F" end-of-line
-# Ctrl_Left, Ctrl-Right to go back and forward a word
+# Ctrl_Left, Ctrl_Right to go back and forward a word
 bindkey "\e[1;5D" backward-word
 bindkey "\e[1;5C" forward-word
 
 # I don't care for this feature, and it causes the terminal to change the background color
 unset zle_bracketed_paste
 
-
-export ANTHROPIC_BASE_URL="http://localhost:8000"
-# otherwise claude keeps asking you to login
-export ANTHROPIC_API_KEY="sk-local-token"
-export ANTHROPIC_MODEL="Qwen3.5-122B-A10B-8bit"
-# Set the Architect (The Smart One)
-export ANTHROPIC_DEFAULT_OPUS_MODEL="Qwen3.5-122B-A10B-8bit"
-# Set the Brain (The Fast One)
- 
-export ANTHROPIC_DEFAULT_SONNET_MODEL="Qwen3-14B-8bit"
-# Set the Scout (Also the Fast One)
-export ANTHROPIC_DEFAULT_HAIKU_MODEL="Qwen3-14B-8bit"
-
-
-# . "$HOME/.local/share/../bin/env"
-
-# alias music_dl="/Users/s1//projects/music/.venv/bin/python $HOME/projects/music/music/download/cli.py" # requires quotes
-alias music_process="/Users/s1/projects/music/.venv/bin/python /Users/s1/projects/music/music/process/cli.py" # requires quotes
-
-# opencode
-export PATH=/Users/s1/.opencode/bin:$PATH
-
 if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
-eval "$(tv init zsh)"
-
-. "$HOME/.atuin/bin/env"
-
-eval "$(atuin init zsh --disable-up-arrow)"
-
-# opencode
-export PATH=/home/f1/.opencode/bin:$PATH
-
-# Unity CLI
-. "/Users/s1/.unity/env"
+if command -v tv >/dev/null 2>&1; then eval "$(tv init zsh)"; fi
+command -v atuin >/dev/null 2>&1 && eval "$(atuin init zsh --disable-up-arrow)"

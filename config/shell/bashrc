@@ -1,36 +1,30 @@
 # Any bash compatible configuration is kept in bashrc and zshrc sources bashrc
 # This is so I can choose to use bash only on certain systems and the configuration still remains intact
+#
+# Interactive-shell config only - PATH and environment variables live in shell/profile
 
-# Fuzzy search over Debian packages...
+# Fuzzy search over Ubuntu packages...
 alias apt_search='apt-cache pkgnames | fzf --multi --cycle --reverse --preview "apt-cache show {1}" --preview-window=:57%:wrap:hidden --bind=space:toggle-preview | xargs -ro sudo apt install'
 alias print_parquet="find . -name '*.parquet' | fzf --preview='parquet-tools show {}' --bind 'ctrl-u:preview-page-up,ctrl-d:preview-page-down'"
 alias ssh="kitty +kitten ssh"
 
-# . "$HOME/.local/share/../bin/env"
-. "$HOME/.cargo/env"
-
-export PATH=$PATH:$(go env GOPATH)/bin
-
-# Added by LM Studio CLI (lms)
-export PATH="$PATH:/Users/s1/.lmstudio/bin"
-# End of LM Studio CLI section
-export PATH="/Users/s1/bin:$PATH"
+function mkenv() {
+    rm -rf ./.venv && \
+    python -m venv ./.venv && \
+    . ./.venv/bin/activate && \
+    python -m ensurepip --upgrade && \
+    pip install --upgrade setuptools
+}
 
 if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init bash)"; fi
 
-# pyenv - installed via homebrew (OSX) / apt (Linux), binary is already on PATH
+# pyenv - installed via homebrew (OSX) / apt (Ubuntu), binary is already on PATH
 # this sets up the shims dir and shell hook (works for bash and zsh)
 command -v pyenv >/dev/null 2>&1 && eval "$(pyenv init -)"
-
-# point all interactive shells (incl. non-login GNOME terminals) at the systemd ssh-agent socket
-if [ "$(uname -s)" = "Linux" ]; then
-  export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.sock"
-fi
 
 # set soft nofile limit to 65535 - OSX and Linux (soft only, the hard limit is never touched)
 ulimit -Sn 65535 2>/dev/null || true
 
-. "$HOME/.atuin/bin/env"
-
+# atuin requires bash-preexec for bash
 [[ -f ~/.bash-preexec.sh ]] && source ~/.bash-preexec.sh
-eval "$(atuin init bash)"
+command -v atuin >/dev/null 2>&1 && eval "$(atuin init bash)"

@@ -6,8 +6,7 @@
 #
 # Systems Managed:
 # OSX: osx-lap, osx-studio
-# f-desktop, f-server, f-twickenham <-- debian
-# ai <-- opensuse
+# Linux: Ubuntu only
 
 HOST="$(hostname)"
 
@@ -60,7 +59,7 @@ fi
 $_symlink $root/config/shell/bashrc ~/.bashrc
 $_symlink $root/config/shell/zshrc ~/.zshrc
 $_symlink $root/config/shell/zprofile ~/.zprofile
-$_symlink $root/config/profile ~/.profile
+$_symlink $root/config/shell/profile ~/.profile
 
 $_symlink $root/config/kitty ~/.config/kitty
 $_symlink $root/config/alacritty ~/.config/alacritty

@@ -2,13 +2,19 @@
 # When using startx/initx (current setup), login shell is always executed
 #
 # note ~/.profile is only run when entering a sh login shell, or a bash login shell without any user bash init files existing in the home folder (.bash_profile)
-# zsh doesn't ever run ~/.profile, it only runs ~/.zprofile
+# zsh doesn't ever run ~/.profile, it only runs ~/.zprofile (config/shell/zprofile sources this file)
 # when setting environment variables here, the systemd user environment is not updated with these changes
 
+# ---------------------------------------------------------------------------
+# PATH - single source of truth
+# every PATH mutation lives here, never in bashrc/zshrc
+# entries are existence-guarded so missing tools add nothing to PATH
+# ---------------------------------------------------------------------------
 
 os=$(uname -s)
+
+# Homebrew (OSX)
 if [ "$os" = "Darwin" ]; then
-  # Add the Homebrew path to PATH
   export PATH="/opt/homebrew/sbin:/opt/homebrew/bin:$PATH"
 fi
 
@@ -16,26 +22,48 @@ PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
 PATH="/usr/sbin:$PATH"
 PATH="$HOME/.duckdb/cli/latest:$PATH"
 
-
 # third-party installers (pip --user, manually compiled apps) copy here - never managed by dotfiles
 PATH="$HOME/.local/bin:$PATH"
 # personal scripts - repo dir goes straight onto PATH instead of symlinking into ~/.local/bin
 # prepended so personal scripts shadow third-party binaries with the same name
 PATH="$HOME/dot/bin/src:$PATH"
 
-# required
-# otherwise cargo installed commands are not available on PATH
+# cargo installed commands
 PATH="$HOME/.cargo/bin:$PATH"
-#
-# # if exists and is a file
-# if [ -f "$HOME/.cargo/env" ]; then
-#   . "$HOME/.cargo/env"
-# fi
 
+# go installed commands
+command -v go >/dev/null 2>&1 && PATH="$(go env GOPATH)/bin:$PATH"
+
+# opencode CLI
+[ -d "$HOME/.opencode/bin" ] && PATH="$HOME/.opencode/bin:$PATH"
+
+# atuin
+[ -f "$HOME/.atuin/bin/env" ] && . "$HOME/.atuin/bin/env"
+
+# Unity CLI (OSX)
+[ -f "$HOME/.unity/env" ] && . "$HOME/.unity/env"
+
+# ---------------------------------------------------------------------------
+# Environment
+# ---------------------------------------------------------------------------
+
+export ANTHROPIC_BASE_URL="http://localhost:8000"
+# otherwise claude keeps asking you to login
+export ANTHROPIC_API_KEY="sk-local-token"
+export ANTHROPIC_MODEL="Qwen3.5-122B-A10B-8bit"
+# Set the Architect (The Smart One)
+export ANTHROPIC_DEFAULT_OPUS_MODEL="Qwen3.5-122B-A10B-8bit"
+# Set the Brain (The Fast One)
+export ANTHROPIC_DEFAULT_SONNET_MODEL="Qwen3-14B-8bit"
+# Set the Scout (Also The Fast One)
+export ANTHROPIC_DEFAULT_HAIKU_MODEL="Qwen3-14B-8bit"
+
+# ---------------------------------------------------------------------------
 # ssh-agent
 # Linux: a systemd user service owns the agent (config/systemd/user/ssh-agent.service,
 # installed with installers/ssh-agent.sh) - shells only point at its socket
 # OSX: no systemd - start a persistent agent bound to a fixed socket from the login shell
+# ---------------------------------------------------------------------------
 if [ "$(uname -s)" = "Linux" ]; then
   export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.sock"
   ssh-add -l >/dev/null 2>&1 || ssh-add ~/.ssh/f_github 2>/dev/null
@@ -48,12 +76,14 @@ else
   fi
 fi
 
-# flatpak - make app commands and .desktop launchers discoverable
+# ---------------------------------------------------------------------------
+# flatpak (Linux) - make app commands and .desktop launchers discoverable
 # exports/bin -> command stubs on PATH (system + --user installs)
 # exports/share -> XDG_DATA_DIRS so GNOME Shell lists the apps in the launch menu
 # GDM/systemd sessions are covered by the environment.d config installed
 # with installers/flatpak.sh - this block covers shells and startx sessions
-if [ "$(uname -s)" = "Linux" ]; then
+# ---------------------------------------------------------------------------
+if [ "$os" = "Linux" ]; then
   [ -d /var/lib/flatpak/exports/bin ] && PATH="/var/lib/flatpak/exports/bin:$PATH"
   [ -d "$HOME/.local/share/flatpak/exports/bin" ] && PATH="$HOME/.local/share/flatpak/exports/bin:$PATH"
   if command -v flatpak >/dev/null 2>&1; then
@@ -64,7 +94,3 @@ if [ "$(uname -s)" = "Linux" ]; then
 fi
 
 alias gnome="gnome-shell --wayland"
-
-# . "$HOME/.local/share/../bin/env"
-
-. "$HOME/.atuin/bin/env"
