@@ -27,6 +27,9 @@ if [ "$(uname -s)" = "Linux" ]; then
   export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.sock"
 fi
 
+# set soft nofile limit to 65535 - OSX and Linux (soft only, the hard limit is never touched)
+ulimit -Sn 65535 2>/dev/null || true
+
 . "$HOME/.atuin/bin/env"
 
 [[ -f ~/.bash-preexec.sh ]] && source ~/.bash-preexec.sh
