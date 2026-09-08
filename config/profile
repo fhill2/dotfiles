@@ -28,24 +28,20 @@ PATH="$HOME/.cargo/bin:$PATH"
 #   . "$HOME/.cargo/env"
 # fi
 
-# https://unix.stackexchange.com/a/132117
-# Note: DO NOT add this to zshrc / bashrc
-# If the ssh-agent is started in an rc file, ssh-agent has to be started manually when remoting over SSH
-# SSH_AUTH_SOCK env var is required so all ssh-agents use the same instance across all terminals running on the system
-# This makes the ssh private keys available when remoting over SSH
-# export SSH_AUTH_SOCK=~/.ssh/ssh-agent.$HOST.sock
-# ssh-add -l 2>/dev/null >/dev/null
-# if [ $? -ge 2 ]; then
-#   eval "$(ssh-agent -a "$SSH_AUTH_SOCK")"
-#   ssh-add ~/.ssh/f_github
-# fi
-
-export SSH_AUTH_SOCK=~/.ssh/ssh-agent.$HOST.sock
-
-if ! ssh-add -l >/dev/null 2>&1; then
+# ssh-agent
+# Linux: a systemd user service owns the agent (config/systemd/user/ssh-agent.service,
+# installed with installers/ssh-agent.sh) - shells only point at its socket
+# OSX: no systemd - start a persistent agent bound to a fixed socket from the login shell
+if [ "$(uname -s)" = "Linux" ]; then
+  export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.sock"
+  ssh-add -l >/dev/null 2>&1 || ssh-add ~/.ssh/f_github 2>/dev/null
+else
+  export SSH_AUTH_SOCK="$HOME/.ssh/ssh-agent.$HOST.sock"
+  if ! ssh-add -l >/dev/null 2>&1; then
     rm -f "$SSH_AUTH_SOCK"
     ssh-agent -a "$SSH_AUTH_SOCK" >/dev/null
     ssh-add ~/.ssh/f_github 2>/dev/null
+  fi
 fi
 
 alias gnome="gnome-shell --wayland"

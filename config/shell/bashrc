@@ -22,6 +22,11 @@ if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init bash
 # this sets up the shims dir and shell hook (works for bash and zsh)
 command -v pyenv >/dev/null 2>&1 && eval "$(pyenv init -)"
 
+# point all interactive shells (incl. non-login GNOME terminals) at the systemd ssh-agent socket
+if [ "$(uname -s)" = "Linux" ]; then
+  export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.sock"
+fi
+
 . "$HOME/.atuin/bin/env"
 
 [[ -f ~/.bash-preexec.sh ]] && source ~/.bash-preexec.sh

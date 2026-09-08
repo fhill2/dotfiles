@@ -103,3 +103,6 @@ eval "$(atuin init zsh --disable-up-arrow)"
 
 # opencode
 export PATH=/home/f1/.opencode/bin:$PATH
+
+# Unity CLI
+. "/Users/s1/.unity/env"
