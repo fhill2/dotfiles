@@ -56,6 +56,13 @@ else
   $_symlink $root/config/lazygit/config.yml ~/.config/lazygit/config.yml
 fi
 
+# Linux only: raise the per-user inotify instance quota (see the config
+# for why). /etc/sysctl.d is root-owned - _symlink falls back to sudo.
+if [ "$os" != "Darwin" ]; then
+  $_symlink $root/config/sysctl/99-inotify.conf /etc/sysctl.d/99-inotify.conf
+  sudo sysctl --load=/etc/sysctl.d/99-inotify.conf
+fi
+
 $_symlink $root/config/shell/bashrc ~/.bashrc
 $_symlink $root/config/shell/zshrc ~/.zshrc
 $_symlink $root/config/shell/zprofile ~/.zprofile
