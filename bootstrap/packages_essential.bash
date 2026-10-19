@@ -2,6 +2,14 @@
 
 sudo apt update
 
+# lazygit available in Ubuntu 25.10 "Questing Quokka"
+# freshly installed linux is currently at 24.04 so adding this to the packages fails this bootstrap
+# lazygit
+
+# neovim
+# on 24.04 LTS neovim version is too old to run lazygit
+# Installing neovim from HEAD
+
 # Initialize an empty array for the command arguments
 declare -a CMD=()
 
@@ -27,7 +35,6 @@ CMD+=(
   fd-find
   ripgrep
   fzf
-  neovim
   # check file folder sizes to clear space
   ncdu
   isc-dhcp-client
@@ -63,7 +70,6 @@ CMD+=(
   # rustc
   rustup
 
-  lazygit
 )
 
 # "${CMD[@]}" expands all elements of the CMD array as separate arguments.
