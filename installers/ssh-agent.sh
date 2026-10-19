@@ -14,6 +14,10 @@ mkdir -p "$HOME/.config/systemd/user" "$HOME/.config/environment.d"
 cp "$HOME/dot/config/systemd/user/ssh-agent.service" "$HOME/.config/systemd/user/ssh-agent.service"
 cp "$HOME/dot/config/systemd/environment.d/20-ssh-agent.conf" "$HOME/.config/environment.d/20-ssh-agent.conf"
 
+if [ -f "$HOME/.ssh/f_github" ]; then
+  chmod 600 "$HOME/.ssh/f_github"
+fi
+
 systemctl --user daemon-reload
 systemctl --user enable --now ssh-agent.service
 
